@@ -10,8 +10,8 @@
 		{
 			groupId:"MyChildGroupId1",
 			artifactId:"MyChildArtifactId1",
-			arch:"MyChildArch2",
-			runtime:"MyChildRuntime2"
+			arch:"MyChildArch1",
+			runtime:"MyChildRuntime1"
 		},
 		{
 			groupId:"MyChildGroupId2",

@@ -1,5 +1,6 @@
 *.suo
 *.VisualState.xml
 *.csproj.user
+NDep.Test/TestResult.xml
 obj/
 bin/
