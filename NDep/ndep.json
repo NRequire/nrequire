@@ -1,0 +1,29 @@
+{
+
+	groupId:"net.ndep",
+	artifactId:"ndep",
+	version:"1.0.0-SNAPSHOT",
+	
+	dependencies:[
+		{
+			name:"Newtonsoft.Json",
+			groupId:"Json.Net",
+			artifactId:"Newtonsoft.Json",
+			version:"45r11",
+			arch:"x86",
+			ext:"dll",
+			scope:"main",
+			runtime:"net-4.0"
+		},
+		{
+			name:"nunit.framework",
+			groupId:"NUnit",
+			artifactId:"nunit.framework",
+			version:"1.0.0-SNAPSHOT",
+			arch:"x86",
+			ext:"dll",
+			scope:"test",
+			runtime:"net-4.0"
+		}
+	]
+}

@@ -1,0 +1,23 @@
+﻿{
+	name:"MyProject",
+	groupId:"MyGroupId",
+	artifactId:"MyArtifactId",
+	version:"1.0.0-SNAPSHOT",
+	url:"http://nowhere.com/mine",
+	runtime:"MyRuntime",
+
+	dependencies:[
+		{
+			groupId:"MyChildGroupId1",
+			artifactId:"MyChildArtifactId1",
+			arch:"MyChildArch2",
+			runtime:"MyChildRuntime2"
+		},
+		{
+			groupId:"MyChildGroupId2",
+			artifactId:"MyChildArtifactId2",
+			arch:"MyChildArch2",
+			runtime:"MyChildRuntime2"
+		}
+	]
+}

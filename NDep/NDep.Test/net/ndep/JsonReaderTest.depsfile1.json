@@ -1,0 +1,33 @@
+﻿{
+	name:"MyName",
+	groupId:"MyGroupId",
+	artifactId:"MyArtifactId",
+	version:"1.0.0-SNAPSHOT",
+	url:"http://nowhere.com/mine",
+	runtime:"MyRuntime",
+
+	dependencies:[
+		{
+			name:"MyChildName1",
+			groupId:"MyChildGroupId1",
+			artifactId:"MyChildArtifactId1",
+			version:"1.2.3",
+			arch:"MyChildArch1",
+			ext:"MyChildExt1",
+			scope:"main",
+			runtime:"MyChildRuntime1",
+			url:"http://nowhere.com/mychild1"
+		},
+		{
+			name:"MyChildName2",
+			groupId:"MyChildGroupId2",
+			artifactId:"MyChildArtifactId2",
+			version:"4.5.6",
+			arch:"MyChildArch2",
+			ext:"MyChildExt2",
+			scope:"test",
+			runtime:"MyChildRuntime2",
+			url:"http://nowhere.com/mychild2"
+		}
+	]
+}
