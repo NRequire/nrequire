@@ -7,9 +7,9 @@ using System.IO;
 namespace net.ndep {
     class Program {
 
-        private DependencyCache LocalCache { get; set; }
-        private DirectoryInfo SolutionRootDir { get; set; }
-        private FileInfo ProjectFile { get; set; }
+        internal DependencyCache LocalCache { get; set; }
+        internal DirectoryInfo SolutionRootDir { get; set; }
+        internal FileInfo ProjectFile { get; set; }
 
         private readonly Dependency DefaultDependencyValues = new Dependency { Ext = "dll",Arch="any", Runtime="any"};
         private readonly JsonReader m_depsReader = new JsonReader();
@@ -39,21 +39,28 @@ namespace net.ndep {
                 if (!projectFile.Exists) {
                     throw new ArgumentException(String.Format("Project file '{0}' does not exist", projectFile.FullName));
                 }
-
+                
                 var userHomeDir = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
                 if (!Directory.Exists(userHomeDir)) {
                     throw new ArgumentException(String.Format("Could not find user home '{0}'", userHomeDir));
                 }
 
-                var localCacheDir = new DirectoryInfo(Path.Combine(userHomeDir, ".ndep/cache"));
-                if (!localCacheDir.Exists) {
-                    throw new ArgumentException(String.Format("Dependency cache dir '{0}' does not exist", localCacheDir.FullName));
+                if (args.Length > 2) {
+                    var cacheDir = new DirectoryInfo(args[2]);
+                    LocalCache = new DependencyCache() {
+                        VSProjectBaseSymbol = cacheDir.FullName,
+                        CacheDir = cacheDir
+                    };
+                } else {
+                    LocalCache = new DependencyCache() {
+                        VSProjectBaseSymbol = "%HOMEDRIVE%%HOMEPATH%",
+                        CacheDir = new DirectoryInfo(Path.Combine(userHomeDir, ".ndep/cache"))
+                    };
                 }
 
-                LocalCache = new DependencyCache() {
-                    VSProjectBaseSymbol = "%HOMEDRIVE%%HOMEPATH%",
-                    CacheDir = localCacheDir
-                };
+                if (!LocalCache.CacheDir.Exists) {
+                    throw new ArgumentException(String.Format("Dependency cache dir '{0}' does not exist", LocalCache.CacheDir.FullName));
+                }
                 SolutionRootDir = solutionDir;
                 ProjectFile = projectFile;
 
