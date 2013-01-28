@@ -87,26 +87,30 @@ namespace net.ndep {
             if (Path.IsReadOnly) {
                 throw new FileNotFoundException(String.Format("VS Project file '{0}' is readonly. Cannot update references", Path.FullName));
             }
-            var stream = new MemoryStream();
-            var writer = new XmlTextWriter(stream, Encoding.UTF8);
+            var xml = WriteXmlToString(xmlDoc);
+            xml = RemoveEmptyNamespace(xml);
+            using (var fstream = new StreamWriter(Path.Open(FileMode.Create, FileAccess.Write))) {
+                fstream.Write(xml);
+            }
+        }
+
+        private String WriteXmlToString(XmlDocument xmlDoc) {
+            using(var stream = new MemoryStream())
+            using(var writer = new XmlTextWriter(stream, Encoding.UTF8))
             try {
-               // writer.Formatting = Formatting.Indented; //this preserves indentation
+                // writer.Formatting = Formatting.Indented; //this preserves indentation
                 xmlDoc.Save(writer);
-                var s = RemoveEmptyNamespace(stream);
-                using (var fstream = new StreamWriter(Path.Open(FileMode.Create, FileAccess.Write))) {
-                    fstream.Write(s);
-                }
+                stream.Position = 0;
+                return new StreamReader(stream).ReadToEnd();
             } finally {
                 writer.Close();
             }
         }
 
-        private static string RemoveEmptyNamespace(MemoryStream stream) {
-            stream.Position = 0;
-            var s = new StreamReader(stream).ReadToEnd();
+        private static string RemoveEmptyNamespace(String xml) {
             var reRemoveEmptyNamespace = new Regex(@"\s?xmlns\s?=\s?""""");
-            s = reRemoveEmptyNamespace.Replace(s, "");
-            return s;
+            var cleanXml = reRemoveEmptyNamespace.Replace(xml, "");
+            return cleanXml;
         }
     }
 
