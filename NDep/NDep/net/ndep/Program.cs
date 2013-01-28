@@ -86,7 +86,7 @@ namespace net.ndep {
         public void UpdateReferences(Dependency projectDep) {
             var resources = ToResources(projectDep);
             EnsureResourceExist(resources);
-            new VSProject(ProjectFile).WriteReferences(resources);
+            VSProject.FromPath(ProjectFile).WriteReferences(resources);
         }
 
         private IList<Resource> ToResources(Dependency dependency) {
