@@ -6,7 +6,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.XPath;
 using System.IO;
-
+using System.Text.RegularExpressions;
 namespace net.ndep {
 
     //*.vsproj
@@ -54,20 +54,20 @@ namespace net.ndep {
 
             var appendResources = resources.Reverse();
             foreach (var resource in appendResources) {
-                AddReference(refItemGroup, resource, ns);
+                AddReference(refItemGroup, resource);
             }
             WriteXml(xmlDoc);
         }
 
-        private static void AddReference(XmlNode refItemGroup, Resource resource, String ns) {
+        private static void AddReference(XmlNode refItemGroup, Resource resource) {
             var doc = refItemGroup.OwnerDocument;
             var frag = doc.CreateDocumentFragment();
             //can't seem to be able to remove the xmlns attribute so let's atleast set
             //it to the correct value
             frag.InnerXml = String.Format(@"
-    <Reference Include=""{0}"" xmlns=""{1}"">
-      <HintPath>{2}</HintPath>
-    </Reference>", resource.Dep.ArtifactId, ns, resource.VSProjectPath);
+    <Reference Include=""{0}"">
+      <HintPath>{1}</HintPath>
+    </Reference>", resource.Dep.ArtifactId, resource.VSProjectPath);
             refItemGroup.InsertBefore(frag, refItemGroup.FirstChild);
         }
 
@@ -87,14 +87,26 @@ namespace net.ndep {
             if (Path.IsReadOnly) {
                 throw new FileNotFoundException(String.Format("VS Project file '{0}' is readonly. Cannot update references", Path.FullName));
             }
-            
-            var writer = new XmlTextWriter(Path.FullName, Encoding.UTF8);
+            var stream = new MemoryStream();
+            var writer = new XmlTextWriter(stream, Encoding.UTF8);
             try {
                // writer.Formatting = Formatting.Indented; //this preserves indentation
                 xmlDoc.Save(writer);
+                var s = RemoveEmptyNamespace(stream);
+                using (var fstream = new StreamWriter(Path.Open(FileMode.Create, FileAccess.Write))) {
+                    fstream.Write(s);
+                }
             } finally {
                 writer.Close();
             }
+        }
+
+        private static string RemoveEmptyNamespace(MemoryStream stream) {
+            stream.Position = 0;
+            var s = new StreamReader(stream).ReadToEnd();
+            var reRemoveEmptyNamespace = new Regex(@"\s?xmlns\s?=\s?""""");
+            s = reRemoveEmptyNamespace.Replace(s, "");
+            return s;
         }
     }
 

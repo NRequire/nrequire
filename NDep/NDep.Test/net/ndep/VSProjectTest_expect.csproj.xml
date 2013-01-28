@@ -31,10 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MyChildArtifactId1" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Reference Include="MyChildArtifactId1">
       <HintPath>%CACHE_PATH%\path\to\child1.ext</HintPath>
     </Reference>
-    <Reference Include="MyChildArtifactId2" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Reference Include="MyChildArtifactId2">
       <HintPath>%CACHE_PATH%\path\to\child2.ext</HintPath>
     </Reference>
     <Reference Include="System" />

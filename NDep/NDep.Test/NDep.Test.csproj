@@ -85,6 +85,7 @@
     </Content>
     <Content Include="net\ndep\VSProjectTest_expect.csproj.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="README.txt" />
   </ItemGroup>
