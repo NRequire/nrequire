@@ -18,25 +18,31 @@ namespace net.ndep {
             Path = filePath;
         }
 
-        public static  VSProject FromPath(FileInfo path) {
+        public static VSProject FromPath(FileInfo path) {
             return new VSProject(path);
         }
 
         internal void WriteReferences(IList<Resource> resources) {
+            WriteReferences(resources.Select((res)=>new Reference{
+                Include = res.Dep.ArtifactId,
+                HintPath = res.VSProjectPath
+            }).ToList());
+        }
+
+        internal void WriteReferences(IList<Reference> references) {
             Console.WriteLine("Updating references!");
-            
+
             var xmlDoc = ReadXML();
             var proj = xmlDoc.GetElementsByTagName("Project").Item(0) as XmlNode;
-            var ns = proj.NamespaceURI;
 
             XmlNode refItemGroup = null;
-            var references = xmlDoc.GetElementsByTagName("Reference");
+            var refNodes = xmlDoc.GetElementsByTagName("Reference");
             var removeNodes = new List<XmlNode>();
-            foreach (var refNode in references) {
+            foreach (var refNode in refNodes) {
                 var node = refNode as XmlNode;
                 refItemGroup = node.ParentNode;
                 var hintNode = node.GetChildNamed("HintPath");
-                if(hintNode != null){
+                if (hintNode != null) {
                     removeNodes.Add(node);
                     //and whitespace node so we don't add loads of
                     //empty lines
@@ -52,14 +58,14 @@ namespace net.ndep {
                 }
             }
 
-            var appendResources = resources.Reverse();
-            foreach (var resource in appendResources) {
-                AddReference(refItemGroup, resource);
+            var appendReferences = references.Reverse();
+            foreach (var reference in appendReferences) {
+                AddReferenceTo(refItemGroup, reference);
             }
             WriteXml(xmlDoc);
         }
 
-        private static void AddReference(XmlNode refItemGroup, Resource resource) {
+        private static void AddReferenceTo(XmlNode refItemGroup, Reference reference) {
             var doc = refItemGroup.OwnerDocument;
             var frag = doc.CreateDocumentFragment();
             //can't seem to be able to remove the xmlns attribute so let's atleast set
@@ -67,7 +73,7 @@ namespace net.ndep {
             frag.InnerXml = String.Format(@"
     <Reference Include=""{0}"">
       <HintPath>{1}</HintPath>
-    </Reference>", resource.Dep.ArtifactId, resource.VSProjectPath);
+    </Reference>", reference.Include, reference.HintPath);
             refItemGroup.InsertBefore(frag, refItemGroup.FirstChild);
         }
 
@@ -75,12 +81,14 @@ namespace net.ndep {
             if (!Path.Exists) {
                 throw new FileNotFoundException(String.Format("VS project file '{0}' does not exist", Path.FullName));
             }
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.PreserveWhitespace = true;
-            xmlDoc.Load(Path.FullName);
-            xmlDoc.Save("testOut.xml");
-
-            return xmlDoc;
+            try {
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.PreserveWhitespace = true;
+                xmlDoc.Load(Path.FullName);
+                return xmlDoc;
+            } catch (Exception e) {
+                throw new Exception(String.Format("Error reading VS project file '{0}'", Path.FullName), e);
+            }
         }
 
         private void WriteXml(XmlDocument xmlDoc) {
@@ -95,16 +103,16 @@ namespace net.ndep {
         }
 
         private String WriteXmlToString(XmlDocument xmlDoc) {
-            using(var stream = new MemoryStream())
-            using(var writer = new XmlTextWriter(stream, Encoding.UTF8))
-            try {
-                // writer.Formatting = Formatting.Indented; //this preserves indentation
-                xmlDoc.Save(writer);
-                stream.Position = 0;
-                return new StreamReader(stream).ReadToEnd();
-            } finally {
-                writer.Close();
-            }
+            using (var stream = new MemoryStream())
+            using (var writer = new XmlTextWriter(stream, Encoding.UTF8))
+                try {
+                    // writer.Formatting = Formatting.Indented; //this preserves indentation
+                    xmlDoc.Save(writer);
+                    stream.Position = 0;
+                    return new StreamReader(stream).ReadToEnd();
+                } finally {
+                    writer.Close();
+                }
         }
 
         private static string RemoveEmptyNamespace(String xml) {
@@ -112,15 +120,36 @@ namespace net.ndep {
             var cleanXml = reRemoveEmptyNamespace.Replace(xml, "");
             return cleanXml;
         }
+
+        internal IList<Reference> ReadReference() {
+            var references = new List<Reference>();
+            var xmlDoc = ReadXML();
+            var refNodes = xmlDoc.GetElementsByTagName("Reference");
+            foreach (var refNode in refNodes) {
+                var node = refNode as XmlNode;
+                var hintNode = node.GetChildNamed("HintPath");
+                var reference = new Reference { 
+                    Include = ((XmlAttribute)node.Attributes.GetNamedItem("Include")).Value,
+                    HintPath = hintNode==null?null:hintNode.InnerXml
+                };
+                references.Add(reference);
+            }
+            return references;
+        }
+
+        public class Reference {
+            public String Include { get; set; }
+            public String HintPath { get; set; }
+        }
     }
 
     internal static class XmlNodeExtensions {
-        public static XmlNode GetChildNamed(this XmlNode node,String childName){
+        public static XmlNode GetChildNamed(this XmlNode node, String childName) {
             if (node.HasChildNodes) {
                 foreach (var child in node.ChildNodes) {
                     var xchild = child as XmlNode;
-                    if(xchild.Name.Equals(childName)){
-                         return xchild;
+                    if (xchild.Name.Equals(childName)) {
+                        return xchild;
                     }
                 }
             }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.IO;
 using System;
@@ -19,6 +20,17 @@ namespace net.ndep {
             var projectFile = new FileInfo(Path.Combine(solnDir.FullName, "MyProject/MyProject.csproj"));
           
             new Program().InvokeWithArgs(new String[]{solnDir.FullName,projectFile.FullName,localCacheDir.FullName});
+
+            var refs = VSProject
+               .FromPath(projectFile)
+               .ReadReference()
+               .Where((reference) => reference.HintPath != null)
+               .ToList();
+            Assert.AreEqual(2, refs.Count);
+            Assert.IsTrue(refs[0].HintPath.StartsWith(localCacheDir.FullName));
+            Assert.IsTrue(refs[1].HintPath.StartsWith(localCacheDir.FullName));
+
+            //check updated
 
             solnDir.Delete(true);
         }
