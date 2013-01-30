@@ -8,7 +8,7 @@ namespace net.ndep {
     class Program {
 
         internal DependencyCache LocalCache { get; set; }
-        internal DirectoryInfo SolutionRootDir { get; set; }
+        internal FileInfo SolutionFile { get; set; }
         internal FileInfo ProjectFile { get; set; }
 
         private readonly Dependency DefaultDependencyValues = new Dependency { Ext = "dll",Arch="any", Runtime="any"};
@@ -16,56 +16,63 @@ namespace net.ndep {
 
         static void Main(string[] args) {
             try {
-                Console.WriteLine("NDep !!!");
                 new Program().InvokeWithArgs(args);
                 Environment.ExitCode = 0;
             } catch (Exception e) {
                 Console.WriteLine("NDep error! :" + e.Message);
                 Console.WriteLine(e.StackTrace);
+                Console.WriteLine(GetParser().PrintHelp());
                 Environment.ExitCode = -1;
             }
         }
 
+        private static CommandLineParser GetParser() {
+            return new CommandLineParser()
+                .AddCommand("update-proj", "Update the project file with the latest resolved dependencies")
+                .AddOptionWithValue("update-proj", "-soln", "(Required) Path to the solution file")
+                .AddOptionWithValue("update-proj", "-proj", "(Required) Path to the project file")
+                .AddOptionWithValue("update-proj", "-cache", "(Optional) Path to the local cache directory (Default is %HOMEDRIVE%%HOMEPATH%/.ndep/cache)")
+            ;
+        }
+
         public void InvokeWithArgs(string[] args) {
-            if (args.Length < 2) {
-                throw new ArgumentException("No project file to update");
-            } else {
-                var solutionDir = new DirectoryInfo(args[0]);
-                if (!solutionDir.Exists) {
-                    throw new ArgumentException(String.Format("Solution file '{0}' does not exist", solutionDir.FullName));
-                }
+            var result = GetParser().Parse(args);
 
-                var projectFile = new FileInfo(args[1]);
-                if (!projectFile.Exists) {
-                    throw new ArgumentException(String.Format("Project file '{0}' does not exist", projectFile.FullName));
-                }
-                
-                var userHomeDir = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
-                if (!Directory.Exists(userHomeDir)) {
-                    throw new ArgumentException(String.Format("Could not find user home '{0}'", userHomeDir));
-                }
-
-                if (args.Length > 2) {
-                    var cacheDir = new DirectoryInfo(args[2]);
-                    LocalCache = new DependencyCache() {
-                        VSProjectBaseSymbol = cacheDir.FullName,
-                        CacheDir = cacheDir
-                    };
-                } else {
-                    LocalCache = new DependencyCache() {
-                        VSProjectBaseSymbol = "%HOMEDRIVE%%HOMEPATH%",
-                        CacheDir = new DirectoryInfo(Path.Combine(userHomeDir, ".ndep/cache"))
-                    };
-                }
-
-                if (!LocalCache.CacheDir.Exists) {
-                    throw new ArgumentException(String.Format("Dependency cache dir '{0}' does not exist", LocalCache.CacheDir.FullName));
-                }
-                SolutionRootDir = solutionDir;
-                ProjectFile = projectFile;
-
-                UpdateProject();
+            var solutionFile = new FileInfo(result.GetOptionValue("-soln"));
+            if (!solutionFile.Exists) {
+                throw new ArgumentException(String.Format("Solution file '{0}' does not exist", solutionFile.FullName));
             }
+
+            var projectFile = new FileInfo(result.GetOptionValue("-proj"));
+            if (!projectFile.Exists) {
+                throw new ArgumentException(String.Format("Project file '{0}' does not exist", projectFile.FullName));
+            }
+                
+            var userHomeDir = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
+            if (!Directory.Exists(userHomeDir)) {
+                throw new ArgumentException(String.Format("Could not find user home '{0}'", userHomeDir));
+            }
+
+            if (result.HasOptionValue("-cache")) {
+                var cacheDir = new DirectoryInfo(result.GetOptionValue("-cache"));
+                LocalCache = new DependencyCache() {
+                    VSProjectBaseSymbol = cacheDir.FullName,
+                    CacheDir = cacheDir
+                };
+            } else {
+                LocalCache = new DependencyCache() {
+                    VSProjectBaseSymbol = "%HOMEDRIVE%%HOMEPATH%",
+                    CacheDir = new DirectoryInfo(Path.Combine(userHomeDir, ".ndep/cache"))
+                };
+            }
+
+            if (!LocalCache.CacheDir.Exists) {
+                throw new ArgumentException(String.Format("Dependency cache dir '{0}' does not exist", LocalCache.CacheDir.FullName));
+            }
+            SolutionFile = solutionFile;
+            ProjectFile = projectFile;
+            UpdateProject();
+            
         }
 
         public void UpdateProject() {
@@ -74,12 +81,9 @@ namespace net.ndep {
         }
 
         private Dependency ReadProjectDependency() {
-            var solnDep = ReadDepFromJsonInDir(SolutionRootDir);
-            Console.WriteLine("soln dep:" + solnDep);
-            var projDep = ReadDepFromJsonInDir(Directory.GetParent(ProjectFile.FullName));
-            Console.WriteLine("proj dep:" + projDep);
+            var solnDep = ReadDepFromJsonForFile(SolutionFile);
+            var projDep = ReadDepFromJsonForFile(ProjectFile);
             var merged = projDep.MergeWithParent(solnDep);
-            Console.WriteLine("merged soln and proj dep:" + merged);
             return merged;
         }
 
@@ -115,11 +119,12 @@ namespace net.ndep {
             }
         }
 
-        private Dependency ReadDepFromJsonInDir(DirectoryInfo dir) {
-            var jsonFile = new FileInfo(Path.Combine(dir.FullName, "ndep.json"));
+        private Dependency ReadDepFromJsonForFile(FileInfo file) {
+            var jsonFile = new FileInfo(Path.Combine(file.DirectoryName,file.Name + ".ndep.json"));
+            if (!jsonFile.Exists) {
+                jsonFile = new FileInfo(Path.Combine(file.DirectoryName, "ndep.json"));
+            }
             return m_depsReader.ReadDependency(jsonFile);
-            
-            //return new Dependency();
         }
     }
 }

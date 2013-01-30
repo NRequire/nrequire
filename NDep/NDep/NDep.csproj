@@ -66,7 +66,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App.yaml.cs" />
+    <Compile Include="net\ndep\CommandLineParser.cs" />
+    <Compile Include="net\ndep\CommandParseException.cs" />
     <Compile Include="net\ndep\Dependency.cs" />
     <Compile Include="net\ndep\JsonReader.cs" />
     <Compile Include="net\ndep\DependencyCache.cs" />

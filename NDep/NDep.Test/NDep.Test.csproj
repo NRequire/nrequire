@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="net\ndep\CommandLineParserTest.cs" />
     <Compile Include="net\ndep\DependencyTest.cs" />
     <Compile Include="net\ndep\FileUtil.cs" />
     <Compile Include="net\ndep\JsonReaderTest.cs" />
@@ -72,7 +73,10 @@
     <Content Include="net\ndep\ProgramTest\LocalCache\MyChildGroupId2\4.5.6\runtime-MyChildRuntime2\arch-MyChildArch2\MyChildArtifactId2.MyChildExt2">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="net\ndep\ProgramTest\Soln\MyProject\MyProject.csproj">
+    <Content Include="net\ndep\ProgramTest\MySoln\MyProject\MyProject.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="net\ndep\ProgramTest\MySoln\MySoln.sln">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="net\ndep\VSProjectTest_before.csproj.xml">
@@ -89,10 +93,10 @@
     <None Include="net\ndep\JsonReaderTest.depsfile1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="net\ndep\ProgramTest\Soln\MyProject\ndep.json">
+    <Content Include="net\ndep\ProgramTest\MySoln\MyProject\ndep.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="net\ndep\ProgramTest\Soln\ndep.json">
+    <Content Include="net\ndep\ProgramTest\MySoln\ndep.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

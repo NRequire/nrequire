@@ -14,11 +14,16 @@ namespace net.ndep {
         public void HappyPathTest() {
             var resourceDir = new DirectoryInfo("net/ndep/" + typeof(ProgramTest).Name);
             var localCacheDir = new DirectoryInfo(Path.Combine(resourceDir.FullName,"LocalCache"));
-            
-            var solnDir = FileUtil.CopyToTmpDir(new DirectoryInfo(Path.Combine(resourceDir.FullName, "Soln")));
+
+            var solnDir = FileUtil.CopyToTmpDir(new DirectoryInfo(Path.Combine(resourceDir.FullName, "MySoln")));
+            var solnFile = new FileInfo(Path.Combine(solnDir.FullName, "MySoln.sln"));
             var projectFile = new FileInfo(Path.Combine(solnDir.FullName, "MyProject/MyProject.csproj"));
           
-            new Program().InvokeWithArgs(new String[]{solnDir.FullName,projectFile.FullName,localCacheDir.FullName});
+            new Program().InvokeWithArgs(new String[]{
+                "update-proj",
+                "-soln", solnFile.FullName,
+                "-proj", projectFile.FullName,
+                "-cache", localCacheDir.FullName});
 
             var refs = VSProject
                .FromPath(projectFile)
