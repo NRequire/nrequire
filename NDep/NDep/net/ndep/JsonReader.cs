@@ -1,9 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Newtonsoft.Json;
+using System.Web;
+using System.Web.Script.Serialization;
 
 namespace net.ndep {
     public class JsonReader {
@@ -13,14 +11,17 @@ namespace net.ndep {
             }
 
             try {
-                using (var stream = depFile.OpenText()) {
-                    var json = stream.ReadToEnd();
-                    return JsonConvert.DeserializeObject<Dependency>(json);
-                }
+                var json = ReadFileAsString(depFile);
+                return new JavaScriptSerializer().Deserialize<Dependency>(json);
             } catch (Exception e) {
                 throw new Exception(String.Format("Error while trying to parse '{0}'",depFile.FullName), e);
             }
         }
 
+        private static String ReadFileAsString(FileInfo file) {
+            using (var stream = file.OpenText()) {
+                return stream.ReadToEnd();
+            }
+        }
     }
 }
