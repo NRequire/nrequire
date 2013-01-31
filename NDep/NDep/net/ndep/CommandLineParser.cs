@@ -15,7 +15,7 @@ namespace net.ndep {
             sb.Append("Usage: ").Append(m_executableName).Append(" CMD OPTIONS");
             foreach (var cmd in m_options.Keys) {
                 var opts = m_options[cmd];
-
+                sb.AppendLine();
                 sb.AppendLine().Append("Command: ").Append(cmd);
                 if (opts.CommandHelp != null) {
                     sb.Append(" -> ").Append(opts.CommandHelp);
@@ -33,33 +33,45 @@ namespace net.ndep {
                     }
                     sb.AppendLine().Append("       - ").Append(opt.IsRequired ? "required" : "optional");
                 }
+                if (opts.Examples.Count > 0) {
+                    sb.AppendLine(); 
+                    sb.AppendLine().Append("    Examples");
+
+                    foreach (var example in opts.Examples) {
+                        sb.AppendLine().Append("      ").Append(m_executableName).Append(" ").Append(cmd).Append(" ").Append(example);
+                    }
+                }
             }
             return sb.ToString();
         }
-
-
 
         internal CommandLineParser ProgramName(string progName) {
             m_executableName = progName;
             return this;
         }
 
+        internal CommandLineParser AddExample(string command, string exampleText) {
+            GetOrCreateOptions(command).AddExample(exampleText);
+            return this;
+        }
+
         internal CommandLineParser AddCommand(string command, string commandHelp) {
-            if (!m_options.ContainsKey(command)) {
-                m_options[command] = new Options();
-            }
-            m_options[command].CommandHelp = commandHelp;
+            GetOrCreateOptions(command).CommandHelp = commandHelp;
             return this;
         }
 
         internal CommandLineParser AddOption(string command,  Opt opt) {
+            GetOrCreateOptions(command).AddOption(opt);
+
+            return this;
+        }
+
+        private Options GetOrCreateOptions(String command) {
             if (!m_options.ContainsKey(command)) {
                 m_options[command] = new Options();
             }
 
-            m_options[command].AddOption(opt);
-
-            return this;
+            return m_options[command];
         }
 
         internal ParseResult Parse(string[] args) {
@@ -98,25 +110,32 @@ namespace net.ndep {
         private class Options {
 
             internal String CommandHelp { get; set; }
+            private IList<string> m_examples = new List<string>();
 
-            private IDictionary<string, Opt> m_optionsHelp = new Dictionary<string, Opt>();
+            private IDictionary<string, Opt> m_optionsByName = new Dictionary<string, Opt>();
 
-            public IEnumerable<string> OptionKeys { get { return m_optionsHelp.Keys;  } }
+            public IList<string> Examples { get { return m_examples; } }
+
+            public IEnumerable<string> OptionKeys { get { return m_optionsByName.Keys;  } }
 
             internal bool ContainsOption(string optName) {
-                return m_optionsHelp.ContainsKey(optName);
+                return m_optionsByName.ContainsKey(optName);
             }
 
             internal void AddOption(Opt opt) {
-                m_optionsHelp[opt.Name] = opt;
+                m_optionsByName[opt.Name] = opt;
             }
 
             internal Opt GetOptionNamed(string optName) {
-                return m_optionsHelp[optName];
+                return m_optionsByName[optName];
             }
 
             internal IEnumerable<Opt> GetOptions() {
-                return m_optionsHelp.Values;
+                return m_optionsByName.Values;
+            }
+
+            internal void AddExample(string exampleText) {
+                m_examples.Add(exampleText);
             }
         }
 

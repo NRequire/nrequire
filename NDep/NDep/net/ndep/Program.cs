@@ -51,9 +51,12 @@ namespace net.ndep {
                         .Required(false)
                         .Arg("val")
                         .Default("true")
-                        .Help("If true then fail the build if the project dependencies changed"))
-                .AddCommand("--help", "Print this help")
+                        .Help("If true then fail the build after updating the project if the project dependencies changed"))
+                    .AddExample("update-proj", "--soln ${SolutionPath} --proj ${ProjectPath}")
+                    .AddExample("update-proj", "--soln ${SolutionPath} --proj ${ProjectPath} --cache C:/opt/cache")
+                    .AddExample("update-proj", "--soln ${SolutionPath} --proj ${ProjectPath} --fail false")
 
+                    .AddCommand("--help", "Print this help")
             ;
         }
 
