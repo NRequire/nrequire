@@ -10,6 +10,7 @@ namespace net.ndep {
         internal DependencyCache LocalCache { get; set; }
         internal FileInfo SolutionFile { get; set; }
         internal FileInfo ProjectFile { get; set; }
+        internal bool FailOnProjectChanged { get; set; }
 
         private readonly Dependency DefaultDependencyValues = new Dependency { Ext = "dll",Arch="any", Runtime="any"};
         private readonly JsonReader m_depsReader = new JsonReader();
@@ -18,6 +19,9 @@ namespace net.ndep {
             try {
                 new Program().InvokeWithArgs(args);
                 Environment.ExitCode = 0;
+            } catch( FailBuildException e){
+                Console.WriteLine(e.Message);
+                Environment.ExitCode = -1;
             } catch (CommandParseException e) {
                 Console.WriteLine(e.Message);
                 Console.WriteLine(GetParser().PrintHelp());
@@ -42,6 +46,12 @@ namespace net.ndep {
                         .Arg("dirPath")
                         .Help("Path to the local cache directory")
                         .Default("%HOMEDRIVE%%HOMEPATH%/.ndep/cache"))
+                    .AddOption("update-proj",Opt
+                        .Named("--fail")
+                        .Required(false)
+                        .Arg("val")
+                        .Default("true")
+                        .Help("If true then fail the build if the project dependencies changed"))
                 .AddCommand("--help", "Print this help")
 
             ;
@@ -90,6 +100,8 @@ namespace net.ndep {
             if (!LocalCache.CacheDir.Exists) {
                 throw new ArgumentException(String.Format("Dependency cache dir '{0}' does not exist", LocalCache.CacheDir.FullName));
             }
+
+            FailOnProjectChanged = result.GetOptionValue("--fail", true) == "true";
             SolutionFile = solutionFile;
             ProjectFile = projectFile;
             UpdateProject();
@@ -110,7 +122,13 @@ namespace net.ndep {
         public void UpdateReferences(Dependency projectDep) {
             var resources = ToResources(projectDep);
             EnsureResourceExist(resources);
-            VSProject.FromPath(ProjectFile).UpdateReferences(resources);
+            var changed = VSProject
+                .FromPath(ProjectFile)
+                .UpdateReferences(resources);
+
+            if (changed && FailOnProjectChanged) {
+                throw new FailBuildException(String.Format("VS Project  '{0}' needed updating and fail enabled so stopping the build", ProjectFile.FullName));
+            }
         }
 
         private IList<Resource> ToResources(Dependency dependency) {
@@ -145,6 +163,12 @@ namespace net.ndep {
                 jsonFile = new FileInfo(Path.Combine(file.DirectoryName, "ndep.json"));
             }
             return m_depsReader.ReadDependency(jsonFile);
+        }
+
+        private class FailBuildException : Exception {
+            internal FailBuildException(string msg)
+                : base(msg) {
+            }
         }
     }
 }

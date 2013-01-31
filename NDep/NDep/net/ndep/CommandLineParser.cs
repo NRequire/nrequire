@@ -134,7 +134,14 @@ namespace net.ndep {
             }
 
             internal String GetOptionValue(string optName) {
+                return GetOptionValue(optName,null);        
+            }
+
+            internal String GetOptionValue(string optName, Object defVal) {
                 if (!m_optionsValues.ContainsKey(optName)) {
+                    if( defVal != null){
+                        return defVal.ToString();
+                    }
                     throw new CommandParseException(
                             String.Format("No option named '{0}' set, but do have [{1}]", 
                                 optName, String.Join(",", m_optionsValues.Keys)));
