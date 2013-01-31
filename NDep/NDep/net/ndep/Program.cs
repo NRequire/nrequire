@@ -34,10 +34,15 @@ namespace net.ndep {
             return new CommandLineParser()
                 .ProgramName("ndep")
                 .AddCommand("update-proj", "Update the project file with the latest resolved dependencies")
-                .AddOption("update-proj", Opt.Named("--soln").Required(true).Arg("filePath").Help("(Required) Path to the solution file"))
-                .AddOption("update-proj", Opt.Named("--proj").Required(true).Arg("filePath").Help("(Required) Path to the project file"))
-                .AddOption("update-proj", Opt.Named("--cache").Required(false).Arg("dirPath").Help("(Optional) Path to the local cache directory (Default is %HOMEDRIVE%%HOMEPATH%/.ndep/cache)"))
-               .AddCommand("--help", "Print help")
+                    .AddOption("update-proj", Opt.Named("--soln").Required(true).Arg("filePath").Help("Path to the solution file"))
+                    .AddOption("update-proj", Opt.Named("--proj").Required(true).Arg("filePath").Help("Path to the project file"))
+                    .AddOption("update-proj", Opt
+                        .Named("--cache")
+                        .Required(false)
+                        .Arg("dirPath")
+                        .Help("Path to the local cache directory")
+                        .Default("%HOMEDRIVE%%HOMEPATH%/.ndep/cache"))
+                .AddCommand("--help", "Print this help")
 
             ;
         }

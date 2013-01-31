@@ -12,24 +12,26 @@ namespace net.ndep {
 
         public String PrintHelp() {
             var sb = new StringBuilder();
-            sb.AppendLine("Usage: ").Append(m_executableName).Append(" CMD OPTIONS");
+            sb.Append("Usage: ").Append(m_executableName).Append(" CMD OPTIONS");
             foreach (var cmd in m_options.Keys) {
                 var opts = m_options[cmd];
 
-                sb.AppendLine().Append("command: ").Append(cmd);
+                sb.AppendLine().Append("Command: ").Append(cmd);
                 if (opts.CommandHelp != null) {
-                    sb.AppendLine().Append("      -- ").Append(opts.CommandHelp);
+                    sb.Append(" -> ").Append(opts.CommandHelp);
                 }
-                sb.AppendLine().Append("options: ");
                 foreach (var opt in opts.GetOptions()) {
                     sb.AppendLine().Append("   ").Append(opt.Name);
                     if( opt.ArgName != null){
-                        sb.Append(" $").Append(opt.ArgName);
+                        sb.Append(" <").Append(opt.ArgName).Append(">");
                     }
-                    sb.AppendLine().Append("       -- ").Append(opt.IsRequired ? "required" : "optional");
                     if (opt.HelpText != null) {
-                        sb.AppendLine().Append("       -- ").Append(opt.HelpText);
+                        sb.AppendLine().Append("       - ").Append(opt.HelpText);
                     }
+                    if (opt.DefaultVal != null) {
+                        sb.AppendLine().Append("       - default : ").Append(opt.DefaultVal);
+                    }
+                    sb.AppendLine().Append("       - ").Append(opt.IsRequired ? "required" : "optional");
                 }
             }
             return sb.ToString();
@@ -46,6 +48,7 @@ namespace net.ndep {
             if (!m_options.ContainsKey(command)) {
                 m_options[command] = new Options();
             }
+            m_options[command].CommandHelp = commandHelp;
             return this;
         }
 
@@ -151,6 +154,7 @@ namespace net.ndep {
         public String HelpText { get; private set; }
         public bool IsRequired { get; private set; }
         public String ArgName { get; private set; }
+        public String DefaultVal { get; private set; }
 
         public static Opt Named(string name) {
             return new Opt { Name = name };
@@ -175,6 +179,10 @@ namespace net.ndep {
             return this;
         }
 
+        public Opt Default(string val) {
+            this.DefaultVal = val;
+            return this;
+        }
 
     }
 
