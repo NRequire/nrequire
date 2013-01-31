@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Threading;
 using NUnit.Framework;
 
 namespace net.ndep {
@@ -19,7 +20,7 @@ namespace net.ndep {
                 new Resource(new Dependency{ArtifactId="MyChildArtifactId1"}, null, "%CACHE_PATH%\\path\\to\\child1.ext"),
                 new Resource(new Dependency{ArtifactId="MyChildArtifactId2"}, null, "%CACHE_PATH%\\path\\to\\child2.ext")
             };
-            proj.WriteReferences(resources);
+            proj.UpdateReferences(resources);
 
             //now check file equals the expected one
             var expectTxt = FileUtil.ReadResourceFileAsString<VSProjectTest>("_expect.csproj.xml");
@@ -28,6 +29,26 @@ namespace net.ndep {
             
         }
 
+        [Test]
+        public void WontUpdateIfNoChangeInReferencesTest() {
+            var from = FileUtil.ResourceFileFor<VSProjectTest>("_before.csproj.xml");
+            var projFile = FileUtil.CopyToTmpFile(from);
 
+            var proj = VSProject.FromPath(projFile);
+            var resources = new List<Resource> {
+                new Resource(new Dependency{ArtifactId="MyChildArtifactId1"}, null, "%CACHE_PATH%\\path\\to\\child1.ext"),
+                new Resource(new Dependency{ArtifactId="MyChildArtifactId2"}, null, "%CACHE_PATH%\\path\\to\\child2.ext")
+            };
+            proj.UpdateReferences(resources);
+
+            var orgWriteTime = projFile.LastWriteTime;
+            //wait a bit to let clock tick
+            Thread.Sleep(TimeSpan.FromSeconds(3));
+            //force an update, should check if already exist
+            resources.Reverse();
+            proj.UpdateReferences(resources);
+            var newWriteTime = projFile.LastWriteTime;
+            Assert.AreEqual(orgWriteTime, newWriteTime);
+        }
     }
 }

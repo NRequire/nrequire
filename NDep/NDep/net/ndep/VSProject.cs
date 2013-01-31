@@ -22,16 +22,25 @@ namespace net.ndep {
             return new VSProject(path);
         }
 
-        internal void WriteReferences(IList<Resource> resources) {
-            WriteReferences(resources.Select((res)=>new Reference{
+        internal void UpdateReferences(IList<Resource> resources) {
+            UpdateReferences(resources.Select((res) => new Reference {
                 Include = res.Dep.ArtifactId,
                 HintPath = res.VSProjectPath
             }).ToList());
         }
 
-        internal void WriteReferences(IList<Reference> references) {
-            Console.WriteLine("Updating references!");
+        internal void UpdateReferences(IList<Reference> references) {
+            var existing = ReadReferences();
 
+            var left = existing.Where((r) => !references.Contains(r)).ToList();
+            var right = references.Where((r) => !existing.Contains(r)).ToList();
+
+            if (left.Count > 0 || right.Count > 0) {
+                WriteReferences(references);
+            }
+        }
+
+        private void WriteReferences(IList<Reference> references) {
             var xmlDoc = ReadXML();
             var proj = xmlDoc.GetElementsByTagName("Project").Item(0) as XmlNode;
 
@@ -121,7 +130,7 @@ namespace net.ndep {
             return cleanXml;
         }
 
-        internal IList<Reference> ReadReference() {
+        internal IList<Reference> ReadReferences() {
             var references = new List<Reference>();
             var xmlDoc = ReadXML();
             var refNodes = xmlDoc.GetElementsByTagName("Reference");
@@ -140,6 +149,32 @@ namespace net.ndep {
         public class Reference {
             public String Include { get; set; }
             public String HintPath { get; set; }
+
+            public override bool Equals(object obj) {
+                if (obj == null || !(obj is Reference)) {
+                    return false;
+                }
+                if(ReferenceEquals(this,obj)){
+                    return true;
+                }
+                var other = obj as Reference;
+                return this.HintPath == other.HintPath
+                    && this.Include == other.Include;
+            }
+
+            public override int GetHashCode() {
+                unchecked // Overflow is fine, just wrap
+                {
+                    int hash = 11;
+                    if (HintPath != null) {
+                        hash = hash * 27 + HintPath.GetHashCode();
+                    }
+                    if (Include != null) {
+                        hash = hash * 27 + Include.GetHashCode();
+                    }
+                    return hash;
+                }
+            }
         }
     }
 

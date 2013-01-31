@@ -27,7 +27,7 @@ namespace net.ndep {
 
             var refs = VSProject
                .FromPath(projectFile)
-               .ReadReference()
+               .ReadReferences()
                .Where((reference) => reference.HintPath != null)
                .ToList();
             Assert.AreEqual(2, refs.Count);
