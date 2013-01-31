@@ -112,7 +112,50 @@ namespace net.ndep {
 
         public void UpdateProject() {
             var d = ReadProjectDependency();
+            CopyRequired(d);
             UpdateReferences(d);
+        }
+
+        //and deps marked with a copyTo property will be copied into the appropriate destination 
+        private void CopyRequired(Dependency dep) {
+            foreach (var d in dep.Dependencies) {
+                if(!String.IsNullOrEmpty(d.CopyTo)){
+                    CopyDep(d);
+                }
+            }
+        }
+
+        private void CopyDep(Dependency d) {
+            Resource resource = LocalCache.GetResourceFor(d);
+            if (!resource.Exists) {
+                throw new InvalidOperationException(String.Format("Could not find dependency '{0}'", resource.FullPath.FullName));
+            }
+            var projDir = ProjectFile.Directory;
+            var targetFile = new FileInfo(Path.Combine(projDir.FullName, d.CopyTo, resource.FullPath.Name + "." + resource.FullPath.Extension));
+            
+            if (!targetFile.Exists || targetFile.LastWriteTime != resource.FullPath.LastWriteTime) {
+                CopyFile(resource.FullPath, targetFile);
+            }
+        }
+
+        private static void CopyFile(FileInfo from, FileInfo to) {
+            to.Directory.Create();
+
+            using (var streamFrom = from.Open(FileMode.Open, FileAccess.Read))
+            using (var streamTo = to.Open(FileMode.CreateNew, FileAccess.Write)) {
+                CopyStream(streamFrom, streamTo);
+            }
+
+            to.CreationTime= from.CreationTime;
+            to.LastWriteTime = from.LastWriteTime;
+        }
+
+        private static void CopyStream(FileStream streamFrom, FileStream streamTo) {
+            var buf = new byte[2048];
+            int numBytesRead;
+            while ((numBytesRead = streamFrom.Read(buf, 0, buf.Length)) > 0) {
+                streamTo.Write(buf, 0, numBytesRead);
+            };
         }
 
         private Dependency ReadProjectDependency() {
@@ -124,7 +167,8 @@ namespace net.ndep {
 
         public void UpdateReferences(Dependency projectDep) {
             var resources = ToResources(projectDep);
-            EnsureResourceExist(resources);
+            EnsureResourcesExist(resources);
+
             var changed = VSProject
                 .FromPath(ProjectFile)
                 .UpdateReferences(resources);
@@ -139,16 +183,14 @@ namespace net.ndep {
             //now update the project!
             foreach (var child in dependency.Dependencies) {
                 var merged = child.MergeWithParent(DefaultDependencyValues);
-                Console.WriteLine("validating:" + merged);
                 merged.ValidateRequiredSet();
                 Resource resource = LocalCache.GetResourceFor(merged);
-                Console.WriteLine("dependency:" + resource.VSProjectPath);
                 resources.Add(resource);
             }
             return resources;
         }
 
-        private void EnsureResourceExist(IEnumerable<Resource> resources) {
+        private void EnsureResourcesExist(IEnumerable<Resource> resources) {
             var notFound = new List<Resource>();
             foreach (var resource in resources) {
                 if (!resource.Exists) {
