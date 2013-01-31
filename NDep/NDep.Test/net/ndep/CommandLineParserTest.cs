@@ -21,20 +21,20 @@ namespace net.ndep {
         
         [Test]
         public void ExtractOptionsTest() {
-            var args = new[] { "mycmd", "-opt1", "optval1", "-opt2", "optval2" }; 
+            var args = new[] { "mycmd", "--opt1", "optval1", "--opt2", "optval2" }; 
             
             var parser = new CommandLineParser()
                 .AddCommand("mycmd", "the command")
-                .AddOptionWithValue("mycmd", "-opt1", "opt1 help text")
-                .AddOptionWithValue("mycmd", "-opt2", "opt2 help text");
+                .AddOption("mycmd", Opt.Named("--opt1").Help("opt1 help text"))
+                .AddOption("mycmd", Opt.Named("--opt2").Help("opt2 help text"));
 
             var result = parser.Parse(args);
 
             Assert.AreEqual("mycmd", result.Command);
-            Assert.IsTrue(result.HasOptionValue("-opt1"));
-            Assert.AreEqual("optval1", result.GetOptionValue("-opt1"));
-            Assert.IsTrue(result.HasOptionValue("-opt2"));
-            Assert.AreEqual("optval2", result.GetOptionValue("-opt2"));
+            Assert.IsTrue(result.HasOptionValue("--opt1"));
+            Assert.AreEqual("optval1", result.GetOptionValue("--opt1"));
+            Assert.IsTrue(result.HasOptionValue("--opt2"));
+            Assert.AreEqual("optval2", result.GetOptionValue("--opt2"));
 
         }
     }

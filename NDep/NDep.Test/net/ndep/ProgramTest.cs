@@ -21,9 +21,9 @@ namespace net.ndep {
           
             new Program().InvokeWithArgs(new String[]{
                 "update-proj",
-                "-soln", solnFile.FullName,
-                "-proj", projectFile.FullName,
-                "-cache", localCacheDir.FullName});
+                "--soln", solnFile.FullName,
+                "--proj", projectFile.FullName,
+                "--cache", localCacheDir.FullName});
 
             var refs = VSProject
                .FromPath(projectFile)

@@ -18,8 +18,12 @@ namespace net.ndep {
             try {
                 new Program().InvokeWithArgs(args);
                 Environment.ExitCode = 0;
+            } catch (CommandParseException e) {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(GetParser().PrintHelp());
+                Environment.ExitCode = -1;
             } catch (Exception e) {
-                Console.WriteLine("NDep error! :" + e.Message);
+                Console.WriteLine("Unhandled NDep error! :" + e.Message);
                 Console.WriteLine(e.StackTrace);
                 Console.WriteLine(GetParser().PrintHelp());
                 Environment.ExitCode = -1;
@@ -28,33 +32,45 @@ namespace net.ndep {
 
         private static CommandLineParser GetParser() {
             return new CommandLineParser()
+                .ProgramName("ndep")
                 .AddCommand("update-proj", "Update the project file with the latest resolved dependencies")
-                .AddOptionWithValue("update-proj", "-soln", "(Required) Path to the solution file")
-                .AddOptionWithValue("update-proj", "-proj", "(Required) Path to the project file")
-                .AddOptionWithValue("update-proj", "-cache", "(Optional) Path to the local cache directory (Default is %HOMEDRIVE%%HOMEPATH%/.ndep/cache)")
+                .AddOption("update-proj", Opt.Named("--soln").Required(true).Arg("filePath").Help("(Required) Path to the solution file"))
+                .AddOption("update-proj", Opt.Named("--proj").Required(true).Arg("filePath").Help("(Required) Path to the project file"))
+                .AddOption("update-proj", Opt.Named("--cache").Required(false).Arg("dirPath").Help("(Optional) Path to the local cache directory (Default is %HOMEDRIVE%%HOMEPATH%/.ndep/cache)"))
+               .AddCommand("--help", "Print help")
+
             ;
         }
 
         public void InvokeWithArgs(string[] args) {
             var result = GetParser().Parse(args);
+            if (result.IsCommand("--help")) {
+                throw new CommandParseException("");
+            } else if( result.IsCommand("update-proj")) {
+                UpdateProject(result);
+            } else {
+                throw new CommandParseException("Dont't recognize command:" + result.Command);
+            }
+        }
 
-            var solutionFile = new FileInfo(result.GetOptionValue("-soln"));
+        private void UpdateProject(CommandLineParser.ParseResult result) {
+            var solutionFile = new FileInfo(result.GetOptionValue("--soln"));
             if (!solutionFile.Exists) {
                 throw new ArgumentException(String.Format("Solution file '{0}' does not exist", solutionFile.FullName));
             }
 
-            var projectFile = new FileInfo(result.GetOptionValue("-proj"));
+            var projectFile = new FileInfo(result.GetOptionValue("--proj"));
             if (!projectFile.Exists) {
                 throw new ArgumentException(String.Format("Project file '{0}' does not exist", projectFile.FullName));
             }
-                
+
             var userHomeDir = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
             if (!Directory.Exists(userHomeDir)) {
                 throw new ArgumentException(String.Format("Could not find user home '{0}'", userHomeDir));
             }
 
-            if (result.HasOptionValue("-cache")) {
-                var cacheDir = new DirectoryInfo(result.GetOptionValue("-cache"));
+            if (result.HasOptionValue("--cache")) {
+                var cacheDir = new DirectoryInfo(result.GetOptionValue("--cache"));
                 LocalCache = new DependencyCache() {
                     VSProjectBaseSymbol = cacheDir.FullName,
                     CacheDir = cacheDir
@@ -72,7 +88,6 @@ namespace net.ndep {
             SolutionFile = solutionFile;
             ProjectFile = projectFile;
             UpdateProject();
-            
         }
 
         public void UpdateProject() {

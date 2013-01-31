@@ -54,7 +54,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>U:\users\bert\workspace\net.ndep\NDep\NDep\bin\Debug\ndep.exe $(SolutionDir) $(ProjectPath)</PreBuildEvent>
+    <PreBuildEvent>U:\users\bert\workspace\net.ndep\NDep\NDep\bin\Debug\ndep.exe update-proj --soln $(SolutionPath) --proj $(ProjectPath)</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

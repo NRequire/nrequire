@@ -8,18 +8,38 @@ namespace net.ndep {
 
         private IDictionary<String, Options> m_options = new Dictionary<string, Options>();
 
+        private String m_executableName = "prog";
+
         public String PrintHelp() {
             var sb = new StringBuilder();
-            sb.AppendLine("Usage:");
+            sb.AppendLine("Usage: ").Append(m_executableName).Append(" CMD OPTIONS");
             foreach (var cmd in m_options.Keys) {
                 var opts = m_options[cmd];
 
-                sb.Append("  ").AppendLine(cmd);
-                foreach (var optName in opts.OptionKeys) {
-                    sb.Append("   ").Append(optName).Append("  --").AppendLine(opts.GetHelpFor(optName));
+                sb.AppendLine().Append("command: ").Append(cmd);
+                if (opts.CommandHelp != null) {
+                    sb.AppendLine().Append("      -- ").Append(opts.CommandHelp);
+                }
+                sb.AppendLine().Append("options: ");
+                foreach (var opt in opts.GetOptions()) {
+                    sb.AppendLine().Append("   ").Append(opt.Name);
+                    if( opt.ArgName != null){
+                        sb.Append(" $").Append(opt.ArgName);
+                    }
+                    sb.AppendLine().Append("       -- ").Append(opt.IsRequired ? "required" : "optional");
+                    if (opt.HelpText != null) {
+                        sb.AppendLine().Append("       -- ").Append(opt.HelpText);
+                    }
                 }
             }
             return sb.ToString();
+        }
+
+
+
+        internal CommandLineParser ProgramName(string progName) {
+            m_executableName = progName;
+            return this;
         }
 
         internal CommandLineParser AddCommand(string command, string commandHelp) {
@@ -29,11 +49,12 @@ namespace net.ndep {
             return this;
         }
 
-        internal CommandLineParser AddOptionWithValue(string command, string optionName, string optionHelp) {
+        internal CommandLineParser AddOption(string command,  Opt opt) {
             if (!m_options.ContainsKey(command)) {
                 m_options[command] = new Options();
             }
-            m_options[command].AddOptionHelp(optionName, optionHelp);
+
+            m_options[command].AddOption(opt);
 
             return this;
         }
@@ -70,8 +91,12 @@ namespace net.ndep {
             return result;
         }
 
+
         private class Options {
-            private IDictionary<string, string> m_optionsHelp = new Dictionary<string, string>();
+
+            internal String CommandHelp { get; set; }
+
+            private IDictionary<string, Opt> m_optionsHelp = new Dictionary<string, Opt>();
 
             public IEnumerable<string> OptionKeys { get { return m_optionsHelp.Keys;  } }
 
@@ -79,12 +104,16 @@ namespace net.ndep {
                 return m_optionsHelp.ContainsKey(optName);
             }
 
-            internal void AddOptionHelp(string optName, string optHelpText) {
-                m_optionsHelp[optName] = optHelpText;
+            internal void AddOption(Opt opt) {
+                m_optionsHelp[opt.Name] = opt;
             }
 
-            internal string GetHelpFor(string optName) {
+            internal Opt GetOptionNamed(string optName) {
                 return m_optionsHelp[optName];
+            }
+
+            internal IEnumerable<Opt> GetOptions() {
+                return m_optionsHelp.Values;
             }
         }
 
@@ -92,6 +121,10 @@ namespace net.ndep {
             private IDictionary<string, string> m_optionsValues = new Dictionary<string, string>();
 
             public String Command { get; set; }
+
+            public bool IsCommand(string cmd) {
+                return cmd.Equals(Command);
+            }
 
             internal bool HasOptionValue(string optName) {
                 return m_optionsValues.ContainsKey(optName);
@@ -112,4 +145,37 @@ namespace net.ndep {
         }
 
     }
+
+    internal class Opt {
+        public String Name { get; private set; }
+        public String HelpText { get; private set; }
+        public bool IsRequired { get; private set; }
+        public String ArgName { get; private set; }
+
+        public static Opt Named(string name) {
+            return new Opt { Name = name };
+        }
+
+        private Opt() {
+            IsRequired = true;
+        }
+
+        public Opt Required(bool required) {
+            this.IsRequired = required;
+            return this;
+        }
+
+        public Opt Help(string helpText) {
+            this.HelpText = helpText;
+            return this;
+        }
+
+        public Opt Arg(string argName) {
+            this.ArgName = argName;
+            return this;
+        }
+
+
+    }
+
 }
