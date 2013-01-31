@@ -128,13 +128,13 @@ namespace net.ndep {
         private void CopyDep(Dependency d) {
             Resource resource = LocalCache.GetResourceFor(d);
             if (!resource.Exists) {
-                throw new InvalidOperationException(String.Format("Could not find dependency '{0}'", resource.FullPath.FullName));
+                throw new InvalidOperationException(String.Format("Could not find dependency '{0}'", resource.File.FullName));
             }
             var projDir = ProjectFile.Directory;
-            var targetFile = new FileInfo(Path.Combine(projDir.FullName, d.CopyTo, resource.FullPath.Name + "." + resource.FullPath.Extension));
+            var targetFile = new FileInfo(Path.Combine(projDir.FullName, d.CopyTo, resource.File.Name + "." + resource.File.Extension));
             
-            if (!targetFile.Exists || targetFile.LastWriteTime != resource.FullPath.LastWriteTime) {
-                CopyFile(resource.FullPath, targetFile);
+            if (!targetFile.Exists || targetFile.LastWriteTime != resource.File.LastWriteTime) {
+                CopyFile(resource.File, targetFile);
             }
         }
 
