@@ -14,6 +14,7 @@ namespace net.ndep {
         public string Arch { get; set; }
         public string Runtime { get; set; }
         public Uri Url { get; set; }
+        public String CopyTo { get; set; }
 
         public IList<Dependency> Dependencies { get; set; }
 
@@ -61,6 +62,10 @@ namespace net.ndep {
             if (this.Url == null) {
                 this.Url = d.Url;
             }
+            if (String.IsNullOrWhiteSpace(this.CopyTo)) {
+                this.CopyTo = d.CopyTo;
+            }
+
             if (String.IsNullOrWhiteSpace(this.Version)) {
                 this.Version = d.Version;
             }
@@ -128,7 +133,7 @@ namespace net.ndep {
             if (Dependencies != null && Dependencies.Count > 0) {
                 depsString = "\n\t" + String.Join("\n\t", Dependencies) + "\n\t";
             }
-            return String.Format("Dependency@{0}<GroupId:{1},ArtifactId:{2},Version:{3},Ext:{4},Arch:{5},Runtime:{6},Url:'{7}',Dependencies:[{8}]>", 
+            return String.Format("Dependency@{0}<GroupId:{1},ArtifactId:{2},Version:{3},Ext:{4},Arch:{5},Runtime:{6},Url:'{7}',CopyTo:'{8}',Dependencies:[{9}]>", 
                 base.GetHashCode(),
                 GroupId,
                 ArtifactId,
@@ -137,6 +142,7 @@ namespace net.ndep {
                 Arch,
                 Runtime,
                 Url,
+                CopyTo,
                 depsString
             );
         }
