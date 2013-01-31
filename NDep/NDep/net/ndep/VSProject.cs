@@ -22,22 +22,30 @@ namespace net.ndep {
             return new VSProject(path);
         }
 
-        internal void UpdateReferences(IList<Resource> resources) {
-            UpdateReferences(resources.Select((res) => new Reference {
+        internal bool UpdateReferences(IList<Resource> resources) {
+            return UpdateReferences(resources.Select((res) => new Reference {
                 Include = res.Dep.ArtifactId,
                 HintPath = res.VSProjectPath
             }).ToList());
         }
 
-        internal void UpdateReferences(IList<Reference> references) {
-            var existing = ReadReferences();
+        /// <summary>
+        /// Update the project file with the given references. Only change the file if 
+        /// there would be an actual change tot he file required
+        /// </summary>
+        /// <param name="references"></param>
+        /// <returns>true if the project file was updated</returns>
+        internal bool UpdateReferences(IList<Reference> references) {
+            var existing = ReadReferences().Where((r)=>r.HintPath != null);
 
-            var left = existing.Where((r) => !references.Contains(r)).ToList();
-            var right = references.Where((r) => !existing.Contains(r)).ToList();
+            var left = existing.Except(references).ToList();
+            var right = references.Except(existing).ToList();
 
             if (left.Count > 0 || right.Count > 0) {
                 WriteReferences(references);
+                return true;
             }
+            return false;
         }
 
         private void WriteReferences(IList<Reference> references) {

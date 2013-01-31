@@ -39,15 +39,18 @@ namespace net.ndep {
                 new Resource(new Dependency{ArtifactId="MyChildArtifactId1"}, null, "%CACHE_PATH%\\path\\to\\child1.ext"),
                 new Resource(new Dependency{ArtifactId="MyChildArtifactId2"}, null, "%CACHE_PATH%\\path\\to\\child2.ext")
             };
-            proj.UpdateReferences(resources);
+            var changed1stTime = proj.UpdateReferences(resources);
+            Assert.True(changed1stTime);
 
             var orgWriteTime = projFile.LastWriteTime;
             //wait a bit to let clock tick
             Thread.Sleep(TimeSpan.FromSeconds(3));
-            //force an update, should check if already exist
+            //force an update, shou6ld check if already exist
             resources.Reverse();
-            proj.UpdateReferences(resources);
+            var changed2ndTime = proj.UpdateReferences(resources);
             var newWriteTime = projFile.LastWriteTime;
+            
+            Assert.False(changed2ndTime);
             Assert.AreEqual(orgWriteTime, newWriteTime);
         }
     }
