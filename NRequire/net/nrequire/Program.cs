@@ -7,7 +7,7 @@ using System.IO;
 namespace net.nrequire {
     class Program {
         private const String DEP_FILE = "nrequire.json"; 
-        private const String DEFAULT_CACHE_DIR_NAME = ".nrequire/cache";
+        private const String DEFAULT_CACHE_DIR_NAME = ".nrequire\\cache";
 
         internal DependencyCache LocalCache { get; set; }
         internal FileInfo SolutionFile { get; set; }
@@ -97,8 +97,8 @@ namespace net.nrequire {
                 };
             } else {
                 LocalCache = new DependencyCache() {
-                    VSProjectBaseSymbol = "%HOMEDRIVE%%HOMEPATH%",
-                    CacheDir = new DirectoryInfo(Path.Combine(userHomeDir, DEFAULT_CACHE_DIR_NAME))
+                    VSProjectBaseSymbol = "%HOMEDRIVE%%HOMEPATH%\\" + DEFAULT_CACHE_DIR_NAME,
+                    CacheDir = new DirectoryInfo(Path.Combine(userHomeDir,DEFAULT_CACHE_DIR_NAME))
                 };
             }
 
