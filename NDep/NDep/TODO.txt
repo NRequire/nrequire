@@ -1,0 +1,7 @@
+﻿- add version class and adopt the maven version range format
+- add ability to query repo for latest version of a given artifact, latest release etc
+- possibly cache above info and only update on change?
+- split dependency into raw and extended or something. One is for json, the other logic
+- create a dependency resolver which will do all the hard work
+- for project only use require deps, not all listed in the soln.
+

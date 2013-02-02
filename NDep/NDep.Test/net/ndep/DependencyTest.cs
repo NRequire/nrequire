@@ -29,6 +29,8 @@ namespace net.ndep {
                 Ext = "MyExt",
                 Arch = "MyArch",
                 Version = "1.2.3",
+                CopyTo = "/path/to/copy/to",
+
                 Url = new Uri("http://nowhere.com/file")
             };
 
@@ -42,6 +44,7 @@ namespace net.ndep {
             Assert.AreEqual("MyRuntime", clone.Runtime);
             Assert.AreEqual("http://nowhere.com/file", clone.Url.ToString());
             Assert.AreEqual("1.2.3", clone.Version);
+            Assert.AreEqual("/path/to/copy/to", clone.CopyTo);
         }
 
         [Test]
@@ -80,6 +83,7 @@ namespace net.ndep {
                 Ext = "MyExt",
                 Arch = "MyArch",
                 Version = "1.2.3",
+                CopyTo = "path/to/copy/to",
                 Url = new Uri("http://nowhere.com/file")
             };
 
@@ -90,6 +94,7 @@ namespace net.ndep {
             CheckMergeProp(dep, (d, val) => d.Name = val, d => d.Name, "", "MyParentVal", "MyChildVal");
             CheckMergeProp(dep, (d, val) => d.Runtime = val, d => d.Runtime, "", "MyParentVal", "MyChildVal");
             CheckMergeProp(dep, (d, val) => d.Version = val, d => d.Version, "", "MyParentVal", "MyChildVal");
+            CheckMergeProp(dep, (d, val) => d.CopyTo = val, d => d.CopyTo, "", "MyParentVal", "MyChildVal");
 
             CheckMergeProp(dep, (d, val) => d.Url = val, d => d.Url, null, new Uri("http://nowhere/myparent"), new Uri("http://nowhere/mychild"));
         }

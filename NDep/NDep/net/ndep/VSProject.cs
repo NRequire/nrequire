@@ -36,20 +36,28 @@ namespace net.ndep {
         /// <param name="references"></param>
         /// <returns>true if the project file was updated</returns>
         internal bool UpdateReferences(IList<Reference> references) {
-            var existing = ReadReferences().Where((r)=>r.HintPath != null);
+            var xmlDoc = ReadXML();
+            var existing = ReadReferences(xmlDoc).Where((r)=>r.HintPath != null).ToList();
 
-            var left = existing.Except(references).ToList();
-            var right = references.Except(existing).ToList();
-
-            if (left.Count > 0 || right.Count > 0) {
-                WriteReferences(references);
+            var update = existing.Count != references.Count;
+            if (!update) {
+                update = existing.Except(references).ToList().Count > 0;
+            }
+            if (!update) {
+                update = references.Except(existing).ToList().Count > 0;
+            }
+            if (update) {
+                WriteReferences(xmlDoc,references);
                 return true;
             }
             return false;
         }
 
         private void WriteReferences(IList<Reference> references) {
-            var xmlDoc = ReadXML();
+            WriteReferences(ReadXML(), references);
+        }
+
+        private void WriteReferences(XmlDocument xmlDoc, IList<Reference> references) {    
             var proj = xmlDoc.GetElementsByTagName("Project").Item(0) as XmlNode;
 
             XmlNode refItemGroup = null;
@@ -94,6 +102,25 @@ namespace net.ndep {
             refItemGroup.InsertBefore(frag, refItemGroup.FirstChild);
         }
 
+        internal IList<Reference> ReadReferences() {
+            return ReadReferences(ReadXML());
+        }
+
+        private IList<Reference> ReadReferences(XmlDocument xmlDoc) {
+            var references = new List<Reference>();
+            var refNodes = xmlDoc.GetElementsByTagName("Reference");
+            foreach (var refNode in refNodes) {
+                var node = refNode as XmlNode;
+                var hintNode = node.GetChildNamed("HintPath");
+                var reference = new Reference {
+                    Include = ((XmlAttribute)node.Attributes.GetNamedItem("Include")).Value,
+                    HintPath = hintNode == null ? null : hintNode.InnerXml
+                };
+                references.Add(reference);
+            }
+            return references;
+        }
+
         private XmlDocument ReadXML() {
             if (!Path.Exists) {
                 throw new FileNotFoundException(String.Format("VS project file '{0}' does not exist", Path.FullName));
@@ -136,22 +163,6 @@ namespace net.ndep {
             var reRemoveEmptyNamespace = new Regex(@"\s?xmlns\s?=\s?""""");
             var cleanXml = reRemoveEmptyNamespace.Replace(xml, "");
             return cleanXml;
-        }
-
-        internal IList<Reference> ReadReferences() {
-            var references = new List<Reference>();
-            var xmlDoc = ReadXML();
-            var refNodes = xmlDoc.GetElementsByTagName("Reference");
-            foreach (var refNode in refNodes) {
-                var node = refNode as XmlNode;
-                var hintNode = node.GetChildNamed("HintPath");
-                var reference = new Reference { 
-                    Include = ((XmlAttribute)node.Attributes.GetNamedItem("Include")).Value,
-                    HintPath = hintNode==null?null:hintNode.InnerXml
-                };
-                references.Add(reference);
-            }
-            return references;
         }
 
         public class Reference {
