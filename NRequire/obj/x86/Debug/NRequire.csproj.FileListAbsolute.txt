@@ -1,5 +1,0 @@
-U:\users\bert\workspace\net.ndep\NRequire\bin\Debug\nrequire.exe.config
-U:\users\bert\workspace\net.ndep\NRequire\bin\Debug\nrequire.exe
-U:\users\bert\workspace\net.ndep\NRequire\bin\Debug\nrequire.pdb
-U:\users\bert\workspace\net.ndep\NRequire\obj\x86\Debug\nrequire.exe
-U:\users\bert\workspace\net.ndep\NRequire\obj\x86\Debug\nrequire.pdb
