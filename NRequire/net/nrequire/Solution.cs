@@ -12,8 +12,8 @@ namespace net.nrequire {
             Dependencies = new List<Dependency>();
         }
 
-        public void MergeWithDefault(Dependency defaultDep) {
-            Dependencies = Dependency.MergeWithDefault(Dependencies, defaultDep);
+        public void ApplyDefaults() {
+            Dependencies = Dependency.MergeWithDefault(Dependencies);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace net.nrequire {
             }
         }
         public static FileInfo ResourceFileFor<T>(String relPath) {
-            var file = new FileInfo("net/nrequire/" + typeof(T).Name + relPath);
+            var file = FileFor<T>(relPath);
             if (!file.Exists) {
                 throw new FileNotFoundException(String.Format("Could not find resource file '{0}' for type {1} and relative path '{2}'", file.FullName,typeof(T).FullName, relPath));
             }
@@ -67,19 +67,23 @@ namespace net.nrequire {
         }
 
         public static FileInfo newTmpFile() {
-            return new FileInfo("C:\\tmp\\" + typeof(FileUtil).FullName + "-" + (DateTime.Now - Epoch).TotalMilliseconds);
+            return new FileInfo(Path.Combine(TmpRootPath(), (DateTime.Now - Epoch).TotalMilliseconds.ToString()));
         }
 
         public static DirectoryInfo newTmpDir() {
-            return new DirectoryInfo("C:\\tmp\\" + typeof(FileUtil).FullName + "-" + (DateTime.Now - Epoch).TotalMilliseconds);
+            return new DirectoryInfo(Path.Combine(TmpRootPath(),(DateTime.Now - Epoch).TotalMilliseconds.ToString()));
+        }
+
+        private static String TmpRootPath(){
+            return "C:\\tmp\\nunit-" + typeof(FileUtil).FullName; 
         }
 
         public static FileInfo FileFor<T>(String relPath) {
-            return new FileInfo(typeof(T).FullName.Replace(".", "/") + relPath);
+            return new FileInfo(typeof(T).FullName.Replace(".", "\\") + relPath);
         }
 
         public static DirectoryInfo DirectoryFor<T>() {
-            return new DirectoryInfo(typeof(T).FullName.Replace(".", "/"));
+            return new DirectoryInfo(typeof(T).FullName.Replace(".", "\\"));
         }
     }
 }

@@ -7,6 +7,12 @@ using System.IO;
 namespace net.nrequire {
     public class Dependency {
 
+        private static readonly Dependency DefaultDependencyValues = new Dependency { Ext = "dll", Arch = "any", Runtime = "any" };
+        private static readonly IDictionary<String,IList<String>> DefaultRelatedByExt = new Dictionary<String,IList<String>>{
+            { "dll", new[]{ "xml", "pdb" }},
+            { "exe", new[]{ "xml", "pdb" }}
+        };
+
         public string Name { get; set; }
         public string GroupId { get; set; }
         public string ArtifactId { get; set; }
@@ -18,28 +24,85 @@ namespace net.nrequire {
         public String CopyTo { get; set; }
 
         public IList<Dependency> Dependencies { get; set; }
+        /// <summary>
+        /// Dependencies which differ only in the extension which should be considered
+        /// related to this dependency. For example dll deps usually have xml and pdb 
+        /// files associated with with and these should be considered part of the dll
+        /// event though they can be considered resources/deps in their own right
+        /// </summary>
+        public IList<String> Related { get; set; }
 
         public Dependency() {
             this.Dependencies = new List<Dependency>();
         }
 
+        public static IList<Dependency> MergeWithDefault(IEnumerable<Dependency> deps) {
+            var merged = new List<Dependency>();
+            foreach (var dep in deps) {
+                merged.Add(dep.MergeWithDefault());
+            }
+            return merged;
+        }
+
+        public Dependency MergeWithDefault() {
+            var d = MergeWithParent(DefaultDependencyValues);
+            if (!d.HasRelatedDependencies()) {
+                IList<String> related;
+                if(DefaultRelatedByExt.TryGetValue(d.Ext,out related)){
+                    d.Related = new List<String>(related);
+                }
+            }
+            return d;
+        }
+
+        public IList<Dependency> GetRelatedDependencies() {
+            ValidateRequiredSet();
+            var relatedDeps = new List<Dependency>();
+            if (HasRelatedDependencies()) {
+                foreach (var ext in Related) {
+                    var d = CloneSimpleProps();
+                    d.Ext = ext;
+                    relatedDeps.Add(d);
+                }
+            }
+            return relatedDeps;
+        }
+
+        public bool HasRelatedDependencies() {
+            return Related != null && Related.Count > 0;
+        }
+
         public Dependency MergeWithParent(Dependency parent) {
             var d = Clone();
-            d.InternalMergeWithParent(parent);
+            d.FillInBlanksFrom(parent);
             return d;
         }
 
         public Dependency Clone() {
             var d = new Dependency();
-            d.InternalMergeWithParent(this);
+            d.FillInBlanksFrom(this);
             return d;
         }
 
-        private void InternalMergeWithParent(Dependency d) {
+        private Dependency CloneSimpleProps() {
+            var d = new Dependency();
+            d.FillInSimpleBlanksFrom(this);
+            return d;
+        }
+
+        private void FillInBlanksFrom(Dependency d) {
             if (d == null) {
                 return;
             }
-            if(String.IsNullOrWhiteSpace(this.Arch)){
+            FillInSimpleBlanksFrom(d);
+            this.Dependencies = MergeDependencies(d.Dependencies, this.Dependencies);
+        }
+
+        private void FillInSimpleBlanksFrom(Dependency d) {
+            if (d == null) {
+                return;
+            }
+            if (String.IsNullOrWhiteSpace(this.Arch)) {
                 this.Arch = d.Arch;
             }
             if (String.IsNullOrWhiteSpace(this.ArtifactId)) {
@@ -66,14 +129,15 @@ namespace net.nrequire {
             if (String.IsNullOrWhiteSpace(this.CopyTo)) {
                 this.CopyTo = d.CopyTo;
             }
-
+            if (this.Related == null || Related.Count == 0) {
+                this.Related = d.Related;
+            }
             if (String.IsNullOrWhiteSpace(this.Version)) {
                 this.Version = d.Version;
             }
-            this.Dependencies = MergeLists(d.Dependencies, this.Dependencies);
         }
 
-        private static IList<Dependency> MergeLists(IList<Dependency> parent, IList<Dependency> child) {
+        private static IList<Dependency> MergeDependencies(IList<Dependency> parent, IList<Dependency> child) {
             if (parent == null && child == null) {
                 return new List<Dependency>();
             }
@@ -97,14 +161,6 @@ namespace net.nrequire {
             }
             
             return new List<Dependency>(merged.Values);
-        }
-
-        public static IList<Dependency> MergeWithDefault(IEnumerable<Dependency> deps, Dependency defaultDep) {
-            var merged = new List<Dependency>();
-            foreach (var dep in deps) {
-                merged.Add(dep.MergeWithParent(defaultDep));
-            }
-            return merged;
         }
 
         public string Signature() {

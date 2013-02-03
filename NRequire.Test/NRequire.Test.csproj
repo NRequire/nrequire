@@ -67,6 +67,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="net\nrequire\ProgramTest\LocalCache\MyChildGroupId0\MyChildArtifactId0\0.0.0\runtime-MyChildRuntime0\arch-MyChildArch0\MyChildArtifactId0.ignored">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="net\nrequire\ProgramTest\LocalCache\MyChildGroupId0\MyChildArtifactId0\0.0.0\runtime-MyChildRuntime0\arch-MyChildArch0\MyChildArtifactId0.pdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="net\nrequire\ProgramTest\LocalCache\MyChildGroupId0\MyChildArtifactId0\0.0.0\runtime-MyChildRuntime0\arch-MyChildArch0\MyChildArtifactId0.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="net\nrequire\ProgramTest\LocalCache\MyChildGroupId1\MyChildArtifactId1\1.2.3\runtime-MyChildRuntime1\arch-MyChildArch1\MyChildArtifactId1.MyChildExt1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -102,7 +111,10 @@
     <Content Include="net\nrequire\ProgramTest\LocalCache\MyChildGroupId1\MyChildArtifactId1\1.2.3\runtime-MyChildRuntime1\arch-MyChildArch1\MyChildArtifactId1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="net\nrequire\ProgramTest\LocalCache\MyChildGroupId1\MyChildArtifactId1\1.2.3\runtime-MyChildRuntime1\arch-MyChildArch1\MyChildArtifactId1.pdb">
+    <None Include="net\nrequire\ProgramTest\LocalCache\MyChildGroupId1\MyChildArtifactId1\1.2.3\runtime-MyChildRuntime1\arch-MyChildArch1\MyChildArtifactId1.related">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="net\nrequire\ProgramTest\LocalCache\MyChildGroupId0\MyChildArtifactId0\0.0.0\runtime-MyChildRuntime0\arch-MyChildArch0\MyChildArtifactId0.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="net\nrequire\ProgramTest\LocalCache\MyGroupIdSolnOnly\MyArtifactId\1.2.3\runtime-MyRuntime\arch-MyArch\MyArtifactId.MyExt">

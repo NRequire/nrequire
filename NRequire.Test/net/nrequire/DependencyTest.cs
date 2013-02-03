@@ -30,7 +30,7 @@ namespace net.nrequire {
                 Arch = "MyArch",
                 Version = "1.2.3",
                 CopyTo = "/path/to/copy/to",
-
+                Related = new[]{"ext1","ext2"},
                 Url = new Uri("http://nowhere.com/file")
             };
 
@@ -45,10 +45,12 @@ namespace net.nrequire {
             Assert.AreEqual("http://nowhere.com/file", clone.Url.ToString());
             Assert.AreEqual("1.2.3", clone.Version);
             Assert.AreEqual("/path/to/copy/to", clone.CopyTo);
+            Assert.AreEqual(new List<String> { "ext1","ext2" }, clone.Related);
+
         }
 
         [Test]
-        public void CloneDepsTest() {
+        public void CloneChildDependenciesTest() {
 
             var dep = new Dependency {
                 Dependencies = new List<Dependency> { 
@@ -84,6 +86,7 @@ namespace net.nrequire {
                 Arch = "MyArch",
                 Version = "1.2.3",
                 CopyTo = "path/to/copy/to",
+                Related = new[] { "ext1", "ext2" },
                 Url = new Uri("http://nowhere.com/file")
             };
 
@@ -95,8 +98,13 @@ namespace net.nrequire {
             CheckMergeProp(dep, (d, val) => d.Runtime = val, d => d.Runtime, "", "MyParentVal", "MyChildVal");
             CheckMergeProp(dep, (d, val) => d.Version = val, d => d.Version, "", "MyParentVal", "MyChildVal");
             CheckMergeProp(dep, (d, val) => d.CopyTo = val, d => d.CopyTo, "", "MyParentVal", "MyChildVal");
+            CheckMergeProp(dep, (d, val) => d.Related = val, d => d.Related, List(), List("MyParentVal"), List("MyChildVal"));
 
             CheckMergeProp(dep, (d, val) => d.Url = val, d => d.Url, null, new Uri("http://nowhere/myparent"), new Uri("http://nowhere/mychild"));
+        }
+
+        private static IList<String> List(params String[] vals) {
+            return new List<String>(vals);
         }
 
         private void CheckMergeProp<T>(Dependency d, Action<Dependency, T> setter, Func<Dependency, T> getter, T emptyVal, T setParentVal,T setChildVal) {

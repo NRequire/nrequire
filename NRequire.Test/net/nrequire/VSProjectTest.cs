@@ -26,7 +26,8 @@ namespace net.nrequire {
             var expectTxt = FileUtil.ReadResourceFileAsString<VSProjectTest>("_expect.csproj.xml");
             var actualTxt = FileUtil.ReadFileAsString(projFile);
             Assert.AreEqual(expectTxt,actualTxt);
-            
+
+            projFile.Delete();
         }
 
         [Test]
@@ -52,6 +53,8 @@ namespace net.nrequire {
             
             Assert.False(changed2ndTime);
             Assert.AreEqual(orgWriteTime, newWriteTime);
+
+            projFile.Delete();
         }
     }
 }

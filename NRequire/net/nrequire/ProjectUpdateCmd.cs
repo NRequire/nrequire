@@ -9,7 +9,6 @@ namespace net.nrequire {
     internal class ProjectUpdateCommand {
         private const String DEP_FILE = "nrequire.json";
 
-        private static readonly Dependency DefaultDependencyValues = new Dependency { Ext = "dll", Arch = "any", Runtime = "any" };
         private readonly JsonReader m_jsonReader = new JsonReader();
 
         internal DependencyCache LocalCache { get; set; }
@@ -25,8 +24,13 @@ namespace net.nrequire {
             CheckNotNotNull(SolutionCache, "SolutionCache");
 
             var deps = ReadProjectDependencies();
-            CopyRequired(deps);
-            UpdateVSProject(deps);
+            var resources = ResolveResources(deps);
+            var related = ResolveRelatedResources(deps);
+
+            CopyRequired(resources);
+            CopyRequired(related);
+
+            UpdateVSProject(resources);
         }
 
         private static void CheckNotNotNull<T>(T val, String name) where T:class {
@@ -36,22 +40,18 @@ namespace net.nrequire {
         }
 
         //and deps marked with a copyTo property will be copied into the appropriate destination 
-        private void CopyRequired(IEnumerable<Dependency> deps) {
-            foreach (var d in deps) {
-                if (!String.IsNullOrEmpty(d.CopyTo)) {
-                    CopyDep(d);
+        private void CopyRequired(IEnumerable<Resource> resources) {
+            foreach (var r in resources) {
+                if (!String.IsNullOrEmpty(r.Dep.CopyTo)) {
+                    CopyResource(r);
                 }
             }
         }
 
-        private void CopyDep(Dependency d) {
-            Resource resource = SolutionCache.GetResourceFor(d);
-            if (!resource.Exists) {
-                throw new InvalidOperationException(String.Format("Could not find dependency '{0}'", resource.File.FullName));
-            }
+        private void CopyResource(Resource resource) {
             var projDir = ProjectFile.Directory;
             //TODO:look if absolute or relative?
-            var targetFile = new FileInfo(Path.Combine(projDir.FullName, d.CopyTo, resource.File.Name + "." + resource.File.Extension));
+            var targetFile = new FileInfo(Path.Combine(projDir.FullName, resource.Dep.CopyTo, resource.File.Name));
 
             if (!targetFile.Exists || targetFile.LastWriteTime != resource.TimeStamp) {
                 resource.CopyTo(targetFile);
@@ -60,19 +60,16 @@ namespace net.nrequire {
 
         private IList<Dependency> ReadProjectDependencies() {
             var soln = m_jsonReader.ReadSolution(LookupJsonFileFor(SolutionFile));
-            soln.MergeWithDefault(DefaultDependencyValues);
+            soln.ApplyDefaults();
             var proj = m_jsonReader.ReadProject(LookupJsonFileFor(ProjectFile));
-            proj.MergeWithSolution(soln);
-            proj.MergeWithDefault(DefaultDependencyValues);
+            proj.ApplySolution(soln);
+            proj.ApplyDefaults();
             proj.ValidateDependenciesSet();
 
             return proj.Dependencies;
         }
 
-        public void UpdateVSProject(IEnumerable<Dependency> deps) {
-            var resources = ToResources(deps);
-            EnsureResourcesExist(resources);
-
+        public void UpdateVSProject(IEnumerable<Resource> resources) {
             var changed = VSProject
                 .FromPath(ProjectFile)
                 .UpdateReferences(resources);
@@ -82,26 +79,43 @@ namespace net.nrequire {
             }
         }
 
-        private IList<Resource> ToResources(IEnumerable<Dependency> deps) {
+        private IList<Resource> ResolveResources(IEnumerable<Dependency> deps) {
+            var notFound = new List<Resource>();
             var resources = new List<Resource>();
             //now update the project!
             foreach (var d in deps) {
                 var resource = SolutionCache.GetResourceFor(d);
-                resources.Add(resource);
-            }
-            return resources;
-        }
-
-        private void EnsureResourcesExist(IEnumerable<Resource> resources) {
-            var notFound = new List<Resource>();
-            foreach (var resource in resources) {
                 if (!resource.Exists) {
                     notFound.Add(resource);
                 }
+                resources.Add(resource);
             }
             if (notFound.Count > 0) {
                 throw new InvalidOperationException(String.Format("Could not find dependencies [\n\t{0}\n\t]", String.Join<Resource>(",\n\t", notFound)));
             }
+            return resources;
+        }
+
+        private IList<Resource> ResolveRelatedResources(IEnumerable<Dependency> deps) {
+            var resources = new List<Resource>();
+            foreach (var dep in deps) {
+                if( dep.HasRelatedDependencies()){
+                    resources.AddRange(ResolveRelatedResources(dep));
+                }
+            }
+            return resources;
+        }
+
+        private IList<Resource> ResolveRelatedResources(Dependency dep) {
+            var resources = new List<Resource>();
+            var related = dep.GetRelatedDependencies();
+            foreach (var d in related) {
+                var resource = SolutionCache.GetResourceFor(d);
+                if (resource.Exists) {
+                    resources.Add(resource);
+                }
+            }
+            return resources;
         }
 
         private FileInfo LookupJsonFileFor(FileInfo file) {

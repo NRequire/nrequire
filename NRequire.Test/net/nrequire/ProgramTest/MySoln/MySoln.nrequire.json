@@ -1,13 +1,24 @@
 ﻿{
 	dependencies:[
 		{
+			groupId:"MyChildGroupId0",
+			artifactId:"MyChildArtifactId0",
+			version:"0.0.0",
+			arch:"MyChildArch0",
+			runtime:"MyChildRuntime0",
+			url:"http://nowhere.com/mychild0",
+			copyTo:"MyLibDir"
+		},
+		{
 			groupId:"MyChildGroupId1",
 			artifactId:"MyChildArtifactId1",
 			version:"1.2.3",
 			arch:"MyChildArch1",
 			ext:"MyChildExt1",
 			runtime:"MyChildRuntime1",
-			url:"http://nowhere.com/mychild1"
+			url:"http://nowhere.com/mychild1",
+			related:["related"],
+			copyTo:"MyLibDir"
 		},
 		{
 			groupId:"MyChildGroupId2",

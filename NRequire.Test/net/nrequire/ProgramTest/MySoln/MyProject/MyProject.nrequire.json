@@ -1,6 +1,12 @@
 ﻿{
 	dependencies:[
 		{
+			groupId:"MyChildGroupId0",
+			artifactId:"MyChildArtifactId0",
+			arch:"MyChildArch0",
+			runtime:"MyChildRuntime0"
+		},
+		{
 			groupId:"MyChildGroupId1",
 			artifactId:"MyChildArtifactId1",
 			arch:"MyChildArch1",

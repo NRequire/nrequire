@@ -18,11 +18,11 @@ namespace net.nrequire {
             }
         }
 
-        public void MergeWithDefault(Dependency defaultDep) {
-            Dependencies = Dependency.MergeWithDefault(Dependencies, defaultDep);
+        public void ApplyDefaults() {
+            Dependencies = Dependency.MergeWithDefault(Dependencies);
         }
 
-        public void MergeWithSolution(Solution soln) {
+        public void ApplySolution(Solution soln) {
             //pick just the ones mentioned in the project
             MergeWith(soln.Dependencies);
         }
