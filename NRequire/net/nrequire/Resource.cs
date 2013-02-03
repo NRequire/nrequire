@@ -10,10 +10,10 @@ namespace net.nrequire {
         public String VSProjectPath { get; private set; }
         public FileInfo File { get; private set; }
         public bool Exists { get { return File.Exists; } }
-        public Dependency Dep { get;set; }
+        public SpecificDependency Dep { get; set; }
         public DateTime TimeStamp { get { return File.LastWriteTime;  } }
 
-        public Resource(Dependency dep, FileInfo fullPath, String vsProjectPath) {
+        public Resource(SpecificDependency dep, FileInfo fullPath, String vsProjectPath) {
             Dep = dep;
             File = fullPath;
             VSProjectPath = vsProjectPath;

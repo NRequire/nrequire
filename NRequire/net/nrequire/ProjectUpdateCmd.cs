@@ -23,7 +23,7 @@ namespace net.nrequire {
             CheckNotNotNull(LocalCache, "LocalCache");
             CheckNotNotNull(SolutionCache, "SolutionCache");
 
-            var deps = ReadProjectDependencies();
+            var deps = ResolveDependencies();
             var resources = ResolveResources(deps);
             var related = ResolveRelatedResources(deps);
 
@@ -58,11 +58,16 @@ namespace net.nrequire {
             }
         }
 
-        private IList<Dependency> ReadProjectDependencies() {
+        private IList<SpecificDependency> ResolveDependencies() {
             var soln = m_jsonReader.ReadSolution(LookupJsonFileFor(SolutionFile));
             var proj = m_jsonReader.ReadProject(LookupJsonFileFor(ProjectFile));
 
-            return new Resolver().ResolveProjectDeps(soln, proj);
+            soln.ApplyDefaults();
+            proj.ApplyDefaults();
+
+            var deps = new Resolver().ResolveDependencies(soln, proj);
+
+            return deps;
         }
 
         public void UpdateVSProject(IEnumerable<Resource> resources) {
@@ -75,7 +80,7 @@ namespace net.nrequire {
             }
         }
 
-        private IList<Resource> ResolveResources(IEnumerable<Dependency> deps) {
+        private IList<Resource> ResolveResources(IEnumerable<SpecificDependency> deps) {
             var notFound = new List<Resource>();
             var resources = new List<Resource>();
             //now update the project!
@@ -92,7 +97,7 @@ namespace net.nrequire {
             return resources;
         }
 
-        private IList<Resource> ResolveRelatedResources(IEnumerable<Dependency> deps) {
+        private IList<Resource> ResolveRelatedResources(IEnumerable<SpecificDependency> deps) {
             var resources = new List<Resource>();
             foreach (var dep in deps) {
                 if( dep.HasRelatedDependencies()){
@@ -102,10 +107,9 @@ namespace net.nrequire {
             return resources;
         }
 
-        private IList<Resource> ResolveRelatedResources(Dependency dep) {
+        private IList<Resource> ResolveRelatedResources(SpecificDependency dep) {
             var resources = new List<Resource>();
-            var related = dep.GetRelatedDependencies();
-            foreach (var d in related) {
+            foreach (var d in dep.Related) {
                 var resource = SolutionCache.GetResourceFor(d);
                 if (resource.Exists) {
                     resources.Add(resource);

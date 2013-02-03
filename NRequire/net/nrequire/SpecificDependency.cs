@@ -6,36 +6,47 @@ using System.Text;
 namespace net.nrequire {
 
     public class SpecificDependency {
-        public string Name { get; set; }
-        public string GroupId { get; set; }
-        public string ArtifactId { get; set; }
-        public string Version { get; set; }
-        public String Ext { get; set; }
-        public string Arch { get; set; }
-        public string Runtime { get; set; }
-        public Uri Url { get; set; }
-        public String CopyTo { get; set; }
-        public IList<String> Related { get; set; }
 
-        public void ValidateRequiredSet() {
-            if (String.IsNullOrWhiteSpace(GroupId)) {
-                throw new ArgumentException("Expect GroupId to be set on " + this);
+        public string Name { get; internal set; }
+        public string GroupId { get; internal set; }
+        public string ArtifactId { get; internal set; }
+        public Version Version { get; internal set; }
+        public String Ext { get; internal set; }
+        public string Arch { get; internal set; }
+        public string Runtime { get; internal set; }
+        public Uri Url { get; internal set; }
+        public String CopyTo { get; internal set; }
+        public IList<SpecificDependency> Related { get; internal set; }
+
+        public IList<SpecificDependency> GetClonesWithExtensions(IList<String> extensions) {
+            var clones = new List<SpecificDependency>();
+            if (extensions != null && extensions.Count > 0) {
+                foreach (var ext in extensions) {
+                    var d = Clone();
+                    d.Ext = ext;
+                    clones.Add(d);
+                }
             }
-            if (String.IsNullOrWhiteSpace(ArtifactId)) {
-                throw new ArgumentException("Expect ArtifactId to be set on " + this);
-            }
-            if (String.IsNullOrWhiteSpace(Version)) {
-                throw new ArgumentException("Expect Version to be set on " + this);
-            }
-            if (String.IsNullOrWhiteSpace(Ext)) {
-                throw new ArgumentException("Expect Extension to be set on " + this);
-            }
-            if (String.IsNullOrWhiteSpace(Arch)) {
-                throw new ArgumentException("Expect Arch to be set on " + this);
-            }
-            if (String.IsNullOrWhiteSpace(Runtime)) {
-                throw new ArgumentException("Expect Runtime to be set on " + this);
-            }
+            return clones;
+        }
+
+        private SpecificDependency Clone() {
+            return new SpecificDependency {
+                Arch = Arch,
+                ArtifactId = ArtifactId,
+                CopyTo = CopyTo,
+                Ext = Ext,
+                GroupId = GroupId,
+                Name = Name,
+                Related = Related==null?new List<SpecificDependency>():new List<SpecificDependency>(Related),
+                Runtime = Runtime,
+                Url = Url,
+                Version = Version
+            };
+        }
+
+        public bool HasRelatedDependencies() {
+            return Related != null && Related.Count > 0;
         }
 
         public override string ToString() {

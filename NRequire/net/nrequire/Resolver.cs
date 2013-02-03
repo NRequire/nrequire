@@ -7,17 +7,14 @@ using System.Text;
 namespace net.nrequire {
     public class Resolver {
 
-        public IList<Dependency> ResolveProjectDeps(Solution soln, Project proj) {
-            soln.ApplyDefaults();
-            proj.ApplyDefaults();
-
+        public IList<SpecificDependency> ResolveDependencies(Solution soln, Project proj) {
             ValidateReadyForMerge(soln.Dependencies);
             ValidateReadyForMerge(proj.Dependencies);
 
             var deps = MergeDeps(soln, proj);
             ValidateAllSet(deps);
 
-            return deps;
+            return deps.Select((d)=>Resolve(d)).ToList();
         }
 
         private void ValidateReadyForMerge(IEnumerable<Dependency> deps) {
@@ -33,10 +30,6 @@ namespace net.nrequire {
         }
 
         private IList<Dependency> MergeDeps(Solution soln, Project proj) {
-            if (soln.Dependencies.Count == 0) {
-                return new List<Dependency>(proj.Dependencies);
-            }
-
             var lookup = soln.Dependencies.ToDictionary(d => d.Signature());
 
             var merged = new Dictionary<string, Dependency>();
@@ -71,8 +64,21 @@ namespace net.nrequire {
             return deps;
         }
 
-        internal IList<Dependency> ToSpecificDependencies() {
-            return Dependencies;
+        private static SpecificDependency Resolve(Dependency dep) {
+            //TODO:apply version selection, ranges etc
+            var specific = new SpecificDependency {
+                Arch = dep.Arch,
+                ArtifactId = dep.ArtifactId,
+                CopyTo = dep.CopyTo,
+                Ext = dep.Ext,
+                GroupId = dep.GroupId,
+                Name = dep.Name,
+                Runtime = dep.Runtime,
+                Url = dep.Url,
+                Version = Version.Parse(dep.Version)
+            };
+            specific.Related = specific.GetClonesWithExtensions(dep.Related);
+            return specific;
         }
     }
 }

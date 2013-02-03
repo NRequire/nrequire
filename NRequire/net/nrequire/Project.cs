@@ -5,17 +5,18 @@ using System.Text;
 
 namespace net.nrequire {
     public class Project {
+        private static readonly Dependency DefaultDependencyValues = new Dependency { Arch = "any", Runtime = "any" };
 
         public IList<Dependency> Dependencies { get;set;}
         public Dependency DependencyDefaults { get; set; }
 
         public Project() {
             Dependencies = new List<Dependency>();
-            DependencyDefaults = Dependency.DefaultDependency();
+            DependencyDefaults = DefaultDependencyValues.Clone();
         }
 
         public void ApplyDefaults() {
-            DependencyDefaults = DependencyDefaults.MergeWithDefault(Dependency.DefaultDependency());
+            DependencyDefaults = DependencyDefaults == null ? DefaultDependencyValues.Clone() : DependencyDefaults.MergeWithDefault(DefaultDependencyValues);
             Dependencies = Dependency.MergeWithDefault(Dependencies, DependencyDefaults);
         }
     }

@@ -7,8 +7,6 @@ using System.IO;
 namespace net.nrequire {
     public class Dependency {
 
-        private static readonly Dependency DefaultDependencyValues = new Dependency { Ext = "dll", Arch = "any", Runtime = "any" };
-        
         private static readonly IDictionary<String,IList<String>> DefaultRelatedByExt = new Dictionary<String,IList<String>>{
             { "dll", new[]{ "xml", "pdb" }},
             { "exe", new[]{ "xml", "pdb" }}
@@ -37,10 +35,6 @@ namespace net.nrequire {
             this.Dependencies = new List<Dependency>();
         }
 
-        public static Dependency DefaultDependency() {
-            return DefaultDependencyValues.Clone();
-        }
-
         public static IList<Dependency> MergeWithDefault(IEnumerable<Dependency> deps,Dependency defaultDep) {
             var merged = new List<Dependency>();
             foreach (var dep in deps) {
@@ -51,26 +45,13 @@ namespace net.nrequire {
 
         public Dependency MergeWithDefault(Dependency defaultDep) {
             var d = MergeWithParent(defaultDep);
-            if (!d.HasRelatedDependencies()) {
+            if (!d.HasRelatedDependencies() && d.Ext != null) {
                 IList<String> related;
                 if(DefaultRelatedByExt.TryGetValue(d.Ext,out related)){
                     d.Related = new List<String>(related);
                 }
             }
             return d;
-        }
-
-        public IList<Dependency> GetRelatedDependencies() {
-            ValidateRequiredSet();
-            var relatedDeps = new List<Dependency>();
-            if (HasRelatedDependencies()) {
-                foreach (var ext in Related) {
-                    var d = CloneSimpleProps();
-                    d.Ext = ext;
-                    relatedDeps.Add(d);
-                }
-            }
-            return relatedDeps;
         }
 
         public bool HasRelatedDependencies() {
@@ -95,7 +76,7 @@ namespace net.nrequire {
             return d;
         }
 
-        private void FillInBlanksFrom(Dependency d) {
+        public void FillInBlanksFrom(Dependency d) {
             if (d == null) {
                 return;
             }

@@ -12,11 +12,11 @@ namespace net.nrequire {
         public DirectoryInfo CacheDir { get; set; }
         public String VSProjectBaseSymbol { get; set; }
 
-        public bool ContainsResource(Dependency d) {
+        public bool ContainsResource(SpecificDependency d) {
             return GetResourceFor(d).Exists;
         }
 
-        public Resource GetResourceFor(Dependency d) {
+        public Resource GetResourceFor(SpecificDependency d) {
             var relPath = GetRelPathFor(d);
             var file = new FileInfo(Path.Combine(CacheDir.FullName,relPath));
             //TODO:if SNAPSHOT,then check localcache timestamp
@@ -29,11 +29,11 @@ namespace net.nrequire {
             return new Resource(d, file, VSProjectBaseSymbol + "\\" + relPath);
         }
 
-        private String GetRelPathFor(Dependency d) {
+        private String GetRelPathFor(SpecificDependency d) {
             var paths = new List<string>();
 
             var basePath = String.Format(
-                "{0}\\{1}\\{2}",d.GroupId, d.ArtifactId, d.Version
+                "{0}\\{1}\\{2}.{3}.{4}", d.GroupId, d.ArtifactId, d.Version.Major, d.Version.Minor, d.Version.Revision
             );
             paths.Add(basePath);
             if (!String.IsNullOrEmpty(d.Runtime)) {
