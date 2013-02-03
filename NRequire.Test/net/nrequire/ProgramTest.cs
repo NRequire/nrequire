@@ -35,11 +35,22 @@ namespace net.nrequire {
             Assert.IsTrue(refs[0].HintPath.StartsWith("$(SolutionDir)\\.cache"));
             Assert.IsTrue(refs[1].HintPath.StartsWith("$(SolutionDir)\\.cache"));
 
-            //check updated
+            //check all dependency resources are also copied across (like .xml and .pdb files)
+            var solnCacheDir = new DirectoryInfo(solnDir.FullName + "\\.cache");
 
+            Assert.IsTrue(solnDir.Exists);
+            //AssertDepResourceExists(solnCacheDir, "MyChildGroupId1\\MyChildArtifactId1\\1.2.3\\runtime-MyChildRuntime1\\arch-MyChildArch1\\MyChildArtifactId1.xml");
+            //AssertDepResourceExists(solnCacheDir, "MyChildGroupId1\\MyChildArtifactId1\\1.2.3\\runtime-MyChildRuntime1\\arch-MyChildArch1\\MyChildArtifactId1.pdb");
+            
             solnDir.Delete(true);
         }
 
+        private static void AssertDepResourceExists(DirectoryInfo cacheDir,String relPath) {
+            var file = new FileInfo(Path.Combine(cacheDir.FullName, relPath));
+            if (!file.Exists) {
+                Assert.Fail("Dependency associated file '{0}' was not copied", file.FullName);
+            }
+        }
         private void GenerateFileAt(FileInfo file) {
             var random = new Random();
             var totalBytesWritten = 0;
