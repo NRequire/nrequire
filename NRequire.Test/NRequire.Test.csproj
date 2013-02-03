@@ -92,12 +92,15 @@
     <None Include="net\nrequire\JsonReaderTest.depsfile1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="net\nrequire\ProgramTest\MySoln\MyProject\nrequire.json">
+    <Content Include="net\nrequire\ProgramTest\MySoln\MyProject\MyProject.nrequire.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="net\nrequire\ProgramTest\MySoln\nrequire.json">
+    <Content Include="net\nrequire\ProgramTest\MySoln\MySoln.nrequire.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="net\nrequire\ProgramTest\LocalCache\MyGroupIdSolnOnly\1.2.3\runtime-MyRuntime\arch-MyArch\MyArtifactId.MyExt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

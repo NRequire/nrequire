@@ -12,7 +12,7 @@ namespace net.nrequire {
 
         [Test]
         public void HappyPathTest() {
-            var resourceDir = new DirectoryInfo("net/nrequire/" + typeof(ProgramTest).Name);
+            var resourceDir = FileUtil.DirectoryFor<ProgramTest>();
             var localCacheDir = new DirectoryInfo(Path.Combine(resourceDir.FullName,"LocalCache"));
 
             var solnDir = FileUtil.CopyToTmpDir(new DirectoryInfo(Path.Combine(resourceDir.FullName, "MySoln")));
@@ -30,6 +30,7 @@ namespace net.nrequire {
                .ReadReferences()
                .Where((reference) => reference.HintPath != null)
                .ToList();
+            //Expect to ignore dependencies in soln's nrequire.json but not in projects
             Assert.AreEqual(2, refs.Count);
             Assert.IsTrue(refs[0].HintPath.StartsWith("$(SolutionDir)\\.cache"));
             Assert.IsTrue(refs[1].HintPath.StartsWith("$(SolutionDir)\\.cache"));

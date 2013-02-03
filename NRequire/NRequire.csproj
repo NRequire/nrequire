@@ -72,7 +72,9 @@
     <Compile Include="net\nrequire\JsonReader.cs" />
     <Compile Include="net\nrequire\DependencyCache.cs" />
     <Compile Include="net\nrequire\Program.cs" />
+    <Compile Include="net\nrequire\Project.cs" />
     <Compile Include="net\nrequire\Resource.cs" />
+    <Compile Include="net\nrequire\Solution.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="net\nrequire\VSProject.cs" />
   </ItemGroup>

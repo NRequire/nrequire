@@ -77,5 +77,9 @@ namespace net.nrequire {
         public static FileInfo FileFor<T>(String relPath) {
             return new FileInfo(typeof(T).FullName.Replace(".", "/") + relPath);
         }
+
+        public static DirectoryInfo DirectoryFor<T>() {
+            return new DirectoryInfo(typeof(T).FullName.Replace(".", "/"));
+        }
     }
 }

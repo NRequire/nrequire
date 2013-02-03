@@ -8,16 +8,28 @@ namespace net.nrequire {
 
         private readonly JavaScriptSerializer m_serializer = new JavaScriptSerializer();
 
-        public Dependency ReadDependency(FileInfo depFile) {
-            if (!depFile.Exists) {
-                throw new ArgumentException(String.Format("Could not read json dependency file: '{0}'", depFile.FullName));
+        public Solution ReadSolution(FileInfo jsonFile) {
+            return Read<Solution>(jsonFile);
+        }
+
+        public Project ReadProject(FileInfo jsonFile) {
+            return Read<Project>(jsonFile);
+        }
+
+        public Dependency ReadDependency(FileInfo jsonFile) {
+            return Read<Dependency>(jsonFile);
+        }
+
+        public T Read<T>(FileInfo jsonFile) {
+            if (!jsonFile.Exists) {
+                throw new ArgumentException(String.Format("Could not read json dependency file: '{0}'", jsonFile.FullName));
             }
 
             try {
-                var json = ReadFileAsString(depFile);
-                return m_serializer.Deserialize<Dependency>(json);
+                var json = ReadFileAsString(jsonFile);
+                return m_serializer.Deserialize<T>(json);
             } catch (Exception e) {
-                throw new Exception(String.Format("Error while trying to parse '{0}'",depFile.FullName), e);
+                throw new Exception(String.Format("Error while trying to parse '{0}'", jsonFile.FullName), e);
             }
         }
 

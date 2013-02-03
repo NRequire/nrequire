@@ -126,14 +126,14 @@ namespace net.nrequire {
         }
 
         public void UpdateProject() {
-            var d = ReadProjectDependency();
-            CopyRequired(d);
-            UpdateProjectReferences(d);
+            var deps = ReadProjectDependency();
+            CopyRequired(deps);
+            UpdateProjectReferences(deps);
         }
 
         //and deps marked with a copyTo property will be copied into the appropriate destination 
-        private void CopyRequired(Dependency dep) {
-            foreach (var d in dep.Dependencies) {
+        private void CopyRequired(IEnumerable<Dependency> deps) {
+            foreach (var d in deps) {
                 if(!String.IsNullOrEmpty(d.CopyTo)){
                     CopyDep(d);
                 }
@@ -154,15 +154,15 @@ namespace net.nrequire {
             }
         }
 
-        private Dependency ReadProjectDependency() {
-            var solnDep = ReadDepFromJsonForFile(SolutionFile);
-            var projDep = ReadDepFromJsonForFile(ProjectFile);
-            var merged = projDep.MergeWithParent(solnDep);
-            return merged;
+        private IList<Dependency> ReadProjectDependency() {
+            var soln = m_depsReader.ReadSolution(FindJsonFileFor(SolutionFile));
+            var proj = m_depsReader.ReadProject(FindJsonFileFor(ProjectFile));
+            var mergedProj = proj.MergeWith(soln);
+            return mergedProj.Dependencies;
         }
 
-        public void UpdateProjectReferences(Dependency projectDep) {
-            var resources = ToResources(projectDep);
+        public void UpdateProjectReferences(IEnumerable<Dependency> deps) {
+            var resources = ToResources(deps);
             EnsureResourcesExist(resources);
 
             var changed = VSProject
@@ -174,10 +174,10 @@ namespace net.nrequire {
             }
         }
 
-        private IList<Resource> ToResources(Dependency dependency) {
+        private IList<Resource> ToResources(IEnumerable<Dependency> deps) {
             var resources = new List<Resource>();
             //now update the project!
-            foreach (var child in dependency.Dependencies) {
+            foreach (var child in deps) {
                 var merged = child.MergeWithParent(DefaultDependencyValues);
                 merged.ValidateRequiredSet();
                 Resource resource = SolutionCache.GetResourceFor(merged);
@@ -198,12 +198,25 @@ namespace net.nrequire {
             }
         }
 
-        private Dependency ReadDepFromJsonForFile(FileInfo file) {
-            var jsonFile = new FileInfo(Path.Combine(file.DirectoryName, file.Name + "." + DEP_FILE));
-            if (!jsonFile.Exists) {
-                jsonFile = new FileInfo(Path.Combine(file.DirectoryName, DEP_FILE));
+        private FileInfo FindJsonFileFor(FileInfo file) {
+            var jsonFileByName = new FileInfo(Path.Combine(file.DirectoryName, FileNameMinusExtension(file) + "." + DEP_FILE));
+            if (jsonFileByName.Exists) {
+                return jsonFileByName;
             }
-            return m_depsReader.ReadDependency(jsonFile);
+            var jsonFile = new FileInfo(Path.Combine(file.DirectoryName, DEP_FILE));
+            if (!jsonFile.Exists) {
+                throw new ArgumentException(String.Format("Neither json file '{0}' or '{1}' exists", jsonFileByName.FullName, jsonFile.FullName));
+            }
+            return jsonFile;
+        }
+
+        private static String FileNameMinusExtension(FileInfo file) {
+            var name = file.Name;
+            var lastDot = name.IndexOf('.');
+            if (lastDot > 0) {
+                return name.Substring(0, lastDot);
+            }
+            return name;
         }
 
         private class FailBuildException : Exception {

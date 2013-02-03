@@ -69,10 +69,10 @@ namespace net.nrequire {
             if (String.IsNullOrWhiteSpace(this.Version)) {
                 this.Version = d.Version;
             }
-            this.Dependencies = MergsDeps(d.Dependencies, this.Dependencies);
+            this.Dependencies = MergeLists(d.Dependencies, this.Dependencies);
         }
 
-        private IList<Dependency> MergsDeps(IList<Dependency> parent, IList<Dependency> child) {
+        private static IList<Dependency> MergeLists(IList<Dependency> parent, IList<Dependency> child) {
             if (parent == null && child == null) {
                 return new List<Dependency>();
             }

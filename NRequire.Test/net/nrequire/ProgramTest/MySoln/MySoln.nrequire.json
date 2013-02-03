@@ -17,6 +17,15 @@
 			ext:"MyChildExt2",
 			runtime:"MyChildRuntime2",
 			url:"http://nowhere.com/mychild2"
+		},
+		{
+			groupId:"MyGroupIdSolnOnly",
+			artifactId:"MyArtifactId",
+			version:"1.2.3",
+			arch:"MyArch",
+			ext:"MyExt",
+			runtime:"MyRuntime",
+			url:"http://nowhere.com/myUrl"
 		}
 	]
 }
