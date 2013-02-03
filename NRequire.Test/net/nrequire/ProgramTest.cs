@@ -31,10 +31,13 @@ namespace net.nrequire {
                .Where((reference) => reference.HintPath != null)
                .ToList();
             //Expect to ignore dependencies in soln's nrequire.json but not in projects
-            Assert.AreEqual(3, refs.Count);
-            Assert.IsTrue(refs[0].HintPath.StartsWith("$(SolutionDir)\\.cache"));
-            Assert.IsTrue(refs[1].HintPath.StartsWith("$(SolutionDir)\\.cache"));
-            Assert.IsTrue(refs[2].HintPath.StartsWith("$(SolutionDir)\\.cache"));
+
+            Assert.IsTrue(refs[0].HintPath.StartsWith("$(SolutionDir)\\.cache\\MyChildGroupId0"));
+            Assert.IsTrue(refs[1].HintPath.StartsWith("$(SolutionDir)\\.cache\\MyChildGroupId1"));
+            Assert.IsTrue(refs[2].HintPath.StartsWith("$(SolutionDir)\\.cache\\MyChildGroupId2"));
+            Assert.IsTrue(refs[3].HintPath.StartsWith("$(SolutionDir)\\.cache\\TransitiveGroupId"));
+
+            Assert.AreEqual(4, refs.Count);
 
             //check all dependency resources are also copied across (like .xml and .pdb files)
             var solnCacheDir = new DirectoryInfo(solnDir.FullName + "\\.cache");
@@ -56,6 +59,8 @@ namespace net.nrequire {
 
             AssertDependencyCopied(projDir, "MyLibDir\\MyChildArtifactId1.MyChildExt1");
             AssertDependencyCopied(projDir, "MyLibDir\\MyChildArtifactId1.related");
+
+            AssertDependencyCopied(projDir, "MyLibDir\\TransitiveArtifactId.TransitiveExt");
 
             solnDir.Delete(true);
         }

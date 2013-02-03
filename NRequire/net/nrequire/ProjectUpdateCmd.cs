@@ -63,10 +63,10 @@ namespace net.nrequire {
             soln.ApplyDefaults();
             var proj = m_jsonReader.ReadProject(LookupJsonFileFor(ProjectFile));
             proj.ApplySolution(soln);
-            proj.ApplyDefaults();
+            proj.ApplyDefaults(); 
             proj.ValidateDependenciesSet();
 
-            return proj.Dependencies;
+            return proj.GetResolvedDependencies();
         }
 
         public void UpdateVSProject(IEnumerable<Resource> resources) {

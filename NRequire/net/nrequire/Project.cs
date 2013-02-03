@@ -32,18 +32,42 @@ namespace net.nrequire {
                 return;
             }
 
-            var merged = Dependencies.ToDictionary(d => d.Signature());
-            foreach (var solnDep in solnDeps) {
-                var key = solnDep.Signature();
-                //only add if project lists it
-                if (merged.ContainsKey(key)) {
-                    var projDep = merged[key];
-                    merged.Remove(key);
-                    merged[key] = projDep.Clone().MergeWithParent(solnDep);
-                } 
+            var lookup = solnDeps.ToDictionary(d => d.Signature());
+     
+            var merged = new Dictionary<string,Dependency>();
+            foreach (var dep in Dependencies) {
+                var key = dep.Signature();
+                if (lookup.ContainsKey(key)) {
+                    var solnDep = lookup[key];
+                    merged[key] = dep.Clone().MergeWithParent(solnDep);
+                } else {
+                    merged[key] = dep;
+                }
             }
+            var transitiveDeps =  new Dictionary<string,Dependency>();
+            foreach (var dep in merged.Values) {
+                if (dep.Dependencies != null) {
+                    foreach (var tdep in dep.Dependencies) {
+                        var key = tdep.Signature();
+                        if(!transitiveDeps.ContainsKey(key)){//only add it if not already defined
+                            if (lookup.ContainsKey(key)) {//try to merge with solutions version
+                                var solnTDep = lookup[key];
+                                transitiveDeps[key] = tdep.Clone().MergeWithParent(solnTDep);
+                            } else {
+                                transitiveDeps[key] = tdep;
+                            }
+                        }
+                    }
+                }
+            }
+            //now resolve transitive deps
+            var deps = new List<Dependency>(merged.Values);
+            deps.AddRange(transitiveDeps.Values);
+            Dependencies = deps;
+        }
 
-            Dependencies = new List<Dependency>(merged.Values);
+        internal IList<Dependency> GetResolvedDependencies() {
+            return Dependencies;
         }
     }
 }

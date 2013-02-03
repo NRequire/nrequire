@@ -68,6 +68,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="net\nrequire\ProgramTest\LocalCache\TransitiveGroupId\TransitiveArtifactId\1.1.1\runtime-TransitiveRuntime\arch-TransitiveArch\TransitiveArtifactId.TransitiveExt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="net\nrequire\ProgramTest\LocalCache\MyChildGroupId0\MyChildArtifactId0\0.0.0\runtime-MyChildRuntime0\arch-MyChildArch0\MyChildArtifactId0.ignored">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

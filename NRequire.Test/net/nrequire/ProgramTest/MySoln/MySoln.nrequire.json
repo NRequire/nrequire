@@ -27,7 +27,19 @@
 			arch:"MyChildArch2",
 			ext:"MyChildExt2",
 			runtime:"MyChildRuntime2",
-			url:"http://nowhere.com/mychild2"
+			url:"http://nowhere.com/mychild2",
+			dependencies:[
+				{
+					groupId:"TransitiveGroupId",
+					artifactId:"TransitiveArtifactId",
+					version:"1.1.1",
+					arch:"TransitiveArch",
+					ext:"TransitiveExt",
+					runtime:"TransitiveRuntime",
+					url:"http://nowhere.com/myTransitive",
+					copyTo:"MyLibDir"
+				}
+			]
 		},
 		{
 			groupId:"MyGroupIdSolnOnly",
