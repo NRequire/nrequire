@@ -5,10 +5,15 @@ using System.Text;
 
 namespace net.nrequire {
     public class Solution {
+
         public IList<Dependency> Dependencies { get;set;}
 
         public Solution() {
             Dependencies = new List<Dependency>();
+        }
+
+        public void MergeWithDefault(Dependency defaultDep) {
+            Dependencies = Dependency.MergeWithDefault(Dependencies, defaultDep);
         }
     }
 }

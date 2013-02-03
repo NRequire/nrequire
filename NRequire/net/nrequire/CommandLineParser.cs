@@ -25,8 +25,16 @@ namespace net.nrequire {
                     if( opt.ArgName != null){
                         sb.Append(" <").Append(opt.ArgName).Append(">");
                     }
-                    if (opt.HelpText != null) {
-                        sb.AppendLine().Append("       - ").Append(opt.HelpText);
+                    if (opt.HelpText != null && opt.HelpText.Count > 0) {
+                        var first = true;
+                        foreach (var line in opt.HelpText) {
+                            if (first) {
+                                first = false;
+                                sb.AppendLine().Append("       - ").Append(line);
+                            } else {
+                                sb.AppendLine().Append("         ").Append(line);
+                            }
+                        }
                     }
                     if (opt.DefaultVal != null) {
                         sb.AppendLine().Append("       - default : ").Append(opt.DefaultVal);
@@ -177,7 +185,7 @@ namespace net.nrequire {
 
     internal class Opt {
         public String Name { get; private set; }
-        public String HelpText { get; private set; }
+        public IList<String> HelpText { get; private set; }
         public bool IsRequired { get; private set; }
         public String ArgName { get; private set; }
         public String DefaultVal { get; private set; }
@@ -188,6 +196,7 @@ namespace net.nrequire {
 
         private Opt() {
             IsRequired = true;
+            HelpText = new List<String>();
         }
 
         public Opt Required(bool required) {
@@ -195,13 +204,23 @@ namespace net.nrequire {
             return this;
         }
 
+        public Opt Help(string helpText, params Object[] args) {
+            Help(String.Format(helpText, args));
+            return this;
+        }
+
         public Opt Help(string helpText) {
-            this.HelpText = helpText;
+            this.HelpText.Add(helpText);
             return this;
         }
 
         public Opt Arg(string argName) {
             this.ArgName = argName;
+            return this;
+        }
+
+        public Opt Default(string val, params Object[] args) {
+            Default(String.Format(val,args));
             return this;
         }
 

@@ -5,27 +5,34 @@ using System.Text;
 
 namespace net.nrequire {
     public class Project {
+
         public IList<Dependency> Dependencies { get; set; }
 
         public Project() {
             Dependencies = new List<Dependency>();
         }
 
-        public Project MergeWith(Solution soln) {
-            //pick just the ones mentioned in the project
-            var deps = MergeDeps(Dependencies, soln.Dependencies);
-            return new Project() { Dependencies = deps};
+        public void ValidateDependenciesSet() {
+            foreach (var dep in Dependencies) {
+                dep.ValidateRequiredSet();
+            }
         }
 
-        private static IList<Dependency> MergeDeps(IList<Dependency> projDeps, IList<Dependency> solnDeps) {
-            if (projDeps == null || projDeps.Count == 0) {
-                return new List<Dependency>();
-            }
+        public void MergeWithDefault(Dependency defaultDep) {
+            Dependencies = Dependency.MergeWithDefault(Dependencies, defaultDep);
+        }
+
+        public void MergeWithSolution(Solution soln) {
+            //pick just the ones mentioned in the project
+            MergeWith(soln.Dependencies);
+        }
+
+        private void MergeWith(IList<Dependency> solnDeps) {
             if (solnDeps == null || solnDeps.Count == 0) {
-                return new List<Dependency>(projDeps);
+                return;
             }
 
-            var merged = projDeps.ToDictionary(d => d.Signature());
+            var merged = Dependencies.ToDictionary(d => d.Signature());
             foreach (var solnDep in solnDeps) {
                 var key = solnDep.Signature();
                 //only add if project lists it
@@ -36,7 +43,7 @@ namespace net.nrequire {
                 } 
             }
 
-            return new List<Dependency>(merged.Values);
+            Dependencies = new List<Dependency>(merged.Values);
         }
     }
 }

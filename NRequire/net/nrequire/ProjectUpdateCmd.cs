@@ -5,23 +5,33 @@ using System.Text;
 using System.IO;
 
 namespace net.nrequire {
-    internal class ProjectUpdater {
+    internal class ProjectUpdateCommand {
         private const String DEP_FILE = "nrequire.json";
+
+        private static readonly Dependency DefaultDependencyValues = new Dependency { Ext = "dll", Arch = "any", Runtime = "any" };
+        private readonly JsonReader m_jsonReader = new JsonReader();
 
         internal DependencyCache LocalCache { get; set; }
         internal DependencyCache SolutionCache { get; set; }
-
         internal FileInfo SolutionFile { get; set; }
         internal FileInfo ProjectFile { get; set; }
         internal bool FailOnProjectChanged { get; set; }
+       
+        public void Invoke() {
+            CheckNotNotNull(SolutionFile, "SolutionFile");
+            CheckNotNotNull(ProjectFile, "ProjectFile");
+            CheckNotNotNull(LocalCache, "LocalCache");
+            CheckNotNotNull(SolutionCache, "SolutionCache");
 
-        private readonly Dependency DefaultDependencyValues = new Dependency { Ext = "dll", Arch = "any", Runtime = "any" };
-        private readonly JsonReader m_depsReader = new JsonReader();
-
-        public void UpdateProject() {
-            var deps = ReadProjectDependency();
+            var deps = ReadProjectDependencies();
             CopyRequired(deps);
             UpdateProjectReferences(deps);
+        }
+
+        private static void CheckNotNotNull<T>(T val, String name) where T:class {
+            if (val == null) {
+                throw new NullReferenceException("Expect " + name + " to be set");
+            }
         }
 
         //and deps marked with a copyTo property will be copied into the appropriate destination 
@@ -47,11 +57,15 @@ namespace net.nrequire {
             }
         }
 
-        private IList<Dependency> ReadProjectDependency() {
-            var soln = m_depsReader.ReadSolution(FindJsonFileFor(SolutionFile));
-            var proj = m_depsReader.ReadProject(FindJsonFileFor(ProjectFile));
-            var mergedProj = proj.MergeWith(soln);
-            return mergedProj.Dependencies;
+        private IList<Dependency> ReadProjectDependencies() {
+            var soln = m_jsonReader.ReadSolution(FindJsonFileFor(SolutionFile));
+            soln.MergeWithDefault(DefaultDependencyValues);
+            var proj = m_jsonReader.ReadProject(FindJsonFileFor(ProjectFile));
+            proj.MergeWithSolution(soln);
+            proj.MergeWithDefault(DefaultDependencyValues);
+            proj.ValidateDependenciesSet();
+
+            return proj.Dependencies;
         }
 
         public void UpdateProjectReferences(IEnumerable<Dependency> deps) {
@@ -70,10 +84,8 @@ namespace net.nrequire {
         private IList<Resource> ToResources(IEnumerable<Dependency> deps) {
             var resources = new List<Resource>();
             //now update the project!
-            foreach (var child in deps) {
-                var merged = child.MergeWithParent(DefaultDependencyValues);
-                merged.ValidateRequiredSet();
-                Resource resource = SolutionCache.GetResourceFor(merged);
+            foreach (var d in deps) {
+                var resource = SolutionCache.GetResourceFor(d);
                 resources.Add(resource);
             }
             return resources;

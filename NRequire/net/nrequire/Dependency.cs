@@ -6,6 +6,7 @@ using System.IO;
 
 namespace net.nrequire {
     public class Dependency {
+
         public string Name { get; set; }
         public string GroupId { get; set; }
         public string ArtifactId { get; set; }
@@ -96,6 +97,14 @@ namespace net.nrequire {
             }
             
             return new List<Dependency>(merged.Values);
+        }
+
+        public static IList<Dependency> MergeWithDefault(IEnumerable<Dependency> deps, Dependency defaultDep) {
+            var merged = new List<Dependency>();
+            foreach (var dep in deps) {
+                merged.Add(dep.MergeWithParent(defaultDep));
+            }
+            return merged;
         }
 
         public string Signature() {
