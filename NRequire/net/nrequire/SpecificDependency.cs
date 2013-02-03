@@ -16,6 +16,7 @@ namespace net.nrequire {
         public string Runtime { get; internal set; }
         public Uri Url { get; internal set; }
         public String CopyTo { get; internal set; }
+        public Scopes Scope { get; internal set; }
         public IList<SpecificDependency> Related { get; internal set; }
 
         public SpecificDependency Clone() {
@@ -28,6 +29,7 @@ namespace net.nrequire {
                 Name = Name,
                 Related = Related==null?new List<SpecificDependency>():new List<SpecificDependency>(Related),
                 Runtime = Runtime,
+                Scope = Scope,
                 Url = Url,
                 Version = Version
             };
@@ -38,7 +40,7 @@ namespace net.nrequire {
         }
 
         public override string ToString() {
-            return String.Format("SpecificDependency@{0}<GroupId:{1},ArtifactId:{2},Version:{3},Ext:{4},Arch:{5},Runtime:{6},Url:'{7}',CopyTo:'{8}',Related:[{9}]'>",
+            return String.Format("SpecificDependency@{0}<\n\tGroupId:{1},\n\tArtifactId:{2},\n\tVersion:{3},\n\tExt:{4},\n\tArch:{5},\n\tRuntime:{6},\n\tScope:{7},\n\tUrl:'{8}',\n\tCopyTo:'{9}',\n\tRelated:[{10}]'\n>",
                 base.GetHashCode(),
                 GroupId,
                 ArtifactId,
@@ -46,6 +48,7 @@ namespace net.nrequire {
                 Ext,
                 Arch,
                 Runtime,
+                Scope,
                 Url,
                 CopyTo,
                 String.Join(",",Related)

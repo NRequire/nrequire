@@ -61,7 +61,7 @@ namespace net.nrequire {
             AssertDependencyCopied(projDir, "MyLibDir\\MyChildArtifactId1.related");
 
             AssertDependencyCopied(projDir, "MyLibDir\\TransitiveArtifactId.TransitiveExt");
-
+            AssertDependencyCopied(projDir, "MyLibDir\\ProvidedArtifactId.dll");
             solnDir.Delete(true);
         }
 

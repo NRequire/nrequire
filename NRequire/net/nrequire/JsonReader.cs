@@ -25,11 +25,12 @@ namespace net.nrequire {
                 throw new ArgumentException(String.Format("Could not read json dependency file: '{0}'", jsonFile.FullName));
             }
 
+            String json = null;
             try {
-                var json = ReadFileAsString(jsonFile);
+                json = ReadFileAsString(jsonFile);
                 return m_serializer.Deserialize<T>(json);
             } catch (Exception e) {
-                throw new Exception(String.Format("Error while trying to parse '{0}'", jsonFile.FullName), e);
+                throw new Exception(String.Format("Error while trying to parse file '{0}', with contents:\n{1}", jsonFile.FullName, json), e);
             }
         }
 

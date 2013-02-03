@@ -45,7 +45,8 @@ namespace net.nrequire {
             Assert.AreEqual("MyChildRuntime1", child1.Runtime);
             Assert.AreEqual("http://nowhere.com/mychild1", child1.Url.ToString());
             Assert.AreEqual("1.2.3", child1.Version);
-            
+            Assert.AreEqual(Scopes.Provided, child1.Scope);
+         
             var child2 = dep.Dependencies[1];
             Assert.AreEqual("MyChildName2", child2.Name);
             Assert.AreEqual("MyChildGroupId2", child2.GroupId);
@@ -54,6 +55,8 @@ namespace net.nrequire {
             Assert.AreEqual("MyChildRuntime2", child2.Runtime);
             Assert.AreEqual("http://nowhere.com/mychild2", child2.Url.ToString());
             Assert.AreEqual("4.5.6", child2.Version);
+            Assert.AreEqual(Scopes.Compile, child2.Scope);
+         
         }
     }
 }

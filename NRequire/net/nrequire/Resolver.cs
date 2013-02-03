@@ -19,6 +19,8 @@ namespace net.nrequire {
             var deps = MergeDeps(soln, proj);
             ValidateAllSet(deps);
 
+            //now the fun begins. Resolve transitive deps, find closest versions
+
             return deps.Select((d)=>Resolve(d)).ToList();
         }
 
@@ -79,6 +81,7 @@ namespace net.nrequire {
                 GroupId = dep.GroupId,
                 Name = dep.Name,
                 Runtime = dep.Runtime,
+                Scope = dep.Scope.GetValueOrDefault(Scopes.Compile),
                 Url = dep.Url,
                 Version = Version.Parse(dep.Version)
             };

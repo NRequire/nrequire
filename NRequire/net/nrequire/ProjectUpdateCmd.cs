@@ -71,9 +71,12 @@ namespace net.nrequire {
         }
 
         public void UpdateVSProject(IEnumerable<Resource> resources) {
+            //some deps may be copied or available elsewhere and not needed for compilation
+            var applyResources = resources.Where((r) => r.Dep.Scope != Scopes.Provided);
+
             var changed = VSProject
                 .FromPath(ProjectFile)
-                .UpdateReferences(resources);
+                .UpdateReferences(applyResources);
 
             if (changed && FailOnProjectChanged) {
                 throw new FailBuildException(String.Format("VS Project  '{0}' needed updating and fail enabled so stopping the build", ProjectFile.FullName));

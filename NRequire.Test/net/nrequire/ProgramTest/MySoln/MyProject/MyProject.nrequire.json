@@ -1,4 +1,8 @@
 ﻿{
+	dependencyDefaults:{
+		arch:"any",
+		runtime:"4.0"
+	},
 	dependencies:[
 		{
 			groupId:"MyChildGroupId0",
@@ -17,6 +21,10 @@
 			artifactId:"MyChildArtifactId2",
 			arch:"MyChildArch2",
 			runtime:"MyChildRuntime2"
+		},
+		{
+			groupId:"ProvidedGroupId",
+			artifactId:"ProvidedArtifactId"
 		}
 	]
 }

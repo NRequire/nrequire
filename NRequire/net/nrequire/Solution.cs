@@ -6,7 +6,7 @@ using System.Text;
 namespace net.nrequire {
     public class Solution {
 
-        private static readonly Dependency DefaultDependencyValues = new Dependency { Arch = "any", Runtime = "any", Ext="dll" };
+        private static readonly Dependency DefaultDependencyValues = new Dependency { Arch = "any", Runtime = "any", Ext="dll", Scope = Scopes.Compile };
 
         public IList<Dependency> Dependencies { get;set;}
         public Dependency DependencyDefaults { get; set; }

@@ -16,6 +16,8 @@ namespace net.nrequire {
         public string Runtime { get; set; }
         public Uri Url { get; set; }
         public String CopyTo { get; set; }
+        public Scopes? Scope { get; set; }
+        public bool Optional { get; set; }
 
         public IList<Dependency> Dependencies { get; set; }
         /// <summary>
@@ -28,6 +30,7 @@ namespace net.nrequire {
 
         public Dependency() {
             this.Dependencies = new List<Dependency>();
+            Optional = false;
         }
 
         public bool HasRelatedDependencies() {
@@ -99,6 +102,9 @@ namespace net.nrequire {
             if (String.IsNullOrWhiteSpace(this.Version)) {
                 this.Version = d.Version;
             }
+            if (this.Scope == null) {
+                this.Scope = d.Scope;
+            }
         }
 
         private static IList<Dependency> MergeLists(IList<Dependency> parent, IList<Dependency> child) {
@@ -135,6 +141,9 @@ namespace net.nrequire {
             if (String.IsNullOrWhiteSpace(Ext)) {
                 throw new ArgumentException("Expect Extension to be set on " + this);
             }
+            if (Scope==null) {
+                throw new ArgumentException("Expect Scope to be set on " + this);
+            }
         }
 
         public void ValidateMergeValuesSet() {
@@ -166,7 +175,7 @@ namespace net.nrequire {
             if (Dependencies != null && Dependencies.Count > 0) {
                 depsString = "\n\t" + String.Join("\n\t", Dependencies) + "\n\t";
             }
-            return String.Format("Dependency@{0}<GroupId:{1},ArtifactId:{2},Version:{3},Ext:{4},Arch:{5},Runtime:{6},Url:'{7}',CopyTo:'{8}',Related:[{9}],Dependencies:[{10}]>", 
+            return String.Format("Dependency@{0}<\n\tGroupId:{1},\n\tArtifactId:{2},\n\tVersion:{3},\n\tExt:{4},\n\tArch:{5},\n\tRuntime:{6},\n\tScope:{7},\n\tUrl:'{8}',\n\tCopyTo:'{9}',\n\tRelated:[{10}],\n\tDependencies:[{11}]\n>", 
                 base.GetHashCode(),
                 GroupId,
                 ArtifactId,
@@ -174,9 +183,10 @@ namespace net.nrequire {
                 Ext,
                 Arch,
                 Runtime,
+                Scope,
                 Url,
                 CopyTo,
-                String.Join(",",Related),
+                Related==null?null:String.Join(",",Related),
                 depsString
             );
         }

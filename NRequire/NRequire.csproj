@@ -70,6 +70,7 @@
     <Compile Include="net\nrequire\CommandParseException.cs" />
     <Compile Include="net\nrequire\Dependency.cs" />
     <Compile Include="net\nrequire\Resolver.cs" />
+    <Compile Include="net\nrequire\Scopes.cs" />
     <Compile Include="net\nrequire\SpecificDependency.cs" />
     <Compile Include="net\nrequire\JsonReader.cs" />
     <Compile Include="net\nrequire\DependencyCache.cs" />
