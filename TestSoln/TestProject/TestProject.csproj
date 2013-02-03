@@ -32,10 +32,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>%BAD_PATH%\Json.Net\45r11\runtime-4.0\arch-any\Newtonsoft.Json.dll</HintPath>
+      <HintPath>$BAD_PATH\Json.Net\45r11\runtime-4.0\arch-any\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>%BAD_PATH%\NUnit\2.6.2\runtime-any\arch-any\nunit.framework.dll</HintPath>
+      <HintPath>$BAD_PATH\NUnit\2.6.2\runtime-any\arch-any\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
