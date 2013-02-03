@@ -7,7 +7,8 @@ using System.IO;
 namespace net.nrequire {
 
     internal class DependencyCache {
-        
+
+        public DependencyCache UpstreamCache { get; set; }
         public DirectoryInfo CacheDir { get; set; }
         public String VSProjectBaseSymbol { get; set; }
 
@@ -17,8 +18,15 @@ namespace net.nrequire {
 
         public Resource GetResourceFor(Dependency d) {
             var relPath = GetRelPathFor(d);
-            var fullPath = new FileInfo(Path.Combine(CacheDir.FullName,relPath));
-            return new Resource(d, fullPath, VSProjectBaseSymbol + "\\" + relPath);
+            var file = new FileInfo(Path.Combine(CacheDir.FullName,relPath));
+            //TODO:if SNAPSHOT,then check localcache timestamp
+            if (!file.Exists && UpstreamCache != null) {
+                var parentResource = UpstreamCache.GetResourceFor(d);
+                if (parentResource.Exists) {
+                    parentResource.CopyTo(file);
+                }
+            }
+            return new Resource(d, file, VSProjectBaseSymbol + "\\" + relPath);
         }
 
         private String GetRelPathFor(Dependency d) {

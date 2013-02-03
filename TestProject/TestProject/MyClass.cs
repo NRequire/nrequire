@@ -5,6 +5,8 @@ using System.Text;
 
 namespace TestProject {
     public class MyClass {
+        public void MyMethod() {
 
+        }
     }
 }

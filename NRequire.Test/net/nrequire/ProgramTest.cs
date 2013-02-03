@@ -31,8 +31,8 @@ namespace net.nrequire {
                .Where((reference) => reference.HintPath != null)
                .ToList();
             Assert.AreEqual(2, refs.Count);
-            Assert.IsTrue(refs[0].HintPath.StartsWith(localCacheDir.FullName));
-            Assert.IsTrue(refs[1].HintPath.StartsWith(localCacheDir.FullName));
+            Assert.IsTrue(refs[0].HintPath.StartsWith("$(SolutionDir)\\.cache"));
+            Assert.IsTrue(refs[1].HintPath.StartsWith("$(SolutionDir)\\.cache"));
 
             //check updated
 

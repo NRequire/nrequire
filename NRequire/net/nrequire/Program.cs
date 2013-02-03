@@ -10,6 +10,8 @@ namespace net.nrequire {
         private const String DEFAULT_CACHE_DIR_NAME = ".nrequire\\cache";
 
         internal DependencyCache LocalCache { get; set; }
+        internal DependencyCache SolutionCache { get; set; }
+
         internal FileInfo SolutionFile { get; set; }
         internal FileInfo ProjectFile { get; set; }
         internal bool FailOnProjectChanged { get; set; }
@@ -97,13 +99,24 @@ namespace net.nrequire {
                 };
             } else {
                 LocalCache = new DependencyCache() {
-                    VSProjectBaseSymbol = "%HOMEDRIVE%%HOMEPATH%\\" + DEFAULT_CACHE_DIR_NAME,
+                    VSProjectBaseSymbol = "%HOMEDRIVE%%HOMEPATH%" + "\\" + DEFAULT_CACHE_DIR_NAME,
                     CacheDir = new DirectoryInfo(Path.Combine(userHomeDir,DEFAULT_CACHE_DIR_NAME))
                 };
             }
 
             if (!LocalCache.CacheDir.Exists) {
                 throw new ArgumentException(String.Format("Dependency cache dir '{0}' does not exist", LocalCache.CacheDir.FullName));
+            }
+
+            var solnDir = solutionFile.Directory;
+            SolutionCache = new DependencyCache() {
+                UpstreamCache = LocalCache,
+                VSProjectBaseSymbol = "$(SolutionDir)\\.cache",
+                CacheDir = new DirectoryInfo(Path.Combine(solnDir.FullName, ".cache"))
+            };
+
+            if(!SolutionCache.CacheDir.Exists) {
+                SolutionCache.CacheDir.Create();
             }
 
             FailOnProjectChanged = result.GetOptionValue("--fail", true) == "true";
@@ -115,7 +128,7 @@ namespace net.nrequire {
         public void UpdateProject() {
             var d = ReadProjectDependency();
             CopyRequired(d);
-            UpdateReferences(d);
+            UpdateProjectReferences(d);
         }
 
         //and deps marked with a copyTo property will be copied into the appropriate destination 
@@ -128,36 +141,17 @@ namespace net.nrequire {
         }
 
         private void CopyDep(Dependency d) {
-            Resource resource = LocalCache.GetResourceFor(d);
+            Resource resource = SolutionCache.GetResourceFor(d);
             if (!resource.Exists) {
                 throw new InvalidOperationException(String.Format("Could not find dependency '{0}'", resource.File.FullName));
             }
             var projDir = ProjectFile.Directory;
+            //TODO:look if absolute or relative?
             var targetFile = new FileInfo(Path.Combine(projDir.FullName, d.CopyTo, resource.File.Name + "." + resource.File.Extension));
             
-            if (!targetFile.Exists || targetFile.LastWriteTime != resource.File.LastWriteTime) {
-                CopyFile(resource.File, targetFile);
+            if (!targetFile.Exists || targetFile.LastWriteTime != resource.TimeStamp) {
+                resource.CopyTo(targetFile);
             }
-        }
-
-        private static void CopyFile(FileInfo from, FileInfo to) {
-            to.Directory.Create();
-
-            using (var streamFrom = from.Open(FileMode.Open, FileAccess.Read))
-            using (var streamTo = to.Open(FileMode.CreateNew, FileAccess.Write)) {
-                CopyStream(streamFrom, streamTo);
-            }
-
-            to.CreationTime= from.CreationTime;
-            to.LastWriteTime = from.LastWriteTime;
-        }
-
-        private static void CopyStream(FileStream streamFrom, FileStream streamTo) {
-            var buf = new byte[2048];
-            int numBytesRead;
-            while ((numBytesRead = streamFrom.Read(buf, 0, buf.Length)) > 0) {
-                streamTo.Write(buf, 0, numBytesRead);
-            };
         }
 
         private Dependency ReadProjectDependency() {
@@ -167,7 +161,7 @@ namespace net.nrequire {
             return merged;
         }
 
-        public void UpdateReferences(Dependency projectDep) {
+        public void UpdateProjectReferences(Dependency projectDep) {
             var resources = ToResources(projectDep);
             EnsureResourcesExist(resources);
 
@@ -186,7 +180,7 @@ namespace net.nrequire {
             foreach (var child in dependency.Dependencies) {
                 var merged = child.MergeWithParent(DefaultDependencyValues);
                 merged.ValidateRequiredSet();
-                Resource resource = LocalCache.GetResourceFor(merged);
+                Resource resource = SolutionCache.GetResourceFor(merged);
                 resources.Add(resource);
             }
             return resources;
