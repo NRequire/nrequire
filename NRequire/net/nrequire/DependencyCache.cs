@@ -33,7 +33,7 @@ namespace net.nrequire {
             var paths = new List<string>();
 
             var basePath = String.Format(
-                "{0}\\{1}",d.GroupId, d.Version
+                "{0}\\{1}\\{2}",d.GroupId, d.ArtifactId, d.Version
             );
             paths.Add(basePath);
             if (!String.IsNullOrEmpty(d.Runtime)) {

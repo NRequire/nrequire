@@ -40,8 +40,9 @@
     <Reference Include="nunit-console-runner">
       <HintPath>C:\opt\NUnit-2.6.2\bin\lib\nunit-console-runner.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>C:\Users\bert\.nrequire\cache\NUnit\2.6.2\runtime-any\arch-any\nunit.framework.dll</HintPath>
+    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\bert\.nrequire\cache\NUnit\nunit.framework\2.6.2\runtime-any\arch-any\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -66,10 +67,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="net\nrequire\ProgramTest\LocalCache\MyChildGroupId1\1.2.3\runtime-MyChildRuntime1\arch-MyChildArch1\MyChildArtifactId1.MyChildExt1">
+    <Content Include="net\nrequire\ProgramTest\LocalCache\MyChildGroupId1\MyChildArtifactId1\1.2.3\runtime-MyChildRuntime1\arch-MyChildArch1\MyChildArtifactId1.MyChildExt1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="net\nrequire\ProgramTest\LocalCache\MyChildGroupId2\4.5.6\runtime-MyChildRuntime2\arch-MyChildArch2\MyChildArtifactId2.MyChildExt2">
+    <Content Include="net\nrequire\ProgramTest\LocalCache\MyChildGroupId2\MyChildArtifactId2\4.5.6\runtime-MyChildRuntime2\arch-MyChildArch2\MyChildArtifactId2.MyChildExt2">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="net\nrequire\ProgramTest\MySoln\MyProject\MyProject.csproj">
@@ -98,7 +99,7 @@
     <Content Include="net\nrequire\ProgramTest\MySoln\MySoln.nrequire.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="net\nrequire\ProgramTest\LocalCache\MyGroupIdSolnOnly\1.2.3\runtime-MyRuntime\arch-MyArch\MyArtifactId.MyExt">
+    <None Include="net\nrequire\ProgramTest\LocalCache\MyGroupIdSolnOnly\MyArtifactId\1.2.3\runtime-MyRuntime\arch-MyArch\MyArtifactId.MyExt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
