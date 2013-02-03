@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 
 namespace net.nrequire {
+
     internal class ProjectUpdateCommand {
         private const String DEP_FILE = "nrequire.json";
 
@@ -25,7 +26,7 @@ namespace net.nrequire {
 
             var deps = ReadProjectDependencies();
             CopyRequired(deps);
-            UpdateProjectReferences(deps);
+            UpdateVSProject(deps);
         }
 
         private static void CheckNotNotNull<T>(T val, String name) where T:class {
@@ -58,9 +59,9 @@ namespace net.nrequire {
         }
 
         private IList<Dependency> ReadProjectDependencies() {
-            var soln = m_jsonReader.ReadSolution(FindJsonFileFor(SolutionFile));
+            var soln = m_jsonReader.ReadSolution(LookupJsonFileFor(SolutionFile));
             soln.MergeWithDefault(DefaultDependencyValues);
-            var proj = m_jsonReader.ReadProject(FindJsonFileFor(ProjectFile));
+            var proj = m_jsonReader.ReadProject(LookupJsonFileFor(ProjectFile));
             proj.MergeWithSolution(soln);
             proj.MergeWithDefault(DefaultDependencyValues);
             proj.ValidateDependenciesSet();
@@ -68,7 +69,7 @@ namespace net.nrequire {
             return proj.Dependencies;
         }
 
-        public void UpdateProjectReferences(IEnumerable<Dependency> deps) {
+        public void UpdateVSProject(IEnumerable<Dependency> deps) {
             var resources = ToResources(deps);
             EnsureResourcesExist(resources);
 
@@ -103,7 +104,7 @@ namespace net.nrequire {
             }
         }
 
-        private FileInfo FindJsonFileFor(FileInfo file) {
+        private FileInfo LookupJsonFileFor(FileInfo file) {
             var jsonFileByName = new FileInfo(Path.Combine(file.DirectoryName, FileNameMinusExtension(file) + "." + DEP_FILE));
             if (jsonFileByName.Exists) {
                 return jsonFileByName;
