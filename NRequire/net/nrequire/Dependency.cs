@@ -7,11 +7,6 @@ using System.IO;
 namespace net.nrequire {
     public class Dependency {
 
-        private static readonly IDictionary<String,IList<String>> DefaultRelatedByExt = new Dictionary<String,IList<String>>{
-            { "dll", new[]{ "xml", "pdb" }},
-            { "exe", new[]{ "xml", "pdb" }}
-        };
-
         public string Name { get; set; }
         public string GroupId { get; set; }
         public string ArtifactId { get; set; }
@@ -35,56 +30,39 @@ namespace net.nrequire {
             this.Dependencies = new List<Dependency>();
         }
 
-        public static IList<Dependency> MergeWithDefault(IEnumerable<Dependency> deps,Dependency defaultDep) {
-            var merged = new List<Dependency>();
-            foreach (var dep in deps) {
-                merged.Add(dep.MergeWithDefault(defaultDep));
-            }
-            return merged;
-        }
-
-        public Dependency MergeWithDefault(Dependency defaultDep) {
-            var d = MergeWithParent(defaultDep);
-            if (!d.HasRelatedDependencies() && d.Ext != null) {
-                IList<String> related;
-                if(DefaultRelatedByExt.TryGetValue(d.Ext,out related)){
-                    d.Related = new List<String>(related);
-                }
-            }
-            return d;
-        }
-
         public bool HasRelatedDependencies() {
             return Related != null && Related.Count > 0;
         }
 
-        public Dependency MergeWithParent(Dependency parent) {
+        public static IList<Dependency> FillInBlanksFrom(IEnumerable<Dependency> deps, Dependency defaultDep) {
+            var merged = new List<Dependency>();
+            foreach (var dep in deps) {
+                merged.Add(dep.FillInBlanksFrom(defaultDep));
+            }
+            return merged;
+        }
+
+        public Dependency FillInBlanksFrom(Dependency parent) {
             var d = Clone();
-            d.FillInBlanksFrom(parent);
+            d.InternalFillInBlanksFrom(parent);
             return d;
         }
 
         public Dependency Clone() {
             var d = new Dependency();
-            d.FillInBlanksFrom(this);
+            d.InternalFillInBlanksFrom(this);
             return d;
         }
 
-        private Dependency CloneSimpleProps() {
-            var d = new Dependency();
-            d.FillInSimpleBlanksFrom(this);
-            return d;
-        }
-
-        public void FillInBlanksFrom(Dependency d) {
+        private void InternalFillInBlanksFrom(Dependency d) {
             if (d == null) {
                 return;
             }
-            FillInSimpleBlanksFrom(d);
-            this.Dependencies = MergeDependencies(d.Dependencies, this.Dependencies);
+            InternalFillInSimpleBlanksFrom(d);
+            this.Dependencies = MergeLists(d.Dependencies, this.Dependencies);
         }
 
-        private void FillInSimpleBlanksFrom(Dependency d) {
+        private void InternalFillInSimpleBlanksFrom(Dependency d) {
             if (d == null) {
                 return;
             }
@@ -123,7 +101,7 @@ namespace net.nrequire {
             }
         }
 
-        private static IList<Dependency> MergeDependencies(IList<Dependency> parent, IList<Dependency> child) {
+        private static IList<Dependency> MergeLists(IList<Dependency> parent, IList<Dependency> child) {
             if (parent == null && child == null) {
                 return new List<Dependency>();
             }
@@ -140,7 +118,7 @@ namespace net.nrequire {
                 if (merged.ContainsKey(key)) {
                     var parentDep = merged[key];
                     merged.Remove(key);
-                    merged[key] = childDep.Clone().MergeWithParent(parentDep);
+                    merged[key] = childDep.Clone().FillInBlanksFrom(parentDep);
                 } else {
                     merged[key] = childDep;
                 }

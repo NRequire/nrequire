@@ -18,19 +18,7 @@ namespace net.nrequire {
         public String CopyTo { get; internal set; }
         public IList<SpecificDependency> Related { get; internal set; }
 
-        public IList<SpecificDependency> GetClonesWithExtensions(IList<String> extensions) {
-            var clones = new List<SpecificDependency>();
-            if (extensions != null && extensions.Count > 0) {
-                foreach (var ext in extensions) {
-                    var d = Clone();
-                    d.Ext = ext;
-                    clones.Add(d);
-                }
-            }
-            return clones;
-        }
-
-        private SpecificDependency Clone() {
+        public SpecificDependency Clone() {
             return new SpecificDependency {
                 Arch = Arch,
                 ArtifactId = ArtifactId,

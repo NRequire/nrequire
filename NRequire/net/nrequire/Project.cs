@@ -16,8 +16,8 @@ namespace net.nrequire {
         }
 
         public void ApplyDefaults() {
-            DependencyDefaults = DependencyDefaults == null ? DefaultDependencyValues.Clone() : DependencyDefaults.MergeWithDefault(DefaultDependencyValues);
-            Dependencies = Dependency.MergeWithDefault(Dependencies, DependencyDefaults);
+            DependencyDefaults = DependencyDefaults == null ? DefaultDependencyValues.Clone() : DependencyDefaults.FillInBlanksFrom(DefaultDependencyValues);
+            Dependencies = Dependency.FillInBlanksFrom(Dependencies, DependencyDefaults);
         }
     }
 }

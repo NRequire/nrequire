@@ -114,17 +114,17 @@ namespace net.nrequire {
 
                 setter.Invoke(parent, setParentVal);
                 setter.Invoke(child, emptyVal);
-                var merged = child.MergeWithParent(parent);
+                var merged = child.FillInBlanksFrom(parent);
                 Assert.AreEqual(getter.Invoke(merged), setParentVal);
 
                 setter.Invoke(parent, setParentVal);
                 setter.Invoke(child, setChildVal);
-                merged = child.MergeWithParent(parent);
+                merged = child.FillInBlanksFrom(parent);
                 Assert.AreEqual(getter.Invoke(merged), setChildVal);
 
                 setter.Invoke(parent, emptyVal);
                 setter.Invoke(child, setChildVal);
-                merged = child.MergeWithParent(parent);
+                merged = child.FillInBlanksFrom(parent);
                 Assert.AreEqual(getter.Invoke(merged), setChildVal);
             } catch(Exception e){
                 throw new AssertionException( "Exception while testing merge", e);
@@ -170,7 +170,7 @@ namespace net.nrequire {
                 }
             };
 
-            var merged = dep.MergeWithParent(parent);
+            var merged = dep.FillInBlanksFrom(parent);
 
             Assert.AreEqual(2, merged.Dependencies.Count);
             var child1 = merged.Dependencies[0];
@@ -233,7 +233,7 @@ namespace net.nrequire {
                 }
             };
 
-            var merged = dep.MergeWithParent(parent);
+            var merged = dep.FillInBlanksFrom(parent);
 
             Assert.AreEqual(1, merged.Dependencies.Count);
             var child = merged.Dependencies[0];

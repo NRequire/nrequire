@@ -100,22 +100,20 @@ namespace net.nrequire {
         private IList<Resource> ResolveRelatedResources(IEnumerable<SpecificDependency> deps) {
             var resources = new List<Resource>();
             foreach (var dep in deps) {
-                if( dep.HasRelatedDependencies()){
-                    resources.AddRange(ResolveRelatedResources(dep));
+                if(dep.HasRelatedDependencies()){
+                    AddRelatedResources(dep, resources);
                 }
             }
             return resources;
         }
 
-        private IList<Resource> ResolveRelatedResources(SpecificDependency dep) {
-            var resources = new List<Resource>();
-            foreach (var d in dep.Related) {
-                var resource = SolutionCache.GetResourceFor(d);
+        private void AddRelatedResources(SpecificDependency dep, IList<Resource> addTo) {
+            foreach (var related in dep.Related) {
+                var resource = SolutionCache.GetResourceFor(related);
                 if (resource.Exists) {
-                    resources.Add(resource);
+                    addTo.Add(resource);
                 }
             }
-            return resources;
         }
 
         private FileInfo LookupJsonFileFor(FileInfo file) {

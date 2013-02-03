@@ -7,6 +7,11 @@ using System.Text;
 namespace net.nrequire {
     public class Resolver {
 
+        private static readonly IDictionary<String, IList<String>> DefaultRelatedByExt = new Dictionary<String, IList<String>>{
+            { "dll", new[]{ "xml", "pdb" }},
+            { "exe", new[]{ "xml", "pdb" }}
+        };
+
         public IList<SpecificDependency> ResolveDependencies(Solution soln, Project proj) {
             ValidateReadyForMerge(soln.Dependencies);
             ValidateReadyForMerge(proj.Dependencies);
@@ -37,7 +42,7 @@ namespace net.nrequire {
                 var key = dep.Signature();
                 if (lookup.ContainsKey(key)) {
                     var solnDep = lookup[key];
-                    merged[key] = dep.Clone().MergeWithParent(solnDep);
+                    merged[key] = dep.FillInBlanksFrom(solnDep);
                 } else {
                     merged[key] = dep.Clone();
                 }
@@ -50,7 +55,7 @@ namespace net.nrequire {
                         if (!transitiveDeps.ContainsKey(key)) {//only add it if not already defined
                             if (lookup.ContainsKey(key)) {//try to merge with solutions version
                                 var solnTDep = lookup[key];
-                                transitiveDeps[key] = tdep.Clone().MergeWithParent(solnTDep);
+                                transitiveDeps[key] = tdep.FillInBlanksFrom(solnTDep);
                             } else {
                                 transitiveDeps[key] = tdep;
                             }
@@ -77,8 +82,32 @@ namespace net.nrequire {
                 Url = dep.Url,
                 Version = Version.Parse(dep.Version)
             };
-            specific.Related = specific.GetClonesWithExtensions(dep.Related);
+            specific.Related = GetClonesWithExtensions(specific,GetRelatedExtensionsFor(dep));
             return specific;
+        }
+
+        private static IList<String> GetRelatedExtensionsFor(Dependency d) {
+            if (d.HasRelatedDependencies()) {
+                return d.Related;
+            } else {
+                IList<String> related;
+                if (DefaultRelatedByExt.TryGetValue(d.Ext, out related)) {
+                    return related;
+                }
+            }
+            return null;
+        }
+
+        private static IList<SpecificDependency> GetClonesWithExtensions(SpecificDependency d, IList<String> extensions) {
+            var clones = new List<SpecificDependency>();
+            if (extensions != null && extensions.Count > 0) {
+                foreach (var ext in extensions) {
+                    var clone = d.Clone();
+                    clone.Ext = ext;
+                    clones.Add(clone);
+                }
+            }
+            return clones;
         }
     }
 }

@@ -57,7 +57,6 @@
     <Compile Include="net\nrequire\JsonReaderTest.cs" />
     <Compile Include="net\nrequire\NUnitConsoleRunner.cs" />
     <Compile Include="net\nrequire\ProgramTest.cs" />
-    <Compile Include="net\nrequire\ResolverTest.cs" />
     <Compile Include="net\nrequire\VersionTest.cs" />
     <Compile Include="net\nrequire\VSProjectTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
