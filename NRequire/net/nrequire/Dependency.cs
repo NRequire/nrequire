@@ -8,6 +8,7 @@ namespace net.nrequire {
     public class Dependency {
 
         private static readonly Dependency DefaultDependencyValues = new Dependency { Ext = "dll", Arch = "any", Runtime = "any" };
+        
         private static readonly IDictionary<String,IList<String>> DefaultRelatedByExt = new Dictionary<String,IList<String>>{
             { "dll", new[]{ "xml", "pdb" }},
             { "exe", new[]{ "xml", "pdb" }}
@@ -36,16 +37,20 @@ namespace net.nrequire {
             this.Dependencies = new List<Dependency>();
         }
 
-        public static IList<Dependency> MergeWithDefault(IEnumerable<Dependency> deps) {
+        public static Dependency DefaultDependency() {
+            return DefaultDependencyValues.Clone();
+        }
+
+        public static IList<Dependency> MergeWithDefault(IEnumerable<Dependency> deps,Dependency defaultDep) {
             var merged = new List<Dependency>();
             foreach (var dep in deps) {
-                merged.Add(dep.MergeWithDefault());
+                merged.Add(dep.MergeWithDefault(defaultDep));
             }
             return merged;
         }
 
-        public Dependency MergeWithDefault() {
-            var d = MergeWithParent(DefaultDependencyValues);
+        public Dependency MergeWithDefault(Dependency defaultDep) {
+            var d = MergeWithParent(defaultDep);
             if (!d.HasRelatedDependencies()) {
                 IList<String> related;
                 if(DefaultRelatedByExt.TryGetValue(d.Ext,out related)){
@@ -163,27 +168,22 @@ namespace net.nrequire {
             return new List<Dependency>(merged.Values);
         }
 
-        public string Signature() {
-            return String.Format("groupId-{0}-artifactId-{1}-arch-{2}-runtime-{3}>",
-                GroupId,
-                ArtifactId,
-                Arch,
-                Runtime
-            ).ToLower();
-        }
-
         public void ValidateRequiredSet() {
-            if (String.IsNullOrWhiteSpace(GroupId)) {
-                throw new ArgumentException("Expect GroupId to be set on " + this);
-            }
-            if (String.IsNullOrWhiteSpace(ArtifactId)) {
-                throw new ArgumentException("Expect ArtifactId to be set on " + this);
-            }
+            ValidateMergeValuesSet();
             if (String.IsNullOrWhiteSpace(Version)) {
                 throw new ArgumentException("Expect Version to be set on " + this);
             }
             if (String.IsNullOrWhiteSpace(Ext)) {
                 throw new ArgumentException("Expect Extension to be set on " + this);
+            }
+        }
+
+        public void ValidateMergeValuesSet() {
+            if (String.IsNullOrWhiteSpace(GroupId)) {
+                throw new ArgumentException("Expect GroupId to be set on " + this);
+            }
+            if (String.IsNullOrWhiteSpace(ArtifactId)) {
+                throw new ArgumentException("Expect ArtifactId to be set on " + this);
             }
             if (String.IsNullOrWhiteSpace(Arch)) {
                 throw new ArgumentException("Expect Arch to be set on " + this);
@@ -193,12 +193,21 @@ namespace net.nrequire {
             }
         }
 
+        public string Signature() {
+            return String.Format("groupId-{0}-artifactId-{1}-arch-{2}-runtime-{3}>",
+                GroupId,
+                ArtifactId,
+                Arch,
+                Runtime
+            ).ToLower();
+        }
+
         public override string ToString() {
             var depsString = "";
             if (Dependencies != null && Dependencies.Count > 0) {
                 depsString = "\n\t" + String.Join("\n\t", Dependencies) + "\n\t";
             }
-            return String.Format("Dependency@{0}<GroupId:{1},ArtifactId:{2},Version:{3},Ext:{4},Arch:{5},Runtime:{6},Url:'{7}',CopyTo:'{8}',Dependencies:[{9}]>", 
+            return String.Format("Dependency@{0}<GroupId:{1},ArtifactId:{2},Version:{3},Ext:{4},Arch:{5},Runtime:{6},Url:'{7}',CopyTo:'{8}',Related:[{9}],Dependencies:[{10}]>", 
                 base.GetHashCode(),
                 GroupId,
                 ArtifactId,
@@ -208,6 +217,7 @@ namespace net.nrequire {
                 Runtime,
                 Url,
                 CopyTo,
+                String.Join(",",Related),
                 depsString
             );
         }

@@ -1,4 +1,8 @@
 ﻿{
+	dependencyDefaults:{
+		arch:"any",
+		runtime:"net-4.0"
+	},
 	dependencies:[
 		{
 			groupId:"MyChildGroupId0",

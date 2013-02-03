@@ -7,13 +7,16 @@ namespace net.nrequire {
     public class Solution {
 
         public IList<Dependency> Dependencies { get;set;}
+        public Dependency DependencyDefaults { get; set; }
 
         public Solution() {
             Dependencies = new List<Dependency>();
+            DependencyDefaults = Dependency.DefaultDependency();
         }
 
         public void ApplyDefaults() {
-            Dependencies = Dependency.MergeWithDefault(Dependencies);
+            DependencyDefaults = DependencyDefaults.MergeWithDefault(Dependency.DefaultDependency());
+            Dependencies = Dependency.MergeWithDefault(Dependencies, DependencyDefaults);
         }
     }
 }
