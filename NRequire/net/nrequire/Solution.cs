@@ -7,8 +7,8 @@ namespace net.nrequire {
     public class Solution {
 
         private static readonly Dependency DefaultDependencyValues = new Dependency { Arch = "any", Runtime = "any", Ext="dll", Scope = Scopes.Compile };
-
-        public IList<Dependency> Dependencies { get;set;}
+        //TODO:add Repos:[] {name:central,url:path/to/some/repo,layout:maven|nget|...}
+        public IList<Dependency> Dependencies { get;set; }
         public Dependency DependencyDefaults { get; set; }
 
         public Solution() {

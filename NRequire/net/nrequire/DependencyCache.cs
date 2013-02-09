@@ -30,21 +30,21 @@ namespace net.nrequire {
         }
 
         private String GetRelPathFor(SpecificDependency d) {
-            var paths = new List<string>();
+            var parts = new List<String>(3);
+            parts.Add(String.Format("{0}\\{1}\\{2}", d.Group, d.Name, d.Version.ToString()));
+            var classifiers = new List<String>(3);
 
-            var basePath = String.Format(
-                "{0}\\{1}\\{2}.{3}.{4}", d.GroupId, d.ArtifactId, d.Version.Major, d.Version.Minor, d.Version.Revision
-            );
-            paths.Add(basePath);
-            if (!String.IsNullOrEmpty(d.Runtime)) {
-                paths.Add("runtime-" + d.Runtime);
-            }
             if (!String.IsNullOrEmpty(d.Arch)) {
-                paths.Add("arch-" + d.Arch);
+                classifiers.Add("arch-" + d.Arch);
+            } 
+            if (!String.IsNullOrEmpty(d.Runtime)) {
+                classifiers.Add("runtime-" + d.Runtime);
             }
-            paths.Add(d.ArtifactId + "." + d.Ext);
-
-            return Path.Combine(paths.ToArray());
+            if(classifiers.Count > 0){
+                parts.Add(String.Join("_",classifiers));
+            }
+            parts.Add(d.Name + "." + d.Ext);
+            return Path.Combine(parts.ToArray());
         }
     }
 }

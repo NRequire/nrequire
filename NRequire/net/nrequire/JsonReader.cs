@@ -2,6 +2,7 @@
 using System.IO;
 using System.Web;
 using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace net.nrequire {
     public class JsonReader {
@@ -28,7 +29,8 @@ namespace net.nrequire {
             String json = null;
             try {
                 json = ReadFileAsString(jsonFile);
-                return m_serializer.Deserialize<T>(json);
+                return JsonConvert.DeserializeObject<T>(json); 
+                ///return m_serializer.Deserialize<T>(json);
             } catch (Exception e) {
                 throw new Exception(String.Format("Error while trying to parse file '{0}', with contents:\n{1}", jsonFile.FullName, json), e);
             }

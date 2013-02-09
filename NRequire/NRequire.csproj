@@ -57,6 +57,9 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>C:\Users\bert\.nrequire\cache\Json.Net\Newtonsoft.Json\4.5-r11\runtime-4.0\arch-any\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -69,6 +72,7 @@
     <Compile Include="net\nrequire\CommandLineParser.cs" />
     <Compile Include="net\nrequire\CommandParseException.cs" />
     <Compile Include="net\nrequire\Dependency.cs" />
+    <Compile Include="net\nrequire\LoadEmbeddedDlls.cs" />
     <Compile Include="net\nrequire\Resolver.cs" />
     <Compile Include="net\nrequire\Scopes.cs" />
     <Compile Include="net\nrequire\SpecificDependency.cs" />
@@ -80,8 +84,14 @@
     <Compile Include="net\nrequire\Resource.cs" />
     <Compile Include="net\nrequire\Solution.cs" />
     <Compile Include="net\nrequire\Version.cs" />
+    <Compile Include="net\nrequire\VersionMatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="net\nrequire\VSProject.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -110,9 +120,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="README.txt" />
+    <None Include="Resources\Newtonsoft.Json.dll" />
+    <None Include="Resources\Newtonsoft.Json.pdb" />
+    <None Include="Resources\Newtonsoft.Json.xml" />
     <Content Include="TODO.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

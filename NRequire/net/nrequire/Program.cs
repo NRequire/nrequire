@@ -9,6 +9,10 @@ namespace net.nrequire {
 
         private const String DEFAULT_CACHE_DIR_NAME = ".nrequire\\cache";
 
+        static Program() {
+            LoadEmbeddedDlls.Load();
+        }
+
         static void Main(string[] args) {
             try {
                 new Program().InvokeWithArgs(args);
@@ -32,32 +36,32 @@ namespace net.nrequire {
             return new CommandLineParser()
                 .ProgramName("nrequire")
                 .AddCommand("--help", "Print this help")
-                .AddCommand("update-proj", "Update the project file with the latest resolved dependencies")
-                    .AddOption("update-proj", Opt.Named("--soln").Required(true).Arg("filePath").Help("Path to the solution file"))
-                    .AddOption("update-proj", Opt.Named("--proj").Required(true).Arg("filePath").Help("Path to the project file"))
-                    .AddOption("update-proj", Opt
+                .AddCommand("update-vsproj", "Update the Visual Studio project file with the latest resolved dependencies")
+                    .AddOption("update-vsproj", Opt.Named("--soln").Required(true).Arg("filePath").Help("Path to the solution file"))
+                    .AddOption("update-vsproj", Opt.Named("--proj").Required(true).Arg("filePath").Help("Path to the project file"))
+                    .AddOption("update-vsproj", Opt
                         .Named("--cache")
                         .Required(false)
                         .Arg("dirPath")
                         .Help("Path to the local cache directory.")
                         .Help("This is the central location where all the dependencies are looked up from")
                         .Default("%HOMEDRIVE%%HOMEPATH%\\{0} (currently {1}\\{2})", DEFAULT_CACHE_DIR_NAME, GetUserHomeDir(), DEFAULT_CACHE_DIR_NAME ))
-                    .AddOption("update-proj", Opt
+                    .AddOption("update-vsproj", Opt
                         .Named("--soln-cache")
                         .Required(false)
                         .Arg("dirPath")
                         .Help("Path to the solution cache cache directory.")
                         .Help("This is where all the dependencies are copied to and referenced from within the VS project")
                         .Default("$(solutionDir)\\.cache"))
-                    .AddOption("update-proj", Opt
+                    .AddOption("update-vsproj", Opt
                         .Named("--fail")
                         .Required(false)
                         .Arg("val")
                         .Default("true")
                         .Help("If true then fail the build after6 updating the project if the project dependencies changed"))
-                    .AddExample("update-proj", "--soln ${SolutionPath} --proj ${ProjectPath}")
-                    .AddExample("update-proj", "--soln ${SolutionPath} --proj ${ProjectPath} --cache C:/opt/cache")
-                    .AddExample("update-proj", "--soln ${SolutionPath} --proj ${ProjectPath} --fail false")
+                    .AddExample("update-vsproj", "--soln ${SolutionPath} --proj ${ProjectPath}")
+                    .AddExample("update-vsproj", "--soln ${SolutionPath} --proj ${ProjectPath} --cache C:/opt/cache")
+                    .AddExample("update-vsproj", "--soln ${SolutionPath} --proj ${ProjectPath} --fail false")
             ;
         }
 
@@ -65,7 +69,7 @@ namespace net.nrequire {
             var result = GetParser().Parse(args);
             if (result.IsCommand("--help")) {
                 throw new CommandParseException("Help");
-            } else if(result.IsCommand("update-proj")) {
+            } else if(result.IsCommand("update-vsproj")) {
                 UpdateProjectCmd(result);
             } else {
                 throw new CommandParseException("Don't recognize command:" + result.Command);

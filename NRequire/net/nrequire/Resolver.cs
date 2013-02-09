@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-
+using System.Collections;
 namespace net.nrequire {
     public class Resolver {
 
@@ -14,14 +14,15 @@ namespace net.nrequire {
 
         public IList<SpecificDependency> ResolveDependencies(Solution soln, Project proj) {
             ValidateReadyForMerge(soln.Dependencies);
-            ValidateReadyForMerge(proj.Dependencies);
+            ValidateReadyForMerge(proj.Compile);
+            ValidateReadyForMerge(proj.Transitive);
 
-            var deps = MergeDeps(soln, proj);
+            var deps = MergeDeps(soln, proj).ToList();
             ValidateAllSet(deps);
 
             //now the fun begins. Resolve transitive deps, find closest versions
 
-            return deps.Select((d)=>Resolve(d)).ToList();
+            return deps.Select((d)=>ResolveToSpecific(d)).ToList();
         }
 
         private void ValidateReadyForMerge(IEnumerable<Dependency> deps) {
@@ -36,49 +37,90 @@ namespace net.nrequire {
             }
         }
 
-        private IList<Dependency> MergeDeps(Solution soln, Project proj) {
-            var lookup = soln.Dependencies.ToDictionary(d => d.Signature());
+        private DepsList MergeDeps(Solution soln, Project proj) {
+            var versions = new DepsList(soln.Dependencies);
+            
+            var deps = new DepsList();
+            deps.MergeInWithLookup(Scopes.Compile,proj.Compile,versions,0);
+            deps.MergeInWithLookup(Scopes.Transitive, proj.Transitive, versions, 1);
+            deps.MergeInWithLookup(Scopes.Provided, proj.Provided, versions, 1);
 
-            var merged = new Dictionary<string, Dependency>();
-            foreach (var dep in proj.Dependencies) {
-                var key = dep.Signature();
-                if (lookup.ContainsKey(key)) {
-                    var solnDep = lookup[key];
-                    merged[key] = dep.FillInBlanksFrom(solnDep);
-                } else {
-                    merged[key] = dep.Clone();
-                }
+            foreach (var dep in proj.Transitive) {
+                deps.MergeInWithLookup(Scopes.Transitive, dep.Dependencies, versions, 2);
             }
-            var transitiveDeps = new Dictionary<string, Dependency>();
-            foreach (var dep in merged.Values) {
-                if (dep.Dependencies != null) {
-                    foreach (var tdep in dep.Dependencies) {
-                        var key = tdep.Signature();
-                        if (!transitiveDeps.ContainsKey(key)) {//only add it if not already defined
-                            if (lookup.ContainsKey(key)) {//try to merge with solutions version
-                                var solnTDep = lookup[key];
-                                transitiveDeps[key] = tdep.FillInBlanksFrom(solnTDep);
-                            } else {
-                                transitiveDeps[key] = tdep;
-                            }
-                        }
-                    }
-                }
+            foreach (var dep in proj.Compile) {
+                deps.MergeInWithLookup(Scopes.Transitive,dep.Dependencies, versions, 2);
             }
-            //now resolve transitive deps
-            var deps = new List<Dependency>(merged.Values);
-            deps.AddRange(transitiveDeps.Values);
+            foreach (var dep in proj.Provided) {
+                deps.MergeInWithLookup(Scopes.Transitive, dep.Dependencies, versions, 2);
+            }
+            foreach (var dep in deps) {
+                deps.MergeInWithLookup(Scopes.Transitive, dep.Dependencies, versions, 2);
+            } 
             return deps;
         }
 
-        private static SpecificDependency Resolve(Dependency dep) {
+        private class DepsList :IEnumerable<Dependency>{
+            private readonly IDictionary<string, Dependency> m_deps;
+
+            internal DepsList() {
+                m_deps = new Dictionary<string, Dependency>();
+            }
+            
+            internal DepsList(IList<Dependency> deps) {
+                m_deps = deps.ToDictionary(d => d.Signature());
+            }
+
+            internal IList<Dependency> ToList() {
+                return new List<Dependency>(m_deps.Values);
+            }
+
+            internal void MergeInWithLookup(Scopes scope, IList<Dependency> additional, DepsList lookup, int level) {
+                foreach (var dep in additional) {
+                    
+                    var key = dep.Signature();
+                    if (!m_deps.ContainsKey(key)) {
+                        Dependency depToAdd;
+                        if (lookup.ContainsKey(key)) {
+                            var solnDep = lookup.GetByKey(key);
+                            depToAdd = dep.FillInBlanksFrom(solnDep);
+                        } else {
+                            depToAdd = dep.Clone();
+                        }
+                        
+                        depToAdd.Depth = level;
+                        depToAdd.Scope = scope;
+
+                        depToAdd.ValidateRequiredSet();
+                        m_deps[key] = depToAdd;
+                    }
+                }
+            }
+
+            private bool ContainsKey(String key) {
+                return m_deps.ContainsKey(key);
+            }
+
+            private Dependency GetByKey(string key) {
+                return m_deps[key];
+            }
+
+            IEnumerator IEnumerable.GetEnumerator() {
+                return GetEnumerator();
+            }
+
+            public IEnumerator<Dependency> GetEnumerator() {
+                return new List<Dependency>(m_deps.Values).GetEnumerator();
+            }
+        }
+
+        private static SpecificDependency ResolveToSpecific(Dependency dep) {
             //TODO:apply version selection, ranges etc
             var specific = new SpecificDependency {
                 Arch = dep.Arch,
-                ArtifactId = dep.ArtifactId,
                 CopyTo = dep.CopyTo,
                 Ext = dep.Ext,
-                GroupId = dep.GroupId,
+                Group = dep.Group,
                 Name = dep.Name,
                 Runtime = dep.Runtime,
                 Scope = dep.Scope.GetValueOrDefault(Scopes.Compile),
@@ -112,5 +154,6 @@ namespace net.nrequire {
             }
             return clones;
         }
+
     }
 }

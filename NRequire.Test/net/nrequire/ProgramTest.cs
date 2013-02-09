@@ -20,7 +20,7 @@ namespace net.nrequire {
             var projectFile = new FileInfo(Path.Combine(solnDir.FullName, "MyProject/MyProject.csproj"));
           
             new Program().InvokeWithArgs(new String[]{
-                "update-proj",
+                "update-vsproj",
                 "--soln", solnFile.FullName,
                 "--proj", projectFile.FullName,
                 "--cache", localCacheDir.FullName});
@@ -32,10 +32,10 @@ namespace net.nrequire {
                .ToList();
             //Expect to ignore dependencies in soln's nrequire.json but not in projects
 
-            Assert.IsTrue(refs[0].HintPath.StartsWith("$(SolutionDir)\\.cache\\MyChildGroupId0"));
-            Assert.IsTrue(refs[1].HintPath.StartsWith("$(SolutionDir)\\.cache\\MyChildGroupId1"));
-            Assert.IsTrue(refs[2].HintPath.StartsWith("$(SolutionDir)\\.cache\\MyChildGroupId2"));
-            Assert.IsTrue(refs[3].HintPath.StartsWith("$(SolutionDir)\\.cache\\TransitiveGroupId"));
+            Assert.IsTrue(refs[0].HintPath.StartsWith("$(SolutionDir)\\.cache\\Group0"));
+            Assert.IsTrue(refs[1].HintPath.StartsWith("$(SolutionDir)\\.cache\\Group1"));
+            Assert.IsTrue(refs[2].HintPath.StartsWith("$(SolutionDir)\\.cache\\Group2"));
+            Assert.IsTrue(refs[3].HintPath.StartsWith("$(SolutionDir)\\.cache\\TransitiveGroup"));
 
             Assert.AreEqual(4, refs.Count);
 
@@ -43,25 +43,25 @@ namespace net.nrequire {
             var solnCacheDir = new DirectoryInfo(solnDir.FullName + "\\.cache");
 
             Assert.IsTrue(solnDir.Exists);
-            AssertDepResourceExists(solnCacheDir, "MyChildGroupId0\\MyChildArtifactId0\\0.0.0\\runtime-MyChildRuntime0\\arch-MyChildArch0\\MyChildArtifactId0.xml");
-            AssertDepResourceExists(solnCacheDir, "MyChildGroupId0\\MyChildArtifactId0\\0.0.0\\runtime-MyChildRuntime0\\arch-MyChildArch0\\MyChildArtifactId0.pdb");
-            AssertDepResourceNotExists(solnCacheDir, "MyChildGroupId0\\MyChildArtifactId0\\0.0.0\\runtime-MyChildRuntime0\\arch-MyChildArch0\\MyChildArtifactId0.ignored");
+            AssertDepResourceExists(solnCacheDir, "Group0\\Name0\\0.0.0\\arch-Arch0_runtime-Runtime0\\Name0.xml");
+            AssertDepResourceExists(solnCacheDir, "Group0\\Name0\\0.0.0\\arch-Arch0_runtime-Runtime0\\Name0.pdb");
+            AssertDepResourceNotExists(solnCacheDir, "Group0\\Name0\\0.0.0\\arch-Arch0_runtime-Runtime0\\Name0.ignored");
 
-            AssertDepResourceExists(solnCacheDir, "MyChildGroupId1\\MyChildArtifactId1\\1.2.3\\runtime-MyChildRuntime1\\arch-MyChildArch1\\MyChildArtifactId1.related");
-            AssertDepResourceNotExists(solnCacheDir, "MyChildGroupId1\\MyChildArtifactId1\\1.2.3\\runtime-MyChildRuntime1\\arch-MyChildArch1\\MyChildArtifactId1.xml");
-            AssertDepResourceNotExists(solnCacheDir, "MyChildGroupId1\\MyChildArtifactId1\\1.2.3\\runtime-MyChildRuntime1\\arch-MyChildArch1\\MyChildArtifactId1.pdb");
+            AssertDepResourceExists(solnCacheDir, "Group1\\Name1\\1.2.3\\arch-any_runtime-4.0\\Name1.related");
+            AssertDepResourceNotExists(solnCacheDir, "Group1\\Name1\\1.2.3\\arch-any_runtime-4.0\\Name1.xml");
+            AssertDepResourceNotExists(solnCacheDir, "Group1\\Name1\\1.2.3\\arch-any_runtime-4.0\\Name1.pdb");
 
             var projDir = new DirectoryInfo(projectFile.Directory.FullName);
 
-            AssertDependencyCopied(projDir, "MyLibDir\\MyChildArtifactId0.dll");
-            AssertDependencyCopied(projDir, "MyLibDir\\MyChildArtifactId0.xml");
-            AssertDependencyCopied(projDir, "MyLibDir\\MyChildArtifactId0.pdb");
+            AssertDependencyCopied(projDir, "MyLibDir\\Name0.dll");
+            AssertDependencyCopied(projDir, "MyLibDir\\Name0.xml");
+            AssertDependencyCopied(projDir, "MyLibDir\\Name0.pdb");
 
-            AssertDependencyCopied(projDir, "MyLibDir\\MyChildArtifactId1.MyChildExt1");
-            AssertDependencyCopied(projDir, "MyLibDir\\MyChildArtifactId1.related");
+            AssertDependencyCopied(projDir, "MyLibDir\\Name1.Ext1");
+            AssertDependencyCopied(projDir, "MyLibDir\\Name1.related");
 
-            AssertDependencyCopied(projDir, "MyLibDir\\TransitiveArtifactId.TransitiveExt");
-            AssertDependencyCopied(projDir, "MyLibDir\\ProvidedArtifactId.dll");
+            AssertDependencyCopied(projDir, "MyLibDir\\TransitiveName.TransitiveExt");
+            AssertDependencyCopied(projDir, "MyLibDir\\ProvidedName.dll");
             solnDir.Delete(true);
         }
 

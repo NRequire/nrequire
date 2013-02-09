@@ -7,17 +7,24 @@ namespace net.nrequire {
     public class Project {
         private static readonly Dependency DefaultDependencyValues = new Dependency { Arch = "any", Runtime = "any" };
 
-        public IList<Dependency> Dependencies { get;set;}
+        public IList<Dependency> Compile { get;set;}
+        public IList<Dependency> Provided { get; set; }
+        public IList<Dependency> Transitive { get; set; }
+        
         public Dependency DependencyDefaults { get; set; }
 
         public Project() {
-            Dependencies = new List<Dependency>();
+            Compile = new List<Dependency>();
+            Provided = new List<Dependency>(); 
+            Transitive = new List<Dependency>();
             DependencyDefaults = DefaultDependencyValues.Clone();
         }
 
         public void ApplyDefaults() {
             DependencyDefaults = DependencyDefaults == null ? DefaultDependencyValues.Clone() : DependencyDefaults.FillInBlanksFrom(DefaultDependencyValues);
-            Dependencies = Dependency.FillInBlanksFrom(Dependencies, DependencyDefaults);
+            Compile = Dependency.FillInBlanksFrom(Compile, DependencyDefaults);
+            Provided = Dependency.FillInBlanksFrom(Provided, DependencyDefaults);
+            Transitive = Dependency.FillInBlanksFrom(Compile, DependencyDefaults);
         }
     }
 }

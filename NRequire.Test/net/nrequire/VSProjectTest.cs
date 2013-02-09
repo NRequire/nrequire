@@ -17,8 +17,8 @@ namespace net.nrequire {
 
             var proj = VSProject.FromPath(projFile);
             var resources = new List<Resource> {
-                new Resource(new SpecificDependency{ArtifactId="MyChildArtifactId1"}, null, "%CACHE_PATH%\\path\\to\\child1.ext"),
-                new Resource(new SpecificDependency{ArtifactId="MyChildArtifactId2"}, null, "%CACHE_PATH%\\path\\to\\child2.ext")
+                new Resource(new SpecificDependency{Name="MyChildArtifactId1"}, null, "%CACHE_PATH%\\path\\to\\child1.ext"),
+                new Resource(new SpecificDependency{Name="MyChildArtifactId2"}, null, "%CACHE_PATH%\\path\\to\\child2.ext")
             };
             proj.UpdateReferences(resources);
 
@@ -37,8 +37,8 @@ namespace net.nrequire {
 
             var proj = VSProject.FromPath(projFile);
             var resources = new List<Resource> {
-                new Resource(new SpecificDependency{ArtifactId="MyChildArtifactId1"}, null, "%CACHE_PATH%\\path\\to\\child1.ext"),
-                new Resource(new SpecificDependency{ArtifactId="MyChildArtifactId2"}, null, "%CACHE_PATH%\\path\\to\\child2.ext")
+                new Resource(new SpecificDependency{Name="MyChildArtifactId1"}, null, "%CACHE_PATH%\\path\\to\\child1.ext"),
+                new Resource(new SpecificDependency{Name="MyChildArtifactId2"}, null, "%CACHE_PATH%\\path\\to\\child2.ext")
             };
             var changed1stTime = proj.UpdateReferences(resources);
             Assert.True(changed1stTime);

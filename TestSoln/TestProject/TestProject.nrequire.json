@@ -1,13 +1,13 @@
 {
 	dependencies:[
 		{
-			groupId:"Json.Net",
-			artifactId:"Newtonsoft.Json",
+			group:"Json.Net",
+			name:"Newtonsoft.Json",
 			runtime:"4.0"
 		},
 		{
-			groupId:"NUnit",
-			artifactId:"nunit.framework"
+			group:"NUnit",
+			name:"nunit.framework"
 		}
 	]
 }

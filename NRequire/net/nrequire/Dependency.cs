@@ -6,18 +6,33 @@ using System.IO;
 
 namespace net.nrequire {
     public class Dependency {
-
+        //groupId->group
+        //Artifactid->Name
+        public string Group { get; set; }
         public string Name { get; set; }
-        public string GroupId { get; set; }
-        public string ArtifactId { get; set; }
         public string Version { get; set; }
         public String Ext { get; set; }
+        
+        //to be moved into classifiers
         public string Arch { get; set; }
         public string Runtime { get; set; }
+
         public Uri Url { get; set; }
         public String CopyTo { get; set; }
-        public Scopes? Scope { get; set; }
-        public bool Optional { get; set; }
+        //scratch and only put in resolved? deps should come under projects dep lilsts of compile:[],provided:[],files:[],transitive;[]
+        internal Scopes? Scope { get; set; }
+        //remove? see scopes above
+        public bool? Optional { get; set; }//this dep is optional
+        public bool? Force { get; set; }//force this dep
+        public bool? Transitive { get; set; }//whether to resolve transitive deps for this or not
+
+        internal int Depth { get; set; }//0 is top level, 1 is child, 2 is child of child....
+
+        public String Classifier { 
+            get{ return ClassifiersAsString(); } 
+            set{ Classifiers = ParseClassifierString(value);} 
+        }
+        public IDictionary<String, String> Classifiers { get; set; }
 
         public IList<Dependency> Dependencies { get; set; }
         /// <summary>
@@ -30,9 +45,56 @@ namespace net.nrequire {
 
         public Dependency() {
             this.Dependencies = new List<Dependency>();
+            this.Classifiers = new Dictionary<String,String>();
             Optional = false;
         }
 
+        public bool HasOptions() {
+            return Classifiers != null && Classifiers.Count > 0;
+        }
+
+        private IDictionary<String, String> ParseClassifierString(String s) {
+            var opts = new Dictionary<String, String>();
+            var parts = s.Split(new char[]{'_'}, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var part in parts) {
+                var pair = part.Split(new char[] { '-' });
+                if (pair.Length == 1) {
+                    opts[pair[0]] = "true";
+                } else if (pair.Length == 2) {
+                    opts[pair[0]] = pair[1];
+                } else {
+                    throw new ArgumentException(String.Format("Error parsing part '{0}' in options string'{1}' expected name-value pair",part,s));
+                }
+            }
+            return opts;
+        }
+
+        public String ClassifiersAsString() {
+            if (HasOptions()) {
+                var keys = new List<String>(Classifiers.Keys);
+                keys.Sort();
+                var sb = new StringBuilder();
+                foreach (var key in keys) {
+                    var val = Classifiers[key];
+                    if (val == "true") {
+                        if (sb.Length > 0) {
+                            sb.Append("_");
+                        }
+                        sb.Append(key);
+                    } else if (val == "false") {
+                        //bool option and it doesn'texist, don't include modifier
+                    } else {
+                        if (sb.Length > 0) {
+                            sb.Append("_");
+                        } 
+                        sb.Append(key).Append("-").Append(val);
+                    }
+                }
+                return sb.ToString();
+            }
+            return null;
+        }
+        
         public bool HasRelatedDependencies() {
             return Related != null && Related.Count > 0;
         }
@@ -69,23 +131,20 @@ namespace net.nrequire {
             if (d == null) {
                 return;
             }
+            if (String.IsNullOrWhiteSpace(this.Group)) {
+                this.Group = d.Group;
+            }
+            if (String.IsNullOrWhiteSpace(this.Name)) {
+                this.Name = d.Name;
+            } 
             if (String.IsNullOrWhiteSpace(this.Arch)) {
                 this.Arch = d.Arch;
-            }
-            if (String.IsNullOrWhiteSpace(this.ArtifactId)) {
-                this.ArtifactId = d.ArtifactId;
             }
             if (String.IsNullOrWhiteSpace(this.Ext)) {
                 this.Ext = d.Ext;
             }
             if (String.IsNullOrWhiteSpace(this.Runtime)) {
                 this.Runtime = d.Runtime;
-            }
-            if (String.IsNullOrWhiteSpace(this.GroupId)) {
-                this.GroupId = d.GroupId;
-            }
-            if (String.IsNullOrWhiteSpace(this.Name)) {
-                this.Name = d.Name;
             }
             if (this.Ext == null) {
                 this.Ext = d.Ext;
@@ -147,26 +206,26 @@ namespace net.nrequire {
         }
 
         public void ValidateMergeValuesSet() {
-            if (String.IsNullOrWhiteSpace(GroupId)) {
-                throw new ArgumentException("Expect GroupId to be set on " + this);
+            if (String.IsNullOrWhiteSpace(Group)) {
+                throw new ArgumentException("Expect Group to be set on " + this);
             }
-            if (String.IsNullOrWhiteSpace(ArtifactId)) {
-                throw new ArgumentException("Expect ArtifactId to be set on " + this);
+            if (String.IsNullOrWhiteSpace(Name)) {
+                throw new ArgumentException("Expect Name to be set on " + this);
             }
-            if (String.IsNullOrWhiteSpace(Arch)) {
-                throw new ArgumentException("Expect Arch to be set on " + this);
-            }
-            if (String.IsNullOrWhiteSpace(Runtime)) {
-                throw new ArgumentException("Expect Runtime to be set on " + this);
-            }
+            //if (String.IsNullOrWhiteSpace(Arch)) {
+            //    throw new ArgumentException("Expect Arch to be set on " + this);
+            //}
+            //if (String.IsNullOrWhiteSpace(Runtime)) {
+            //    throw new ArgumentException("Expect Runtime to be set on " + this);
+            //}
         }
 
         public string Signature() {
-            return String.Format("groupId-{0}-artifactId-{1}-arch-{2}-runtime-{3}>",
-                GroupId,
-                ArtifactId,
-                Arch,
-                Runtime
+            return String.Format("group-{0}-name-{1}>"
+                , Group
+                , Name
+                //, Arch
+                //, Runtime
             ).ToLower();
         }
 
@@ -175,10 +234,10 @@ namespace net.nrequire {
             if (Dependencies != null && Dependencies.Count > 0) {
                 depsString = "\n\t" + String.Join("\n\t", Dependencies) + "\n\t";
             }
-            return String.Format("Dependency@{0}<\n\tGroupId:{1},\n\tArtifactId:{2},\n\tVersion:{3},\n\tExt:{4},\n\tArch:{5},\n\tRuntime:{6},\n\tScope:{7},\n\tUrl:'{8}',\n\tCopyTo:'{9}',\n\tRelated:[{10}],\n\tDependencies:[{11}]\n>", 
+            return String.Format("Dependency@{0}<\n\tGroup:{1},\n\tName:{2},\n\tVersion:{3},\n\tExt:{4},\n\tArch:{5},\n\tRuntime:{6},\n\tScope:{7},\n\tUrl:'{8}',\n\tCopyTo:'{9}',\n\tRelated:[{10}],\n\tDependencies:[{11}]\n>", 
                 base.GetHashCode(),
-                GroupId,
-                ArtifactId,
+                Group,
+                Name,
                 Version,
                 Ext,
                 Arch,

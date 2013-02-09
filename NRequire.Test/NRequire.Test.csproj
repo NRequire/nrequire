@@ -57,6 +57,7 @@
     <Compile Include="net\nrequire\JsonReaderTest.cs" />
     <Compile Include="net\nrequire\NUnitConsoleRunner.cs" />
     <Compile Include="net\nrequire\ProgramTest.cs" />
+    <Compile Include="net\nrequire\VersionMatcherTest.cs" />
     <Compile Include="net\nrequire\VersionTest.cs" />
     <Compile Include="net\nrequire\VSProjectTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,27 +69,27 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="net\nrequire\ProgramTest\LocalCache\ProvidedGroupId\ProvidedArtifactId\1.1.1\runtime-4.0\arch-any\ProvidedArtifactId.dll">
+    <Content Include="net\nrequire\ProgramTest\LocalCache\ProvidedGroup\ProvidedName\1.1.1\arch-any_runtime-4.0\ProvidedName.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="net\nrequire\ProgramTest\LocalCache\TransitiveGroupId\TransitiveArtifactId\1.1.1\runtime-TransitiveRuntime\arch-TransitiveArch\TransitiveArtifactId.TransitiveExt">
+    <None Include="net\nrequire\ProgramTest\LocalCache\TransitiveGroup\TransitiveName\1.1.1\arch-TransitiveArch_runtime-TransitiveRuntime\TransitiveName.TransitiveExt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="net\nrequire\ProgramTest\LocalCache\MyChildGroupId0\MyChildArtifactId0\0.0.0\runtime-MyChildRuntime0\arch-MyChildArch0\MyChildArtifactId0.ignored">
+    <None Include="net\nrequire\ProgramTest\LocalCache\Group0\Name0\0.0.0\arch-Arch0_runtime-Runtime0\Name0.ignored">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="net\nrequire\ProgramTest\LocalCache\MyChildGroupId0\MyChildArtifactId0\0.0.0\runtime-MyChildRuntime0\arch-MyChildArch0\MyChildArtifactId0.pdb">
+    <Content Include="net\nrequire\ProgramTest\LocalCache\Group0\Name0\0.0.0\arch-Arch0_runtime-Runtime0\Name0.pdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="net\nrequire\ProgramTest\LocalCache\MyChildGroupId0\MyChildArtifactId0\0.0.0\runtime-MyChildRuntime0\arch-MyChildArch0\MyChildArtifactId0.xml">
+    <Content Include="net\nrequire\ProgramTest\LocalCache\Group0\Name0\0.0.0\arch-Arch0_runtime-Runtime0\Name0.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="net\nrequire\ProgramTest\LocalCache\MyChildGroupId1\MyChildArtifactId1\1.2.3\runtime-MyChildRuntime1\arch-MyChildArch1\MyChildArtifactId1.MyChildExt1">
+    <None Include="net\nrequire\ProgramTest\LocalCache\Group1\Name1\1.2.3\arch-any_runtime-4.0\Name1.Ext1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="net\nrequire\ProgramTest\LocalCache\MyChildGroupId2\MyChildArtifactId2\4.5.6\runtime-MyChildRuntime2\arch-MyChildArch2\MyChildArtifactId2.MyChildExt2">
+    </None>
+    <None Include="net\nrequire\ProgramTest\LocalCache\Group2\Name2\4.5.6\arch-any_runtime-4.0\Name2.Ext2">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
     <Content Include="net\nrequire\ProgramTest\MySoln\MyProject\MyProject.csproj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -115,16 +116,16 @@
     <Content Include="net\nrequire\ProgramTest\MySoln\MySoln.nrequire.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="net\nrequire\ProgramTest\LocalCache\MyChildGroupId1\MyChildArtifactId1\1.2.3\runtime-MyChildRuntime1\arch-MyChildArch1\MyChildArtifactId1.xml">
+    <Content Include="net\nrequire\ProgramTest\LocalCache\Group1\Name1\1.2.3\arch-any_runtime-4.0\Name1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="net\nrequire\ProgramTest\LocalCache\MyChildGroupId1\MyChildArtifactId1\1.2.3\runtime-MyChildRuntime1\arch-MyChildArch1\MyChildArtifactId1.related">
+    <None Include="net\nrequire\ProgramTest\LocalCache\Group1\Name1\1.2.3\arch-any_runtime-4.0\Name1.related">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="net\nrequire\ProgramTest\LocalCache\MyChildGroupId0\MyChildArtifactId0\0.0.0\runtime-MyChildRuntime0\arch-MyChildArch0\MyChildArtifactId0.dll">
+    <Content Include="net\nrequire\ProgramTest\LocalCache\Group0\Name0\0.0.0\arch-Arch0_runtime-Runtime0\Name0.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="net\nrequire\ProgramTest\LocalCache\MyGroupIdSolnOnly\MyArtifactId\1.2.3\runtime-MyRuntime\arch-MyArch\MyArtifactId.MyExt">
+    <None Include="net\nrequire\ProgramTest\LocalCache\GroupSolnOnly\MyName\1.2.3\arch-any_runtime-4.0\MyName.MyExt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

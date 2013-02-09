@@ -25,7 +25,7 @@ namespace net.nrequire {
 
         internal bool UpdateReferences(IEnumerable<Resource> resources) {
             return UpdateReferences(resources.Select((res) => new Reference {
-                Include = res.Dep.ArtifactId,
+                Include = res.Dep.Name,
                 HintPath = res.VSProjectPath
             }).ToList());
         }
