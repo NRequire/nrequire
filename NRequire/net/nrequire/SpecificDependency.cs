@@ -16,7 +16,10 @@ namespace net.nrequire {
         public Uri Url { get; internal set; }
         public String CopyTo { get; internal set; }
         public Scopes Scope { get; internal set; }
+        public bool HasRelatedDependencies { get { return Related != null && Related.Count > 0;}}
         public IList<SpecificDependency> Related { get; internal set; }
+        
+        public bool EmbeddedResource { get; set; }
 
         public SpecificDependency Clone() {
             return new SpecificDependency {
@@ -31,10 +34,6 @@ namespace net.nrequire {
                 Url = Url,
                 Version = Version
             };
-        }
-
-        public bool HasRelatedDependencies() {
-            return Related != null && Related.Count > 0;
         }
 
         public override string ToString() {

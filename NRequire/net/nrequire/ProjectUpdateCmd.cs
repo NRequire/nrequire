@@ -103,7 +103,7 @@ namespace net.nrequire {
         private IList<Resource> ResolveRelatedResources(IEnumerable<SpecificDependency> deps) {
             var resources = new List<Resource>();
             foreach (var dep in deps) {
-                if(dep.HasRelatedDependencies()){
+                if(dep.HasRelatedDependencies){
                     AddRelatedResources(dep, resources);
                 }
             }

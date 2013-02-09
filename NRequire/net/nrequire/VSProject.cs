@@ -88,6 +88,8 @@ namespace net.nrequire {
             foreach (var reference in appendReferences) {
                 AddReferenceTo(refItemGroup, reference);
             }
+
+            //TODO:if we have any embedded resources, then update the resources section
             WriteXml(xmlDoc);
         }
 
@@ -99,7 +101,8 @@ namespace net.nrequire {
             frag.InnerXml = String.Format(@"
     <Reference Include=""{0}"">
       <HintPath>{1}</HintPath>
-    </Reference>", reference.Include, reference.HintPath);
+      <Private>{2}</Private>
+    </Reference>", reference.Include, reference.HintPath, reference.EmbeddedResource);
             refItemGroup.InsertBefore(frag, refItemGroup.FirstChild);
         }
 
@@ -113,9 +116,11 @@ namespace net.nrequire {
             foreach (var refNode in refNodes) {
                 var node = refNode as XmlNode;
                 var hintNode = node.GetChildNamed("HintPath");
+                var copyToOutputNode = node.GetChildNamed("Private");
                 var reference = new Reference {
                     Include = ((XmlAttribute)node.Attributes.GetNamedItem("Include")).Value,
-                    HintPath = hintNode == null ? null : hintNode.InnerXml
+                    HintPath = hintNode == null ? null : hintNode.InnerXml,
+                    EmbeddedResource = copyToOutputNode == null ? false : (copyToOutputNode.InnerText == "true")
                 };
                 references.Add(reference);
             }
@@ -169,6 +174,7 @@ namespace net.nrequire {
         public class Reference {
             public String Include { get; set; }
             public String HintPath { get; set; }
+            public bool EmbeddedResource{ get; set; }
 
             public override bool Equals(object obj) {
                 if (obj == null || !(obj is Reference)) {
@@ -179,7 +185,8 @@ namespace net.nrequire {
                 }
                 var other = obj as Reference;
                 return this.HintPath == other.HintPath
-                    && this.Include == other.Include;
+                    && this.Include == other.Include
+                    && this.EmbeddedResource == other.EmbeddedResource;
             }
 
             public override int GetHashCode() {
@@ -192,6 +199,8 @@ namespace net.nrequire {
                     if (Include != null) {
                         hash = hash * 27 + Include.GetHashCode();
                     }
+                    hash = hash * 27 + EmbeddedResource.GetHashCode();
+                
                     return hash;
                 }
             }
