@@ -62,11 +62,7 @@ namespace net.nrequire {
             var soln = m_jsonReader.ReadSolution(LookupJsonFileFor(SolutionFile));
             var proj = m_jsonReader.ReadProject(LookupJsonFileFor(ProjectFile));
 
-            soln.ApplyDefaults();
-            proj.ApplyDefaults();
-
             var deps = new Resolver().ResolveDependencies(soln, proj);
-
             return deps;
         }
 

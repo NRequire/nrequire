@@ -1,5 +1,5 @@
 ﻿{
-	format:1,
+	projectFormat:1,
     dependencyDefaults:{
 		arch:"any", 
         runtime:"4.0"

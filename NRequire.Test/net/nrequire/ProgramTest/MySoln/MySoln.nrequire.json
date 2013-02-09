@@ -1,5 +1,5 @@
 ﻿{
-	format:1,
+	solutionFormat:1,
     dependencyDefaults:{
 		arch:"any", 
         runtime:"4.0"
@@ -45,8 +45,7 @@
 			group:"ProvidedGroup",
 			name:"ProvidedName",
 			version:"1.1.1",
-			copyTo:"MyLibDir",
-			reference:false
+			copyTo:"MyLibDir"
 		},
 		{
 			group:"GroupSolnOnly",

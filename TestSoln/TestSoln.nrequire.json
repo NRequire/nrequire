@@ -1,4 +1,5 @@
 {
+	solutionFormat:1,
 	dependencies:[
 		{
 			group:"Json.Net",

@@ -49,6 +49,10 @@ namespace net.nrequire {
             Optional = false;
         }
 
+        public void AfterLoad() {
+            //any post load validation or setup
+        }
+
         public bool HasOptions() {
             return Classifiers != null && Classifiers.Count > 0;
         }

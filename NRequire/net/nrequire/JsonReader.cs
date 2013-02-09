@@ -9,15 +9,21 @@ namespace net.nrequire {
         }
         
         public Solution ReadSolution(FileInfo jsonFile) {
-            return Read<Solution>(jsonFile);
+            var soln = Read<Solution>(jsonFile);
+            soln.AfterLoad();
+            return soln;
         }
 
         public Project ReadProject(FileInfo jsonFile) {
-            return Read<Project>(jsonFile);
+            var p = Read<Project>(jsonFile);
+            p.AfterLoad();
+            return p;
         }
 
         public Dependency ReadDependency(FileInfo jsonFile) {
-            return Read<Dependency>(jsonFile);
+            var dep = Read<Dependency>(jsonFile);
+            dep.AfterLoad();
+            return dep;
         }
 
         public T Read<T>(FileInfo jsonFile) {
@@ -28,7 +34,11 @@ namespace net.nrequire {
             String json = null;
             try {
                 json = ReadFileAsString(jsonFile);
-                return JsonConvert.DeserializeObject<T>(json); 
+                var settings = new JsonSerializerSettings();
+                settings.MissingMemberHandling = MissingMemberHandling.Error;
+                settings.NullValueHandling = NullValueHandling.Ignore;
+                
+                return JsonConvert.DeserializeObject<T>(json, settings); 
                 ///return m_serializer.Deserialize<T>(json);
             } catch (Exception e) {
                 throw new Exception(String.Format("Error while trying to parse file '{0}', with contents:\n{1}", jsonFile.FullName, json), e);

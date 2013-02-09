@@ -26,7 +26,8 @@ namespace net.nrequire {
         internal bool UpdateReferences(IEnumerable<Resource> resources) {
             return UpdateReferences(resources.Select((res) => new Reference {
                 Include = res.Dep.Name,
-                HintPath = res.VSProjectPath
+                HintPath = res.VSProjectPath,
+                EmbeddedResource = res.Dep.EmbeddedResource
             }).ToList());
         }
 
@@ -98,11 +99,20 @@ namespace net.nrequire {
             var frag = doc.CreateDocumentFragment();
             //can't seem to be able to remove the xmlns attribute so let's atleast set
             //it to the correct value
-            frag.InnerXml = String.Format(@"
+            //NOTE:formatting below is important! Try to recreate the exact same xml as VS to reduce the size of diffs
+            if (reference.EmbeddedResource) {
+                frag.InnerXml = String.Format(@"
     <Reference Include=""{0}"">
       <HintPath>{1}</HintPath>
-      <Private>{2}</Private>
-    </Reference>", reference.Include, reference.HintPath, reference.EmbeddedResource);
+      <Private>True</Private>
+    </Reference>", reference.Include, reference.HintPath);
+            } else {
+                frag.InnerXml = String.Format(@"
+    <Reference Include=""{0}"">
+      <HintPath>{1}</HintPath>
+    </Reference>", reference.Include, reference.HintPath);
+
+            }
             refItemGroup.InsertBefore(frag, refItemGroup.FirstChild);
         }
 

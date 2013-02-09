@@ -18,7 +18,7 @@ namespace net.nrequire {
             var proj = VSProject.FromPath(projFile);
             var resources = new List<Resource> {
                 new Resource(new SpecificDependency{Name="MyChildArtifactId1"}, null, "%CACHE_PATH%\\path\\to\\child1.ext"),
-                new Resource(new SpecificDependency{Name="MyChildArtifactId2"}, null, "%CACHE_PATH%\\path\\to\\child2.ext")
+                new Resource(new SpecificDependency{Name="MyChildArtifactId2", EmbeddedResource = true }, null, "%CACHE_PATH%\\path\\to\\child2.ext")
             };
             proj.UpdateReferences(resources);
 

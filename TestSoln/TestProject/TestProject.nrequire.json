@@ -1,4 +1,5 @@
 {
+	projectFormat:1,
 	compile:[
 		{
 			group:"Json.Net",
