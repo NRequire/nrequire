@@ -8,7 +8,6 @@ using NUnit.Framework;
 namespace net.nrequire {
     [TestFixture]
     public class JsonReaderTest {
-
         [Test]
         public void ThrowsExceptionOnNonExistentJsonFileTest() {
             ArgumentException thrown = null;

@@ -69,37 +69,5 @@ namespace net.nrequire.Properties {
                 return ((byte[])(obj));
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Newtonsoft_Json1 {
-            get {
-                object obj = ResourceManager.GetObject("Newtonsoft_Json1", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
-        ///&lt;doc&gt;
-        ///    &lt;assembly&gt;
-        ///        &lt;name&gt;Newtonsoft.Json&lt;/name&gt;
-        ///    &lt;/assembly&gt;
-        ///    &lt;members&gt;
-        ///        &lt;member name=&quot;T:Newtonsoft.Json.Bson.BsonReader&quot;&gt;
-        ///            &lt;summary&gt;
-        ///            Represents a reader that provides fast, non-cached, forward-only access to serialized Json data.
-        ///            &lt;/summary&gt;
-        ///        &lt;/member&gt;
-        ///        &lt;member name=&quot;T:Newtonsoft.Json.JsonReader&quot;&gt;
-        ///            &lt;summary&gt;
-        ///            Represents a reader that provides fast, non-cached, forward-only access  [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string Newtonsoft_Json2 {
-            get {
-                return ResourceManager.GetString("Newtonsoft_Json2", resourceCulture);
-            }
-        }
     }
 }

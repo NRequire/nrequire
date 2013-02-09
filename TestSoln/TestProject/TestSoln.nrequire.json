@@ -1,13 +1,15 @@
 {
-	compile:[
+	dependencies:[
 		{
 			group:"Json.Net",
 			name:"Newtonsoft.Json",
+			version:"4.5-r11",
 			runtime:"4.0"
 		},
 		{
 			group:"NUnit",
-			name:"nunit.framework"
+			name:"nunit.framework",
+			version:"2.6.2"
 		}
 	]
 }

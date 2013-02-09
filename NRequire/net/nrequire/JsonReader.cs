@@ -1,14 +1,13 @@
 ﻿using System;
 using System.IO;
-using System.Web;
-using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 
 namespace net.nrequire {
     public class JsonReader {
-
-        private readonly JavaScriptSerializer m_serializer = new JavaScriptSerializer();
-
+        static JsonReader() {
+            LoadEmbeddedDlls.Load();
+        }
+        
         public Solution ReadSolution(FileInfo jsonFile) {
             return Read<Solution>(jsonFile);
         }
