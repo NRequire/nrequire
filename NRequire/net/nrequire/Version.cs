@@ -51,29 +51,29 @@ namespace net.nrequire {
            try {
                 var v = new Version();
 
-                var parts = s.Split(Dashes);
-                if (parts.Length == 0 || parts.Length > 2) {
+                var versionQualifierParts = s.Split(Dashes);
+                if (versionQualifierParts.Length == 0 || versionQualifierParts.Length > 2) {
                     throw NewInvalidFormat(s);
                 }
-                if (parts.Length == 2) {
-                    var q = parts[1].Trim();
-                    if(String.IsNullOrEmpty(q)){
+                if (versionQualifierParts.Length == 2) {
+                    var qualifierPart = versionQualifierParts[1].Trim();
+                    if(String.IsNullOrEmpty(qualifierPart)){
                         throw NewInvalidFormat(s);
                     }
                     try {
-                        SetQualifier(v,q);
+                        SetQualifier(v,qualifierPart);
                     } catch (ArgumentException e) {
                         throw NewInvalidFormat(s,e);
                     }
                 }
-                var numParts = parts[0].Split(Dots);
-                if (numParts.Length < 2 || numParts.Length > 3) {
+                var versionParts = versionQualifierParts[0].Split(Dots);
+                if (versionParts.Length < 2 || versionParts.Length > 3) {
                     throw NewInvalidFormat(s);
                 }
-                v.Major = int.Parse(numParts[0]);
-                v.Minor = int.Parse(numParts[1]);
-                if (numParts.Length == 3) {
-                    v.Revision = int.Parse(numParts[2]);
+                v.Major = int.Parse(versionParts[0]);
+                v.Minor = int.Parse(versionParts[1]);
+                if (versionParts.Length == 3) {
+                    v.Revision = int.Parse(versionParts[2]);
                 }
                 return v;
            } catch (Exception e) {
