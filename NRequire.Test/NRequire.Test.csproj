@@ -55,6 +55,7 @@
     <Compile Include="net\nrequire\DependencyTest.cs" />
     <Compile Include="net\nrequire\FileUtil.cs" />
     <Compile Include="net\nrequire\JsonReaderTest.cs" />
+    <Compile Include="net\nrequire\matcher\ExactMatcherTest.cs" />
     <Compile Include="net\nrequire\NUnitConsoleRunner.cs" />
     <Compile Include="net\nrequire\ProgramTest.cs" />
     <Compile Include="net\nrequire\VersionMatcherTest.cs" />

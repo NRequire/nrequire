@@ -3,18 +3,114 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Globalization;
+using net.nrequire.matcher;
 
 namespace net.nrequire {
     public class VersionMatcher {
 
-        private ExactMatch m_match;
-        private VersionMatcher(ExactMatch match) {
+        private IMatcher<Version> m_match;
+        
+        private VersionMatcher(IMatcher<Version> match) {
             m_match = match;
         }
 
         public static VersionMatcher Parse(String versionMatch) {
+            try {
+                return InternalParse(versionMatch);
+            } catch (Exception e) {
+                throw new ArgumentException(String.Format("Error trying to parse version criteria '{0}'", versionMatch),e);
+            }
+        }
+
+        private static VersionMatcher InternalParse(String versionMatch){
             //http://docs.codehaus.org/display/MAVEN/Dependency+Mediation+and+Conflict+Resolution
-            return new VersionMatcher(ExactMatch.Parse(versionMatch));
+            Console.WriteLine("VersionMatcher.Parse.string=" + versionMatch);
+            var from = 0;
+            char lastLimiter = ',';
+            var any = new AnyMatcher();
+
+            RangeMatcher range = null;
+            var getRangePair = new Func<RangeMatcher>(() => {
+                if (range == null) {
+                    range = new RangeMatcher();
+                    any.Add(range);
+                }
+                return range;
+            });
+            var newRangePair = new Action(() => range = null);
+            for (var i = 0; i < versionMatch.Length; i++) {
+                var c = versionMatch[i];
+                try {
+                    if (c == '[' || c == '(') {
+                        Console.WriteLine("c=" + c);
+                        
+                        if (lastLimiter == '[' || lastLimiter == '(') {
+                            throw new ArgumentException("Did not expect previous range limter to be " + lastLimiter);
+                        }
+                        lastLimiter = c;
+                        from = i + 1;
+                    } else if (c == ',') {
+                        var part = versionMatch.Substring(from, i - from);
+                        Console.WriteLine("c=" + c);
+                        Console.WriteLine("part=" + part);
+
+                        switch (lastLimiter) {
+                            case '[':
+                            case '('://...(1.2.3,....
+                                getRangePair().From = ExactMatcher.Parse(lastLimiter, part);
+                                break;
+                            case ']':
+                            case ')'://...),...
+                                //end of the last one. Check no intervening chars??
+                                if (from != i) {
+                                    throw new ArgumentException("Did not expect additional since last " + lastLimiter);
+                                }
+                                break;
+                            case ',': //...,1.2.3,...
+                                if (range != null) {
+                                    throw new ArgumentException("Do not expect " + c);
+                                }
+                                any.Add(ExactMatcher.Parse('=', part));
+                                newRangePair();
+                                break;
+                            default:
+                                break;
+                        }
+                        lastLimiter = ',';
+                        from = i + 1;
+                    } else if (c == ']' || c == ')') { ///...,1.2.3).... or ...(1.2.3)
+                        var part = versionMatch.Substring(from, i - from);
+                        Console.WriteLine("c=" + c);
+                        Console.WriteLine("part=" + part);
+                        Console.WriteLine("lastLimiter=" + lastLimiter);
+                        Console.WriteLine("i=" + i);
+                        Console.WriteLine("from=" + from);
+                        
+                        if (lastLimiter == ',') {
+                            if (from < i) { //only if it's not something like (1.2.3,) in which case we just ignore the last matcher
+                                getRangePair().To = ExactMatcher.Parse(c, part);
+                            }
+                        } else if (lastLimiter == '[' || lastLimiter == '(') {
+                            if (lastLimiter == '(' && c == ')') {
+                                throw new ArgumentException("Nothing can match (x), use [x) or (x] or (x,y) as position " + i);
+                            }
+                            getRangePair().From = ExactMatcher.Parse(lastLimiter, part);
+                            getRangePair().To = ExactMatcher.Parse(c, part);
+                        } else {
+                            throw new ArgumentException("Did not expect previous range limter to be " + lastLimiter);
+                        }
+                        lastLimiter = c;
+                        from = i + 1;
+                        newRangePair();
+                    }
+                } catch (ArgumentException e) {
+                    throw new ArgumentException("Invalid version string at position " + i, e);
+                }
+            }
+            if (from < versionMatch.Length) {
+                any.Add(ExactMatcher.Parse('=',versionMatch.Substring(from,versionMatch.Length)));
+            }
+            return new VersionMatcher(any.Collapse());
         }
 
         public bool Match(String versionString) {
@@ -25,137 +121,8 @@ namespace net.nrequire {
             return m_match.Match(v);
         }
 
-        private class ExactMatch {
-
-            private static readonly String[] DateFormats = new[] { "yyyyMMddHHmmssfff", "yyyyMMddHHmmss", "yyyy:MMdd:HHmm:ss", "yyyy:MMdd:HHmm:ss:fff" };
-
-            private static readonly char[] Dots = new[] { '.' };
-            private static readonly char[] Dashes = new[] { '-' };
-
-            int? Major { get;set;}
-            int? Minor { get; set; }
-            int? Revision { get; set; }
-            int? Build { get; set; }
-            bool Snapshot { get; set; }
-            
-            DateTime? TimeStamp { get;  set; }
-            String OtherQualifier { get; set; }
-            
-            private ExactMatch() {
-            }
-
-            internal bool Match(Version v) {
-                if (v == null) {
-                    return false;
-                }
-                if (v.IsSnapshot && !Snapshot) {
-                    return false;
-                }
-                
-                if (Major != null && Major != v.Major) {
-                    return false;
-                }
-                if (Minor != null && Minor != v.Minor) {
-                    return false;
-                }
-                if (Revision != null && Revision != v.Revision) {
-                    return false;
-                }
-                if (Build != null && Build != v.Build) {
-                    return false;
-                }
-                if (Snapshot && !(v.IsSnapshot || v.IsTimestamped)) {
-                    return false;
-                }
-                if (TimeStamp !=null && !v.IsTimestamped && !TimeStamp.Equals(v.Timestamp)) {
-                    return false;
-                }
-
-                if (OtherQualifier != null && OtherQualifier != v.Qualifier) {
-                    return false;
-                }
-                return true;
-            }
-
-            internal static ExactMatch Parse(String s) {
-                try {
-                    var matcher = new ExactMatch();
-
-                    var parts = s.Split(Dashes);
-                    if (parts.Length > 2) {
-                        throw NewInvalidFormat(s);
-                    } 
-                    if (parts.Length == 2) {
-                        var q = parts[1].Trim();
-                        if (String.IsNullOrEmpty(q)) {
-                            throw NewInvalidFormat(s);
-                        }
-                        try {
-                            SetQualifier(matcher, q);
-                        } catch (ArgumentException e) {
-                            throw NewInvalidFormat(s, e);
-                        }
-                    }
-                    var numParts = parts[0].Split(Dots);
-                    if (numParts.Length == 0 || numParts.Length > 3) {
-                        throw NewInvalidFormat(s);
-                    }
-                    matcher.Major = int.Parse(numParts[0]);
-                    if (numParts.Length > 1) {
-                        matcher.Minor = int.Parse(numParts[1]);
-                        if (numParts.Length > 2) {
-                            matcher.Revision = int.Parse(numParts[2]);
-                        }
-                    }
-                    return matcher;
-                } catch (Exception e) {
-                    throw NewInvalidFormat(s, e);
-                }
-            }
-
-            private static void SetQualifier(ExactMatch matcher, string s) {
-                if (String.IsNullOrEmpty(s)) {
-                    return;
-                }
-                if (s.Equals("SNAPSHOT")) {
-                    matcher.Snapshot = true;
-                    return;
-                }
-                long num;
-                if (long.TryParse(s, out num)) {
-                    if (num < 0) {
-                        throw new ArgumentException("Invalid build number, needs to be a positive integer");
-                    }
-                    if (num == 0) {
-                        //TODO:what here?
-                        //v.Qualifier = null;
-                        //v.m_qual = Qual.None;
-                        return;
-                    }
-                    if (s.Length >= 14) {
-                        DateTime ts;
-                        if (DateTime.TryParseExact(s, DateFormats, CultureInfo.InvariantCulture, DateTimeStyles.None, out ts)) {
-                            matcher.TimeStamp = ts;
-                            return;
-                        }
-                    }
-                    if (num < int.MaxValue) {
-                        matcher.Build = (int)num;
-                        return;
-                    }
-                    return;
-                }
-                matcher.OtherQualifier = s;
-                return;
-            }
-
-            private static ArgumentException NewInvalidFormat(String s) {
-                return new ArgumentException(String.Format("Invalid version match string '{0}', expected format is Major.Minor?.Revision?-(SNAPSHOT|<Timestamp>|<Build>|<Qualifier>)?", s));
-            }
-
-            private static ArgumentException NewInvalidFormat(String s, Exception e) {
-                return new ArgumentException(String.Format("Invalid version match string '{0}', expected format is Major.Minor?.Revision?-(SNAPSHOT|<Timestamp>|<Build>|<Qualifier>)?", s), e);
-            }
+        public override String ToString() {
+            return GetType().Name + "<" + m_match + ">";
         }
     }
 }

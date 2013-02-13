@@ -75,6 +75,12 @@
     <Compile Include="net\nrequire\CommandParseException.cs" />
     <Compile Include="net\nrequire\Dependency.cs" />
     <Compile Include="net\nrequire\LoadEmbeddedDlls.cs" />
+    <Compile Include="net\nrequire\matcher\AlwaysTrueMatcher.cs" />
+    <Compile Include="net\nrequire\matcher\AnyMatcher.cs" />
+    <Compile Include="net\nrequire\matcher\DateTimeMatcher.cs" />
+    <Compile Include="net\nrequire\matcher\ExactMatcher.cs" />
+    <Compile Include="net\nrequire\matcher\IMatcher.cs" />
+    <Compile Include="net\nrequire\matcher\RangeMatcher.cs" />
     <Compile Include="net\nrequire\Resolver.cs" />
     <Compile Include="net\nrequire\Scopes.cs" />
     <Compile Include="net\nrequire\SpecificDependency.cs" />
@@ -131,6 +137,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
