@@ -33,7 +33,7 @@ namespace net.nrequire {
             Assert.AreEqual("MyGroup", dep.Group);
             Assert.AreEqual("MyRuntime", dep.Runtime);
             Assert.AreEqual("http://nowhere.com/mine", dep.Url.ToString());
-            Assert.AreEqual("1.0.0-SNAPSHOT", dep.Version);
+            Assert.AreEqual("1.0.0-SNAPSHOT", dep.VersionString);
 
             var child1 = dep.Dependencies[0];
             Assert.AreEqual("MyChildName1", child1.Name);
@@ -41,7 +41,9 @@ namespace net.nrequire {
             Assert.AreEqual("MyChildExt1", child1.Ext);
             Assert.AreEqual("MyChildRuntime1", child1.Runtime);
             Assert.AreEqual("http://nowhere.com/mychild1", child1.Url.ToString());
-            Assert.AreEqual("1.2.3", child1.Version);
+            Assert.AreEqual("1.2.3", child1.VersionString);
+            Assert.AreEqual(new Dictionary<String,String>{{"key1","val1"},{"key2","val2"}}, child1.Classifiers);
+
          
             var child2 = dep.Dependencies[1];
             Assert.AreEqual("MyChildName2", child2.Name);
@@ -49,7 +51,7 @@ namespace net.nrequire {
             Assert.AreEqual("MyChildExt2", child2.Ext);
             Assert.AreEqual("MyChildRuntime2", child2.Runtime);
             Assert.AreEqual("http://nowhere.com/mychild2", child2.Url.ToString());
-            Assert.AreEqual("4.5.6", child2.Version);
+            Assert.AreEqual("4.5.6", child2.VersionString);
          
         }
     }

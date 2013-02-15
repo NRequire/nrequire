@@ -125,7 +125,7 @@ namespace net.nrequire {
                 Runtime = dep.Runtime,
                 Scope = dep.Scope.GetValueOrDefault(Scopes.Compile),
                 Url = dep.Url,
-                Version = Version.Parse(dep.Version)
+                Version = Version.Parse(dep.Version.ToString())
             };
             specific.Related = GetClonesWithExtensions(specific,GetRelatedExtensionsFor(dep));
             return specific;

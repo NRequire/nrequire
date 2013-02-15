@@ -8,10 +8,12 @@ using net.nrequire.matcher;
 namespace net.nrequire {
     public class VersionMatcher {
 
+        private string m_versionString;
         private IMatcher<Version> m_match;
         
-        private VersionMatcher(IMatcher<Version> match) {
+        private VersionMatcher(String versionString, IMatcher<Version> match) {
             m_match = match;
+            m_versionString = versionString;
         }
 
         public static VersionMatcher Parse(String versionMatch) {
@@ -110,7 +112,7 @@ namespace net.nrequire {
             if (from < versionMatch.Length) {
                 any.Add(ExactMatcher.Parse('=',versionMatch.Substring(from,versionMatch.Length)));
             }
-            return new VersionMatcher(any.Collapse());
+            return new VersionMatcher(versionMatch,any.Collapse());
         }
 
         public bool Match(String versionString) {
@@ -122,7 +124,7 @@ namespace net.nrequire {
         }
 
         public override String ToString() {
-            return GetType().Name + "<" + m_match + ">";
+            return m_versionString;
         }
     }
 }

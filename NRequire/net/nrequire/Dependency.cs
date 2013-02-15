@@ -3,14 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-
+using Newtonsoft.Json;
+using net.nrequire.json;
 namespace net.nrequire {
     public class Dependency {
         //groupId->group
         //Artifactid->Name
         public string Group { get; set; }
         public string Name { get; set; }
-        public string Version { get; set; }
+        [JsonConverter(typeof(VersionConverter))]
+        public VersionMatcher Version { get; set; }
+
+        [JsonIgnore]
+        internal String VersionString {
+            get { return Version == null ? null : Version.ToString(); }
+            set { Version = value == null? null : VersionMatcher.Parse(value); } 
+        } 
+      
         public String Ext { get; set; }
         
         //to be moved into classifiers
@@ -28,10 +37,8 @@ namespace net.nrequire {
 
         internal int Depth { get; set; }//0 is top level, 1 is child, 2 is child of child....
 
-        public String Classifier { 
-            get{ return ClassifiersAsString(); } 
-            set{ Classifiers = ParseClassifierString(value);} 
-        }
+
+        [JsonConverter(typeof(ClassifierConverter))]
         public IDictionary<String, String> Classifiers { get; set; }
 
         public IList<Dependency> Dependencies { get; set; }
@@ -57,48 +64,6 @@ namespace net.nrequire {
             return Classifiers != null && Classifiers.Count > 0;
         }
 
-        private IDictionary<String, String> ParseClassifierString(String s) {
-            var opts = new Dictionary<String, String>();
-            var parts = s.Split(new char[]{'_'}, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var part in parts) {
-                var pair = part.Split(new char[] { '-' });
-                if (pair.Length == 1) {
-                    opts[pair[0]] = "true";
-                } else if (pair.Length == 2) {
-                    opts[pair[0]] = pair[1];
-                } else {
-                    throw new ArgumentException(String.Format("Error parsing part '{0}' in options string'{1}' expected name-value pair",part,s));
-                }
-            }
-            return opts;
-        }
-
-        public String ClassifiersAsString() {
-            if (HasOptions()) {
-                var keys = new List<String>(Classifiers.Keys);
-                keys.Sort();
-                var sb = new StringBuilder();
-                foreach (var key in keys) {
-                    var val = Classifiers[key];
-                    if (val == "true") {
-                        if (sb.Length > 0) {
-                            sb.Append("_");
-                        }
-                        sb.Append(key);
-                    } else if (val == "false") {
-                        //bool option and it doesn'texist, don't include modifier
-                    } else {
-                        if (sb.Length > 0) {
-                            sb.Append("_");
-                        } 
-                        sb.Append(key).Append("-").Append(val);
-                    }
-                }
-                return sb.ToString();
-            }
-            return null;
-        }
-        
         public bool HasRelatedDependencies() {
             return Related != null && Related.Count > 0;
         }
@@ -162,7 +127,7 @@ namespace net.nrequire {
             if (this.Related == null || Related.Count == 0) {
                 this.Related = d.Related;
             }
-            if (String.IsNullOrWhiteSpace(this.Version)) {
+            if (this.Version == null) {
                 this.Version = d.Version;
             }
             if (this.Scope == null) {
@@ -198,7 +163,7 @@ namespace net.nrequire {
 
         public void ValidateRequiredSet() {
             ValidateMergeValuesSet();
-            if (String.IsNullOrWhiteSpace(Version)) {
+            if (Version==null) {
                 throw new ArgumentException("Expect Version to be set on " + this);
             }
             if (String.IsNullOrWhiteSpace(Ext)) {
@@ -242,7 +207,7 @@ namespace net.nrequire {
                 base.GetHashCode(),
                 Group,
                 Name,
-                Version,
+                VersionString,
                 Ext,
                 Arch,
                 Runtime,

@@ -27,7 +27,7 @@ namespace net.nrequire {
                 Runtime = "MyRuntime",
                 Ext = "MyExt",
                 Arch = "MyArch",
-                Version = "1.2.3",
+                VersionString = "1.2.3",
                 CopyTo = "/path/to/copy/to",
                 Related = new[]{"ext1","ext2"},
                 Url = new Uri("http://nowhere.com/file")
@@ -41,7 +41,7 @@ namespace net.nrequire {
             Assert.AreEqual("MyExt", clone.Ext);
             Assert.AreEqual("MyRuntime", clone.Runtime);
             Assert.AreEqual("http://nowhere.com/file", clone.Url.ToString());
-            Assert.AreEqual("1.2.3", clone.Version);
+            Assert.AreEqual("1.2.3", clone.VersionString);
             Assert.AreEqual("/path/to/copy/to", clone.CopyTo);
             Assert.AreEqual(new List<String> { "ext1","ext2" }, clone.Related);
 
@@ -79,7 +79,7 @@ namespace net.nrequire {
                 Runtime = "MyRuntime",
                 Ext = "MyExt",
                 Arch = "MyArch",
-                Version = "1.2.3",
+                VersionString = "1.2.3",
                 CopyTo = "path/to/copy/to",
                 Related = new[] { "ext1", "ext2" },
                 Url = new Uri("http://nowhere.com/file")
@@ -90,7 +90,7 @@ namespace net.nrequire {
             CheckMergeProp(dep, (d, val) => d.Ext = val, d => d.Ext, "", "MyParentVal", "MyChildVal");
             CheckMergeProp(dep, (d, val) => d.Group = val, d => d.Group, "", "MyParentVal", "MyChildVal");
             CheckMergeProp(dep, (d, val) => d.Runtime = val, d => d.Runtime, "", "MyParentVal", "MyChildVal");
-            CheckMergeProp(dep, (d, val) => d.Version = val, d => d.Version, "", "MyParentVal", "MyChildVal");
+            CheckMergeProp(dep, (d, val) => d.VersionString = val, d => d.VersionString, null, "1.2.3", "4.5.6");
             CheckMergeProp(dep, (d, val) => d.CopyTo = val, d => d.CopyTo, "", "MyParentVal", "MyChildVal");
             CheckMergeProp(dep, (d, val) => d.Related = val, d => d.Related, List(), List("MyParentVal"), List("MyChildVal"));
 
@@ -136,12 +136,12 @@ namespace net.nrequire {
                     new Dependency{
                         Group = "MyGroupId1",
                         Name = "MyArtifactId1", 
-                        Version = "1.2.3"
+                        VersionString = "1.2.3"
                     },
                     new Dependency{
                         Group = "MyGroupId2",
                         Name = "MyArtifactId2", 
-                        Version = "1.2.3"
+                        VersionString = "1.2.3"
                     },
                 }
             };
@@ -159,7 +159,7 @@ namespace net.nrequire {
                     new Dependency{
                         Group = "MyGroupId2",
                         Name = "MyArtifactId2", 
-                        Version = "4.5.6" 
+                        VersionString = "4.5.6" 
                     },
                 }
             };
@@ -170,12 +170,12 @@ namespace net.nrequire {
             var child1 = merged.Dependencies[0];
             Assert.AreEqual("MyGroupId1",child1.Group);
             Assert.AreEqual("MyArtifactId1",child1.Name);
-            Assert.AreEqual("1.2.3",child1.Version);
+            Assert.AreEqual("1.2.3",child1.VersionString);
             
             var child2 = merged.Dependencies[1];
             Assert.AreEqual("MyGroupId2", child2.Group);
             Assert.AreEqual("MyArtifactId2", child2.Name);
-            Assert.AreEqual("4.5.6", child2.Version);
+            Assert.AreEqual("4.5.6", child2.VersionString);
 
         }
 
@@ -187,17 +187,17 @@ namespace net.nrequire {
                     new Dependency{
                         Group = "MyGroupId",
                         Name = "MyArtifactId", 
-                        Version = "1",
+                        VersionString = "1",
                         Dependencies = new List<Dependency> { 
                             new Dependency{
                                 Group = "MyGroupId",
                                 Name = "MyArtifactId", 
-                                Version = "1.2",
+                                VersionString = "1.2",
                                 Dependencies = new List<Dependency> { 
                                     new Dependency{
                                         Group = "MyGroupId",
                                         Name = "MyArtifactId", 
-                                        Version = "1.2.3"
+                                        VersionString = "1.2.3"
                                     }
                                 }
                             }
@@ -233,19 +233,19 @@ namespace net.nrequire {
             var child = merged.Dependencies[0];
             Assert.AreEqual("MyGroupId", child.Group);
             Assert.AreEqual("MyArtifactId", child.Name);
-            Assert.AreEqual("1", child.Version);
+            Assert.AreEqual("1", child.VersionString);
 
             Assert.AreEqual(1, child.Dependencies.Count);
             var child2 = child.Dependencies[0];
             Assert.AreEqual("MyGroupId", child2.Group);
             Assert.AreEqual("MyArtifactId", child2.Name);
-            Assert.AreEqual("1.2", child2.Version);
+            Assert.AreEqual("1.2", child2.VersionString);
 
             Assert.AreEqual(1, child2.Dependencies.Count);
             var child3 = child2.Dependencies[0];
             Assert.AreEqual("MyGroupId", child3.Group);
             Assert.AreEqual("MyArtifactId", child3.Name);
-            Assert.AreEqual("1.2.3", child3.Version);
+            Assert.AreEqual("1.2.3", child3.VersionString);
 
         }
     }

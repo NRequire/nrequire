@@ -74,6 +74,8 @@
     <Compile Include="net\nrequire\CommandLineParser.cs" />
     <Compile Include="net\nrequire\CommandParseException.cs" />
     <Compile Include="net\nrequire\Dependency.cs" />
+    <Compile Include="net\nrequire\json\ClassifierConverter.cs" />
+    <Compile Include="net\nrequire\json\VersionConverter.cs" />
     <Compile Include="net\nrequire\LoadEmbeddedDlls.cs" />
     <Compile Include="net\nrequire\matcher\AlwaysTrueMatcher.cs" />
     <Compile Include="net\nrequire\matcher\AnyMatcher.cs" />

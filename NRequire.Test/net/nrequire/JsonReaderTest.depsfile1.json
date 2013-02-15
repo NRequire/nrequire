@@ -13,7 +13,8 @@
 			arch:"MyChildArch1",
 			ext:"MyChildExt1",
 			runtime:"MyChildRuntime1",
-			url:"http://nowhere.com/mychild1"
+			url:"http://nowhere.com/mychild1",
+            classifiers:"key1-val1_key2-val2"
 		},
 		{
 			name:"MyChildName2",

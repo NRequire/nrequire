@@ -9,8 +9,7 @@
 			group:"Group0",
 			name:"Name0",
 			version:"0.0.0",
-			classifiers:{arch:"Arch0", runtime:"Runtime0"},
-			classifier:"arch-Arch0_runtime-Runtime0",
+			classifiers:"arch-Arch0_runtime-Runtime0",
 			url:"http://nowhere.com/mydep0",
 			copyTo:"MyLibDir"
 		},
