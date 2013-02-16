@@ -10,7 +10,7 @@ namespace net.nrequire {
     public class DependencyCacheTest {
 
         [Test]
-        public void ListVersionsTest() {
+        public void ListVersionsInOrderTest() {
             var resourceDir = FileUtil.DirectoryFor<DependencyCacheTest>();
             var localCacheDir = new DirectoryInfo(Path.Combine(resourceDir.FullName, "LocalCache"));
 

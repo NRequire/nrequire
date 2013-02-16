@@ -59,6 +59,12 @@ namespace net.nrequire {
                         .Arg("val")
                         .Default("true")
                         .Help("If true then fail the build after6 updating the project if the project dependencies changed"))
+                     .AddOption("update-vsproj", Opt
+                        .Named("--log")
+                        .Required(false)
+                        .Arg("val")
+                        .Default("warn")
+                        .Help("Sets the logging level. One of trace,debug,info,warn,error,off. Case insensitive"))
                     .AddExample("update-vsproj", "--soln ${SolutionPath} --proj ${ProjectPath}")
                     .AddExample("update-vsproj", "--soln ${SolutionPath} --proj ${ProjectPath} --cache C:/opt/cache")
                     .AddExample("update-vsproj", "--soln ${SolutionPath} --proj ${ProjectPath} --fail false")
@@ -77,6 +83,9 @@ namespace net.nrequire {
         }
 
         private void UpdateProjectCmd(CommandLineParser.ParseResult result) {
+            var logLevel = result.GetOptionValueOrDefault("--log", "warn");
+            Logger.SetLevel(logLevel);
+
             var solutionFile = new FileInfo(result.GetOptionValue("--soln"));
             if (!solutionFile.Exists) {
                 throw new ArgumentException(String.Format("Solution file '{0}' does not exist", solutionFile.FullName));
@@ -132,7 +141,7 @@ namespace net.nrequire {
             }
 
             var cmd = new ProjectUpdateCommand {
-                FailOnProjectChanged = result.GetOptionValue("--fail", true) == "true",
+                FailOnProjectChanged = result.GetOptionValueOrDefault("--fail", true) == "true",
                 LocalCache = localCache,
                 SolutionCache = solutionCache,
                 ProjectFile = projectFile,

@@ -6,7 +6,9 @@ using System.Text;
 namespace net.nrequire {
     
     internal class Logger {
-        
+
+        private static Level GlobalLevel = Level.Warn;
+
         private readonly Level m_level;
         private readonly String  m_name;
         private readonly IAppender m_appender;
@@ -15,6 +17,28 @@ namespace net.nrequire {
             m_level = level;
             m_name = name;
             m_appender = appender;
+        }
+
+        public static void SetLevel(String level) {
+            GlobalLevel = ParseLevel(level);
+        }
+
+        private static Level ParseLevel(String level) {
+            level = level.ToLower();
+            switch (level) {
+                case "trace": return Level.Trace;
+                case "debug": return Level.Debug;
+                case "info": return Level.Info;
+                case "warn": return Level.Warn;
+                case "error": return Level.Error;
+                case "off": return Level.Off;
+                default:
+                    throw new ArgumentException("Invalid log level:" + level);
+            }
+        }
+
+        public static void SetLevel(Level level) {
+            GlobalLevel = level;
         }
 
         public static Logger GetLogger(Object instance){
@@ -26,7 +50,7 @@ namespace net.nrequire {
         }
 
         public static Logger GetLogger(String name){
-            return new Logger(name,Level.Debug, ConsoleLogAppender.Instance);
+            return new Logger(name, GlobalLevel, ConsoleLogAppender.Instance);
         }
 
         public bool IsTraceEnabled() {

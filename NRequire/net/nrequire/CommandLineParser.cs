@@ -161,10 +161,10 @@ namespace net.nrequire {
             }
 
             internal String GetOptionValue(string optName) {
-                return GetOptionValue(optName,null);        
+                return GetOptionValueOrDefault(optName,null);        
             }
 
-            internal String GetOptionValue(string optName, Object defVal) {
+            internal String GetOptionValueOrDefault(string optName, Object defVal) {
                 if (!m_optionsValues.ContainsKey(optName)) {
                     if( defVal != null){
                         return defVal.ToString();

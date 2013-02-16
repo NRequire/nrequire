@@ -23,7 +23,9 @@ namespace net.nrequire {
                 "update-vsproj",
                 "--soln", solnFile.FullName,
                 "--proj", projectFile.FullName,
-                "--cache", localCacheDir.FullName});
+                "--cache", localCacheDir.FullName,
+                "--log", "debug"
+            });
 
             var refs = VSProject
                .FromPath(projectFile)
