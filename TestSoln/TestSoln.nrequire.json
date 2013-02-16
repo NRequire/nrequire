@@ -4,13 +4,13 @@
 		{
 			group:"Json.Net",
 			name:"Newtonsoft.Json",
-			version:"4.5-r11",
+			version:"[4.5,)",
 			runtime:"4.0"
 		},
 		{
 			group:"NUnit",
 			name:"nunit.framework",
-			version:"2.6.2"
+			version:"[2.6,)"
 		}
 	]
 }
