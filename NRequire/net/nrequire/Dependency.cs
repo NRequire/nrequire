@@ -34,7 +34,7 @@ namespace net.nrequire {
         //remove? see scopes above
         public bool? Optional { get; set; }//this dep is optional
         public bool? Force { get; set; }//force this dep
-        public bool? Transitive { get; set; }//whether to resolve transitive deps for this or not
+        public bool? ResolveTransitive { get; set; }//whether to resolve transitive deps for this or not
 
         internal int Depth { get; set; }//0 is top level, 1 is child, 2 is child of child....
 
@@ -48,7 +48,7 @@ namespace net.nrequire {
             set { Classifiers = value == null ? null : Classifiers.Parse(value); }
         } 
 
-        public IList<Dependency> Dependencies { get; set; }
+        public IList<Dependency> Transitive { get; set; }
         /// <summary>
         /// Dependencies which differ only in the extension which should be considered
         /// related to this dependency. For example dll deps usually have xml and pdb 
@@ -58,7 +58,7 @@ namespace net.nrequire {
         public IList<String> Related { get; set; }
 
         public Dependency() {
-            this.Dependencies = new List<Dependency>();
+            this.Transitive = new List<Dependency>();
             this.Classifiers = new Classifiers();
             Optional = false;
         }
@@ -100,7 +100,7 @@ namespace net.nrequire {
                 return;
             }
             InternalFillInSimpleBlanksFrom(d);
-            this.Dependencies = MergeLists(d.Dependencies, this.Dependencies);
+            this.Transitive = MergeLists(d.Transitive, this.Transitive);
         }
 
         private void InternalFillInSimpleBlanksFrom(Dependency d) {
@@ -207,8 +207,8 @@ namespace net.nrequire {
 
         public override string ToString() {
             var depsString = "";
-            if (Dependencies != null && Dependencies.Count > 0) {
-                depsString = "\n\t" + String.Join("\n\t", Dependencies) + "\n\t";
+            if (Transitive != null && Transitive.Count > 0) {
+                depsString = "\n\t" + String.Join("\n\t", Transitive) + "\n\t";
             }
             return String.Format("Dependency@{0}<\n\tGroup:{1},\n\tName:{2},\n\tVersion:{3},\n\tExt:{4},\n\tArch:{5},\n\tRuntime:{6},\n\tClassifiers:{7},\n\tScope:{8},\n\tUrl:'{9}',\n\tCopyTo:'{10}',\n\tRelated:[{11}],\n\tDependencies:[{12}]\n>", 
                 base.GetHashCode(),

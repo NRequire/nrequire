@@ -35,7 +35,7 @@ namespace net.nrequire {
             Assert.AreEqual("http://nowhere.com/mine", dep.Url.ToString());
             Assert.AreEqual("1.0.0-SNAPSHOT", dep.VersionString);
 
-            var child1 = dep.Dependencies[0];
+            var child1 = dep.Transitive[0];
             Assert.AreEqual("MyChildName1", child1.Name);
             Assert.AreEqual("MyChildGroup1", child1.Group);
             Assert.AreEqual("MyChildExt1", child1.Ext);
@@ -45,7 +45,7 @@ namespace net.nrequire {
             Assert.AreEqual("key1-val1_key2-val2", child1.ClassifiersString);
 
          
-            var child2 = dep.Dependencies[1];
+            var child2 = dep.Transitive[1];
             Assert.AreEqual("MyChildName2", child2.Name);
             Assert.AreEqual("MyChildGroup2", child2.Group);
             Assert.AreEqual("MyChildExt2", child2.Ext);

@@ -51,7 +51,7 @@ namespace net.nrequire {
         public void CloneChildDependenciesTest() {
 
             var dep = new Dependency {
-                Dependencies = new List<Dependency> { 
+                Transitive = new List<Dependency> { 
                     new Dependency{
                         Name = "MyName1"
                     },
@@ -64,9 +64,9 @@ namespace net.nrequire {
             var clone = dep.Clone();
 
             Assert.AreNotSame(dep, clone);
-            Assert.AreNotSame(dep.Dependencies, clone.Dependencies);
+            Assert.AreNotSame(dep.Transitive, clone.Transitive);
 
-            Assert.AreEqual(dep.Dependencies, clone.Dependencies);
+            Assert.AreEqual(dep.Transitive, clone.Transitive);
         }
 
 
@@ -132,7 +132,7 @@ namespace net.nrequire {
                 Name = "MyArtifactId",
                 Group = "MyGroupId",
 
-                Dependencies = new List<Dependency> { 
+                Transitive = new List<Dependency> { 
                     new Dependency{
                         Group = "MyGroupId1",
                         Name = "MyArtifactId1", 
@@ -150,7 +150,7 @@ namespace net.nrequire {
                 Name = "MyArtifactId",
                 Group = "MyGroupId",
 
-                Dependencies = new List<Dependency> { 
+                Transitive = new List<Dependency> { 
                     new Dependency{
                         Group = "MyGroupId1",
                         Name = "MyArtifactId1", 
@@ -166,13 +166,13 @@ namespace net.nrequire {
 
             var merged = dep.FillInBlanksFrom(parent);
 
-            Assert.AreEqual(2, merged.Dependencies.Count);
-            var child1 = merged.Dependencies[0];
+            Assert.AreEqual(2, merged.Transitive.Count);
+            var child1 = merged.Transitive[0];
             Assert.AreEqual("MyGroupId1",child1.Group);
             Assert.AreEqual("MyArtifactId1",child1.Name);
             Assert.AreEqual("1.2.3",child1.VersionString);
             
-            var child2 = merged.Dependencies[1];
+            var child2 = merged.Transitive[1];
             Assert.AreEqual("MyGroupId2", child2.Group);
             Assert.AreEqual("MyArtifactId2", child2.Name);
             Assert.AreEqual("4.5.6", child2.VersionString);
@@ -183,17 +183,17 @@ namespace net.nrequire {
         public void MergeChildChildDependenciesTest() {
 
             var parent = new Dependency {
-                Dependencies = new List<Dependency> { 
+                Transitive = new List<Dependency> { 
                     new Dependency{
                         Group = "MyGroupId",
                         Name = "MyArtifactId", 
                         VersionString = "1",
-                        Dependencies = new List<Dependency> { 
+                        Transitive = new List<Dependency> { 
                             new Dependency{
                                 Group = "MyGroupId",
                                 Name = "MyArtifactId", 
                                 VersionString = "1.2",
-                                Dependencies = new List<Dependency> { 
+                                Transitive = new List<Dependency> { 
                                     new Dependency{
                                         Group = "MyGroupId",
                                         Name = "MyArtifactId", 
@@ -207,15 +207,15 @@ namespace net.nrequire {
             };
 
             var dep = new Dependency {
-                Dependencies = new List<Dependency> { 
+                Transitive = new List<Dependency> { 
                     new Dependency{
                         Group = "MyGroupId",
                         Name = "MyArtifactId", 
-                        Dependencies = new List<Dependency> { 
+                        Transitive = new List<Dependency> { 
                             new Dependency{
                                 Group = "MyGroupId",
                                 Name = "MyArtifactId",
-                                Dependencies = new List<Dependency> { 
+                                Transitive = new List<Dependency> { 
                                     new Dependency{
                                         Group = "MyGroupId",
                                         Name = "MyArtifactId"
@@ -229,20 +229,20 @@ namespace net.nrequire {
 
             var merged = dep.FillInBlanksFrom(parent);
 
-            Assert.AreEqual(1, merged.Dependencies.Count);
-            var child = merged.Dependencies[0];
+            Assert.AreEqual(1, merged.Transitive.Count);
+            var child = merged.Transitive[0];
             Assert.AreEqual("MyGroupId", child.Group);
             Assert.AreEqual("MyArtifactId", child.Name);
             Assert.AreEqual("1", child.VersionString);
 
-            Assert.AreEqual(1, child.Dependencies.Count);
-            var child2 = child.Dependencies[0];
+            Assert.AreEqual(1, child.Transitive.Count);
+            var child2 = child.Transitive[0];
             Assert.AreEqual("MyGroupId", child2.Group);
             Assert.AreEqual("MyArtifactId", child2.Name);
             Assert.AreEqual("1.2", child2.VersionString);
 
-            Assert.AreEqual(1, child2.Dependencies.Count);
-            var child3 = child2.Dependencies[0];
+            Assert.AreEqual(1, child2.Transitive.Count);
+            var child3 = child2.Transitive[0];
             Assert.AreEqual("MyGroupId", child3.Group);
             Assert.AreEqual("MyArtifactId", child3.Name);
             Assert.AreEqual("1.2.3", child3.VersionString);

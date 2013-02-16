@@ -58,16 +58,16 @@ namespace net.nrequire {
             deps.MergeInWithLookup(Scopes.Provided, proj.Provided, versions, 1);
 
             foreach (var dep in proj.Transitive) {
-                deps.MergeInWithLookup(Scopes.Transitive, dep.Dependencies, versions, 2);
+                deps.MergeInWithLookup(Scopes.Transitive, dep.Transitive, versions, 2);
             }
             foreach (var dep in proj.Compile) {
-                deps.MergeInWithLookup(Scopes.Transitive,dep.Dependencies, versions, 2);
+                deps.MergeInWithLookup(Scopes.Transitive,dep.Transitive, versions, 2);
             }
             foreach (var dep in proj.Provided) {
-                deps.MergeInWithLookup(Scopes.Transitive, dep.Dependencies, versions, 2);
+                deps.MergeInWithLookup(Scopes.Transitive, dep.Transitive, versions, 2);
             }
             foreach (var dep in deps) {
-                deps.MergeInWithLookup(Scopes.Transitive, dep.Dependencies, versions, 2);
+                deps.MergeInWithLookup(Scopes.Transitive, dep.Transitive, versions, 2);
             } 
             return deps;
         }
