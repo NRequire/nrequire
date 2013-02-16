@@ -22,7 +22,7 @@ namespace net.nrequire {
         }
             
         [Test]
-        public void CorrectlyReadsJsonFileTest() {
+        public void ReadAllFieldsTest() {
             var reader = new JsonReader();
             var depFile = FileUtil.FileFor<JsonReaderTest>(".depsfile1.json");
             var dep = reader.ReadDependency(depFile);
@@ -42,7 +42,7 @@ namespace net.nrequire {
             Assert.AreEqual("MyChildRuntime1", child1.Runtime);
             Assert.AreEqual("http://nowhere.com/mychild1", child1.Url.ToString());
             Assert.AreEqual("1.2.3", child1.VersionString);
-            Assert.AreEqual(new Dictionary<String,String>{{"key1","val1"},{"key2","val2"}}, child1.Classifiers);
+            Assert.AreEqual("key1-val1_key2-val2", child1.ClassifiersString);
 
          
             var child2 = dep.Dependencies[1];

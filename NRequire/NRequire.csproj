@@ -71,18 +71,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="net\nrequire\Classifiers.cs" />
     <Compile Include="net\nrequire\CommandLineParser.cs" />
     <Compile Include="net\nrequire\CommandParseException.cs" />
+    <Compile Include="net\nrequire\ConsoleLogAppender.cs" />
     <Compile Include="net\nrequire\Dependency.cs" />
     <Compile Include="net\nrequire\json\ClassifierConverter.cs" />
     <Compile Include="net\nrequire\json\VersionConverter.cs" />
     <Compile Include="net\nrequire\LoadEmbeddedDlls.cs" />
+    <Compile Include="net\nrequire\Logger.cs" />
     <Compile Include="net\nrequire\matcher\AlwaysTrueMatcher.cs" />
     <Compile Include="net\nrequire\matcher\AnyMatcher.cs" />
     <Compile Include="net\nrequire\matcher\DateTimeMatcher.cs" />
     <Compile Include="net\nrequire\matcher\ExactMatcher.cs" />
     <Compile Include="net\nrequire\matcher\IMatcher.cs" />
     <Compile Include="net\nrequire\matcher\RangeMatcher.cs" />
+    <Compile Include="net\nrequire\ResolutionException.cs" />
     <Compile Include="net\nrequire\Resolver.cs" />
     <Compile Include="net\nrequire\Scopes.cs" />
     <Compile Include="net\nrequire\SpecificDependency.cs" />

@@ -33,7 +33,7 @@ namespace net.nrequire {
             //Expect to ignore dependencies in soln's nrequire.json but not in projects
 
             Assert.IsTrue(refs[0].HintPath.StartsWith("$(SolutionDir)\\.cache\\Group0"));
-            Assert.IsTrue(refs[1].HintPath.StartsWith("$(SolutionDir)\\.cache\\Group1"));
+            Assert.AreEqual("$(SolutionDir)\\.cache\\Group1\\Name1\\1.2.3\\arch-any_runtime-4.0\\Name1.Ext1",refs[1].HintPath);
             Assert.IsTrue(refs[2].HintPath.StartsWith("$(SolutionDir)\\.cache\\Group2"));
             Assert.IsTrue(refs[3].HintPath.StartsWith("$(SolutionDir)\\.cache\\TransitiveGroup"));
 

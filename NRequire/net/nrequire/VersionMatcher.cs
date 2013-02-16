@@ -26,7 +26,6 @@ namespace net.nrequire {
 
         private static VersionMatcher InternalParse(String versionMatch){
             //http://docs.codehaus.org/display/MAVEN/Dependency+Mediation+and+Conflict+Resolution
-            Console.WriteLine("VersionMatcher.Parse.string=" + versionMatch);
             var from = 0;
             char lastLimiter = ',';
             var any = new AnyMatcher();
@@ -44,8 +43,6 @@ namespace net.nrequire {
                 var c = versionMatch[i];
                 try {
                     if (c == '[' || c == '(') {
-                        Console.WriteLine("c=" + c);
-                        
                         if (lastLimiter == '[' || lastLimiter == '(') {
                             throw new ArgumentException("Did not expect previous range limter to be " + lastLimiter);
                         }
@@ -53,9 +50,6 @@ namespace net.nrequire {
                         from = i + 1;
                     } else if (c == ',') {
                         var part = versionMatch.Substring(from, i - from);
-                        Console.WriteLine("c=" + c);
-                        Console.WriteLine("part=" + part);
-
                         switch (lastLimiter) {
                             case '[':
                             case '('://...(1.2.3,....
@@ -82,12 +76,6 @@ namespace net.nrequire {
                         from = i + 1;
                     } else if (c == ']' || c == ')') { ///...,1.2.3).... or ...(1.2.3)
                         var part = versionMatch.Substring(from, i - from);
-                        Console.WriteLine("c=" + c);
-                        Console.WriteLine("part=" + part);
-                        Console.WriteLine("lastLimiter=" + lastLimiter);
-                        Console.WriteLine("i=" + i);
-                        Console.WriteLine("from=" + from);
-                        
                         if (lastLimiter == ',') {
                             if (from < i) { //only if it's not something like (1.2.3,) in which case we just ignore the last matcher
                                 getRangePair().To = ExactMatcher.Parse(c, part);

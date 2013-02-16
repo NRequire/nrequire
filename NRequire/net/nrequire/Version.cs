@@ -7,22 +7,22 @@ using System.Text.RegularExpressions;
 namespace net.nrequire {
 
     //goto to major.minor.revision.build|timestamp|SNAPSHOT|qualifier to simplify parsing (like in gradle)
-    public class Version {
+    public class Version :IComparable<Version> {
 
         private static readonly String[] DateFormats = new[] { "yyyyMMddHHmmssfff", "yyyyMMddHHmmss", "yyyy:MMdd:HHmm:ss", "yyyy:MMdd:HHmm:ss:fff"};
         private static readonly char[] Dots = new[] { '.'};
         private static readonly char[] Dashes = new[] { '-' };
 
-        public int Major { get; set; }
+        public int Major { get; private set; }
 
-        public int Minor { get; set; }
+        public int Minor { get; private set; }
 
-        public int Revision { get; set; }
+        public int Revision { get; private set; }
 
-        public String Qualifier { get; set; }
+        public String Qualifier { get; private set; }
 
-        public int Build { get; set; }
-        public DateTime? Timestamp { get; set; }
+        public int Build { get; private set; }
+        public DateTime? Timestamp { get; private set; }
 
         public bool IsTimestamped { get { return m_qual == Qual.Timestamp; } }
 
@@ -37,7 +37,22 @@ namespace net.nrequire {
             None, Timestamp, Snapshot, Build, Other
         }
 
+        public String MatchString { get; private set; }
+
         private Version() {
+        }
+
+        private void GenerateMatchString() {
+            var sb = new StringBuilder();
+            sb.Append(Major).Append('.');
+            sb.Append(Minor).Append('.');
+            sb.Append(Revision);
+            if (IsQualified) {
+                sb.Append("-").Append(Qualifier);
+            } else {
+                sb.Append("-0");
+            }
+            MatchString = sb.ToString();
         }
 
         private static int CheckInRange(int num, String name) {
@@ -45,6 +60,16 @@ namespace net.nrequire {
                 throw new ArgumentException(String.Format("Expect '{0}' to be > 0 but was {1}",name,num));
             }
             return num;
+        }
+
+        public static bool TryParse(String s, out Version version) {
+            try {
+                version = Parse(s);
+                return true;
+            } catch (Exception) {
+            }
+            version = null;
+            return false;
         }
 
         public static Version Parse(String s) {
@@ -75,6 +100,7 @@ namespace net.nrequire {
                 if (versionParts.Length == 3) {
                     v.Revision = int.Parse(versionParts[2]);
                 }
+                v.GenerateMatchString();
                 return v;
            } catch (Exception e) {
                throw NewInvalidFormat(s, e);
@@ -128,6 +154,13 @@ namespace net.nrequire {
             return new ArgumentException(String.Format("Invalid version string '{0}', expected format is Major.Minor.Revision?-(SNAPSHOT|<Timestamp>|<Build>|<Qualifier>)?", s), e);
         }
 
+        public int CompareTo(Version other) {
+            if (other == null) {
+                return 1;
+            }
+            return MatchString.CompareTo(other.MatchString);
+        }
+
         public override String ToString() {
             var sb = new StringBuilder();
             sb.Append(Major).Append('.');
@@ -139,17 +172,15 @@ namespace net.nrequire {
             return sb.ToString();
         }
 
-        public String ToMatchString() {
-            var sb = new StringBuilder();
-            sb.Append(Major).Append('.');
-            sb.Append(Minor).Append('.');
-            sb.Append(Revision).Append('.');
-            if (IsQualified) {
-                sb.Append("-").Append(Qualifier);
-            } else {
-                sb.Append("-0");
+        public override bool Equals(Object other) {
+            if (other == null || !(other is Version)) {
+                return false;
             }
-            return sb.ToString();
+            return MatchString.Equals((other as Version).MatchString);
+        }
+
+        public override int GetHashCode() {
+            return MatchString.GetHashCode();
         }
     }
 }

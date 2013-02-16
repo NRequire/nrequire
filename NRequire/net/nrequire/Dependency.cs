@@ -24,6 +24,7 @@ namespace net.nrequire {
         
         //to be moved into classifiers
         public string Arch { get; set; }
+
         public string Runtime { get; set; }
 
         public Uri Url { get; set; }
@@ -39,7 +40,13 @@ namespace net.nrequire {
 
 
         [JsonConverter(typeof(ClassifierConverter))]
-        public IDictionary<String, String> Classifiers { get; set; }
+        public Classifiers Classifiers { get; set; }
+
+        [JsonIgnore]
+        internal String ClassifiersString {
+            get { return Classifiers == null ? null : Classifiers.ToString(); }
+            set { Classifiers = value == null ? null : Classifiers.Parse(value); }
+        } 
 
         public IList<Dependency> Dependencies { get; set; }
         /// <summary>
@@ -52,7 +59,7 @@ namespace net.nrequire {
 
         public Dependency() {
             this.Dependencies = new List<Dependency>();
-            this.Classifiers = new Dictionary<String,String>();
+            this.Classifiers = new Classifiers();
             Optional = false;
         }
 
@@ -60,7 +67,7 @@ namespace net.nrequire {
             //any post load validation or setup
         }
 
-        public bool HasOptions() {
+        public bool HasClassifiers() {
             return Classifiers != null && Classifiers.Count > 0;
         }
 

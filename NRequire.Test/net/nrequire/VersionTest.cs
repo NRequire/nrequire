@@ -109,6 +109,26 @@ namespace net.nrequire {
 
         [Test]
         public void ToMatchStringTests() {
+            CheckMatchString("0.0.0-0", "0.0", "0.0.0", "0.0.0-0"); 
+            CheckMatchString("1.0.0-0", "1.0", "1.0.0", "1.0.0-0");
+            CheckMatchString("1.2.0-0", "1.2", "1.2.0", "1.2.0-0");
+            CheckMatchString("1.2.3-4", "1.2.3-4");
+            CheckMatchString("1.2.3-SNAPSHOT", "1.2.3-SNAPSHOT");
+            CheckMatchString("1.2.3-20120102100422", "1.2.3-20120102100422");
+        }
+
+        [Test]
+        public void CompareToTests() {
+            CheckCompareTo("0.0", 0, "0.0", "0.0.0", "0.0.0-0"); 
+            CheckCompareTo("1.0", 0, "1.0", "1.0.0", "1.0.0-0");
+            CheckCompareTo("1.2.3-4", 0, "1.2.3-4");
+            CheckCompareTo("1.2.3-0", 0, "1.2.3");
+            
+            CheckCompareTo("1.1", 1, "1.0", "1.0.0", "1.0.0-0");
+            CheckCompareTo("1.2.3", 1, "1.0", "1.2", "1.2.2");
+            CheckCompareTo("1.2.3-4", 1, "1.2.3-3");
+            CheckCompareTo("1.2.3-SNAPSHOT", 1, "1.2.3-3");
+            CheckCompareTo("1.2.3-SNAPSHOT", 1, "1.2.3-20120103095436");
 
         }
 
@@ -176,10 +196,27 @@ namespace net.nrequire {
             }
         }
 
-        private void CheckToMatchString(String expect, params String[] parseStrings) {
+        private void CheckMatchString(String expect, params String[] parseStrings) {
             foreach (var s in parseStrings) {
-                var actual = Version.Parse(s).ToMatchString();
+                var actual = Version.Parse(s).MatchString;
                 Assert.AreEqual(expect, actual, "expect:" + expect + ", but was:" + actual + ", for:" + s);
+            }
+        }
+
+        private void CheckCompareTo(String have, int expect, params String[] parseStrings) {
+            var version = Version.Parse(have);
+            foreach (var s in parseStrings) {
+                var other = Version.Parse(s);
+                var actual = version.CompareTo(other);
+
+                Assert.AreEqual(expect, actual,
+                    String.Format( "expect:{0}.CompareTo({1}) to equal {2} but was {3}",version,other,expect,actual));
+
+                var actualReverse = other.CompareTo(version);
+
+                Assert.AreEqual(-expect, actualReverse,
+                    String.Format("expect:{0}.CompareTo({1}) to equal {2} but was {3}", other, version, -expect, actualReverse));
+
             }
         }
 

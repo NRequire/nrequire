@@ -12,69 +12,33 @@ namespace net.nrequire.json {
         private static readonly KeyValuePairConverter DictConverter = new KeyValuePairConverter();
 
         public override bool CanConvert(Type objectType) {
-            return typeof(IDictionary<String,String>).IsAssignableFrom(objectType);
+            return typeof(Classifiers).IsAssignableFrom(objectType);
         }
 
         public override object ReadJson(JReader reader, Type objectType, object existingValue,
             JsonSerializer serializer) {
+            var classifier = existingValue as Classifiers;
+            if (classifier == null) {
+                classifier = new Classifiers();
+            }
             if (reader.TokenType == JsonToken.String) {
                 var val = (String)reader.Value;
-                return ParseClassifierString(val);
+                return Classifiers.Parse(classifier, val);
             }
             if (reader.TokenType == JsonToken.StartObject) {
-                return DictConverter.ReadJson(reader, typeof(IDictionary<String, String>), existingValue, serializer);
+                var dict = DictConverter.ReadJson(reader, typeof(IDictionary<String, String>), existingValue, serializer);
+                classifier.SetAll(dict as IDictionary<String, String>);
+                return classifier;
             }
             throw new Exception(String.Format("Unexpected token parsing classifiers. Expected String, got {0}.", reader.TokenType));
         }
 
         public override void WriteJson(JsonWriter writer, object value,
             JsonSerializer serializer) {
-            if (value is IDictionary<String,String>) {
-                var val = ClassifiersAsString(value as IDictionary<String, String>);
+            if (value is Classifiers) {
+                var val = (value as Classifiers).ToString();
                 writer.WriteValue(val);
             }
-        }
-
-        private static IDictionary<String, String> ParseClassifierString(String s) {
-            var opts = new Dictionary<String, String>();
-            var parts = s.Split(new char[] { '_' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var part in parts) {
-                var pair = part.Split(new char[] { '-' });
-                if (pair.Length == 1) {
-                    opts[pair[0]] = "true";
-                } else if (pair.Length == 2) {
-                    opts[pair[0]] = pair[1];
-                } else {
-                    throw new ArgumentException(String.Format("Error parsing part '{0}' in options string'{1}' expected name-value pair", part, s));
-                }
-            }
-            return opts;
-        }
-
-        private static String ClassifiersAsString(IDictionary<String, String> classifiers) {
-            if (classifiers != null && classifiers.Count > 0) {
-                var keys = new List<String>(classifiers.Keys);
-                keys.Sort();
-                var sb = new StringBuilder();
-                foreach (var key in keys) {
-                    var val = classifiers[key];
-                    if (val == "true") {
-                        if (sb.Length > 0) {
-                            sb.Append("_");
-                        }
-                        sb.Append(key);
-                    } else if (val == "false") {
-                        //bool option and it doesn'texist, don't include modifier
-                    } else {
-                        if (sb.Length > 0) {
-                            sb.Append("_");
-                        }
-                        sb.Append(key).Append("-").Append(val);
-                    }
-                }
-                return sb.ToString();
-            }
-            return null;
         }
     }
 }

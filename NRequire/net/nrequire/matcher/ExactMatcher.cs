@@ -109,10 +109,6 @@ namespace net.nrequire.matcher {
                 if (versionParts.Length == 0 || versionParts.Length > 3) {
                     throw NewInvalidFormat(s);
                 }
-                Console.WriteLine("ExactMatcher:versionParts.length=" + versionParts.Length);
-                Console.WriteLine("ExactMatcher:versionParts=" + String.Join("¦", versionParts));
-                Console.WriteLine("ExactMatcher:symbol=" + symbol);
-
                 matcher.Major = ParseInt(versionParts[0]);
                 matcher.Minor = ParseInt(versionParts.Length > 1 ? versionParts[1] : null);
                 matcher.Revision = ParseInt(versionParts.Length > 2 ? versionParts[2] : null); ;
