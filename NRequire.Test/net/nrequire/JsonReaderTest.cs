@@ -33,7 +33,7 @@ namespace net.nrequire {
             Assert.AreEqual("MyGroup", dep.Group);
             Assert.AreEqual("MyRuntime", dep.Runtime);
             Assert.AreEqual("http://nowhere.com/mine", dep.Url.ToString());
-            Assert.AreEqual("1.0.0-SNAPSHOT", dep.VersionString);
+            Assert.AreEqual("1.0.0.SNAPSHOT", dep.VersionString);
 
             var child1 = dep.Transitive[0];
             Assert.AreEqual("MyChildName1", child1.Name);

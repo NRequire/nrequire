@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 
 namespace net.nrequire.matcher {
+
     internal interface IMatcher<T> {
-        bool Match(T v);
+        bool Match(T obj);
     }
+
 }

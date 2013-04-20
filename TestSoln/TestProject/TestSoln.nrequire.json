@@ -3,7 +3,7 @@
 		{
 			group:"Json.Net",
 			name:"Newtonsoft.Json",
-			version:"4.5-r11",
+			version:"4.5.r11",
 			runtime:"4.0"
 		},
 		{

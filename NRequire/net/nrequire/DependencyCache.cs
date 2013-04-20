@@ -7,10 +7,10 @@ using System.IO;
 namespace net.nrequire {
 
     public interface IDependencyCache {
-        bool ContainsResource(SpecificDependency d);
-        Resource GetResourceFor(SpecificDependency d);
+        bool ContainsDependency(Dependency d);
+        Resource GetResourceFor(Dependency d);
 
-        IList<Version> GetVersionsMatching(Dependency dep);
+        IList<Version> GetVersionsMatching(DependencyWish dep);
     }
 
     internal class DependencyCache : IDependencyCache {
@@ -21,20 +21,20 @@ namespace net.nrequire {
 
         private readonly Logger Log = Logger.GetLogger(typeof(DependencyCache));
 
-        public IList<Version> GetVersionsMatching(Dependency dep) {
-            var relPath = String.Format("{0}\\{1}", dep.Group, dep.Name);
+        public IList<Version> GetVersionsMatching(DependencyWish wish) {
+            var relPath = String.Format("{0}\\{1}", wish.Group, wish.Name);
             var dir = new DirectoryInfo(Path.Combine(CacheDir.FullName,relPath));
             Log.DebugFormat("Versions dir '{0}'", dir.FullName);
             if(!dir.Exists){
                 return new List<Version>();
             }
             //And what about empty?
-            var c = dep.Classifiers.Clone();
-            if (!String.IsNullOrWhiteSpace(dep.Arch)) {
-                c.Set("arch", dep.Arch);
+            var c = wish.Classifiers.Clone();
+            if (!String.IsNullOrWhiteSpace(wish.Arch)) {
+                c.Set("arch", wish.Arch);
             }
-            if (!String.IsNullOrWhiteSpace(dep.Runtime)) {
-                c.Set("runtime", dep.Runtime);
+            if (!String.IsNullOrWhiteSpace(wish.Runtime)) {
+                c.Set("runtime", wish.Runtime);
             }
 
             var classifiers = c.ToString();
@@ -57,17 +57,17 @@ namespace net.nrequire {
             versions.Reverse();
 
             if (Log.IsDebugEnabled()) {
-                Log.DebugFormat("Versions found for dep {0} an classifier '{1}' were {2}", dep, classifiers, String.Join(",", versions));
+                Log.DebugFormat("Versions found for dep {0} an classifier '{1}' were {2}", wish, classifiers, String.Join(",", versions));
             }
 
             return versions;
         }
 
-        public bool ContainsResource(SpecificDependency d) {
+        public bool ContainsDependency(Dependency d) {
             return GetResourceFor(d).Exists;
         }
 
-        public Resource GetResourceFor(SpecificDependency d) {
+        public Resource GetResourceFor(Dependency d) {
             var relPath = GetRelPathFor(d);
             var file = new FileInfo(Path.Combine(CacheDir.FullName,relPath));
             //TODO:if SNAPSHOT,then check localcache timestamp
@@ -80,10 +80,11 @@ namespace net.nrequire {
             return new Resource(d, file, VSProjectBaseSymbol + "\\" + relPath);
         }
 
-        private String GetRelPathFor(SpecificDependency d) {
+        protected String GetRelPathFor(Dependency d) {
             var parts = new List<String>(3);
             parts.Add(String.Format("{0}\\{1}\\{2}", d.Group, d.Name, d.Version.ToString()));
-            var classifiers = new List<String>(3);
+            
+            var classifiers = d.Classifiers==null?new List<String>(2):Classifiers.Parse(d.Classifiers).ToList();
 
             if (!String.IsNullOrEmpty(d.Arch)) {
                 classifiers.Add("arch-" + d.Arch);
@@ -91,6 +92,7 @@ namespace net.nrequire {
             if (!String.IsNullOrEmpty(d.Runtime)) {
                 classifiers.Add("runtime-" + d.Runtime);
             }
+            classifiers.Sort();
             if(classifiers.Count > 0){
                 parts.Add(String.Join("_",classifiers));
             }

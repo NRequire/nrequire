@@ -2,219 +2,45 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.IO;
-using Newtonsoft.Json;
-using net.nrequire.json;
-namespace net.nrequire {
-    public class Dependency {
-        //groupId->group
-        //Artifactid->Name
-        public string Group { get; set; }
-        public string Name { get; set; }
-        [JsonConverter(typeof(VersionConverter))]
-        public VersionMatcher Version { get; set; }
 
-        [JsonIgnore]
+namespace net.nrequire {
+
+    public class Dependency : AbstractDependency {
+
         internal String VersionString {
             get { return Version == null ? null : Version.ToString(); }
-            set { Version = value == null? null : VersionMatcher.Parse(value); } 
-        } 
-      
-        public String Ext { get; set; }
+            set { Version = value == null ? null : Version.Parse(value); }
+        }
+        public Version Version { get; internal set; }
+        public string Classifiers { get; internal set; }
+        public Scopes Scope { get; internal set; }
+        public bool HasRelatedDependencies { get { return Related != null && Related.Count > 0;}}
+        public IList<Dependency> Related { get; internal set; }
         
-        //to be moved into classifiers
-        public string Arch { get; set; }
-
-        public string Runtime { get; set; }
-
-        public Uri Url { get; set; }
-        public String CopyTo { get; set; }
-        //scratch and only put in resolved? deps should come under projects dep lilsts of compile:[],provided:[],files:[],transitive;[]
-        internal Scopes? Scope { get; set; }
-        //remove? see scopes above
-        public bool? Optional { get; set; }//this dep is optional
-        public bool? Force { get; set; }//force this dep
-        public bool? ResolveTransitive { get; set; }//whether to resolve transitive deps for this or not
-
-        internal int Depth { get; set; }//0 is top level, 1 is child, 2 is child of child....
-
-
-        [JsonConverter(typeof(ClassifierConverter))]
-        public Classifiers Classifiers { get; set; }
-
-        [JsonIgnore]
-        internal String ClassifiersString {
-            get { return Classifiers == null ? null : Classifiers.ToString(); }
-            set { Classifiers = value == null ? null : Classifiers.Parse(value); }
-        } 
-
-        public IList<Dependency> Transitive { get; set; }
-        /// <summary>
-        /// Dependencies which differ only in the extension which should be considered
-        /// related to this dependency. For example dll deps usually have xml and pdb 
-        /// files associated with with and these should be considered part of the dll
-        /// event though they can be considered resources/deps in their own right
-        /// </summary>
-        public IList<String> Related { get; set; }
-
-        public Dependency() {
-            this.Transitive = new List<Dependency>();
-            this.Classifiers = new Classifiers();
-            Optional = false;
-        }
-
-        public void AfterLoad() {
-            //any post load validation or setup
-        }
-
-        public bool HasClassifiers() {
-            return Classifiers != null && Classifiers.Count > 0;
-        }
-
-        public bool HasRelatedDependencies() {
-            return Related != null && Related.Count > 0;
-        }
-
-        public static IList<Dependency> FillInBlanksFrom(IEnumerable<Dependency> deps, Dependency defaultDep) {
-            var merged = new List<Dependency>();
-            foreach (var dep in deps) {
-                merged.Add(dep.FillInBlanksFrom(defaultDep));
-            }
-            return merged;
-        }
-
-        public Dependency FillInBlanksFrom(Dependency parent) {
-            var d = Clone();
-            d.InternalFillInBlanksFrom(parent);
-            return d;
-        }
+        public bool EmbeddedResource { get; set; }
 
         public Dependency Clone() {
-            var d = new Dependency();
-            d.InternalFillInBlanksFrom(this);
-            return d;
-        }
-
-        private void InternalFillInBlanksFrom(Dependency d) {
-            if (d == null) {
-                return;
-            }
-            InternalFillInSimpleBlanksFrom(d);
-            this.Transitive = MergeLists(d.Transitive, this.Transitive);
-        }
-
-        private void InternalFillInSimpleBlanksFrom(Dependency d) {
-            if (d == null) {
-                return;
-            }
-            if (String.IsNullOrWhiteSpace(this.Group)) {
-                this.Group = d.Group;
-            }
-            if (String.IsNullOrWhiteSpace(this.Name)) {
-                this.Name = d.Name;
-            } 
-            if (String.IsNullOrWhiteSpace(this.Arch)) {
-                this.Arch = d.Arch;
-            }
-            if (String.IsNullOrWhiteSpace(this.Ext)) {
-                this.Ext = d.Ext;
-            }
-            if (String.IsNullOrWhiteSpace(this.Runtime)) {
-                this.Runtime = d.Runtime;
-            }
-            if (this.Ext == null) {
-                this.Ext = d.Ext;
-            }
-            if (this.Url == null) {
-                this.Url = d.Url;
-            }
-            if (String.IsNullOrWhiteSpace(this.CopyTo)) {
-                this.CopyTo = d.CopyTo;
-            }
-            if (this.Related == null || Related.Count == 0) {
-                this.Related = d.Related;
-            }
-            if (this.Version == null) {
-                this.Version = d.Version;
-            }
-            if (this.Scope == null) {
-                this.Scope = d.Scope;
-            }
-        }
-
-        private static IList<Dependency> MergeLists(IList<Dependency> parent, IList<Dependency> child) {
-            if (parent == null && child == null) {
-                return new List<Dependency>();
-            }
-            if (parent == null  || parent.Count == 0) {
-                return new List<Dependency>(child);
-            }
-            if (child == null || child.Count == 0) {
-                return new List<Dependency>(parent);
-            }
-
-            var merged = parent.ToDictionary(d=>d.Signature());
-            foreach (var childDep in child) {
-                var key = childDep.Signature();
-                if (merged.ContainsKey(key)) {
-                    var parentDep = merged[key];
-                    merged.Remove(key);
-                    merged[key] = childDep.Clone().FillInBlanksFrom(parentDep);
-                } else {
-                    merged[key] = childDep;
-                }
-            }
-            
-            return new List<Dependency>(merged.Values);
-        }
-
-        public void ValidateRequiredSet() {
-            ValidateMergeValuesSet();
-            if (Version==null) {
-                throw new ArgumentException("Expect Version to be set on " + this);
-            }
-            if (String.IsNullOrWhiteSpace(Ext)) {
-                throw new ArgumentException("Expect Extension to be set on " + this);
-            }
-            if (Scope==null) {
-                throw new ArgumentException("Expect Scope to be set on " + this);
-            }
-        }
-
-        public void ValidateMergeValuesSet() {
-            if (String.IsNullOrWhiteSpace(Group)) {
-                throw new ArgumentException("Expect Group to be set on " + this);
-            }
-            if (String.IsNullOrWhiteSpace(Name)) {
-                throw new ArgumentException("Expect Name to be set on " + this);
-            }
-            //if (String.IsNullOrWhiteSpace(Arch)) {
-            //    throw new ArgumentException("Expect Arch to be set on " + this);
-            //}
-            //if (String.IsNullOrWhiteSpace(Runtime)) {
-            //    throw new ArgumentException("Expect Runtime to be set on " + this);
-            //}
-        }
-
-        public string Signature() {
-            return String.Format("group-{0}-name-{1}>"
-                , Group
-                , Name
-                //, Arch
-                //, Runtime
-            ).ToLower();
+            return new Dependency {
+                Arch = Arch,
+                CopyTo = CopyTo,
+                Classifiers = Classifiers,
+                Ext = Ext,
+                Group = Group,
+                Name = Name,
+                Related = Related==null?new List<Dependency>():new List<Dependency>(Related),
+                Runtime = Runtime,
+                Scope = Scope,
+                Url = Url,
+                Version = Version
+            };
         }
 
         public override string ToString() {
-            var depsString = "";
-            if (Transitive != null && Transitive.Count > 0) {
-                depsString = "\n\t" + String.Join("\n\t", Transitive) + "\n\t";
-            }
-            return String.Format("Dependency@{0}<\n\tGroup:{1},\n\tName:{2},\n\tVersion:{3},\n\tExt:{4},\n\tArch:{5},\n\tRuntime:{6},\n\tClassifiers:{7},\n\tScope:{8},\n\tUrl:'{9}',\n\tCopyTo:'{10}',\n\tRelated:[{11}],\n\tDependencies:[{12}]\n>", 
+            return String.Format("DependencyWish@{0}<\n\tGroup:{1},\n\tName:{2},\n\tVersion:{3},\n\tExt:{4},\n\tArch:{5},\n\tRuntime:{6},\n\tClassifiers:{7},\n\tScope:{8},\n\tUrl:{9},\n\tCopyTo:{10},\n\tRelated:[{11}]'\n>",
                 base.GetHashCode(),
                 Group,
                 Name,
-                VersionString,
+                Version,
                 Ext,
                 Arch,
                 Runtime,
@@ -222,8 +48,7 @@ namespace net.nrequire {
                 Scope,
                 Url,
                 CopyTo,
-                Related==null?null:String.Join(",",Related),
-                depsString
+                Related==null?null:String.Join(",",Related)
             );
         }
     }

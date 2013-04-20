@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+    <head>
+        <title>NRequire</title>
+        <link href="./style.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="section">
+            <div class="heading1">Overview</div>
+            <div class="paragraph">
+                NRequire is a tool for Visual Studio (and express) C#/C/C++ projects to find all your
+                dependencies and put them where your build system can find them. It does not try to perform any builds, run additional
+                plugins, get in the way of anythign else. 
+             </div>
+            <div class="heading1">How it works</div>
+            <div class="paragraph">
+                NRequire is a small console program which
+                is run as part of your pre build step and simply copies dependencies where they are needed and updates your project files.
+            </div>
+            <div class="paragraph">
+                The dependencies are specified in a per project json file and a soluton json file. The projects list the dependcies
+                they require and the solution specifies the versions. This way if you need to update to a newer version you
+                should only need to update this in one place.
+
+            </div>
+            <div class="paragraph">
+                The project json file is called <span class="filename">NameOfYouProject.nrequire.json</span>
+                or if this does not exist, <span class="filename">nrequire.json</span>.
+                The longer format is useful if you store multiple project files in a single directory.
+            </div>
+            <div class="paragraph">
+                The solution json file follows the same pattern, <span class="filename">MySolutionName.nrequire.json</span> or 
+				<span class="filename">nrequire.json</span> if the former 
+                could not be found
+            </div>
+			<div class="paragraph">
+				NRequire will merge the two json files with the project version taking precedence if they are conflicts. Once this is merged it will
+				try to resolve all dependencies required by the project. Once it has figured out what is required it will update the project with the
+				paths to these dependencies. If no dependencies have changed the project is left untouched</div>
+			
+			
+			<div class="heading2">Version resolution</div>
+            	
+			<div class="paragraph">
+				The same version scheme that Maven and NMaven use with the only change being that the dash is replaced by a dot (as in a.b.c.d vs a.b.c-d). The dashless version
+                is more compatiable with the MS Version class. More info on 
+				this <a class="external" href="http://docs.codehaus.org/display/MAVEN/Dependency+Mediation+and+Conflict+Resolution">can be found here</a>. 
+			</div>
+				
+			<div class="paragraph">As a very brief example
+				a version is specified as <span class="example">Major.Minor.Revision?(.Qualifier)?</span> where qualifer can be SNAPSHOT,a datetime 
+				(yyyyMMddHHmmss|yyyyMMddHHmmsszzz), a build number, or a string such as alpha, beta, rc1... For example <span class="example">1.2.3.70</span>
+				or <span class="example">1.2.3.SNAPSHOT</span>. A version points to a real, concrete dependency.			
+			</div>
+			<div class="paragraph">
+				A version range is specified as
+				<span class="example">[1.2,3.4.5)</span> meaning anything greater than 1.2 inclusive, up to but not including 3.4.5. So this will match 
+				1.2.0, 1.2.3 all the way
+				to 3.4.4. A version range is a declaration of what version a project may need. Therefore NRequire needs to do some work to find an actual
+				concrete version to use. This is called resolution.
+			</div>
+			
+			<div class="paragraph">
+				NRequire will try to find the highest matching version of a depndency. This allows the automatic inclusion of newer versions
+				without any additional work needing to be done on the consumers side. A new version (within the required range) is released and your project
+				which depends on it is automatically updated.				
+			</div>
+			<div class="paragraph">
+				Transitive dependencies are also handled to some extend but this still needs further work. Currently these need to be specified in the solutions
+				json file. Your project json however do not need to specify these.
+			</div>
+			
+			<div class="heading2">Where files are stored</div>
+            	
+			<div class="paragraph">
+				Nrequire uses what it calls 'Dependency Caches' to store the dependencies it needs. Currently this is essentially j 	Because of the lack of support for additional build variables in Visual Studio express, NRequire currently operates on a two cache system.
+			</div>
+			<div class="paragraph">
+			
+			</div>
+			<div class="paragraph">
+			
+			</div>
+			<div class="paragraph">
+			
+			</div>
+			<div class="paragraph">
+			
+			</div>
+			
+        </div>
+    </body>
+</html>

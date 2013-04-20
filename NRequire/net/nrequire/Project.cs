@@ -5,19 +5,19 @@ using System.Text;
 
 namespace net.nrequire {
     public class Project {
-        private static readonly Dependency DefaultDependencyValues = new Dependency { Arch = "any", Runtime = "any" };
+        private static readonly DependencyWish DefaultDependencyValues = new DependencyWish { Arch = "any", Runtime = "any" };
 
         public String ProjectFormat { get; set; }
-        public IList<Dependency> Compile { get;set;}
-        public IList<Dependency> Provided { get; set; }
-        public IList<Dependency> Transitive { get; set; }
+        public IList<DependencyWish> Compile { get;set;}
+        public IList<DependencyWish> Provided { get; set; }
+        public IList<DependencyWish> Transitive { get; set; }
         
-        public Dependency DependencyDefaults { get; set; }
+        public DependencyWish DependencyDefaults { get; set; }
 
         public Project() {
-            Compile = new List<Dependency>();
-            Provided = new List<Dependency>(); 
-            Transitive = new List<Dependency>();
+            Compile = new List<DependencyWish>();
+            Provided = new List<DependencyWish>(); 
+            Transitive = new List<DependencyWish>();
             DependencyDefaults = DefaultDependencyValues.Clone();
         }
 
@@ -27,9 +27,9 @@ namespace net.nrequire {
             }
             //Apply defaults
             DependencyDefaults = DependencyDefaults == null ? DefaultDependencyValues.Clone() : DependencyDefaults.FillInBlanksFrom(DefaultDependencyValues);
-            Compile = Dependency.FillInBlanksFrom(Compile, DependencyDefaults);
-            Provided = Dependency.FillInBlanksFrom(Provided, DependencyDefaults);
-            Transitive = Dependency.FillInBlanksFrom(Compile, DependencyDefaults);
+            Compile = DependencyWish.FillInBlanksFrom(Compile, DependencyDefaults);
+            Provided = DependencyWish.FillInBlanksFrom(Provided, DependencyDefaults);
+            Transitive = DependencyWish.FillInBlanksFrom(Compile, DependencyDefaults);
         }
     }
 }

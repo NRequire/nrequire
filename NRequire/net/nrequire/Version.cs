@@ -8,10 +8,17 @@ namespace net.nrequire {
 
     //goto to major.minor.revision.build|timestamp|SNAPSHOT|qualifier to simplify parsing (like in gradle)
     public class Version :IComparable<Version> {
+        public static String Format = "Major.Minor.Revision?.(SNAPSHOT|<Timestamp>|<Build>|<Qualifier>)?";
 
         private static readonly String[] DateFormats = new[] { "yyyyMMddHHmmssfff", "yyyyMMddHHmmss", "yyyy:MMdd:HHmm:ss", "yyyy:MMdd:HHmm:ss:fff"};
-        private static readonly char[] Dots = new[] { '.'};
+        private static readonly char[] Dots = new[] { '.' };
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
         private static readonly char[] Dashes = new[] { '-' };
+>>>>>>> 36d60a3... change version numbering to follow MS format of dots vs dashes
+=======
+>>>>>>> eeeae54... fix broken checkin
 
         public int Major { get; private set; }
 
@@ -48,9 +55,9 @@ namespace net.nrequire {
             sb.Append(Minor).Append('.');
             sb.Append(Revision);
             if (IsQualified) {
-                sb.Append("-").Append(Qualifier);
+                sb.Append(".").Append(Qualifier);
             } else {
-                sb.Append("-0");
+                sb.Append(".0");
             }
             MatchString = sb.ToString();
         }
@@ -76,29 +83,42 @@ namespace net.nrequire {
            try {
                 var v = new Version();
 
-                var versionQualifierParts = s.Split(Dashes);
-                if (versionQualifierParts.Length == 0 || versionQualifierParts.Length > 2) {
+                var parts = s.Trim().Split(Dots);
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+=======
+                parts[parts.Length-1].Split
+>>>>>>> 36d60a3... change version numbering to follow MS format of dots vs dashes
+=======
+
+>>>>>>> eeeae54... fix broken checkin
+                if (parts.Length < 2 || parts.Length > 4) {
                     throw NewInvalidFormat(s);
                 }
-                if (versionQualifierParts.Length == 2) {
-                    var qualifierPart = versionQualifierParts[1].Trim();
-                    if(String.IsNullOrEmpty(qualifierPart)){
-                        throw NewInvalidFormat(s);
+                
+                v.Major = ParseInt(parts[0]);
+
+                if (parts.Length > 3) {
+                    v.Minor = ParseInt(parts[1]);
+                    v.Revision = ParseInt(parts[2]);
+                    var qualifierPart = parts[3];
+                    SetQualifier(v, qualifierPart);
+                } else if (parts.Length > 2) {
+                    v.Minor = ParseInt(parts[1]);
+                    if (IsVersionNum(parts[2])) {
+                        v.Revision = ParseInt(parts[2]);
+                    } else {
+                        var qualifierPart = parts[2];
+                        SetQualifier(v, qualifierPart);
                     }
-                    try {
-                        SetQualifier(v,qualifierPart);
-                    } catch (ArgumentException e) {
-                        throw NewInvalidFormat(s,e);
+                } else if (parts.Length > 1) {
+                    if (IsVersionNum(parts[1])) {
+                        v.Minor = ParseInt(parts[1]);
+                    } else {
+                        var qualifierPart = parts[1];
+                        SetQualifier(v, qualifierPart);
                     }
-                }
-                var versionParts = versionQualifierParts[0].Split(Dots);
-                if (versionParts.Length < 2 || versionParts.Length > 3) {
-                    throw NewInvalidFormat(s);
-                }
-                v.Major = int.Parse(versionParts[0]);
-                v.Minor = int.Parse(versionParts[1]);
-                if (versionParts.Length == 3) {
-                    v.Revision = int.Parse(versionParts[2]);
                 }
                 v.GenerateMatchString();
                 return v;
@@ -107,9 +127,31 @@ namespace net.nrequire {
            }
         }
 
+        private static bool IsVersionNum(string s) {
+            int i;
+            if (int.TryParse(s, out i)) {
+                if (i < 0) {
+                    throw new ArgumentException("Value must be positive but was " + s);
+                }
+                return true;
+            }
+            return false;
+        }
+
+        private static int ParseInt(string s) {
+            int i;
+            if (int.TryParse(s, out i)) {
+                if (i < 0 || s[0] == '-') {
+                    throw new ArgumentException(String.Format("Value must be positive but was '{0}'",s));
+                }
+                return i;
+            }
+            throw new ArgumentException(String.Format("Could not parse '{0}' as an int",s));
+        }
+        
         private static void SetQualifier(Version v, string s) {
             if (String.IsNullOrEmpty(s)) {
-                return;
+                throw NewInvalidFormat(s);
             }
             v.Qualifier = s;
             
@@ -147,11 +189,11 @@ namespace net.nrequire {
         }
 
         private static ArgumentException NewInvalidFormat(String s) {
-            return new ArgumentException(String.Format("Invalid version string '{0}', expected format is Major.Minor.Revision?-(SNAPSHOT|<Timestamp>|<Build>|<Qualifier>)?", s));
+            return new ArgumentException(String.Format("Invalid version string '{0}', expected format is {1}", s, Format));
         }
 
         private static ArgumentException NewInvalidFormat(String s, Exception e) {
-            return new ArgumentException(String.Format("Invalid version string '{0}', expected format is Major.Minor.Revision?-(SNAPSHOT|<Timestamp>|<Build>|<Qualifier>)?", s), e);
+            return new ArgumentException(String.Format("Invalid version string '{0}', expected format is {1}", s, Format), e);
         }
 
         public int CompareTo(Version other) {
@@ -167,7 +209,7 @@ namespace net.nrequire {
             sb.Append(Minor).Append('.');
             sb.Append(Revision);
             if (IsQualified) {
-                sb.Append("-").Append(Qualifier);
+                sb.Append(".").Append(Qualifier);
             }
             return sb.ToString();
         }

@@ -58,7 +58,7 @@ namespace net.nrequire {
             }
         }
 
-        private IList<SpecificDependency> ResolveDependencies() {
+        private IList<Dependency> ResolveDependencies() {
             var soln = m_jsonReader.ReadSolution(LookupJsonFileFor(SolutionFile));
             var proj = m_jsonReader.ReadProject(LookupJsonFileFor(ProjectFile));
 
@@ -79,7 +79,7 @@ namespace net.nrequire {
             }
         }
 
-        private IList<Resource> ResolveResources(IEnumerable<SpecificDependency> deps) {
+        private IList<Resource> ResolveResources(IEnumerable<Dependency> deps) {
             var notFound = new List<Resource>();
             var resources = new List<Resource>();
             //now update the project!
@@ -96,7 +96,7 @@ namespace net.nrequire {
             return resources;
         }
 
-        private IList<Resource> ResolveRelatedResources(IEnumerable<SpecificDependency> deps) {
+        private IList<Resource> ResolveRelatedResources(IEnumerable<Dependency> deps) {
             var resources = new List<Resource>();
             foreach (var dep in deps) {
                 if(dep.HasRelatedDependencies){
@@ -106,7 +106,7 @@ namespace net.nrequire {
             return resources;
         }
 
-        private void AddRelatedResources(SpecificDependency dep, IList<Resource> addTo) {
+        private void AddRelatedResources(Dependency dep, IList<Resource> addTo) {
             foreach (var related in dep.Related) {
                 var resource = SolutionCache.GetResourceFor(related);
                 if (resource.Exists) {

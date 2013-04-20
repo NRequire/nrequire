@@ -20,8 +20,8 @@ namespace net.nrequire {
             return p;
         }
 
-        public Dependency ReadDependency(FileInfo jsonFile) {
-            var dep = Read<Dependency>(jsonFile);
+        public DependencyWish ReadDependency(FileInfo jsonFile) {
+            var dep = Read<DependencyWish>(jsonFile);
             dep.AfterLoad();
             return dep;
         }

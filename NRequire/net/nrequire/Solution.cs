@@ -6,14 +6,18 @@ using System.Text;
 namespace net.nrequire {
     public class Solution {
 
-        private static readonly Dependency DefaultDependencyValues = new Dependency { Arch = "any", Runtime = "any", Ext="dll", Scope = Scopes.Compile };
+        private static readonly DependencyWish DefaultDependencyValues = new DependencyWish { Arch = "any", Runtime = "any", Ext="dll", Scope = Scopes.Compile };
         //TODO:add Repos:[] {name:central,url:path/to/some/repo,layout:maven|nget|...}
-        public IList<Dependency> Dependencies { get;set; }
-        public Dependency DependencyDefaults { get; set; }
+        public IList<DependencyWish> Dependencies { get; set; }
+        //only for transitive stuff, not per top level
+        public IList<DependencyWish> Transitive { get; set; }
+
+        public DependencyWish DependencyDefaults { get; set; }
         public String SolutionFormat { get;set; }
 
         public Solution() {
-            Dependencies = new List<Dependency>();
+            Dependencies = new List<DependencyWish>();
+            Transitive = new List<DependencyWish>();
             DependencyDefaults = DefaultDependencyValues.Clone();
         }
 
@@ -23,8 +27,11 @@ namespace net.nrequire {
             }
             //apply defaults
             DependencyDefaults = DependencyDefaults == null ? DefaultDependencyValues.Clone() : DependencyDefaults.FillInBlanksFrom(DefaultDependencyValues);
-            Dependencies = Dependency.FillInBlanksFrom(Dependencies, DependencyDefaults);
-        
+            Dependencies = DependencyWish.FillInBlanksFrom(Dependencies, DependencyDefaults);
+            Transitive = DependencyWish.FillInBlanksFrom(Transitive, DependencyDefaults);
+            //TODO: check no duplicated deps, need to pick a list
+
+
         }
     }
 }

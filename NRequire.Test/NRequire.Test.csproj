@@ -51,14 +51,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="net\nrequire\ADependencyCache.cs" />
+    <Compile Include="net\nrequire\AProject.cs" />
+    <Compile Include="net\nrequire\ASolution.cs" />
+    <Compile Include="net\nrequire\ADependency.cs" />
     <Compile Include="net\nrequire\CommandLineParserTest.cs" />
     <Compile Include="net\nrequire\DependencyCacheTest.cs" />
-    <Compile Include="net\nrequire\DependencyTest.cs" />
+    <Compile Include="net\nrequire\ADependencyWish.cs" />
+    <Compile Include="net\nrequire\DependencyWishTest.cs" />
     <Compile Include="net\nrequire\FileUtil.cs" />
     <Compile Include="net\nrequire\JsonReaderTest.cs" />
     <Compile Include="net\nrequire\matcher\ExactMatcherTest.cs" />
     <Compile Include="net\nrequire\NUnitConsoleRunner.cs" />
     <Compile Include="net\nrequire\ProgramTest.cs" />
+    <Compile Include="net\nrequire\ResolverTest.cs" />
     <Compile Include="net\nrequire\VersionMatcherTest.cs" />
     <Compile Include="net\nrequire\VersionTest.cs" />
     <Compile Include="net\nrequire\VSProjectTest.cs" />
@@ -80,7 +86,7 @@
     <Content Include="net\nrequire\DependencyCacheTest\LocalCache\Group0\Name0\1.2.4\key1-val1_key2-differentVal\Name0.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="net\nrequire\DependencyCacheTest\LocalCache\Group0\Name0\2.3.4-SNAPSHOT\key1-val1_key2-val2\Name0.dll">
+    <Content Include="net\nrequire\DependencyCacheTest\LocalCache\Group0\Name0\2.3.4.SNAPSHOT\key1-val1_key2-val2\Name0.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="net\nrequire\ProgramTest\LocalCache\Group1\Name1\1.2.2\arch-any_runtime-4.0\Name1.xml">

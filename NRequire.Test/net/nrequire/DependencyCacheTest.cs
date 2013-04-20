@@ -11,13 +11,18 @@ namespace net.nrequire {
 
         [Test]
         public void ListVersionsInOrderTest() {
-            var resourceDir = FileUtil.DirectoryFor<DependencyCacheTest>();
-            var localCacheDir = new DirectoryInfo(Path.Combine(resourceDir.FullName, "LocalCache"));
+            var classifiersMatching = "key1-val1_key2-val2";
+            var classifiersNonMatching = "key1-val1_key2-val2NonMatching";
 
-            var cache = new DependencyCache { CacheDir = localCacheDir };
-            var versions = cache.GetVersionsMatching(new Dependency { Group = "Group0", Name = "Name0", ClassifiersString = "key1-val1_key2-val2" });
+            var cache = ADependencyCache.With()
+                .Dependency(ADependency.With().Defaults().Version("1.0.0").Classifiers(classifiersMatching))
+                .Dependency(ADependency.With().Defaults().Version("1.2.3").Classifiers(classifiersMatching))
+                .Dependency(ADependency.With().Defaults().Version("1.2.4").Classifiers(classifiersNonMatching))
+                .Dependency(ADependency.With().Defaults().Version("2.3.4.SNAPSHOT").Classifiers(classifiersMatching))
+            ;
+            var versions = cache.GetVersionsMatching(ADependencyWish.With().Defaults().Classifiers(classifiersMatching));
          
-            Assert.AreEqual(Versions("2.3.4-SNAPSHOT","1.2.3","1.0.0"), versions);
+            Assert.AreEqual(Versions("2.3.4.SNAPSHOT","1.2.3","1.0.0"), versions);
         }
 
         private static IList<Version> Versions(params String[] versionStrings) {

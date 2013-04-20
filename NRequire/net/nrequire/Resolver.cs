@@ -24,7 +24,7 @@ namespace net.nrequire {
             return new Resolver(cache);
         }
 
-        public IList<SpecificDependency> ResolveDependencies(Solution soln, Project proj) {
+        public IList<Dependency> ResolveDependencies(Solution soln, Project proj) {
             ValidateReadyForMerge(soln.Dependencies);
             ValidateReadyForMerge(proj.Compile);
             ValidateReadyForMerge(proj.Transitive);
@@ -34,48 +34,47 @@ namespace net.nrequire {
 
             //now the fun begins. Resolve transitive deps, find closest versions
 
-            return deps.Select((d)=>ResolveToSpecific(d)).ToList();
+            return deps.Select((d)=>Resolve(d)).ToList();
         }
 
-        private void ValidateReadyForMerge(IEnumerable<Dependency> deps) {
+        private void ValidateReadyForMerge(IEnumerable<DependencyWish> deps) {
             foreach (var d in deps) {
                 d.ValidateMergeValuesSet();
             }
         }
 
-        private void ValidateAllSet(IEnumerable<Dependency> deps) {
+        private void ValidateAllSet(IEnumerable<DependencyWish> deps) {
             foreach (var d in deps) {
                 d.ValidateRequiredSet();
             }
         }
 
         private DepsList MergeDeps(Solution soln, Project proj) {
-            var versions = new DepsList(soln.Dependencies);
+            var versions = new DepsList(soln.Dependencies.Concat(soln.Transitive));
             
             var deps = new DepsList();
             deps.MergeInWithLookup(Scopes.Compile,proj.Compile,versions,0);
             deps.MergeInWithLookup(Scopes.Transitive, proj.Transitive, versions, 1);
             deps.MergeInWithLookup(Scopes.Provided, proj.Provided, versions, 1);
 
-            foreach (var dep in proj.Transitive) {
+            var transitivesToMerge = proj.Transitive.Concat(proj.Compile).Concat(proj.Provided);
+
+            foreach (var dep in transitivesToMerge) {
                 deps.MergeInWithLookup(Scopes.Transitive, dep.Transitive, versions, 2);
             }
-            foreach (var dep in proj.Compile) {
-                deps.MergeInWithLookup(Scopes.Transitive,dep.Transitive, versions, 2);
-            }
-            foreach (var dep in proj.Provided) {
-                deps.MergeInWithLookup(Scopes.Transitive, dep.Transitive, versions, 2);
-            }
+            //TODO:recursive
             foreach (var dep in deps) {
                 deps.MergeInWithLookup(Scopes.Transitive, dep.Transitive, versions, 2);
             } 
             return deps;
         }
 
-        private SpecificDependency ResolveToSpecific(Dependency dep) {
-            var versions = DepsCache.GetVersionsMatching(dep);
+
+
+        private Dependency Resolve(DependencyWish wish) {
+            var versions = DepsCache.GetVersionsMatching(wish);
             if (versions.Count == 0) {
-                throw new ResolutionException("Could not resolve dependency {0} as no matching versions were returned from cache", dep);
+                throw new ResolutionException("Could not resolve dependency {0} as no matching versions were returned from cache", wish);
             }
 
             var sorted = new List<Version>(versions);
@@ -84,31 +83,31 @@ namespace net.nrequire {
 
             Log.DebugFormat("Found versions:{0}", String.Join(",", sorted));
 
-            var version = sorted.FirstOrDefault((v) => dep.Version.Match(v));
-            Log.DebugFormat("Matched version {0} for dep {1}", version, dep);
+            var version = sorted.FirstOrDefault((v) => wish.Version.Match(v));
+            Log.DebugFormat("Matched version {0} for dep {1}", version, wish);
 
             //check cache got it right
             if (version == null) {
-                throw new ResolutionException("Could not resolve dependency {0} as no matching versions could be found", dep);
+                throw new ResolutionException("Could not resolve dependency {0} as no matching versions could be found", wish);
             }
 
             //TODO:apply version selection, ranges etc
-            var specific = new SpecificDependency {
-                Arch = dep.Arch,
-                CopyTo = dep.CopyTo,
-                Ext = dep.Ext,
-                Group = dep.Group,
-                Name = dep.Name,
-                Runtime = dep.Runtime,
-                Scope = dep.Scope.GetValueOrDefault(Scopes.Compile),
-                Url = dep.Url,
+            var dep = new Dependency {
+                Arch = wish.Arch,
+                CopyTo = wish.CopyTo,
+                Ext = wish.Ext,
+                Group = wish.Group,
+                Name = wish.Name,
+                Runtime = wish.Runtime,
+                Scope = wish.Scope.GetValueOrDefault(Scopes.Compile),
+                Url = wish.Url,
                 Version = version
             };
-            specific.Related = GetClonesWithExtensions(specific,GetRelatedExtensionsFor(dep));
-            return specific;
+            dep.Related = GetClonesWithExtensions(dep,GetRelatedExtensionsFor(wish));
+            return dep;
         }
 
-        private static IList<String> GetRelatedExtensionsFor(Dependency d) {
+        private static IList<String> GetRelatedExtensionsFor(DependencyWish d) {
             if (d.HasRelatedDependencies()) {
                 return d.Related;
             } else {
@@ -120,8 +119,8 @@ namespace net.nrequire {
             return null;
         }
 
-        private static IList<SpecificDependency> GetClonesWithExtensions(SpecificDependency d, IList<String> extensions) {
-            var clones = new List<SpecificDependency>();
+        private static IList<Dependency> GetClonesWithExtensions(Dependency d, IList<String> extensions) {
+            var clones = new List<Dependency>();
             if (extensions != null && extensions.Count > 0) {
                 foreach (var ext in extensions) {
                     var clone = d.Clone();
@@ -132,39 +131,46 @@ namespace net.nrequire {
             return clones;
         }
 
-        private class DepsList : IEnumerable<Dependency> {
-            private readonly IDictionary<string, Dependency> m_deps;
+        private class DepsList : IEnumerable<DependencyWish> {
+            //TODO:add list per depth?
+            private static readonly Logger Log = Logger.GetLogger(typeof(DepsList));
+
+            private readonly IDictionary<string, DependencyWish> m_deps;
 
             internal DepsList() {
-                m_deps = new Dictionary<string, Dependency>();
+                m_deps = new Dictionary<string, DependencyWish>();
             }
 
-            internal DepsList(IList<Dependency> deps) {
+            internal DepsList(IEnumerable<DependencyWish> deps) {
                 m_deps = deps.ToDictionary(d => d.Signature());
             }
 
-            internal IList<Dependency> ToList() {
-                return new List<Dependency>(m_deps.Values);
+            internal IList<DependencyWish> ToList() {
+                return new List<DependencyWish>(m_deps.Values);
             }
 
-            internal void MergeInWithLookup(Scopes scope, IList<Dependency> additional, DepsList lookup, int level) {
-                foreach (var dep in additional) {
-
-                    var key = dep.Signature();
-                    if (!m_deps.ContainsKey(key)) {
-                        Dependency depToAdd;
-                        if (lookup.ContainsKey(key)) {
-                            var solnDep = lookup.GetByKey(key);
-                            depToAdd = dep.FillInBlanksFrom(solnDep);
+            internal void MergeInWithLookup(Scopes scope, IList<DependencyWish> additional, DepsList lookup, int level) {
+                foreach (var wish in additional) {
+                    var sig = wish.Signature();
+                    Log.Trace("merging in wish " + sig);
+                    if (!m_deps.ContainsKey(sig)) {
+                        DependencyWish wishToAdd;
+                        if (lookup.ContainsKey(sig)) {
+                            var solnDep = lookup.GetByKey(sig);
+                            wishToAdd = wish.FillInBlanksFrom(solnDep);
                         } else {
-                            depToAdd = dep.Clone();
+                            wishToAdd = wish.Clone();
                         }
+                        
+                        wishToAdd.Depth = level;
+                        wishToAdd.Scope = scope;
 
-                        depToAdd.Depth = level;
-                        depToAdd.Scope = scope;
+                        wishToAdd.ValidateRequiredSet();
+                        m_deps[sig] = wishToAdd;
 
-                        depToAdd.ValidateRequiredSet();
-                        m_deps[key] = depToAdd;
+                        if (Log.IsTraceEnabled()) {
+                            Log.Trace("added wish " + wishToAdd);
+                        }
                     }
                 }
             }
@@ -173,7 +179,7 @@ namespace net.nrequire {
                 return m_deps.ContainsKey(key);
             }
 
-            private Dependency GetByKey(string key) {
+            private DependencyWish GetByKey(string key) {
                 return m_deps[key];
             }
 
@@ -181,8 +187,8 @@ namespace net.nrequire {
                 return GetEnumerator();
             }
 
-            public IEnumerator<Dependency> GetEnumerator() {
-                return new List<Dependency>(m_deps.Values).GetEnumerator();
+            public IEnumerator<DependencyWish> GetEnumerator() {
+                return new List<DependencyWish>(m_deps.Values).GetEnumerator();
             }
         }
     }

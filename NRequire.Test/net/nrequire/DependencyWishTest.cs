@@ -7,11 +7,11 @@ using NUnit.Framework;
 namespace net.nrequire {
 
     [TestFixture]
-    public class DependencyTest {
+    public class DependencyWishTest {
 
         [Test]
         public void CloneEmptyDepTest() {
-            var dep = new Dependency();
+            var dep = new DependencyWish();
             var clone = dep.Clone();
 
             Assert.AreNotSame(dep, clone);
@@ -21,7 +21,7 @@ namespace net.nrequire {
         [Test]
         public void CloneSimplePropsTest() {
 
-            var dep = new Dependency {
+            var dep = new DependencyWish {
                 Name = "MyName",
                 Group = "MyGroupId",
                 Runtime = "MyRuntime",
@@ -50,12 +50,12 @@ namespace net.nrequire {
         [Test]
         public void CloneChildDependenciesTest() {
 
-            var dep = new Dependency {
-                Transitive = new List<Dependency> { 
-                    new Dependency{
+            var dep = new DependencyWish {
+                Transitive = new List<DependencyWish> { 
+                    new DependencyWish{
                         Name = "MyName1"
                     },
-                    new Dependency{
+                    new DependencyWish{
                         Name = "MyName2"
                     },
                 }
@@ -73,7 +73,7 @@ namespace net.nrequire {
         [Test]
         public void MergeSimplePropsTest() {
 
-            var dep = new Dependency {
+            var dep = new DependencyWish {
                 Name = "MyName",
                 Group = "MyGroupId",
                 Runtime = "MyRuntime",
@@ -101,7 +101,7 @@ namespace net.nrequire {
             return new List<String>(vals);
         }
 
-        private void CheckMergeProp<T>(Dependency d, Action<Dependency, T> setter, Func<Dependency, T> getter, T emptyVal, T setParentVal,T setChildVal) {
+        private void CheckMergeProp<T>(DependencyWish d, Action<DependencyWish, T> setter, Func<DependencyWish, T> getter, T emptyVal, T setParentVal,T setChildVal) {
             try {
                 var parent = d.Clone();
                 var child = d.Clone();
@@ -128,17 +128,17 @@ namespace net.nrequire {
         [Test]
         public void MergeChildDependenciesTest() {
 
-            var parent = new Dependency {
+            var parent = new DependencyWish {
                 Name = "MyArtifactId",
                 Group = "MyGroupId",
 
-                Transitive = new List<Dependency> { 
-                    new Dependency{
+                Transitive = new List<DependencyWish> { 
+                    new DependencyWish{
                         Group = "MyGroupId1",
                         Name = "MyArtifactId1", 
                         VersionString = "1.2.3"
                     },
-                    new Dependency{
+                    new DependencyWish{
                         Group = "MyGroupId2",
                         Name = "MyArtifactId2", 
                         VersionString = "1.2.3"
@@ -146,17 +146,17 @@ namespace net.nrequire {
                 }
             };
 
-            var dep = new Dependency {
+            var dep = new DependencyWish {
                 Name = "MyArtifactId",
                 Group = "MyGroupId",
 
-                Transitive = new List<Dependency> { 
-                    new Dependency{
+                Transitive = new List<DependencyWish> { 
+                    new DependencyWish{
                         Group = "MyGroupId1",
                         Name = "MyArtifactId1", 
                     },
                     //overrides the verison
-                    new Dependency{
+                    new DependencyWish{
                         Group = "MyGroupId2",
                         Name = "MyArtifactId2", 
                         VersionString = "4.5.6" 
@@ -182,19 +182,19 @@ namespace net.nrequire {
         [Test]
         public void MergeChildChildDependenciesTest() {
 
-            var parent = new Dependency {
-                Transitive = new List<Dependency> { 
-                    new Dependency{
+            var parent = new DependencyWish {
+                Transitive = new List<DependencyWish> { 
+                    new DependencyWish{
                         Group = "MyGroupId",
                         Name = "MyArtifactId", 
                         VersionString = "1",
-                        Transitive = new List<Dependency> { 
-                            new Dependency{
+                        Transitive = new List<DependencyWish> { 
+                            new DependencyWish{
                                 Group = "MyGroupId",
                                 Name = "MyArtifactId", 
                                 VersionString = "1.2",
-                                Transitive = new List<Dependency> { 
-                                    new Dependency{
+                                Transitive = new List<DependencyWish> { 
+                                    new DependencyWish{
                                         Group = "MyGroupId",
                                         Name = "MyArtifactId", 
                                         VersionString = "1.2.3"
@@ -206,17 +206,17 @@ namespace net.nrequire {
                 }
             };
 
-            var dep = new Dependency {
-                Transitive = new List<Dependency> { 
-                    new Dependency{
+            var dep = new DependencyWish {
+                Transitive = new List<DependencyWish> { 
+                    new DependencyWish{
                         Group = "MyGroupId",
                         Name = "MyArtifactId", 
-                        Transitive = new List<Dependency> { 
-                            new Dependency{
+                        Transitive = new List<DependencyWish> { 
+                            new DependencyWish{
                                 Group = "MyGroupId",
                                 Name = "MyArtifactId",
-                                Transitive = new List<Dependency> { 
-                                    new Dependency{
+                                Transitive = new List<DependencyWish> { 
+                                    new DependencyWish{
                                         Group = "MyGroupId",
                                         Name = "MyArtifactId"
                                     }

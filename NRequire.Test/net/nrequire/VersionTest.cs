@@ -12,17 +12,17 @@ namespace net.nrequire {
         [Test]
         public void MajorOnly() {
             CheckParse(
-                new V(1,0,0,null,0,Q.None), 
-                "1.0","1.0.0","1.0-0","1.0.0-0");
+                new V(1,0,0,null,0,Q.None),
+                "1.0", "1.0.0", "1.0.0", "1.0.0.0");
 
-            CheckInvalidParse("1","-1.0","1.-0");
+            CheckInvalidParse("0", "1", "-1.0","1.-0");
         }
 
         [Test]
         public void MajorMinor() {
             CheckParse(
-                new V(1, 2, 0, null, 0, Q.None), 
-                "1.2", "1.2.0", "1.2-0", "1.2.0-0");
+                new V(1, 2, 0, null, 0, Q.None),
+                "1.2", "1.2.0", "1.2.0", "1.2.0.0");
             CheckInvalidParse("-1.2", "1.-2");
         }
 
@@ -30,105 +30,107 @@ namespace net.nrequire {
         public void MajorMinorRevision() {
             CheckParse(
                 new V(1, 2, 3, null, 0, Q.None),
-                "1.2.3", "1.2.3-0");
+                "1.2.3", "1.2.3.0");
             CheckInvalidParse("-1.2.3", "1.2.-3");
         }
 
         [Test]
         public void WithTimestamp() {
+            //TODO:fail on 1.timestamp?
             CheckParse(
                 new V(1, 0, 0, "20111124102345", 0, Q.Ts),
-                "1.0-20111124102345", "1.0.0-20111124102345");
+                "1.0.20111124102345", "1.0.0.20111124102345");
             CheckParse(
                 new V(1, 2, 0, "20111124102345", 0, Q.Ts),
-                "1.2-20111124102345", "1.2.0-20111124102345");
+                "1.2.20111124102345", "1.2.0.20111124102345");
 
             CheckParse(
                 new V(1, 2, 3, "20111124102345", 0, Q.Ts),
-                "1.2.3-20111124102345");
+                "1.2.3.20111124102345");
         }
 
         [Test]
         public void WithSnapshot() {
             CheckParse(
                 new V(1, 0, 0, "SNAPSHOT", 0, Q.Snapshot),
-                "1.0-SNAPSHOT","1.0.0-SNAPSHOT");
+                "1.SNAPSHOT", "1.0.SNAPSHOT", "1.0.0.SNAPSHOT");
             CheckParse(
                 new V(1, 2, 0, "SNAPSHOT", 0, Q.Snapshot),
-                "1.2-SNAPSHOT", "1.2.0-SNAPSHOT");
+                "1.2.SNAPSHOT", "1.2.0.SNAPSHOT");
 
             CheckParse(
                 new V(1, 2, 3, "SNAPSHOT", 0, Q.Snapshot),
-                "1.2.3-SNAPSHOT");
+                "1.2.3.SNAPSHOT");
         }
 
         [Test]
         public void WithQualifier() {
             CheckParse(
                 new V(1, 0, 0, "myqual", 0, Q.Other),
-                "1.0-myqual", "1.0.0-myqual");
+                "1.0.myqual", "1.0.0.myqual");
             CheckParse(
                 new V(1, 2, 0, "myqual", 0, Q.Other),
-                "1.2-myqual", "1.2.0-myqual");
+                "1.2.myqual", "1.2.0.myqual");
 
             CheckParse(
                 new V(1, 2, 3, "myqual", 0, Q.Other),
-                "1.2.3-myqual");
+                "1.2.3.myqual");
 
             CheckParse(
                 new V(1, 2, 3, "rc1", 0, Q.Other),
-                "1.2.3-rc1");
+                "1.2.3.rc1");
             CheckParse(
                 new V(1, 0, 0, "rc1", 0, Q.Other),
-                "1.0-rc1", "1.0.0-rc1");
+                "1.0.rc1", "1.0.0.rc1");
         }
 
         [Test]
         public void WithBuild() {
             CheckParse(
                 new V(1, 2, 0, "456", 456, Q.Build),
-                "1.2-456", "1.2.0-456");
+                "1.2.0.456");
+
             CheckParse(
                 new V(1, 2, 3, "456", 456, Q.Build),
-                "1.2.3-456");
+                "1.2.3.456");
 
-            CheckInvalidParse("1.0.0-123-456", "1.0-123-456", "1-456","1.0-foo-456","1.0-SNAPSHOT-456");
+            CheckInvalidParse("1.0.0.123.456","1.0.foo.456","1.0.SNAPSHOT.456");
         }
         
 
         [Test]
         public void ToStringTests() {
-            CheckToString("1.0.0", "1.0", "1.0.0", "1.0.0-0");
-            CheckToString("1.2.0", "1.2", "1.2.0", "1.2.0-0");
-            CheckToString("1.2.3", "1.2.3", "1.2.3-0");
+            CheckToString("1.0.0", "1.0", "1.0.0", "1.0.0.0");
+            CheckToString("1.2.0", "1.2", "1.2.0", "1.2.0.0");
+            CheckToString("1.2.3", "1.2.3", "1.2.3.0");
 
-            CheckToString("1.0.0-SNAPSHOT", "1.0-SNAPSHOT", "1.0.0-SNAPSHOT");
-            CheckToString("1.2.0-SNAPSHOT", "1.2-SNAPSHOT", "1.2.0-SNAPSHOT");
-            CheckToString("1.2.3-SNAPSHOT", "1.2.3-SNAPSHOT");
+            CheckToString("1.0.0.SNAPSHOT", "1.0.SNAPSHOT", "1.0.0.SNAPSHOT");
+            CheckToString("1.2.0.SNAPSHOT", "1.2.SNAPSHOT", "1.2.0.SNAPSHOT");
+            CheckToString("1.2.3.SNAPSHOT", "1.2.3.SNAPSHOT");
         }
 
         [Test]
         public void ToMatchStringTests() {
-            CheckMatchString("0.0.0-0", "0.0", "0.0.0", "0.0.0-0"); 
-            CheckMatchString("1.0.0-0", "1.0", "1.0.0", "1.0.0-0");
-            CheckMatchString("1.2.0-0", "1.2", "1.2.0", "1.2.0-0");
-            CheckMatchString("1.2.3-4", "1.2.3-4");
-            CheckMatchString("1.2.3-SNAPSHOT", "1.2.3-SNAPSHOT");
-            CheckMatchString("1.2.3-20120102100422", "1.2.3-20120102100422");
+            CheckMatchString("0.0.0.0", "0.0", "0.0.0", "0.0.0.0"); 
+            CheckMatchString("1.0.0.0", "1.0", "1.0.0", "1.0.0.0");
+            CheckMatchString("1.2.0.0", "1.2", "1.2.0", "1.2.0.0");
+            CheckMatchString("1.2.3.4", "1.2.3.4");
+            CheckMatchString("1.2.3.SNAPSHOT", "1.2.3.SNAPSHOT");
+            CheckMatchString("1.2.3.20120102100422", "1.2.3.20120102100422");
         }
 
         [Test]
         public void CompareToTests() {
-            CheckCompareTo("0.0", 0, "0.0", "0.0.0", "0.0.0-0"); 
-            CheckCompareTo("1.0", 0, "1.0", "1.0.0", "1.0.0-0");
-            CheckCompareTo("1.2.3-4", 0, "1.2.3-4");
-            CheckCompareTo("1.2.3-0", 0, "1.2.3");
+            CheckCompareTo("0.0", 0, "0.0", "0.0.0", "0.0.0.0"); 
+            CheckCompareTo("1.0", 0, "1.0", "1.0.0", "1.0.0.0");
+            CheckCompareTo("1.2.3.4", 0, "1.2.3.4");
+            CheckCompareTo("1.2.3.0", 0, "1.2.3");
             
-            CheckCompareTo("1.1", 1, "1.0", "1.0.0", "1.0.0-0");
+            CheckCompareTo("1.1", 1, "1.0", "1.0.0", "1.0.0.0");
             CheckCompareTo("1.2.3", 1, "1.0", "1.2", "1.2.2");
-            CheckCompareTo("1.2.3-4", 1, "1.2.3-3");
-            CheckCompareTo("1.2.3-SNAPSHOT", 1, "1.2.3-3");
-            CheckCompareTo("1.2.3-SNAPSHOT", 1, "1.2.3-20120103095436");
+            CheckCompareTo("1.2.3.4", 1, "1.2.3.3");
+            CheckCompareTo("1.2.3.SNAPSHOT", 1, "1.2.3.3");
+            CheckCompareTo("1.2.3.SNAPSHOT", 1, "1.2.3.20120103095436");
 
         }
 

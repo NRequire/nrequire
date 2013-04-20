@@ -6,11 +6,11 @@ using System.Globalization;
 
 namespace net.nrequire.matcher {
     internal class ExactMatcher : IMatcher<Version> {
+        public static String Format = "Major.Minor?.Revision?.(SNAPSHOT|<Timestamp>|<Build>|<Qualifier>)?";
 
         private static readonly String[] DateFormats = new[] { "yyyyMMddHHmmssfff", "yyyyMMddHHmmss", "yyyy:MMdd:HHmm:ss", "yyyy:MMdd:HHmm:ss:fff" };
 
         private static readonly char[] Dots = new[] { '.' };
-        private static readonly char[] Dashes = new[] { '-' };
 
         int? Major { get; set; }
         int? Minor { get; set; }
@@ -86,33 +86,39 @@ namespace net.nrequire.matcher {
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="symbol">what type of matching to perform. one of =()[]. '[' for example means to
+        /// match anything greater than or equal to, '(' anything greater etc.</param>
+        /// <param name="s"></param>
+        /// <returns></returns>
         internal static ExactMatcher Parse(char symbol, String s) {
             try {
                 var matcher = new ExactMatcher(symbol);
-
-                var versionQualifierParts = s.Split(Dashes);
-                if (versionQualifierParts.Length > 2) {
-                    throw NewInvalidFormat(s);
-                }
-                if (versionQualifierParts.Length == 2) {
-                    var qualifierPart = versionQualifierParts[1].Trim();
-                    if (String.IsNullOrEmpty(qualifierPart)) {
-                        throw NewInvalidFormat(s);
-                    }
-                    try {
+                var parts = s.Split(Dots);
+                matcher.Major = ParseInt(parts[0]);
+                if (parts.Length > 3) {
+                    matcher.Minor = ParseInt(parts[1]);
+                    matcher.Revision = ParseInt(parts[2]);
+                    var qualifierPart = parts[3];
+                     SetQualifier(matcher, symbol, qualifierPart);
+                } else if (parts.Length > 2) {
+                    matcher.Minor = ParseInt(parts[1]);
+                    if (IsVersionNum(parts[2])) {
+                        matcher.Revision = ParseInt(parts[2]);
+                    } else {
+                        var qualifierPart = parts[2];
                         SetQualifier(matcher, symbol, qualifierPart);
-                    } catch (ArgumentException e) {
-                        throw NewInvalidFormat(s, e);
+                    }
+                } else if (parts.Length > 1) {
+                    if (IsVersionNum(parts[1])) {
+                        matcher.Minor = ParseInt(parts[1]);
+                    } else {
+                        var qualifierPart = parts[1];
+                        SetQualifier(matcher, symbol, qualifierPart);
                     }
                 }
-                var versionParts = versionQualifierParts[0].Split(Dots);
-                if (versionParts.Length == 0 || versionParts.Length > 3) {
-                    throw NewInvalidFormat(s);
-                }
-                matcher.Major = ParseInt(versionParts[0]);
-                matcher.Minor = ParseInt(versionParts.Length > 1 ? versionParts[1] : null);
-                matcher.Revision = ParseInt(versionParts.Length > 2 ? versionParts[2] : null); ;
-
                 if (matcher.TimeStamp == null) {
                     matcher.TimeStamp = DateTimeMatcher.EqualToAny();
                 }
@@ -122,12 +128,26 @@ namespace net.nrequire.matcher {
             }
         }
 
+        private static bool IsVersionNum(string s) {
+            int i;
+            if (int.TryParse(s, out i)) {
+                if (i < 0) {
+                    throw new ArgumentException(String.Format("Value must be positive but was '{0}'",s));
+                }
+                return true;
+            }
+            return false;
+        }
+
         private static int? ParseInt(String s) {
             if (s == null || s.Length == 0) {
                 return null;
             }
             int intVal;
             if (int.TryParse(s, out intVal)) {
+                if (intVal < 0 || s[0] == '-') {
+                    throw new ArgumentException(String.Format("Value must be positive but was '{0}'",s));
+                }
                 return intVal;
             }
             throw new ArgumentException(String.Format("Could not parse '{0}' as an int", s));
@@ -170,15 +190,15 @@ namespace net.nrequire.matcher {
         }
 
         private static ArgumentException NewInvalidFormat(String s) {
-            return new ArgumentException(String.Format("Invalid version match string '{0}' expected format is Major.Minor?.Revision?-(SNAPSHOT|<Timestamp>|<Build>|<Qualifier>)?", s));
+            return new ArgumentException(String.Format("Invalid version match string '{0}' expected format is {1}", s, Format));
         }
 
         private static ArgumentException NewInvalidFormat(String s, Exception e) {
-            return new ArgumentException(String.Format("Invalid version match string '{0}' expected format is Major.Minor?.Revision?-(SNAPSHOT|<Timestamp>|<Build>|<Qualifier>)?", s), e);
+            return new ArgumentException(String.Format("Invalid version match string '{0}' expected format is {1}", s, Format), e);
         }
 
         public override String ToString() {
-            return String.Format("Exact<{0}.{1}.{2}-{3}>",Major,Minor,Revision,Build);
+            return String.Format("Exact<{0}.{1}.{2}.{3}>",Major,Minor,Revision,Build);
         }
     }
 }

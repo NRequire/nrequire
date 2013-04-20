@@ -29,6 +29,20 @@ namespace net.nrequire {
             return new Dictionary<String, String>(m_classifiers);
         }
 
+        public List<String> ToList() {
+            var list = new List<String>();
+            foreach (var pair in m_classifiers) {
+                if (pair.Value == "true") {
+                    list.Add(pair.Key);
+                } else if (pair.Value == "false") {
+                    //bool option and it doesn'texist, don't include modifier
+                } else {
+                    list.Add(pair.Key + "-" + pair.Value);
+                }
+            }
+            return list;
+        }
+
         public Classifiers SetAll(IDictionary<String, String> dict) {
             foreach (var key in dict.Keys) {
                 Set(key, dict[key]);
