@@ -12,13 +12,7 @@ namespace net.nrequire {
 
         private static readonly String[] DateFormats = new[] { "yyyyMMddHHmmssfff", "yyyyMMddHHmmss", "yyyy:MMdd:HHmm:ss", "yyyy:MMdd:HHmm:ss:fff"};
         private static readonly char[] Dots = new[] { '.' };
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
         private static readonly char[] Dashes = new[] { '-' };
->>>>>>> 36d60a3... change version numbering to follow MS format of dots vs dashes
-=======
->>>>>>> eeeae54... fix broken checkin
 
         public int Major { get; private set; }
 
@@ -84,15 +78,6 @@ namespace net.nrequire {
                 var v = new Version();
 
                 var parts = s.Trim().Split(Dots);
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
-                parts[parts.Length-1].Split
->>>>>>> 36d60a3... change version numbering to follow MS format of dots vs dashes
-=======
-
->>>>>>> eeeae54... fix broken checkin
                 if (parts.Length < 2 || parts.Length > 4) {
                     throw NewInvalidFormat(s);
                 }
