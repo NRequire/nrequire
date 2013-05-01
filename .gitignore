@@ -1,2 +1,4 @@
 .cache
 *.suo
+test-results/
+/NRequire.Test/test-results
