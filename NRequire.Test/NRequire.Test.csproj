@@ -8,7 +8,7 @@
     <ProjectGuid>{939DEE5C-F92A-4C9C-BE68-F080A0F9069B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>net.nrequire</RootNamespace>
+    <RootNamespace>NRequire</RootNamespace>
     <AssemblyName>NRequire.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>net.nrequire.NUnitConsoleRunner</StartupObject>
+    <StartupObject>NRequire.NUnitConsoleRunner</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit-console-runner">
@@ -51,23 +51,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="net\nrequire\ADependencyCache.cs" />
-    <Compile Include="net\nrequire\AProject.cs" />
-    <Compile Include="net\nrequire\ASolution.cs" />
-    <Compile Include="net\nrequire\ADependency.cs" />
-    <Compile Include="net\nrequire\CommandLineParserTest.cs" />
-    <Compile Include="net\nrequire\DependencyCacheTest.cs" />
-    <Compile Include="net\nrequire\ADependencyWish.cs" />
-    <Compile Include="net\nrequire\DependencyWishTest.cs" />
-    <Compile Include="net\nrequire\FileUtil.cs" />
-    <Compile Include="net\nrequire\JsonReaderTest.cs" />
-    <Compile Include="net\nrequire\matcher\ExactMatcherTest.cs" />
-    <Compile Include="net\nrequire\NUnitConsoleRunner.cs" />
-    <Compile Include="net\nrequire\ProgramTest.cs" />
-    <Compile Include="net\nrequire\ResolverTest.cs" />
-    <Compile Include="net\nrequire\VersionMatcherTest.cs" />
-    <Compile Include="net\nrequire\VersionTest.cs" />
-    <Compile Include="net\nrequire\VSProjectTest.cs" />
+    <Compile Include="ADependencyCache.cs" />
+    <Compile Include="AProject.cs" />
+    <Compile Include="ASolution.cs" />
+    <Compile Include="ADependency.cs" />
+    <Compile Include="CommandLineParserTest.cs" />
+    <Compile Include="DependencyCacheTest.cs" />
+    <Compile Include="ADependencyWish.cs" />
+    <Compile Include="DependencyWishTest.cs" />
+    <Compile Include="FileUtil.cs" />
+    <Compile Include="JsonReaderTest.cs" />
+    <Compile Include="Matcher\ExactMatcherTest.cs" />
+    <Compile Include="NUnitConsoleRunner.cs" />
+    <Compile Include="ProgramTest.cs" />
+    <Compile Include="ResolverTest.cs" />
+    <Compile Include="VersionMatcherTest.cs" />
+    <Compile Include="VersionTest.cs" />
+    <Compile Include="VSProjectTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -77,67 +77,67 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="net\nrequire\DependencyCacheTest\LocalCache\Group0\Name0\1.0.0\key1-val1_key2-val2\Name0.dll">
+    <Content Include="DependencyCacheTest\LocalCache\Group0\Name0\1.0.0\key1-val1_key2-val2\Name0.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="net\nrequire\DependencyCacheTest\LocalCache\Group0\Name0\1.2.3\key1-val1_key2-val2\Name0.dll">
+    <Content Include="DependencyCacheTest\LocalCache\Group0\Name0\1.2.3\key1-val1_key2-val2\Name0.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="net\nrequire\DependencyCacheTest\LocalCache\Group0\Name0\1.2.4\key1-val1_key2-differentVal\Name0.dll">
+    <Content Include="DependencyCacheTest\LocalCache\Group0\Name0\1.2.4\key1-val1_key2-differentVal\Name0.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="net\nrequire\DependencyCacheTest\LocalCache\Group0\Name0\2.3.4.SNAPSHOT\key1-val1_key2-val2\Name0.dll">
+    <Content Include="DependencyCacheTest\LocalCache\Group0\Name0\2.3.4.SNAPSHOT\key1-val1_key2-val2\Name0.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="net\nrequire\ProgramTest\LocalCache\Group1\Name1\1.2.2\arch-any_runtime-4.0\Name1.xml">
+    <Content Include="ProgramTest\LocalCache\Group1\Name1\1.2.2\arch-any_runtime-4.0\Name1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="net\nrequire\ProgramTest\LocalCache\Group1\Name1\1.2.1\arch-any_runtime-4.0\Name1.xml">
+    <Content Include="ProgramTest\LocalCache\Group1\Name1\1.2.1\arch-any_runtime-4.0\Name1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="net\nrequire\ProgramTest\LocalCache\ProvidedGroup\ProvidedName\1.1.1\arch-any_runtime-4.0\ProvidedName.dll">
+    <Content Include="ProgramTest\LocalCache\ProvidedGroup\ProvidedName\1.1.1\arch-any_runtime-4.0\ProvidedName.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="net\nrequire\ProgramTest\LocalCache\Group1\Name1\1.2.2\arch-any_runtime-4.0\Name1.Ext1">
+    <None Include="ProgramTest\LocalCache\Group1\Name1\1.2.2\arch-any_runtime-4.0\Name1.Ext1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="net\nrequire\ProgramTest\LocalCache\Group1\Name1\1.2.2\arch-any_runtime-4.0\Name1.related">
+    <None Include="ProgramTest\LocalCache\Group1\Name1\1.2.2\arch-any_runtime-4.0\Name1.related">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="net\nrequire\ProgramTest\LocalCache\Group1\Name1\1.2.1\arch-any_runtime-4.0\Name1.Ext1">
+    <None Include="ProgramTest\LocalCache\Group1\Name1\1.2.1\arch-any_runtime-4.0\Name1.Ext1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="net\nrequire\ProgramTest\LocalCache\Group1\Name1\1.2.1\arch-any_runtime-4.0\Name1.related">
+    <None Include="ProgramTest\LocalCache\Group1\Name1\1.2.1\arch-any_runtime-4.0\Name1.related">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="net\nrequire\ProgramTest\LocalCache\TransitiveGroup\TransitiveName\1.1.1\arch-TransitiveArch_runtime-TransitiveRuntime\TransitiveName.TransitiveExt">
+    <None Include="ProgramTest\LocalCache\TransitiveGroup\TransitiveName\1.1.1\arch-TransitiveArch_runtime-TransitiveRuntime\TransitiveName.TransitiveExt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="net\nrequire\ProgramTest\LocalCache\Group0\Name0\0.0.0\arch-Arch0_runtime-Runtime0\Name0.ignored">
+    <None Include="ProgramTest\LocalCache\Group0\Name0\0.0.0\arch-Arch0_runtime-Runtime0\Name0.ignored">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="net\nrequire\ProgramTest\LocalCache\Group0\Name0\0.0.0\arch-Arch0_runtime-Runtime0\Name0.pdb">
+    <Content Include="ProgramTest\LocalCache\Group0\Name0\0.0.0\arch-Arch0_runtime-Runtime0\Name0.pdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="net\nrequire\ProgramTest\LocalCache\Group0\Name0\0.0.0\arch-Arch0_runtime-Runtime0\Name0.xml">
+    <Content Include="ProgramTest\LocalCache\Group0\Name0\0.0.0\arch-Arch0_runtime-Runtime0\Name0.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="net\nrequire\ProgramTest\LocalCache\Group1\Name1\1.2.3\arch-any_runtime-4.0\Name1.Ext1">
+    <None Include="ProgramTest\LocalCache\Group1\Name1\1.2.3\arch-any_runtime-4.0\Name1.Ext1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="net\nrequire\ProgramTest\LocalCache\Group2\Name2\4.5.6\arch-any_runtime-4.0\Name2.Ext2">
+    <None Include="ProgramTest\LocalCache\Group2\Name2\4.5.6\arch-any_runtime-4.0\Name2.Ext2">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="net\nrequire\ProgramTest\MySoln\MyProject\MyProject.csproj">
+    <Content Include="ProgramTest\MySoln\MyProject\MyProject.csproj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="net\nrequire\ProgramTest\MySoln\MySoln.sln">
+    <Content Include="ProgramTest\MySoln\MySoln.sln">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="net\nrequire\VSProjectTest_before.csproj.xml">
+    <Content Include="VSProjectTest_before.csproj.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="net\nrequire\VSProjectTest_expect.csproj.xml">
+    <Content Include="VSProjectTest_expect.csproj.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
@@ -145,25 +145,25 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="net\nrequire\JsonReaderTest.depsfile1.json">
+    <None Include="JsonReaderTest.depsfile1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="net\nrequire\ProgramTest\MySoln\MyProject\MyProject.nrequire.json">
+    <Content Include="ProgramTest\MySoln\MyProject\MyProject.nrequire.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="net\nrequire\ProgramTest\MySoln\MySoln.nrequire.json">
+    <Content Include="ProgramTest\MySoln\MySoln.nrequire.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="net\nrequire\ProgramTest\LocalCache\Group1\Name1\1.2.3\arch-any_runtime-4.0\Name1.xml">
+    <Content Include="ProgramTest\LocalCache\Group1\Name1\1.2.3\arch-any_runtime-4.0\Name1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="net\nrequire\ProgramTest\LocalCache\Group1\Name1\1.2.3\arch-any_runtime-4.0\Name1.related">
+    <None Include="ProgramTest\LocalCache\Group1\Name1\1.2.3\arch-any_runtime-4.0\Name1.related">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="net\nrequire\ProgramTest\LocalCache\Group0\Name0\0.0.0\arch-Arch0_runtime-Runtime0\Name0.dll">
+    <Content Include="ProgramTest\LocalCache\Group0\Name0\0.0.0\arch-Arch0_runtime-Runtime0\Name0.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="net\nrequire\ProgramTest\LocalCache\GroupSolnOnly\MyName\1.2.3\arch-any_runtime-4.0\MyName.MyExt">
+    <None Include="ProgramTest\LocalCache\GroupSolnOnly\MyName\1.2.3\arch-any_runtime-4.0\MyName.MyExt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
