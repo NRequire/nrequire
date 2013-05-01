@@ -55,7 +55,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>$(SolutionDir)..\NRequire\bin\Debug\nrequire.exe update-vsproj --soln $(SolutionPath) --proj $(ProjectPath)</PreBuildEvent>
+    <PreBuildEvent>$(SolutionDir)\..\NRequire\bin\Debug\nrequire.exe update-vsproj --soln $(SolutionPath) --proj $(ProjectPath)</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
