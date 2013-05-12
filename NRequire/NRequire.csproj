@@ -86,6 +86,12 @@
     <Compile Include="Matcher\IMatcher.cs" />
     <Compile Include="Matcher\RangeMatcher.cs" />
     <Compile Include="ResolutionException.cs" />
+    <Compile Include="Resolver\AllWishSets.cs" />
+    <Compile Include="Resolver\DependencyResolverV2.cs" />
+    <Compile Include="Resolver\Extensions.cs" />
+    <Compile Include="Resolver\ResolverException.cs" />
+    <Compile Include="Resolver\ResolverLine.cs" />
+    <Compile Include="Resolver\WishSet.cs" />
     <Compile Include="Scopes.cs" />
     <Compile Include="Dependency.cs" />
     <Compile Include="JsonReader.cs" />
@@ -144,7 +150,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Folder Include="Resolver\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

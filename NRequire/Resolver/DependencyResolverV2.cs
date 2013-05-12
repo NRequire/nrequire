@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
-using NUnit.Framework;
 using NRequire.Matcher;
 using System.Collections.Generic;
 using System.Collections;
@@ -13,12 +12,12 @@ namespace NRequire.Resolver
     internal class DependencyResolverV2
     {
         private readonly Logger Log = Logger.GetLogger(typeof(DependencyResolverV2));
-        private TestDependencyCache m_cache;
+        private IDependencyCache m_cache;
 
         private static readonly int RecursionLimitDepth = 150;
         private static readonly int RecursionLimitWidth = 300;
 
-        internal DependencyResolverV2(TestDependencyCache cache)
+        internal DependencyResolverV2(IDependencyCache cache)
         {
             m_cache = cache;
         }

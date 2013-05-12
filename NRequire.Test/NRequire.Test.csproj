@@ -67,12 +67,6 @@
     <Compile Include="VSProjectTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResolverTest.cs" />
-    <Compile Include="Resolver\ResolverLine.cs" />
-    <Compile Include="Resolver\ResolverException.cs" />
-    <Compile Include="Resolver\Extensions.cs" />
-    <Compile Include="Resolver\WishSet.cs" />
-    <Compile Include="u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\AllWishSets.cs" />
-    <Compile Include="Resolver\DependencyResolverV2.cs" />
     <Compile Include="Resolver\TestDependencyCache.cs" />
     <Compile Include="Resolver\DependencyResolverV2Test.cs" />
     <Compile Include="Resolver\DependencyNode.cs" />

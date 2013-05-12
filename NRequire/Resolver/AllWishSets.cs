@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using NUnit.Framework;
 using NRequire.Matcher;
 using System.Collections.Generic;
 using System.Collections;
