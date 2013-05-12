@@ -13,9 +13,8 @@ namespace NRequire
     {
         public List<DependencyWish> Wishes { get; set; }
 
-        public DependencyNode(String id)
+        public DependencyNode()
         {
-            Name = id;
             Group = "group";
             Wishes = new List<DependencyWish>();
         }

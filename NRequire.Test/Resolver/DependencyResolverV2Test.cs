@@ -9,15 +9,15 @@ using System.Collections;
 namespace NRequire.Resolver
 {
     [TestFixture]
-	public class NodeResolverTest
+	public class DependencyResolverV2Test
     {
         [Test]
         public void CacheRequires()
         {
             var cache = new TestDependencyCache();
-            cache.Add("A", "1.0").Requires("C", "[1.0,1.2)");
-            cache.Add("A", "1.1").Requires("D", "[1.0,1.1]");
-            cache.Add("B", "1.0").Requires("E", "[1.0,1.1]");
+            cache.Add(Node("A", "1.0").Requires("C", "[1.0,1.2)"));
+            cache.Add(Node("A", "1.1").Requires("D", "[1.0,1.1]"));
+            cache.Add(Node("B", "1.0").Requires("E", "[1.0,1.1]"));
 
             var actual = cache.FindWishesFor(Dep("A","1.0"));
 
@@ -31,10 +31,10 @@ namespace NRequire.Resolver
         public void CacheFind()
         {
             var cache = new TestDependencyCache();
-            cache.Add("A", "1.0");
-            cache.Add("A", "1.1");
-            cache.Add("A", "1.3");
-            cache.Add("A", "2.0");
+            cache.Add(Node("A", "1.0"));
+            cache.Add(Node("A", "1.1"));
+            cache.Add(Node("A", "1.3"));
+            cache.Add(Node("A", "2.0"));
 
             var actual = cache.FindDependenciesMatching(Wish("A","[1.1,2.0)"));
 
@@ -49,10 +49,10 @@ namespace NRequire.Resolver
         public void DependencyWishList_Resolved()
         {
             var cache = new TestDependencyCache();
-            cache.Add("A", "1.0");
-            cache.Add("A", "1.1");
-            cache.Add("A", "1.3");
-            cache.Add("A", "2.0");
+            cache.Add(Node("A", "1.0"));
+            cache.Add(Node("A", "1.1"));
+            cache.Add(Node("A", "1.3"));
+            cache.Add(Node("A", "2.0"));
 
             var wish = Wish("A", "[1.1,2.0)");
       
@@ -67,10 +67,10 @@ namespace NRequire.Resolver
         public void DependencyWishList_HasMultipleMatches()
         {
             var cache = new TestDependencyCache();
-            cache.Add("A", "1.0");
-            cache.Add("A", "1.1");
-            cache.Add("A", "1.3");
-            cache.Add("A", "2.0");
+            cache.Add(Node("A", "1.0"));
+            cache.Add(Node("A", "1.1"));
+            cache.Add(Node("A", "1.3"));
+            cache.Add(Node("A", "2.0"));
       
             var wish = Wish("A", "[1.1,2.0)");
       
@@ -86,10 +86,10 @@ namespace NRequire.Resolver
         public void DependencyWishlist_HasNoMatches()
         {
             var cache = new TestDependencyCache();
-            cache.Add("A", "1.0");
-            cache.Add("A", "1.1");
-            cache.Add("A", "1.3");
-            cache.Add("A", "2.0");
+            cache.Add(Node("A", "1.0"));
+            cache.Add(Node("A", "1.1"));
+            cache.Add(Node("A", "1.3"));
+            cache.Add(Node("A", "2.0"));
 
             var wish = Wish("A", "[1.1,2.0)");
         
@@ -105,13 +105,13 @@ namespace NRequire.Resolver
 	    public void ResolveSimple()
         {
             var cache = new TestDependencyCache();
-            cache.Add("A", "1.0").Requires("C", "[1.0,1.2)");
-            cache.Add("B", "1.0").Requires("D", "[1.0,1.1]");
-            cache.Add("C", "1.0");
-            cache.Add("D", "1.0").Requires("E", "[1.0,1.2]");
-            cache.Add("D", "1.1").Requires("E", "[1.1,1.2]");
-            cache.Add("E", "1.0");
-            cache.Add("F", "1.0");
+            cache.Add(Node("A", "1.0").Requires("C", "[1.0,1.2)"));
+            cache.Add(Node("B", "1.0").Requires("D", "[1.0,1.1]"));
+            cache.Add(Node("C", "1.0"));
+            cache.Add(Node("D", "1.0").Requires("E", "[1.0,1.2]"));
+            cache.Add(Node("D", "1.1").Requires("E", "[1.1,1.2]"));
+            cache.Add(Node("E", "1.0"));
+            cache.Add(Node("F", "1.0"));
 
             var require = new List<DependencyWish>();
             require.Add(Wish("A","1.0"));
@@ -134,20 +134,20 @@ namespace NRequire.Resolver
         public void ResolveSimple2()
         {
             var cache = new TestDependencyCache();
-            cache.Add("A", "1.0").Requires("C", "[1.0,1.2)");
-            cache.Add("B", "1.0").Requires("D", "[1.0,1.1]");
-            cache.Add("C", "1.0");
-            cache.Add("C", "1.1").Requires("E", "[1.3,1.4]");
-            cache.Add("D", "1.0").Requires("E", "[1.0,1.2]");
-            cache.Add("D", "1.1").Requires("E", "[1.1,1.4]");
-            cache.Add("D", "1.2").Requires("E", "[1.2,1.5]");
-            cache.Add("E", "1.0");
-            cache.Add("E", "1.1");
-            cache.Add("E", "1.2");
-            cache.Add("E", "1.3");
-            cache.Add("E", "1.4");
-            cache.Add("E", "1.5");
-            cache.Add("F", "1.0");
+            cache.Add(Node("A", "1.0").Requires("C", "[1.0,1.2)"));
+            cache.Add(Node("B", "1.0").Requires("D", "[1.0,1.1]"));
+            cache.Add(Node("C", "1.0"));
+            cache.Add(Node("C", "1.1").Requires("E", "[1.3,1.4]"));
+            cache.Add(Node("D", "1.0").Requires("E", "[1.0,1.2]"));
+            cache.Add(Node("D", "1.1").Requires("E", "[1.1,1.4]"));
+            cache.Add(Node("D", "1.2").Requires("E", "[1.2,1.5]"));
+            cache.Add(Node("E", "1.0"));
+            cache.Add(Node("E", "1.1"));
+            cache.Add(Node("E", "1.2"));
+            cache.Add(Node("E", "1.3"));
+            cache.Add(Node("E", "1.4"));
+            cache.Add(Node("E", "1.5"));
+            cache.Add(Node("F", "1.0"));
             
             var require = new List<DependencyWish>();
             require.Add(Wish("A","1.0"));
@@ -170,10 +170,10 @@ namespace NRequire.Resolver
         public void CircularDeps()
         {
             var cache = new TestDependencyCache();
-            cache.Add("A", "1.0").Requires("B", "[1.0,1.2]").Requires("C", "[1.0,1.2]");
-            cache.Add("B", "1.0").Requires("A", "[1.0,1.1]");
-            cache.Add("C", "1.0").Requires("A", "[1.0,1.1]");
-            cache.Add("C", "1.1").Requires("A", "[1.2]");
+            cache.Add(Node("A", "1.0").Requires("B", "[1.0,1.2]").Requires("C", "[1.0,1.2]"));
+            cache.Add(Node("B", "1.0").Requires("A", "[1.0,1.1]"));
+            cache.Add(Node("C", "1.0").Requires("A", "[1.0,1.1]"));
+            cache.Add(Node("C", "1.1").Requires("A", "[1.2]"));
 
             var require = new List<DependencyWish>();
             require.Add(Wish("A", "1.0"));
@@ -194,19 +194,19 @@ namespace NRequire.Resolver
         public void NoSolution()
         {
             var cache = new TestDependencyCache();
-            cache.Add("A", "1.0").Requires("B", "[1.0,1.1]");
+            cache.Add(Node("A", "1.0").Requires("B", "[1.0,1.1]"));
 
-            cache.Add("B", "1.0").Requires("C", "[1.0]").Requires("E", "1.1");
-            cache.Add("B", "1.1").Requires("C", "[1.1]").Requires("E", "1.0");
+            cache.Add(Node("B", "1.0").Requires("C", "[1.0]").Requires("E", "1.1"));
+            cache.Add(Node("B", "1.1").Requires("C", "[1.1]").Requires("E", "1.0"));
 
-            cache.Add("C", "1.0").Requires("D", "[1.0]");
-            cache.Add("C", "1.1").Requires("D", "[1.1]");
+            cache.Add(Node("C", "1.0").Requires("D", "[1.0]"));
+            cache.Add(Node("C", "1.1").Requires("D", "[1.1]"));
 
-            cache.Add("D", "1.0").Requires("E", "1.0");
-            cache.Add("D", "1.1").Requires("E", "1.1");
+            cache.Add(Node("D", "1.0").Requires("E", "1.0"));
+            cache.Add(Node("D", "1.1").Requires("E", "1.1"));
 
-            cache.Add("E", "1.0");
-            cache.Add("E", "1.1");
+            cache.Add(Node("E", "1.0"));
+            cache.Add(Node("E", "1.1"));
 
             var require = new List<DependencyWish>();
             require.Add(Wish("A", "1.0"));
@@ -240,6 +240,11 @@ namespace NRequire.Resolver
         private DependencyWish Wish(String name, String version)
         {
             return new DependencyWish { Group="group", Name = name, Version = VersionMatcher.Parse(version) };
+        }
+
+        private DependencyNode Node(String name, String version)
+        {
+            return new DependencyNode { Group="group", Name = name, Version = Version.Parse(version) };
         }
 
         private void AssertAreEqual(IList<DependencyWish> expect, IList<DependencyWish> actual)

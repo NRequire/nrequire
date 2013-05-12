@@ -16,15 +16,10 @@ namespace NRequire
 		
         private static readonly Logger Log = Logger.GetLogger(typeof(TestDependencyCache));
         private Dictionary<String,SortedList<Version,Dependency>> m_deps = new Dictionary<string, SortedList<Version,Dependency>>();
-        private Dictionary<String,Node> m_nodesByKeyAndVersion = new Dictionary<string, Node>();
+        private Dictionary<String,DependencyNode> m_nodesByKeyAndVersion = new Dictionary<string, DependencyNode>();
         private static readonly SortedList<Version,Dependency> EmptyList = NewSortedList();
 
-        public Node Add(String name, String version)
-        {
-            return Add(new Node(name){Version = Version.Parse(version)});
-        }
-
-        public Node Add(Node node)
+        public DependencyNode Add(DependencyNode node)
         {
             var key = KeyFor(node);
 			
@@ -58,9 +53,9 @@ namespace NRequire
         public IList<DependencyWish> FindWishesFor(Dependency d)
         {
             var key = VersionKeyFor(d);
-            Node node;
+            DependencyNode node;
             if (m_nodesByKeyAndVersion.TryGetValue(key, out node)) {
-                return node.Dependencies;
+                return node.Wishes;
             }
             return new List<DependencyWish>();
         }
