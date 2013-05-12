@@ -5,6 +5,9 @@ using System.Text;
 
 namespace NRequire {
 
+	/// <summary>
+	/// A concrete fixed dependency
+	/// </summary>
     public class Dependency : AbstractDependency {
 
         internal String VersionString {
@@ -36,7 +39,7 @@ namespace NRequire {
         }
 
         public override string ToString() {
-            return String.Format("DependencyWish@{0}<\n\tGroup:{1},\n\tName:{2},\n\tVersion:{3},\n\tExt:{4},\n\tArch:{5},\n\tRuntime:{6},\n\tClassifiers:{7},\n\tScope:{8},\n\tUrl:{9},\n\tCopyTo:{10},\n\tRelated:[{11}]'\n>",
+            return String.Format("Dependency@{0}<\n\tGroup:{1},\n\tName:{2},\n\tVersion:{3},\n\tExt:{4},\n\tArch:{5},\n\tRuntime:{6},\n\tClassifiers:{7},\n\tScope:{8},\n\tUrl:{9},\n\tCopyTo:{10},\n\tRelated:[{11}]'\n>",
                 base.GetHashCode(),
                 Group,
                 Name,

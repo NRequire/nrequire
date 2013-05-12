@@ -7,6 +7,9 @@ using Newtonsoft.Json;
 using NRequire.Json;
 namespace NRequire {
 
+	/// <summary>
+	/// A wish for a dependency which matches the given criteria
+	/// </summary>
     public class DependencyWish : AbstractDependency {
 
         [JsonConverter(typeof(VersionConverter))]
@@ -45,6 +48,18 @@ namespace NRequire {
         /// event though they can be considered resources/deps in their own right
         /// </summary>
         public IList<String> Related { get; set; }
+
+        /// <summary>
+        /// Create a new wish set to require the exact given version
+        /// </summary>
+        public DependencyWish(Dependency dep) {
+            Transitive = new List<DependencyWish>();
+            Optional = false;
+            Group = dep.Group;
+            Name = dep.Name;
+            Version = VersionMatcher.Parse(dep.Version.ToString());
+            ClassifiersString = dep.Classifiers;
+        }
 
         public DependencyWish() {
             this.Transitive = new List<DependencyWish>();
@@ -199,7 +214,7 @@ namespace NRequire {
             if (Transitive != null && Transitive.Count > 0) {
                 depsString = "\n\t" + String.Join("\n\t", Transitive) + "\n\t";
             }
-            return String.Format("Dependency@{0}<\n\tGroup:{1},\n\tName:{2},\n\tVersion:{3},\n\tExt:{4},\n\tArch:{5},\n\tRuntime:{6},\n\tClassifiers:{7},\n\tScope:{8},\n\tUrl:{9},\n\tCopyTo:{10},\n\tRelated:[{11}],\n\tDependencies:[{12}]\n>", 
+            return String.Format("DependencyWish@{0}<\n\tGroup:{1},\n\tName:{2},\n\tVersion:{3},\n\tExt:{4},\n\tArch:{5},\n\tRuntime:{6},\n\tClassifiers:{7},\n\tScope:{8},\n\tUrl:{9},\n\tCopyTo:{10},\n\tRelated:[{11}],\n\tDependencies:[{12}]\n>", 
                 base.GetHashCode(),
                 Group,
                 Name,

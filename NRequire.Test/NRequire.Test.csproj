@@ -68,6 +68,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResolverTest.cs" />
     <Compile Include="Resolver\NodeResolverTest.cs" />
+    <Compile Include="Resolver\Node.cs" />
+    <Compile Include="Resolver\ResolverLine.cs" />
+    <Compile Include="Resolver\ResolverException.cs" />
+    <Compile Include="Resolver\Extensions.cs" />
+    <Compile Include="Resolver\WishSet.cs" />
+    <Compile Include="u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\AllWishSets.cs" />
+    <Compile Include="Resolver\DependencyResolverV2.cs" />
+    <Compile Include="Resolver\TestDependencyCache.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NRequire\NRequire.csproj">
@@ -175,7 +183,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Folder Include="Resolver\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

@@ -12,7 +12,7 @@ namespace NRequire {
         public void ResolveToLatestMatchingVersion() {
             var cache = ADependencyCache.With()
                 .Dependencies(ADependency.With().Defaults().Versions("1.2.3","1.2.4","1.2.5","1.2.6", "1.2.7"));
-            var resolver = Resolver.WithCache(cache);
+            var resolver = DependencyResolverV1.WithCache(cache);
 
             var soln = ASolution.With()
                 //exclude 1.2.7
@@ -39,7 +39,7 @@ namespace NRequire {
             Logger.SetLevel(Logger.Level.Trace);
             var cache = ADependencyCache.With()
                 .Dependencies(ADependency.With().Defaults().Versions("1.2.3", "1.2.4"));
-            var resolver = Resolver.WithCache(cache);
+            var resolver = DependencyResolverV1.WithCache(cache);
 
             var soln = ASolution.With()
                 //exclude 1.2.7

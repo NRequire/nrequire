@@ -85,6 +85,10 @@ namespace NRequire {
             Log(Level.Debug,msg, e);
         }
 
+        public void Debug(Func<String> lazyMessageFactory) {
+            LogFormat(Level.Debug, lazyMessageFactory);
+        }
+
         public void DebugFormat(String msg, params Object[] args){
             LogFormat(Level.Debug, msg, args);
         }
@@ -141,6 +145,12 @@ namespace NRequire {
             }
         }
         
+        private void LogFormat(Level level,Func<String> lazyMessageFactory){
+            if(IsLevel(level)){
+                Append(level, lazyMessageFactory.Invoke());
+            }
+        }
+
         private void LogFormat(Level level,String msg, params Object[] args){
             if(IsLevel(level)){
                 if(args!= null && args.Length > 0){

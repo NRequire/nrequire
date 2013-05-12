@@ -1,14 +1,20 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="NRequire.Test\VersionTest.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="NRequire.Test\Resolver\Node.cs">
     <Files>
-      <File FileName="NRequire.Test\VersionTest.cs" Line="53" Column="9" />
+      <File FileName="NRequire.Test\Resolver\DependencyResolverV2.cs" Line="17" Column="9" />
+      <File FileName="NRequire.Test\Resolver\Extensions.cs" Line="26" Column="14" />
+      <File FileName="NRequire.Test\Resolver\Node.cs" Line="1" Column="1" />
+      <File FileName="NRequire.Test\Resolver\NodeResolverTest.cs" Line="105" Column="6" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True">
+        <State expanded="True" selected="True">
+          <Node name="NRequire" expanded="True">
+            <Node name="Matcher" expanded="True" />
+          </Node>
           <Node name="NRequire.Test" expanded="True">
-            <Node name="VersionTest.cs" selected="True" />
+            <Node name="Resolver" expanded="True" />
           </Node>
         </State>
       </Pad>
@@ -24,7 +30,11 @@
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="U:\users\bert\workspace\nrequire\NRequire.Test\Resolver\MatchContext.cs" line="117" column="1" />
+      <Breakpoint file="U:\users\bert\workspace\nrequire\NRequire.Test\Resolver\MatchContext.cs" line="219" column="1" />
+      <Breakpoint file="U:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs" line="218" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

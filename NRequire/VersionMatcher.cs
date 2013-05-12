@@ -6,7 +6,7 @@ using System.Globalization;
 using NRequire.Matcher;
 
 namespace NRequire {
-    public class VersionMatcher {
+	public class VersionMatcher : IMatcher<Version> {
 
         private string m_versionString;
         private IMatcher<Version> m_match;
@@ -26,6 +26,10 @@ namespace NRequire {
 
         private static VersionMatcher InternalParse(String versionMatch){
             //http://docs.codehaus.org/display/MAVEN/Dependency+Mediation+and+Conflict+Resolution
+            // [  -> >=
+            // ( -> >
+            // ] -> <=
+            // ) -> <
             var from = 0;
             char lastLimiter = ',';
             var any = new AnyMatcher();
@@ -113,6 +117,19 @@ namespace NRequire {
 
         public override String ToString() {
             return m_versionString;
+        }
+
+        public override int GetHashCode()
+        {
+          return m_versionString.GetHashCode();
+        }
+
+        public override bool Equals(Object other) {
+          if( other == null || !(other is VersionMatcher) ){
+            return false;
+          }
+          var o = other as VersionMatcher;
+          return o.m_versionString.Equals(m_versionString);
         }
     }
 }

@@ -11,6 +11,10 @@ namespace NRequire {
         Resource GetResourceFor(Dependency d);
 
         IList<Version> GetVersionsMatching(DependencyWish dep);
+
+        IList<Dependency> FindDependenciesMatching(DependencyWish wish);
+
+        IList<DependencyWish> FindWishesFor(Dependency dep);
     }
 
     internal class DependencyCache : IDependencyCache {
@@ -98,6 +102,14 @@ namespace NRequire {
             }
             parts.Add(d.Name + "." + d.Ext);
             return Path.Combine(parts.ToArray());
+        }
+
+        public IList<DependencyWish> FindWishesFor(Dependency dep){
+            throw new NotImplementedException();
+        }
+
+        public IList<Dependency> FindDependenciesMatching(DependencyWish wish){
+            throw new NotImplementedException();
         }
     }
 
