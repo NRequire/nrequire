@@ -9,27 +9,26 @@ using System.Collections;
 namespace NRequire
 {
 	//represents a dependency and it's requirements
-    public class Node : Dependency
+    public class DependencyNode : Dependency
     {
-		
-        public List<DependencyWish> Dependencies{ get; set; }
+        public List<DependencyWish> Wishes { get; set; }
 
-        public Node(String id)
+        public DependencyNode(String id)
         {
             Name = id;
             Group = "group";
-            Dependencies = new List<DependencyWish>();
+            Wishes = new List<DependencyWish>();
         }
 
-        public Node Requires(String name, String version)
+        public DependencyNode Requires(String name, String version)
         {
             Requires(new DependencyWish{ Name = name, Group = "group", Version = VersionMatcher.Parse(version)});
             return this;
         }
 
-        public Node Requires(DependencyWish wish)
+        public DependencyNode Requires(DependencyWish wish)
         {
-            Dependencies.Add(wish);
+            Wishes.Add(wish);
             return this;
         }
     }
