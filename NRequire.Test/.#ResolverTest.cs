@@ -11,20 +11,20 @@ namespace NRequire {
         [Test]
         public void ResolveToLatestMatchingVersion() {
             var cache = NewDependencyCache.With()
-                .Dependencies(NewDependency.With().Defaults().Versions("1.2.3","1.2.4","1.2.5","1.2.6", "1.2.7"));
+                .Dependencies(ADependency.With().Defaults().Versions("1.2.3","1.2.4","1.2.5","1.2.6", "1.2.7"));
             var resolver = DependencyResolverV1.WithCache(cache);
 
-            var soln = NewSolution.With()
+            var soln = ASolution.With()
                 //exclude 1.2.7
-                .Dependency(NewDependencyWish.With().Defaults().Version("[1.2.2,1.2.7)"));
-            var proj = NewProject.With()
-                .CompileDependency(NewDependencyWish.With().Defaults());
+                .Dependency(ADependencyWish.With().Defaults().Version("[1.2.2,1.2.7)"));
+            var proj = AProject.With()
+                .CompileDependency(ADependencyWish.With().Defaults());
             
             var resolvedDeps = resolver.ResolveDependencies(soln, proj);
             Assert.AreEqual(1, resolvedDeps.Count);
             var actual = resolvedDeps.FirstOrDefault();
 
-            var def = NewDependencyWish.With().Defaults();
+            var def = ADependencyWish.With().Defaults();
 
             Assert.AreEqual("1.2.6", actual.Version.ToString());
             Assert.AreEqual(def.Group, actual.Group);
@@ -38,16 +38,16 @@ namespace NRequire {
         public void ResolveTransitiveDepsTest() {
             Logger.SetLevel(Logger.Level.Trace);
             var cache = NewDependencyCache.With()
-                .Dependencies(NewDependency.With().Defaults().Versions("1.2.3", "1.2.4"));
+                .Dependencies(ADependency.With().Defaults().Versions("1.2.3", "1.2.4"));
             var resolver = DependencyResolverV1.WithCache(cache);
 
-            var soln = NewSolution.With()
+            var soln = ASolution.With()
                 //exclude 1.2.7
-                .Dependency(NewDependencyWish.With().Defaults().Version("1.2.4")
+                .Dependency(ADependencyWish.With().Defaults().Version("1.2.4")
                 
                 );
-            var proj = NewProject.With()
-                .CompileDependency(NewDependencyWish.With().Defaults());
+            var proj = AProject.With()
+                .CompileDependency(ADependencyWish.With().Defaults());
 
             var resolvedDeps = resolver.ResolveDependencies(soln, proj);
             Assert.AreEqual(1, resolvedDeps.Count);

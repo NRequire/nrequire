@@ -94,7 +94,7 @@
     <Compile Include="Resolver\WishSet.cs" />
     <Compile Include="Scopes.cs" />
     <Compile Include="Dependency.cs" />
-    <Compile Include="JsonReader.cs" />
+    <Compile Include="Json\JsonReader.cs" />
     <Compile Include="DependencyCache.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Project.cs" />
@@ -111,6 +111,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="DependencyResolverV1.cs" />
+    <Compile Include="Json\JsonWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

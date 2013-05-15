@@ -49,7 +49,12 @@ namespace NRequire {
             }
             return this;
         }
-        
+
+        public string this[String key] {
+            get { return Get(key); }
+            set { Set(key, value); }
+        }
+
         public Classifiers Set(String key, String val) {
             if (m_classifiers.ContainsKey(key)) {
                 m_classifiers.Remove(key);

@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 
 namespace NRequire.Matcher {
+    public interface  IExtendedMatcher<in T> : IMatcher<T> {
 
-    public interface IMatcher<in T> {
-        bool Match(T actual);
+        bool Match(T instance, IMatchDiagnostics diag);
     }
-
 }

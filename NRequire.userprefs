@@ -1,21 +1,30 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="NRequire.Test\Resolver\DependencyResolverV2Test.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="NRequire.Test\NewDependency.cs">
     <Files>
-      <File FileName="NRequire.Test\Resolver\DependencyResolverV2.cs" Line="70" Column="55" />
-      <File FileName="NRequire.Test\Resolver\Extensions.cs" Line="26" Column="14" />
-      <File FileName="NRequire.Test\Resolver\DependencyNode.cs" Line="17" Column="10" />
-      <File FileName="NRequire.Test\Resolver\DependencyResolverV2Test.cs" Line="221" Column="38" />
-      <File FileName="NRequire.Test\Resolver\ResolverException.cs" Line="22" Column="1" />
-      <File FileName="NRequire.Test\Resolver\ResolverLine.cs" Line="42" Column="80" />
-      <File FileName="NRequire.Test\Resolver\TestDependencyCache.cs" Line="21" Column="9" />
-      <File FileName="NRequire.Test\Resolver\WishSet.cs" Line="6" Column="1" />
+      <File FileName="u:\users\bert\workspace\nrequire\NRequire\Json\VersionConverter.cs" Line="1" Column="1" />
+      <File FileName="NRequire.Test\DependencyWishTest.cs" Line="1" Column="1" />
+      <File FileName="NRequire\LoadEmbeddedDlls.cs" Line="1" Column="1" />
+      <File FileName="NRequire\DependencyResolverV1.cs" Line="1" Column="1" />
+      <File FileName="NRequire\AbstractDependency.cs" Line="1" Column="1" />
+      <File FileName="NRequire\Dependency.cs" Line="1" Column="1" />
+      <File FileName="NRequire\DependencyWish.cs" Line="1" Column="1" />
+      <File FileName="NRequire.Test\BaseDependencyTest.cs" Line="1" Column="1" />
+      <File FileName="NRequire.Test\Matcher\MatchDiagnostics.cs" Line="1" Column="1" />
+      <File FileName="u:\users\bert\workspace\nrequire\NRequire.Test\DependencyCacheTest.cs" Line="1" Column="1" />
+      <File FileName="NRequire.Test\Matcher\NillMatchDiagnostics.cs" Line="1" Column="1" />
+      <File FileName="NRequire.Test\Matcher\IMatchDiagnostics.cs" Line="1" Column="1" />
+      <File FileName="NRequire.Test\Matcher\AList.cs" Line="1" Column="1" />
+      <File FileName="u:\users\bert\workspace\nrequire\NRequire.Test\Matcher\AReflectionMatcher.cs" Line="1" Column="1" />
+      <File FileName="NRequire.Test\NewDependency.cs" Line="10" Column="24" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="NRequire" expanded="True" />
-          <Node name="NRequire.Test" expanded="True" />
+          <Node name="NRequire.Test" expanded="True">
+            <Node name="Matcher" expanded="True" />
+            <Node name="NewDependency.cs" selected="True" />
+          </Node>
         </State>
       </Pad>
       <Pad Id="ClassPad">
@@ -25,7 +34,9 @@
         <State />
       </Pad>
       <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State expanded="True" selected="True" />
+        <State expanded="True">
+          <Node name="NRequire.Test" selected="True" />
+        </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
@@ -34,6 +45,7 @@
       <Breakpoint file="U:\users\bert\workspace\nrequire\NRequire.Test\Resolver\MatchContext.cs" line="117" column="1" />
       <Breakpoint file="U:\users\bert\workspace\nrequire\NRequire.Test\Resolver\MatchContext.cs" line="219" column="1" />
       <Breakpoint file="U:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs" line="218" column="1" />
+      <Breakpoint file="U:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs" line="136" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

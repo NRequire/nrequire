@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using Newtonsoft.Json;
 using NRequire.Json;
+
 namespace NRequire {
 
 	/// <summary>
@@ -29,9 +30,6 @@ namespace NRequire {
         public bool? ResolveTransitive { get; set; }//whether to resolve transitive deps for this or not
 
         internal int Depth { get; set; }//0 is top level, 1 is child, 2 is child of child....
-
-        [JsonConverter(typeof(ClassifierConverter))]
-        public Classifiers Classifiers { get; set; }
 
         [JsonIgnore]
         internal String ClassifiersString {
@@ -58,12 +56,11 @@ namespace NRequire {
             Group = dep.Group;
             Name = dep.Name;
             Version = VersionMatcher.Parse(dep.Version.ToString());
-            ClassifiersString = dep.Classifiers;
+            Classifiers = dep.Classifiers;
         }
 
         public DependencyWish() {
             this.Transitive = new List<DependencyWish>();
-            this.Classifiers = new Classifiers();
             Optional = false;
         }
 

@@ -11,10 +11,10 @@ namespace NRequire
 	/// <summary>
     /// In memory cache to use for testing. 
     /// </summary>
-    internal class TestDependencyCache : IDependencyCache
+    internal class InMemoryDependencyCache : IDependencyCache
     {
 		
-        private static readonly Logger Log = Logger.GetLogger(typeof(TestDependencyCache));
+        private static readonly Logger Log = Logger.GetLogger(typeof(InMemoryDependencyCache));
         private Dictionary<String,SortedList<Version,Dependency>> m_deps = new Dictionary<string, SortedList<Version,Dependency>>();
         private Dictionary<String,DependencyNode> m_nodesByKeyAndVersion = new Dictionary<string, DependencyNode>();
         private static readonly SortedList<Version,Dependency> EmptyList = NewSortedList();

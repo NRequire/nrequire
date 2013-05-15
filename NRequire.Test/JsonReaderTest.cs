@@ -42,7 +42,7 @@ namespace NRequire {
             Assert.AreEqual("MyChildRuntime1", child1.Runtime);
             Assert.AreEqual("http://nowhere.com/mychild1", child1.Url.ToString());
             Assert.AreEqual("1.2.3", child1.VersionString);
-            Assert.AreEqual("key1-val1_key2-val2", child1.ClassifiersString);
+            Assert.AreEqual("arch-MyChildArch1_key1-val1_key2-val2_runtime-MyChildRuntime1", child1.ClassifiersString);
 
          
             var child2 = dep.Transitive[1];

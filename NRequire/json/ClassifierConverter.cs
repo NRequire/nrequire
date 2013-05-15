@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 using JReader = Newtonsoft.Json.JsonReader;
+using JWriter = Newtonsoft.Json.JsonWriter;
 
 namespace NRequire.Json {    
     public class ClassifierConverter : JsonConverter {
@@ -33,7 +34,7 @@ namespace NRequire.Json {
             throw new Exception(String.Format("Unexpected token parsing classifiers. Expected String, got {0}.", reader.TokenType));
         }
 
-        public override void WriteJson(JsonWriter writer, object value,
+        public override void WriteJson(JWriter writer, object value,
             JsonSerializer serializer) {
             if (value is Classifiers) {
                 var val = (value as Classifiers).ToString();

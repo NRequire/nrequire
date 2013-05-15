@@ -24,44 +24,58 @@ namespace NRequire {
         public String VSProjectBaseSymbol { get; set; }
 
         private readonly Logger Log = Logger.GetLogger(typeof(DependencyCache));
+        private readonly JsonReader m_reader = new JsonReader();
+
+        public IList<Dependency> FindDependenciesMatching(DependencyWish wish){
+            //TODO:reverse this so deps are returned and versions extracted?
+            return GetVersionsMatching(wish).Select(v => new Dependency {
+                Group = wish.Group,
+                Name = wish.Name,
+                Classifiers = wish.Classifiers.Clone(),
+                Version = v
+            }).ToList();
+        }
 
         public IList<Version> GetVersionsMatching(DependencyWish wish) {
-            var relPath = String.Format("{0}\\{1}", wish.Group, wish.Name);
+            return FindAllVersionsFor(wish)
+                .Where(v=>wish.Version==null || wish.Version.Match(v))
+                .ToList();
+        }
+
+        private IList<Version> FindAllVersionsFor(AbstractDependency dep){
+            var relPath = String.Format("{0}\\{1}", dep.Group, dep.Name);
             var dir = new DirectoryInfo(Path.Combine(CacheDir.FullName,relPath));
             Log.DebugFormat("Versions dir '{0}'", dir.FullName);
             if(!dir.Exists){
                 return new List<Version>();
             }
             //And what about empty?
-            var c = wish.Classifiers.Clone();
-            if (!String.IsNullOrWhiteSpace(wish.Arch)) {
-                c.Set("arch", wish.Arch);
-            }
-            if (!String.IsNullOrWhiteSpace(wish.Runtime)) {
-                c.Set("runtime", wish.Runtime);
-            }
-
-            var classifiers = c.ToString();
-            if (String.IsNullOrWhiteSpace(classifiers)) {
-                classifiers = null;
+            var classifierPathPart = ToPathPart(dep.Classifiers);
+            if (String.IsNullOrWhiteSpace(classifierPathPart)) {
+                classifierPathPart = null;
             }
             //TODO:cache this?
-                    //.Where((versionDir) => Directory.GetDirectories(Path.Combine(dir.FullName,versionDir)).Contains(classifiers));
-            //check each contais the matching classifiers
+            //.Where((versionDir) => Directory.GetDirectories(Path.Combine(dir.FullName,versionDir)).Contains(classifiers));
+            //check each contains the matching classifiers
             if (Log.IsDebugEnabled()) {
                 Log.DebugFormat("Versions dir.dirs '{0}'", String.Join(",", dir.EnumerateDirectories()));
             }
-            var versionDirs = classifiers == null ? dir.EnumerateDirectories() : dir.DirectoriesWithSubDirsNamed(classifiers);
+            var versionDirs = (classifierPathPart == null ? dir.EnumerateDirectories() : dir.DirectoriesWithSubDirsNamed(classifierPathPart)).ToList();
+
+            if (Log.IsDebugEnabled()) {
+                Log.Debug("Version dirs:" + versionDirs);
+                Log.DebugFormat("Version dirs found were {0}", String.Join(",", versionDirs));
+            }
 
             var versions = versionDirs
                 .Select((versionDir) => Version.Parse(versionDir.Name))
                 .ToList();
-            
+
             versions.Sort();
             versions.Reverse();
 
             if (Log.IsDebugEnabled()) {
-                Log.DebugFormat("Versions found for dep {0} an classifier '{1}' were {2}", wish, classifiers, String.Join(",", versions));
+                Log.DebugFormat("Versions found for dep {0} and classifier '{1}' were {2}", dep, dep.Classifiers, String.Join(",", versions));
             }
 
             return versions;
@@ -73,7 +87,7 @@ namespace NRequire {
 
         public Resource GetResourceFor(Dependency d) {
             var relPath = GetRelPathFor(d);
-            var file = new FileInfo(Path.Combine(CacheDir.FullName,relPath));
+            var file = GetFullPathFor(relPath);
             //TODO:if SNAPSHOT,then check localcache timestamp
             if (!file.Exists && UpstreamCache != null) {
                 var parentResource = UpstreamCache.GetResourceFor(d);
@@ -84,35 +98,50 @@ namespace NRequire {
             return new Resource(d, file, VSProjectBaseSymbol + "\\" + relPath);
         }
 
+        public IList<DependencyWish> FindWishesFor(Dependency dep){
+            var relPath = GetRelPathFor(dep);
+            var file = GetFullPathFor(relPath + ".nrequire.json");
+            if(file.Exists){
+                return m_reader.Read<DependencyDto>(file).Wishes;
+            }
+            var noUpstreamMarkerFile = GetFullPathFor(relPath + ".nrequire.json.none");
+            if (!noUpstreamMarkerFile.Exists) {
+                //TODO:download from upstream
+                Log.Debug("TODO:need to download from upstream. Not implemented");
+            }
+            return new List<DependencyWish>();
+        }
+
         protected String GetRelPathFor(Dependency d) {
             var parts = new List<String>(3);
             parts.Add(String.Format("{0}\\{1}\\{2}", d.Group, d.Name, d.Version.ToString()));
-            
-            var classifiers = d.Classifiers==null?new List<String>(2):Classifiers.Parse(d.Classifiers).ToList();
-
-            if (!String.IsNullOrEmpty(d.Arch)) {
-                classifiers.Add("arch-" + d.Arch);
-            } 
-            if (!String.IsNullOrEmpty(d.Runtime)) {
-                classifiers.Add("runtime-" + d.Runtime);
-            }
-            classifiers.Sort();
-            if(classifiers.Count > 0){
-                parts.Add(String.Join("_",classifiers));
-            }
+            parts.Add(ToPathPart(d.Classifiers));
             parts.Add(d.Name + "." + d.Ext);
             return Path.Combine(parts.ToArray());
         }
 
-        public IList<DependencyWish> FindWishesFor(Dependency dep){
-            throw new NotImplementedException();
+        private String ToPathPart(Classifiers c) {
+            var classifiers = c.ToList();
+            classifiers.Sort();
+            return String.Join("_", classifiers);
         }
 
-        public IList<Dependency> FindDependenciesMatching(DependencyWish wish){
-            throw new NotImplementedException();
+        protected FileInfo GetFullPathFor(Dependency d) {
+            return GetFullPathFor(GetRelPathFor(d));
+        }
+
+        protected FileInfo GetFullPathFor(String relPath){
+            return new FileInfo(Path.Combine(CacheDir.FullName, relPath));
+        }
+
+    }
+    class DependencyDto : Dependency {
+        public List<DependencyWish> Wishes { get; set;}
+
+        public DependencyDto(){
+            Wishes = new List<DependencyWish>();
         }
     }
-
     static class DirectoryInfoExtenions {
 
         public static IEnumerable<DirectoryInfo> DirectoriesWithSubDirsNamed(this DirectoryInfo dir, String subDirName) {

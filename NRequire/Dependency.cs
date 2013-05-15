@@ -15,7 +15,7 @@ namespace NRequire {
             set { Version = value == null ? null : Version.Parse(value); }
         }
         public Version Version { get; internal set; }
-        public string Classifiers { get; internal set; }
+        //public string Classifiers { get; internal set; }
         public Scopes Scope { get; internal set; }
         public bool HasRelatedDependencies { get { return Related != null && Related.Count > 0;}}
         public IList<Dependency> Related { get; internal set; }

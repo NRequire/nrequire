@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 using JReader = Newtonsoft.Json.JsonReader;
+using JWriter = Newtonsoft.Json.JsonWriter;
 
 namespace NRequire.Json {
     public class VersionConverter : JsonConverter {
@@ -24,7 +25,7 @@ namespace NRequire.Json {
             String.Format("Unexpected token parsing version. Expected String, got {0}.", reader.TokenType));
         }
 
-        public override void WriteJson(JsonWriter writer, object value,
+        public override void WriteJson(JWriter writer, object value,
             JsonSerializer serializer) {
             if (value is VersionMatcher) {
                 var val = (value as VersionMatcher).ToString();

@@ -19,13 +19,13 @@ namespace NRequire
             Wishes = new List<DependencyWish>();
         }
 
-        public DependencyNode Requires(String name, String version)
+        public DependencyNode Wish(String name, String version)
         {
-            Requires(new DependencyWish{ Name = name, Group = "group", Version = VersionMatcher.Parse(version)});
+            Wish(new DependencyWish{ Name = name, Group = "group", Version = VersionMatcher.Parse(version)});
             return this;
         }
 
-        public DependencyNode Requires(DependencyWish wish)
+        public DependencyNode Wish(DependencyWish wish)
         {
             Wishes.Add(wish);
             return this;
