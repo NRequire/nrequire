@@ -49,32 +49,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Matcher\AnInstance.cs" />
-    <Compile Include="Matcher\Expect.cs" />
-    <Compile Include="Matcher\ExtendedMatcher.cs" />
-    <Compile Include="Matcher\ADependency.cs" />
-    <Compile Include="Matcher\AReflectionMatcher.cs" />
-    <Compile Include="Matcher\AMatchVersion.cs" />
-    <Compile Include="Matcher\AnInt.cs" />
-    <Compile Include="Matcher\AString.cs" />
-    <Compile Include="Matcher\AVersion.cs" />
-    <Compile Include="Matcher\FunctionMatcher.cs" />
-    <Compile Include="Matcher\IExtendedMatcher.cs" />
-    <Compile Include="Matcher\IMatchDiagnostics.cs" />
-    <Compile Include="Matcher\MatchDiagnostics.cs" />
-    <Compile Include="Matcher\NillMatchDiagnostics.cs" />
-    <Compile Include="NewDependencyCache.cs" />
-    <Compile Include="NewProject.cs" />
-    <Compile Include="NewSolution.cs" />
-    <Compile Include="NewDependency.cs" />
     <Compile Include="BaseDependencyTest.cs" />
     <Compile Include="CommandLineParserTest.cs" />
     <Compile Include="DependencyCacheTest.cs" />
-    <Compile Include="NewDependencyWish.cs" />
-    <Compile Include="DependencyWishTest.cs" />
-    <Compile Include="FileUtil.cs" />
+    <Compile Include="WishTest.cs" />
     <Compile Include="JsonReaderTest.cs" />
-    <Compile Include="Matcher\ExactMatcherTest.cs" />
     <Compile Include="NUnitConsoleRunner.cs" />
     <Compile Include="ProgramTest.cs" />
     <Compile Include="Resolver\DependencyWishSetTest.cs" />
@@ -84,14 +63,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResolverTest.cs" />
     <Compile Include="Resolver\InMemoryDependencyCache.cs" />
-    <Compile Include="Resolver\DependencyResolverV2Test.cs" />
-    <Compile Include="Resolver\DependencyNode.cs" />
-    <Compile Include="Matcher\AList.cs" />
+    <Compile Include="Resolver\DependencyResolverTest.cs" />
+    <Compile Include="NewDependencyCacheTest.cs" />
+    <Compile Include="Matcher\ExactMatcherTest2.cs" />
+    <Compile Include="Matcher\MatcherTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NRequire\NRequire.csproj">
       <Project>{C9D962C9-A65B-4A69-97D4-130B77C558FE}</Project>
       <Name>NRequire</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NRequire.Test.Support\NRequire.Test.Support.csproj">
+      <Project>{331967EF-527A-4A69-B28D-F87737F4CC15}</Project>
+      <Name>NRequire.Test.Support</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -160,24 +144,21 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="README.txt" />
+    <Content Include="ProgramTest\MySoln\MyProject\MyProject.nrequire.project.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ProgramTest\MySoln\MySoln.nrequire.solution.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="JsonReaderTest.depsfile1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="ProgramTest\MySoln\MyProject\MyProject.nrequire.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ProgramTest\MySoln\MySoln.nrequire.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="ProgramTest\LocalCache\Group1\Name1\1.2.3\arch-any_runtime-4.0\Name1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="ProgramTest\LocalCache\Group1\Name1\1.2.3\arch-any_runtime-4.0\Name1.related">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Content Include="ProgramTest\LocalCache\Group0\Name0\0.0.0\arch-Arch0_runtime-Runtime0\Name0.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -194,5 +175,6 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup />
   <ItemGroup />
 </Project>

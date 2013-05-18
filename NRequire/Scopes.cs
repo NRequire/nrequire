@@ -5,6 +5,9 @@ using System.Text;
 
 namespace NRequire {
     public enum Scopes {
-        Compile,Provided,Transitive
+        Transitive = 0,
+        Provided = 1,
+        //Compile = 2,
+        Runtime = 2
     }
 }

@@ -104,15 +104,15 @@ namespace NRequire {
             DependencyCache localCache;
             if (result.HasOptionValue("--cache")) {
                 var cacheDir = new DirectoryInfo(result.GetOptionValue("--cache"));
-                localCache = new DependencyCache() {
+                localCache = new DependencyCache.Builder() {
                     VSProjectBaseSymbol = cacheDir.FullName,
                     CacheDir = cacheDir
-                };
+                }.Build();
             } else {
-                localCache = new DependencyCache() {
+                localCache = new DependencyCache.Builder() {
                     VSProjectBaseSymbol = "%HOMEDRIVE%%HOMEPATH%" + "\\" + DEFAULT_CACHE_DIR_NAME,
                     CacheDir = new DirectoryInfo(Path.Combine(userHomeDir,DEFAULT_CACHE_DIR_NAME))
-                };
+                }.Build();
             }
 
             if (!localCache.CacheDir.Exists) {
@@ -122,18 +122,18 @@ namespace NRequire {
             DependencyCache solutionCache;
             if (result.HasOptionValue("--soln-cache")) {
                 var cacheDir = new DirectoryInfo(result.GetOptionValue("--soln-cach"));
-                solutionCache = new DependencyCache() {
+                solutionCache = new DependencyCache.Builder() {
                     UpstreamCache = localCache,
                     VSProjectBaseSymbol = cacheDir.FullName,
                     CacheDir = cacheDir
-                };
+                }.Build();
             } else {
                 var solnDir = solutionFile.Directory;
-                solutionCache = new DependencyCache() {
+                solutionCache = new DependencyCache.Builder() {
                     UpstreamCache = localCache,
                     VSProjectBaseSymbol = "$(SolutionDir)\\.cache",
                     CacheDir = new DirectoryInfo(Path.Combine(solnDir.FullName, ".cache"))
-                };
+                }.Build();
             }
 
             if (!solutionCache.CacheDir.Exists) {

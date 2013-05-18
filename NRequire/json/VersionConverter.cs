@@ -12,14 +12,14 @@ namespace NRequire.Json {
     public class VersionConverter : JsonConverter {
 
         public override bool CanConvert(Type objectType) {
-            return typeof(VersionMatcher).IsAssignableFrom(objectType);
+            return typeof(Version).IsAssignableFrom(objectType);
         }
 
         public override object ReadJson(JReader reader, Type objectType, object existingValue,
             JsonSerializer serializer) {
             if (reader.TokenType == JsonToken.String) {
                 var val = (String)reader.Value;
-                return VersionMatcher.Parse(val);
+                return Version.Parse(val);
             }
             throw new Exception(
             String.Format("Unexpected token parsing version. Expected String, got {0}.", reader.TokenType));
@@ -27,8 +27,8 @@ namespace NRequire.Json {
 
         public override void WriteJson(JWriter writer, object value,
             JsonSerializer serializer) {
-            if (value is VersionMatcher) {
-                var val = (value as VersionMatcher).ToString();
+            if (value is Version) {
+                var val = (value as Version).ToString();
                 writer.WriteValue(val);
             }
         }

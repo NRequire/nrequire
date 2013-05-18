@@ -10,18 +10,18 @@ namespace NRequire.Resolver
             if (d == null) {
                 return null;
             }
-            return d.Name + "-" + d.Version;
+            return d.Group + ":" + d.Name + ":" + d.Version + ":" + d.Ext;
         }
 
-        internal static String Summary(this DependencyWish wish)
+        internal static String Summary(this Wish wish)
         {
             if (wish == null) {
                 return null;
             }
-            return wish.Name + "-" + wish.Version;
+            return wish.Group + ":" + wish.Name + ":" + wish.Version + ":" + wish.Ext;
         }
 
-        internal static String Summary(this WishSet wishList)
+        internal static String Summary(this ResolverWishSet wishList)
         {
             if (wishList == null) {
                 return null;

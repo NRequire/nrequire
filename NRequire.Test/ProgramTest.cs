@@ -5,13 +5,17 @@ using System.Linq.Expressions;
 using System.Text;
 using System.IO;
 using NUnit.Framework;
+using NRequire.Matcher;
 
 namespace NRequire {
     [TestFixture]
-    public class ProgramTest {
+    public class ProgramTest : BaseDependencyTest {
 
         [Test]
         public void HappyPathTest() {
+            var cache = CacheWith()
+                ;
+
             var resourceDir = FileUtil.DirectoryFor<ProgramTest>();
             var localCacheDir = new DirectoryInfo(Path.Combine(resourceDir.FullName,"LocalCache"));
 
@@ -24,7 +28,7 @@ namespace NRequire {
                 "--soln", solnFile.FullName,
                 "--proj", projectFile.FullName,
                 "--cache", localCacheDir.FullName,
-                "--log", "debug"
+                "--log", "trace"
             });
 
             var refs = VSProject
@@ -34,22 +38,25 @@ namespace NRequire {
                .ToList();
             //Expect to ignore dependencies in soln's nrequire.json but not in projects
 
-            Assert.IsTrue(refs[0].HintPath.StartsWith("$(SolutionDir)\\.cache\\Group0"));
-            Assert.AreEqual("$(SolutionDir)\\.cache\\Group1\\Name1\\1.2.3\\arch-any_runtime-4.0\\Name1.Ext1",refs[1].HintPath);
-            Assert.IsTrue(refs[2].HintPath.StartsWith("$(SolutionDir)\\.cache\\Group2"));
-            Assert.IsTrue(refs[3].HintPath.StartsWith("$(SolutionDir)\\.cache\\TransitiveGroup"));
-
-            Assert.AreEqual(4, refs.Count);
+         /*   Expect
+                .That(refs.Select(r=>r.HintPath).ToList())
+                .Is(AList.InOrder()
+                    .With(AString.StartingWith("$(SolutionDir)\\.cache\\Group0"))
+                    .And(AString.EqualTo("$(SolutionDir)\\.cache\\Group1\\Name1\\1.2.3\\arch-any_runtime-4.0\\Name1.Ext1"))
+                    .And(AString.StartingWith("$(SolutionDir)\\.cache\\Group2"))
+                    .And(AString.StartingWith("$(SolutionDir)\\.cache\\TransitiveGroup")));*/
 
             //check all dependency resources are also copied across (like .xml and .pdb files)
             var solnCacheDir = new DirectoryInfo(solnDir.FullName + "\\.cache");
 
             Assert.IsTrue(solnDir.Exists);
+            AssertDepResourceExists(solnCacheDir, "Group0\\Name0\\0.0.0\\arch-Arch0_runtime-Runtime0\\Name0.dll");
             AssertDepResourceExists(solnCacheDir, "Group0\\Name0\\0.0.0\\arch-Arch0_runtime-Runtime0\\Name0.xml");
             AssertDepResourceExists(solnCacheDir, "Group0\\Name0\\0.0.0\\arch-Arch0_runtime-Runtime0\\Name0.pdb");
             AssertDepResourceNotExists(solnCacheDir, "Group0\\Name0\\0.0.0\\arch-Arch0_runtime-Runtime0\\Name0.ignored");
 
-            AssertDepResourceExists(solnCacheDir, "Group1\\Name1\\1.2.3\\arch-any_runtime-4.0\\Name1.related");
+            AssertDepResourceNotExists(solnCacheDir, "Group1\\Name1\\1.2.3\\arch-any_runtime-4.0\\Name1.dll");
+            AssertDepResourceExists(solnCacheDir, "Group1\\Name1\\1.2.3\\arch-any_runtime-4.0\\Name1.Ext1");
             AssertDepResourceNotExists(solnCacheDir, "Group1\\Name1\\1.2.3\\arch-any_runtime-4.0\\Name1.xml");
             AssertDepResourceNotExists(solnCacheDir, "Group1\\Name1\\1.2.3\\arch-any_runtime-4.0\\Name1.pdb");
 
@@ -64,7 +71,7 @@ namespace NRequire {
 
             AssertDependencyCopied(projDir, "MyLibDir\\TransitiveName.TransitiveExt");
             AssertDependencyCopied(projDir, "MyLibDir\\ProvidedName.dll");
-            solnDir.Delete(true);
+            //solnDir.Delete(true);
         }
 
         private static void AssertDepResourceExists(DirectoryInfo cacheDir,String relPath) {

@@ -3,68 +3,104 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using NRequire.Lang;
 
 namespace NRequire {
 
     public interface IDependencyCache {
-        bool ContainsDependency(Dependency d);
-        Resource GetResourceFor(Dependency d);
 
-        IList<Version> GetVersionsMatching(DependencyWish dep);
+        /// <summary>
+        /// Return all the resources for teh given dependency. This can be dll's, pdb, exe other etc. This does _not_ resolve
+        /// required deps only the immediate one
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        IList<Resource> GetResourcesFor(Dependency d);
 
-        IList<Dependency> FindDependenciesMatching(DependencyWish wish);
+        /// <summary>
+        /// Find all the dependencies which match the given wish.
+        /// </summary>
+        /// <param name="wish"></param>
+        /// <returns>a modifiable list of deps which are free to be modified (changes will not be reflected in the cache)</returns>
+        IList<Dependency> FindDependenciesMatching(Wish wish);
 
-        IList<DependencyWish> FindWishesFor(Dependency dep);
+        /// <summary>
+        /// Return all the wishes for the given dependency including transitive, runtime, provided, optional. Up to callers to pick the ones they need
+        /// </summary>
+        /// <param name="dep"></param>
+        /// <returns>a modifiable list of wishes which are free to be modified (changes will not be reflected in the cache)</returns>
+        IList<Wish> FindWishesFor(Dependency dep);
     }
 
-    internal class DependencyCache : IDependencyCache {
+    public class DependencyCache : IDependencyCache {
 
-        public DependencyCache UpstreamCache { get; set; }
-        public DirectoryInfo CacheDir { get; set; }
-        public String VSProjectBaseSymbol { get; set; }
+        private static readonly IDictionary<String, IList<String>> DefaultRelatedByExt = new Dictionary<String, IList<String>>{
+            { "dll", new List<String>{ "xml", "pdb" }},
+            { "exe", new List<String>{ "xml", "pdb" }}
+        };
+
+        private ISource Source { get; set; }
+        public DependencyCache UpstreamCache { get; private set; }
+        public DirectoryInfo CacheDir { get; private set; }
+        public String VSProjectBaseSymbol { get; private set; }
 
         private readonly Logger Log = Logger.GetLogger(typeof(DependencyCache));
         private readonly JsonReader m_reader = new JsonReader();
 
-        public IList<Dependency> FindDependenciesMatching(DependencyWish wish){
-            //TODO:reverse this so deps are returned and versions extracted?
-            return GetVersionsMatching(wish).Select(v => new Dependency {
-                Group = wish.Group,
-                Name = wish.Name,
-                Classifiers = wish.Classifiers.Clone(),
-                Version = v
-            }).ToList();
+        public static Builder With(){
+            return new Builder();
         }
 
-        public IList<Version> GetVersionsMatching(DependencyWish wish) {
-            return FindAllVersionsFor(wish)
-                .Where(v=>wish.Version==null || wish.Version.Match(v))
-                .ToList();
+        private DependencyCache(DirectoryInfo cacheDir, String vsProjectBaseSymbol, DependencyCache upstreamCache) {
+            CacheDir = cacheDir;
+            VSProjectBaseSymbol = vsProjectBaseSymbol;
+            UpstreamCache = upstreamCache;
+            Source = SourceLocations.FromName(CacheDir.FullName);
+        }
+
+        public IList<Dependency> FindDependenciesMatching(Wish wish){
+            Log.DebugFormat("find deps matching '{0}'", wish);
+            //TODO:reverse this so deps are returned and versions extracted?
+            var deps= FindAllVersionsFor(wish)
+                .Where(v=>wish.Version==null||wish.Version.Match(v))
+                .Select(v => new Dependency {
+                    Group = wish.Group,
+                    Name = wish.Name,
+                    Ext = wish.Ext,
+                    Classifiers = wish.Classifiers.Clone(),
+                    Version = v,
+                    Source = new SourceLocations(Source).Add(wish.Source),
+                    CopyTo = wish.CopyTo,
+                    //Related = wish.Related,
+                    Url = wish.Url
+                    
+            }).ToList();
+            Log.Debug("found " + deps.Count);
+            return deps;
         }
 
         private IList<Version> FindAllVersionsFor(AbstractDependency dep){
+            Log.DebugFormat("finding versions for '{0}'", dep);
+
             var relPath = String.Format("{0}\\{1}", dep.Group, dep.Name);
-            var dir = new DirectoryInfo(Path.Combine(CacheDir.FullName,relPath));
-            Log.DebugFormat("Versions dir '{0}'", dir.FullName);
-            if(!dir.Exists){
+            var topVersionsDir = new DirectoryInfo(Path.Combine(CacheDir.FullName,relPath));
+            Log.TraceFormat("topVersionsDir '{0}'", topVersionsDir.FullName);
+            if(!topVersionsDir.Exists){
                 return new List<Version>();
             }
             //And what about empty?
             var classifierPathPart = ToPathPart(dep.Classifiers);
-            if (String.IsNullOrWhiteSpace(classifierPathPart)) {
-                classifierPathPart = null;
-            }
             //TODO:cache this?
             //.Where((versionDir) => Directory.GetDirectories(Path.Combine(dir.FullName,versionDir)).Contains(classifiers));
             //check each contains the matching classifiers
-            if (Log.IsDebugEnabled()) {
-                Log.DebugFormat("Versions dir.dirs '{0}'", String.Join(",", dir.EnumerateDirectories()));
+            if (Log.IsTraceEnabled()) {
+                Log.TraceFormat("version dirs '{0}'", String.Join(",", topVersionsDir.EnumerateDirectories()));
+                Log.TraceFormat("classifier parts '{0}'", classifierPathPart);
             }
-            var versionDirs = (classifierPathPart == null ? dir.EnumerateDirectories() : dir.DirectoriesWithSubDirsNamed(classifierPathPart)).ToList();
+            var versionDirs = (String.IsNullOrWhiteSpace(classifierPathPart) ? topVersionsDir.EnumerateDirectories() : topVersionsDir.DirectoriesWithSubDirsNamed(classifierPathPart)).ToList();
 
-            if (Log.IsDebugEnabled()) {
-                Log.Debug("Version dirs:" + versionDirs);
-                Log.DebugFormat("Version dirs found were {0}", String.Join(",", versionDirs));
+            if (Log.IsTraceEnabled()) {
+                Log.TraceFormat("version dirs found were [{0}]", String.Join(",", versionDirs.Select(d=>d.Name)));
             }
 
             var versions = versionDirs
@@ -74,49 +110,110 @@ namespace NRequire {
             versions.Sort();
             versions.Reverse();
 
-            if (Log.IsDebugEnabled()) {
-                Log.DebugFormat("Versions found for dep {0} and classifier '{1}' were {2}", dep, dep.Classifiers, String.Join(",", versions));
+            Log.Debug("found " + versions.Count);
+            if (Log.IsTraceEnabled()) {
+                Log.TraceFormat("Versions found for dep {0} and classifier '{1}' were {2}", dep, dep.Classifiers, String.Join(",", versions));
             }
-
             return versions;
         }
 
-        public bool ContainsDependency(Dependency d) {
-            return GetResourceFor(d).Exists;
-        }
-
-        public Resource GetResourceFor(Dependency d) {
-            var relPath = GetRelPathFor(d);
-            var file = GetFullPathFor(relPath);
-            //TODO:if SNAPSHOT,then check localcache timestamp
-            if (!file.Exists && UpstreamCache != null) {
-                var parentResource = UpstreamCache.GetResourceFor(d);
-                if (parentResource.Exists) {
-                    parentResource.CopyTo(file);
+        public IList<Resource> GetResourcesFor(Dependency dep) {
+            Log.DebugFormat("Finding resources for dep {0}", dep);
+            var resources = new List<Resource>();
+            var relPathMinusExt = GetRelPathFor(dep);
+            var depPath = GetFullPathFor(relPathMinusExt + "." + dep.Ext);
+            Log.TraceFormat("checking dep is locally copied, file={0}", depPath);
+            //download from upstream
+            if (!depPath.Exists) {
+                if (UpstreamCache != null) {
+                    var upstreamResources = UpstreamCache.GetResourcesFor(dep);
+                    foreach (var r in upstreamResources) {
+                        var localResourcePath = GetFullPathFor(relPathMinusExt + "." + r.Type);
+                        Log.TraceFormat("localResourcePath '{0}'", localResourcePath);
+                        if(localResourcePath.Exists){
+                            //TODO:only if a dynamic version (aka a SNAPSHOT)
+                            localResourcePath.Delete();//might be newer?
+                        }
+                        r.CopyTo(localResourcePath);
+                    }
+                } else {
+                    throw new Exception("couldn't find resources for dep : " + dep);
                 }
             }
-            return new Resource(d, file, VSProjectBaseSymbol + "\\" + relPath);
+            //TODO:ad more error checking around here to fail if expected resources don't exist (e.g. the dll)
+           
+            var extensions = FindExtensionsFor(dep);
+            if( Log.IsTraceEnabled()){
+                Log.TraceFormat("Found extensions [{0}]", String.Join(",",extensions));
+            }
+            foreach (var ext in extensions) {
+                var resourceRelPath = relPathMinusExt + "." + ext;
+                var resourcePath = GetFullPathFor(resourceRelPath);
+                //TODO:if SNAPSHOT,then check localcache timestamp
+                if (resourcePath.Exists) {
+                    resources.Add(new Resource(dep, resourcePath, VSProjectBaseSymbol + "\\" + resourceRelPath));
+                }
+            }
+            if( Log.IsTraceEnabled()){
+                Log.TraceFormat("Found resources: {0}", String.Join("\n",resources));
+            }
+
+            Log.DebugFormat("Found {0} resources", resources.Count);
+            return resources;
         }
 
-        public IList<DependencyWish> FindWishesFor(Dependency dep){
-            var relPath = GetRelPathFor(dep);
-            var file = GetFullPathFor(relPath + ".nrequire.json");
+        private List<String> FindExtensionsFor(Dependency dep){
+            var relatedExtensions = new List<String>();
+            if (DefaultRelatedByExt.ContainsKey(dep.Ext)) {
+                relatedExtensions.AddRange(DefaultRelatedByExt[dep.Ext]);
+            }
+            if (!relatedExtensions.Contains(dep.Ext)) {
+                relatedExtensions.Add(dep.Ext);
+            }
+            //TODO:need to grab this from the modules file at some point
+/*            if (dep.Related.Count > 0) {
+
+            }*/
+            return relatedExtensions;
+        }
+
+        public IList<Wish> FindWishesFor(Dependency dep){
+            Log.Debug("Finding wishes for " + dep);
+            var file = GetFullPathFor(GetRelPathFor(dep) + ".nrequire.module.json");
+            Log.TraceFormat("looking for module file {0}", file.FullName);
+            var wishes = new List<Wish>();
             if(file.Exists){
-                return m_reader.Read<DependencyDto>(file).Wishes;
+                var module = m_reader.Read<Module>(file);
+                wishes.AddRange(module.RuntimeWishes);
+                wishes.AddRange(module.OptionalWishes);
+                wishes.AddRange(module.TransitiveWishes);
+
+                Log.TraceFormat("Found module {0}", module);
             }
-            var noUpstreamMarkerFile = GetFullPathFor(relPath + ".nrequire.json.none");
-            if (!noUpstreamMarkerFile.Exists) {
-                //TODO:download from upstream
-                Log.Debug("TODO:need to download from upstream. Not implemented");
-            }
-            return new List<DependencyWish>();
+            Log.Debug("found " + wishes.Count);
+            return wishes;
         }
 
-        protected String GetRelPathFor(Dependency d) {
+        internal String GetRelPathWithExtFor(Dependency d) {
+            return GetRelPathWithExtFor(d,d.Version);
+        }
+
+        internal String GetRelPathWithExtFor(AbstractDependency d,Version v) {
+            PreConditions.NotBlank(d.Ext, "Extention", ()=>"dep=" + d);
+            return GetRelPathFor(d, v) + "." + d.Ext;
+        }
+
+        internal String GetRelPathFor(Dependency d) {
+            return GetRelPathFor(d,d.Version);
+        }
+
+        internal String GetRelPathFor(AbstractDependency d, Version v) {
+            PreConditions.NotBlank(d.Group, "Group", ()=>"dep=" + d);
+            PreConditions.NotBlank(d.Name, "Name", ()=>"dep=" + d);
             var parts = new List<String>(3);
-            parts.Add(String.Format("{0}\\{1}\\{2}", d.Group, d.Name, d.Version.ToString()));
+            parts.Add(String.Format("{0}\\{1}\\{2}", d.Group, d.Name, v.ToString()));
             parts.Add(ToPathPart(d.Classifiers));
-            parts.Add(d.Name + "." + d.Ext);
+            parts.Add(d.Name);
             return Path.Combine(parts.ToArray());
         }
 
@@ -126,33 +223,38 @@ namespace NRequire {
             return String.Join("_", classifiers);
         }
 
-        protected FileInfo GetFullPathFor(Dependency d) {
-            return GetFullPathFor(GetRelPathFor(d));
+        internal FileInfo GetFullPathFor(Dependency d) {
+            return GetFullPathFor(GetRelPathWithExtFor(d));
         }
 
-        protected FileInfo GetFullPathFor(String relPath){
+        internal FileInfo GetFullPathFor(String relPath) {
             return new FileInfo(Path.Combine(CacheDir.FullName, relPath));
         }
 
-    }
-    class DependencyDto : Dependency {
-        public List<DependencyWish> Wishes { get; set;}
+        public class Builder : IBuilder<DependencyCache> {
+            public DependencyCache UpstreamCache { get; set; }
+            public DirectoryInfo CacheDir { get; set; }
+            public String VSProjectBaseSymbol { get; set; }
 
-        public DependencyDto(){
-            Wishes = new List<DependencyWish>();
+            public DependencyCache Build() {
+                return new DependencyCache(CacheDir, VSProjectBaseSymbol, UpstreamCache);
+            }
         }
+
     }
+
     static class DirectoryInfoExtenions {
 
         public static IEnumerable<DirectoryInfo> DirectoriesWithSubDirsNamed(this DirectoryInfo dir, String subDirName) {
+            var lowerSubDirName = subDirName.ToLowerInvariant();
             return dir.EnumerateDirectories()
-                    .Where((child) => child.ContainsDirNamed(subDirName));
+                .Where((child) => child.ContainsDirNamed(lowerSubDirName));
         }
         
         
         public static bool ContainsDirNamed(this DirectoryInfo dir, String subDirName) {
             return dir.EnumerateDirectories()
-                    .Where((child) => child.Name.Equals(subDirName))
+                    .Where((child) => child.Name.ToLowerInvariant().Equals(subDirName))
                     .Count() > 0;
         }
 

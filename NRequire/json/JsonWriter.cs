@@ -8,7 +8,7 @@ namespace NRequire {
             LoadEmbeddedDlls.Load();
         }
 
-        public void WriteTo<T>(T instance,FileInfo file) {
+        public void WriteTo<T>(T instance, FileInfo file) {
             var json = Write<T>(instance);
             WriteToFileAsUTF8(file, json);
         }

@@ -8,8 +8,9 @@ namespace NRequire {
     public class Resource {
 
         public String VSProjectPath { get; private set; }
-        public FileInfo File { get; private set; }
+        public String Type { get { return File.Extension.Substring(1).ToLowerInvariant() ; } }
         public bool Exists { get { return File.Exists; } }
+        public FileInfo File { get; private set; }
         public Dependency Dep { get; set; }
         public DateTime TimeStamp { get { return File.LastWriteTime;  } }
 
@@ -17,6 +18,10 @@ namespace NRequire {
             Dep = dep;
             File = fullPath;
             VSProjectPath = vsProjectPath;
+        }
+
+        public bool IsType(String type) {
+            return Type.Equals(type.ToLowerInvariant());
         }
 
         public void CopyTo(FileInfo targetFile) {

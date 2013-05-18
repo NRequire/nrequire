@@ -6,6 +6,7 @@ using System.Text;
 namespace NRequire {
     public class Classifiers {
         private readonly IDictionary<String, String> m_classifiers;
+        private String m_cachedToString = null;
 
         public int Count { get { return m_classifiers.Count; } }
 
@@ -45,42 +46,46 @@ namespace NRequire {
 
         public Classifiers SetAll(IDictionary<String, String> dict) {
             foreach (var key in dict.Keys) {
-                Set(key, dict[key]);
+                this[Sanitise(key)] = Sanitise(dict[key]);
             }
+            Updated();
             return this;
         }
 
         public string this[String key] {
-            get { return Get(key); }
-            set { Set(key, value); }
+            get {
+                string val;
+                if (m_classifiers.TryGetValue(Sanitise(key), out val)) {
+                    return val;
+                }
+                return null;
+            }
+            set {
+                m_classifiers[Sanitise(key)] = Sanitise(value);
+                Updated();
+            }
         }
 
-        public Classifiers Set(String key, String val) {
-            if (m_classifiers.ContainsKey(key)) {
-                m_classifiers.Remove(key);
-            }
-            m_classifiers.Add(key, val);
-            return this;
+        private void Updated(){
+            m_cachedToString = null;  
         }
 
-        public String Get(String key) {
-            if (m_classifiers.ContainsKey(key)) {
-                return m_classifiers[key];
-            }
-            return null;
-        }
-        
         public bool ContainsKey(String key) {
-            return m_classifiers.ContainsKey(key);
+            return m_classifiers.ContainsKey(Sanitise(key));
+        }
+
+        private static String Sanitise(String val) {
+            return val == null?null:val.ToLowerInvariant();
         }
 
         public static bool TryParse(String s, out Classifiers c) {
             try {
                 c = Parse(s);
+                return true;
             } catch (Exception) {
+                c = null;
+                return false;
             }
-            c = null;
-            return false;
         }
 
         public static Classifiers Parse(Classifiers existing,String s) {
@@ -95,6 +100,7 @@ namespace NRequire {
 
         private static IDictionary<String, String> ParseIntoDict(String s) {
             var opts = new Dictionary<String, String>();
+            s = Sanitise(s);
             var parts = s.Split(new char[] { '_' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var part in parts) {
                 var pair = part.Split(new char[] { '-' });
@@ -110,7 +116,10 @@ namespace NRequire {
         }
 
         public override string ToString() {
-            return DictToString(m_classifiers);
+            if (m_cachedToString == null) {
+                m_cachedToString = DictToString(m_classifiers);
+            }
+            return m_cachedToString;
         }
 
         private static String DictToString(IDictionary<String, String> classifiers) {

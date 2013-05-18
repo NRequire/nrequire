@@ -9,21 +9,15 @@ namespace NRequire {
         }
         
         public Solution ReadSolution(FileInfo jsonFile) {
-            var soln = Read<Solution>(jsonFile);
-            soln.AfterLoad();
-            return soln;
+            return Read<Solution>(jsonFile);
         }
 
         public Project ReadProject(FileInfo jsonFile) {
-            var p = Read<Project>(jsonFile);
-            p.AfterLoad();
-            return p;
+            return Read<Project>(jsonFile);
         }
 
-        public DependencyWish ReadDependency(FileInfo jsonFile) {
-            var dep = Read<DependencyWish>(jsonFile);
-            dep.AfterLoad();
-            return dep;
+        public Wish ReadDependency(FileInfo jsonFile) {
+            return Read<Wish>(jsonFile);
         }
 
         public T Read<T>(FileInfo jsonFile) {
@@ -37,11 +31,28 @@ namespace NRequire {
                 var settings = new JsonSerializerSettings();
                 settings.MissingMemberHandling = MissingMemberHandling.Error;
                 settings.NullValueHandling = NullValueHandling.Ignore;
-                
-                return JsonConvert.DeserializeObject<T>(json, settings);
+
+                var obj = JsonConvert.DeserializeObject<T>(json, settings);
+
+                SetSourceLocations(obj, new FileSource{ SourceName = jsonFile.FullName } );
+
+                var taker = obj as IRequireLoadNotification;
+                if( taker!= null){
+                    taker.AfterLoad();
+                }
+
+                return obj;
             } catch (Exception e) {
                 throw new Exception(String.Format("Error while trying to parse file '{0}', with contents:\n{1}", jsonFile.FullName, json), e);
             }
+        }
+
+        private class FileSource : ISource {
+            public String SourceName { get; set;}
+        }
+        
+        private static void SetSourceLocations(Object obj, ISource source) {
+            SourceLocations.AddSourceLocations(obj, source);
         }
 
         private static String ReadFileAsString(FileInfo file) {

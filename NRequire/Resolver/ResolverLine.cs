@@ -10,8 +10,8 @@ namespace NRequire.Resolver
 {
     class ResolverLine
     {
-
         private static readonly Logger Log = Logger.GetLogger(typeof(ResolverLine));
+     
         private readonly int m_depth;
         private readonly IDependencyCache m_cache;
         ///all the inherited wishlists, plus our own wrapped or added ones by key
@@ -41,12 +41,12 @@ namespace NRequire.Resolver
             //TODO:introduce a strategy here to allow different pick strategies
             //pick a version of each requirement. Pick versions with the least amount of change first
             //a.k.a build incr first, then minor, then major
-            foreach (var unfixed in m_wishSets.FindAllUnfixedWishSets()) {
+            foreach (var unfixed in m_wishSets.FindAllUnfixedWishSets().Where(w=>w.RequiresResolution())) {
                 Dependency fixedDep;
                 do {
-                    var nextWishSetToBeFixed = m_wishSets.LocalWishSetFor(unfixed.GetFirstWish());
+                    var nextWishSetToBeFixed = m_wishSets.LocalWishSetFor(unfixed.FirstWish);
                     Log.Debug("picking dep for wishes : " + nextWishSetToBeFixed.Summary());
-                    fixedDep = nextWishSetToBeFixed.PickNextFixedDep();
+                    fixedDep = nextWishSetToBeFixed.PickNextFixedDependency();
                     Log.Debug("picked dep : " + fixedDep.Summary());
                     if (fixedDep == null) {
                         Log.Debug("no more options for : " + nextWishSetToBeFixed.Summary());
@@ -54,7 +54,7 @@ namespace NRequire.Resolver
                         continue;
                     }
                     var nextLine = NewChildLine();
-                    var fixedWish = new DependencyWish(fixedDep);
+                    var fixedWish = new Wish(fixedDep){Scope = unfixed.HighestScope};
                     Log.Debug("fixing dep using wish : " + fixedWish.Summary());
                     nextLine.AddWish(fixedWish);
                     nextLine.ResolveWhatCanBe();
@@ -85,7 +85,7 @@ namespace NRequire.Resolver
         /// Add a wish unless there is already a matching constraint
         /// </summary>
         /// <returns>true if added, false if there was already a wish matching the same requirements</returns>
-        internal bool AddWish(DependencyWish wish)
+        internal bool AddWish(Wish wish)
         {
             return m_wishSets.AddWish(wish);
         }
@@ -98,9 +98,9 @@ namespace NRequire.Resolver
         /// <summary>
         /// Are all the wishes we have so far resolved?
         /// </summary>
-        public bool IsAllResolved()
+        public bool IsAllResolvedTo()
         {
-            return m_wishSets.IsAllResolved();
+            return m_wishSets.IsAllResolvedTo();
         }
 
         private bool CanMatch()
@@ -113,7 +113,7 @@ namespace NRequire.Resolver
             m_wishSets.CanMatchOrThrow();
         }
 
-        private static String Key(DependencyWish wish)
+        private static String Key(Wish wish)
         {
             return wish.Group + "-" + wish.Name;
         }

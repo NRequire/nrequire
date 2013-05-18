@@ -4,8 +4,9 @@
 	version:"1.0.0.SNAPSHOT",
 	url:"http://nowhere.com/mine",
 	runtime:"MyRuntime",
+    arch:"MyArch",
 
-	transitive:[
+	transitiveWishes:[
 		{
 			name:"MyChildName1",
 			group:"MyChildGroup1",

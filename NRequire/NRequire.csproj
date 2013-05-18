@@ -74,9 +74,13 @@
     <Compile Include="CommandLineParser.cs" />
     <Compile Include="CommandParseException.cs" />
     <Compile Include="ConsoleLogAppender.cs" />
-    <Compile Include="DependencyWish.cs" />
+    <Compile Include="WishList.cs" />
+    <Compile Include="Module.cs" />
+    <Compile Include="Wish.cs" />
+    <Compile Include="ITakeSourceLocation.cs" />
     <Compile Include="Json\ClassifierConverter.cs" />
-    <Compile Include="Json\VersionConverter.cs" />
+    <Compile Include="Lang\IBuilder.cs" />
+    <Compile Include="Lang\PreConditions.cs" />
     <Compile Include="LoadEmbeddedDlls.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Matcher\AlwaysTrueMatcher.cs" />
@@ -87,11 +91,10 @@
     <Compile Include="Matcher\RangeMatcher.cs" />
     <Compile Include="ResolutionException.cs" />
     <Compile Include="Resolver\AllWishSets.cs" />
-    <Compile Include="Resolver\DependencyResolverV2.cs" />
     <Compile Include="Resolver\Extensions.cs" />
     <Compile Include="Resolver\ResolverException.cs" />
     <Compile Include="Resolver\ResolverLine.cs" />
-    <Compile Include="Resolver\WishSet.cs" />
+    <Compile Include="Resolver\ResolverWishSet.cs" />
     <Compile Include="Scopes.cs" />
     <Compile Include="Dependency.cs" />
     <Compile Include="Json\JsonReader.cs" />
@@ -101,6 +104,7 @@
     <Compile Include="ProjectUpdateCmd.cs" />
     <Compile Include="Resource.cs" />
     <Compile Include="Solution.cs" />
+    <Compile Include="SourceLocations.cs" />
     <Compile Include="Version.cs" />
     <Compile Include="VersionMatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,8 +114,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="DependencyResolverV1.cs" />
+    <Compile Include="ProjectResolver.cs" />
     <Compile Include="Json\JsonWriter.cs" />
+    <Compile Include="u:\users\bert\workspace\nrequire\NRequire\Json\VersionConverter.cs" />
+    <Compile Include="Json\VersionMatcherConverter.cs" />
+    <Compile Include="Resolver\WishResolver.cs" />
+    <Compile Include="IRequireLoadNotification.cs" />
+    <Compile Include="ISource.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

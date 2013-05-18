@@ -4,34 +4,60 @@ using System.Linq;
 using System.Text;
 
 namespace NRequire {
-    public class Solution {
+    public class Solution : ITakeSourceLocation, IRequireLoadNotification, ISource {
 
-        private static readonly DependencyWish DefaultDependencyValues = new DependencyWish { Arch = "any", Runtime = "any", Ext="dll", Scope = Scopes.Compile };
+        private const String SupportedVersion = "1";
+
+        private static readonly Wish DefaultWishValues = new Wish { 
+            Arch = AbstractDependency.DefaultArch,
+            Runtime = AbstractDependency.DefaultRuntime,
+            Ext = AbstractDependency.DefaultExt,
+            Source = new SourceLocations("Solution.Default.Wish"),
+            Scope = Scopes.Transitive
+        };
+
+        public String SourceName { get { return "Solution:" + Source; } }
+
+        public SourceLocations Source { get; set; }
+
         //TODO:add Repos:[] {name:central,url:path/to/some/repo,layout:maven|nget|...}
-        public IList<DependencyWish> Dependencies { get; set; }
-        //only for transitive stuff, not per top level
-        public IList<DependencyWish> Transitive { get; set; }
-
-        public DependencyWish DependencyDefaults { get; set; }
+        public List<Wish> Wishes { get; set; }
+ 
+        public Wish WishDefaults { get; set; }
         public String SolutionFormat { get;set; }
 
         public Solution() {
-            Dependencies = new List<DependencyWish>();
-            Transitive = new List<DependencyWish>();
-            DependencyDefaults = DefaultDependencyValues.Clone();
+            Wishes = new List<Wish>();
+            WishDefaults = DefaultWishValues.Clone();
         }
 
         public void AfterLoad() {
-            if (SolutionFormat != "1") {
-                throw new ArgumentException("This solution only supports format version 1. Instead got " + SolutionFormat);
+            if (SolutionFormat != SupportedVersion) {
+                throw new ArgumentException("This solution only supports format version " + SupportedVersion + ". Instead got " + SolutionFormat);
             }
             //apply defaults
-            DependencyDefaults = DependencyDefaults == null ? DefaultDependencyValues.Clone() : DependencyDefaults.FillInBlanksFrom(DefaultDependencyValues);
-            Dependencies = DependencyWish.FillInBlanksFrom(Dependencies, DependencyDefaults);
-            Transitive = DependencyWish.FillInBlanksFrom(Transitive, DependencyDefaults);
-            //TODO: check no duplicated deps, need to pick a list
+            WishDefaults = WishDefaults == null ? DefaultWishValues.Clone() : WishDefaults.CloneAndFillInBlanksFrom(DefaultWishValues);
+            WishDefaults.Scope = Scopes.Transitive;
+            Wishes = Wish.CloneAndFillInBlanksFrom(Wishes, WishDefaults);
+            Wishes.Select(w => w.Scope = Scopes.Transitive);
 
+            SourceLocations.AddSourceLocations(Wishes, Source);
 
+            ValidateReadyForMerge(Wishes);
+        }
+
+        public List<Wish> GetAllWishes() {
+            return Wishes;
+        }
+
+        private void ValidateReadyForMerge(List<Wish> wishes) {
+            foreach (var wish in wishes) {
+                wish.ValidateMergeValuesSet();
+            }
+        }
+
+        public override string ToString() {
+            return base.ToString() + "<Source=" + Source + ">";
         }
     }
 }

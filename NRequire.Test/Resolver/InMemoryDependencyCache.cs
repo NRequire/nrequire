@@ -13,26 +13,36 @@ namespace NRequire
     /// </summary>
     internal class InMemoryDependencyCache : IDependencyCache
     {
-		
-        private static readonly Logger Log = Logger.GetLogger(typeof(InMemoryDependencyCache));
-        private Dictionary<String,SortedList<Version,Dependency>> m_deps = new Dictionary<string, SortedList<Version,Dependency>>();
-        private Dictionary<String,DependencyNode> m_nodesByKeyAndVersion = new Dictionary<string, DependencyNode>();
+		private static readonly Logger Log = Logger.GetLogger(typeof(InMemoryDependencyCache));
         private static readonly SortedList<Version,Dependency> EmptyList = NewSortedList();
 
-        public DependencyNode Add(DependencyNode node)
+        private Dictionary<String,SortedList<Version,Dependency>> m_depsBySignatureKey = new Dictionary<string, SortedList<Version,Dependency>>();
+        private Dictionary<String, Module> m_modulesByVersionKey = new Dictionary<string, Module>();
+
+        public static InMemoryDependencyCache With(){
+            return new InMemoryDependencyCache();
+        }
+
+        public InMemoryDependencyCache A(Module module)
         {
-            var key = KeyFor(node);
+            Add(module);
+            return this;
+        }
+
+        public InMemoryDependencyCache Add(Module module)
+        {
+            var key = KeyFor(module);
 			
-            if (m_deps.ContainsKey(key)) {
-                m_deps[key].Add(node.Version, node);
+            if (m_depsBySignatureKey.ContainsKey(key)) {
+                m_depsBySignatureKey[key].Add(module.Version, module);
             } else {
                 var deps = NewSortedList();
-                deps.Add(node.Version, node);
-                m_deps.Add(key, deps);
+                deps.Add(module.Version, module);
+                m_depsBySignatureKey.Add(key, deps);
             }
-            m_nodesByKeyAndVersion.Add(VersionKeyFor(node), node);
-            return node;
-        }
+            m_modulesByVersionKey.Add(VersionKeyFor(module), module);
+            return this;
+        }   
 
         private static SortedList<Version,Dependency> NewSortedList()
         {
@@ -45,28 +55,28 @@ namespace NRequire
             return deps.Count > 0;
         }
 
-        public Resource GetResourceFor(Dependency d)
+        public IList<Resource> GetResourcesFor(Dependency d)
         {
-            return null;
+            throw new NotImplementedException();
         }
 
-        public IList<DependencyWish> FindWishesFor(Dependency d)
+        public IList<Wish> FindWishesFor(Dependency d)
         {
             var key = VersionKeyFor(d);
-            DependencyNode node;
-            if (m_nodesByKeyAndVersion.TryGetValue(key, out node)) {
-                return node.Wishes;
+            Module node;
+            if (m_modulesByVersionKey.TryGetValue(key, out node)) {
+                return node.RuntimeWishes.Concat(node.TransitiveWishes).Select(w=>w.Clone()).ToList();
             }
-            return new List<DependencyWish>();
+            return new List<Wish>();
         }
 
-        public IList<Dependency> FindDependenciesMatching(DependencyWish wish)
+        public IList<Dependency> FindDependenciesMatching(Wish wish)
         {
             var deps = FindByKey(KeyFor(wish));
-            return deps.Values.Where(d=>wish.Version.Match(d.Version)).ToList();
+            return deps.Values.Where(d=>wish.Version.Match(d.Version)).Select(d=>d.Clone()).ToList();
         }
 
-        public IList<Version> GetVersionsMatching(DependencyWish wish)
+        public IList<Version> FindVersionsMatching(Wish wish)
         {
             var deps = FindByKey(KeyFor(wish));
             return deps.Keys.Where(v=>wish.Version.Match(v)).ToList();
@@ -75,7 +85,7 @@ namespace NRequire
         private SortedList<Version,Dependency> FindByKey(String key)
         {
             SortedList<Version,Dependency> deps;
-            if (!m_deps.TryGetValue(key, out deps)) {
+            if (!m_depsBySignatureKey.TryGetValue(key, out deps)) {
                 return EmptyList;
             }
             return deps;
@@ -88,12 +98,7 @@ namespace NRequire
 
         private String KeyFor(AbstractDependency d)
         {
-            return KeyFor(d.Group, d.Name);
-        }
-
-        private String KeyFor(String group, String name)
-        {
-            return group + "-" + name;
+            return d.Signature();
         }
 
         private class InvertedComparer : IComparer<Version>

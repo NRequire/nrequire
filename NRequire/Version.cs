@@ -43,6 +43,10 @@ namespace NRequire {
         private Version() {
         }
 
+        public static implicit operator Version(String s){
+            return Version.Parse(s);
+        }
+
         private void GenerateMatchString() {
             var sb = new StringBuilder();
             sb.Append(Major).Append('.');

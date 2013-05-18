@@ -7,7 +7,7 @@ namespace NRequire {
     
     internal class Logger {
 
-        private static Level GlobalLevel = Level.Warn;
+        private static Level GlobalLevel = Level.Trace;
 
         private readonly Level m_level;
         private readonly String  m_name;
@@ -52,15 +52,18 @@ namespace NRequire {
         public static Logger GetLogger(String name){
             return new Logger(name, GlobalLevel, ConsoleLogAppender.Instance);
         }
-
+        
+        //TODO:make prop
         public bool IsTraceEnabled() {
             return IsLevel(Level.Trace);
         }
 
+        //TODO:make prop
         public bool IsDebugEnabled() {
             return IsLevel(Level.Debug);
         }
 
+        //TODO:make prop
         public bool IsWarnEnabled() {
             return IsLevel(Level.Warn);
         }

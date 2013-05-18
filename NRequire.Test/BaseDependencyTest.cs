@@ -3,77 +3,79 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using NRequire;
 using NRequire.Matcher;
 using NRequire.Resolver;
+using NRequire.Test;
 
 namespace NRequire 
 {
     public abstract class BaseDependencyTest {
 
-        protected Dependency Dep(String name, String version) {
-            return new Dependency { Group = "group", Name = name, Version = Version.Parse(version) };
+        private static ISource Source = SourceLocations.FromName("BaseDependencyTest");
+
+        protected NewDependencyCache CacheWith(){
+            return NewDependencyCache.With();
         }
 
-        protected DependencyWish Wish(String name, String version) {
-            return new DependencyWish { Group = "group", Name = name, Version = VersionMatcher.Parse(version) };
+        protected Dependency DepFrom(String parseString) {
+            return Dependency.Parse(parseString);
         }
 
-        protected DependencyNode NewNode(String name, String version) {
-            return new DependencyNode { Group = "group", Name = name, Version = Version.Parse(version) };
+        protected Dependency DepWith(String name, String version) {
+            return DepWith().Defaults().Name(name).Version(version).Source(Source);
         }
 
-        protected List<DependencyWish> ListWith(params DependencyWish[] wishes){
-            return new List<DependencyWish>(wishes);
+        protected NewDependency DepWith() {
+            return NewDependency.With();
+        }
+
+        protected ADependency ADepWith(String name, String version) {
+            return ADepWith().Group(TestDefaults.Group).Name(name).Version(version);
+        }
+
+        protected ADependency ADepWith() {
+            return ADependency.With();
+        }
+
+        protected Wish WishFrom(String parseString) {
+            return Wish.Parse(parseString);
+        }
+
+        protected Wish WishWith(String name, String version) {
+            return WishWith().Defaults().Name(name).Version(version).Source(Source);
+        }
+
+        protected NewWish WishWith() {
+            return NewWish.With();
+        }
+
+        protected AWish AWishWith(String name, String version) {
+            return AWishWith().Group(TestDefaults.Group).Name(name).Version(version);
+        }
+
+        protected AWish AWishWith() {
+            return AWish.With();
+        }
+
+        protected NewModule ModuleFrom(String parseString) {
+            return NewModule.Parse(parseString);
+        }
+
+        protected NewModule ModuleWith(String name, String version) {
+            return ModuleWith().Defaults().Name(name).Version(version).Source(Source);
+        }
+
+        protected NewModule ModuleWith() {
+            return NewModule.With();
+        }
+        
+        protected List<Wish> ListWith(params Wish[] wishes){        
+            return new List<Wish>(wishes);
         }
 
         protected List<Dependency> ListWith(params Dependency[] deps){
             return new List<Dependency>(deps);
-        }
-
-        protected void AssertAreEqual(IList<DependencyWish> expect, IList<DependencyWish> actual) {
-            if (expect.Count != actual.Count) {
-                Fail("Counts don't match", expect, actual);
-            }
-            for (int i = 0; i < expect.Count; i++) {
-                if (expect[i].Name != actual[i].Name) {
-                    Fail("Names don't match at " + i, expect, actual);
-                }
-                if (!expect[i].Version.Equals(actual[i].Version)) {
-                    Fail("Versions don't match at " + i, expect, actual);
-                }
-            }
-        }
-
-        protected void AssertAreEqual(IList<Dependency> expect, IList<Dependency> actual) {
-            if (expect.Count != actual.Count) {
-                Fail("Counts don't match", expect, actual);
-            }
-            for (int i = 0; i < expect.Count; i++) {
-                if (expect[i].Name != actual[i].Name) {
-                    Fail("Names don't match at " + i, expect, actual);
-                }
-                if (!expect[i].Version.Equals(actual[i].Version)) {
-                    Fail("Versions don't match at " + i, expect, actual);
-                }
-            }
-        }
-
-        protected void Fail<T>(String msg, IEnumerable<T> expect, IEnumerable<T> actual) {
-            Console.WriteLine("Failed because:" + msg);
-
-            Console.WriteLine("expected:");
-            Print(expect);
-            Console.WriteLine("actual:");
-            Print(actual);
-            Assert.Fail(msg);
-        }
-
-        private void Print<T>(IEnumerable<T> deps) {
-            int i = 0;
-            foreach (var d in deps) {
-                Console.WriteLine(i + " " + d);
-                i++;
-            }
         }
     }
 }

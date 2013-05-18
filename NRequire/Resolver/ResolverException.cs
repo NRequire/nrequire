@@ -6,7 +6,7 @@ namespace NRequire
     public class ResolverException : ApplicationException
     {
 
-        public static readonly String NoSolutions = "No solutions could be found";
+        public static readonly String NoSolutions = "No dependency solution could be found";
         public static readonly String InfiniteRecursion = "Infinite recursion detected";
 
         public ResolverException(String msg):base(msg)

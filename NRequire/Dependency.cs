@@ -2,57 +2,88 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
+using NRequire.Json;
 
 namespace NRequire {
 
 	/// <summary>
-	/// A concrete fixed dependency
+	/// The result of a wish being resolved. A single, concrete dependencies. This could be split into mutiple resources (dll,xml,pbe...)
 	/// </summary>
     public class Dependency : AbstractDependency {
 
+        [JsonIgnore]
         internal String VersionString {
             get { return Version == null ? null : Version.ToString(); }
             set { Version = value == null ? null : Version.Parse(value); }
         }
+
+        [JsonConverter(typeof(VersionConverter))]
         public Version Version { get; internal set; }
-        //public string Classifiers { get; internal set; }
-        public Scopes Scope { get; internal set; }
-        public bool HasRelatedDependencies { get { return Related != null && Related.Count > 0;}}
-        public IList<Dependency> Related { get; internal set; }
-        
+
         public bool EmbeddedResource { get; set; }
 
+
+        /// <summary>
+        /// Parse from  group:name:version:ext:classifiers
+        /// </summary>
+        /// <param name="fullString">Full string.</param>
+        public static Dependency Parse(String fullString) {
+            var dep = new Dependency();
+
+            var parts = fullString.Split(new char[] { ':' });
+            if (parts.Length > 0) {
+                dep.Group = parts[0];
+            }
+            if (parts.Length > 1) {
+                dep.Name = parts[1];
+            }
+            if (parts.Length > 2) {
+                dep.Version = Version.Parse(parts[2]);
+            }
+            if (parts.Length > 3) {
+                dep.Ext = parts[3];
+            }
+            if (parts.Length > 4) {
+                dep.Classifiers = Classifiers.Parse(parts[4]);
+            }
+
+            return dep;
+        }
+
         public Dependency Clone() {
-            return new Dependency {
-                Arch = Arch,
-                CopyTo = CopyTo,
-                Classifiers = Classifiers,
-                Ext = Ext,
-                Group = Group,
-                Name = Name,
-                Related = Related==null?new List<Dependency>():new List<Dependency>(Related),
-                Runtime = Runtime,
-                Scope = Scope,
-                Url = Url,
-                Version = Version
-            };
+            return Clone(new Dependency());    
+        }
+
+        protected internal new T Clone<T>(T cloneTarget) where T : Dependency {
+            base.Clone(cloneTarget);
+            cloneTarget.Scope = Scope;
+            cloneTarget.Version = Version;
+
+            SourceLocations.AddSourceLocations(cloneTarget, Source);
+            return cloneTarget;
         }
 
         public override string ToString() {
-            return String.Format("Dependency@{0}<\n\tGroup:{1},\n\tName:{2},\n\tVersion:{3},\n\tExt:{4},\n\tArch:{5},\n\tRuntime:{6},\n\tClassifiers:{7},\n\tScope:{8},\n\tUrl:{9},\n\tCopyTo:{10},\n\tRelated:[{11}]'\n>",
-                base.GetHashCode(),
-                Group,
-                Name,
-                Version,
-                Ext,
-                Arch,
-                Runtime,
-                Classifiers,
-                Scope,
-                Url,
-                CopyTo,
-                Related==null?null:String.Join(",",Related)
-            );
+            var sb = new StringBuilder("Dependency@").Append(GetHashCode()).Append("<");
+            ToString(sb);
+            sb.Append(">");
+            return sb.ToString();
+        }
+
+        protected virtual void ToString(StringBuilder sb) {
+            sb.Append("\n\tGroup=").Append(Group);
+            sb.Append(",\n\tName=").Append(Name);
+            sb.Append(",\n\tVersion=").Append(Version);
+            sb.Append(",\n\tExt=").Append(Ext);
+            sb.Append(",\n\tArch=").Append(Arch);
+            sb.Append(",\n\tRuntime=").Append(Runtime);
+            sb.Append(",\n\tClassifiers=").Append(Classifiers);
+            sb.Append(",\n\tUrl=").Append(Url);
+            sb.Append(",\n\tCopyTo=").Append(CopyTo);
+            sb.Append(",\n\tSource=").Append(Source);
+            sb.Append(",\n\tScope=").Append(Scope);
+            //sb.Append(",\n\tRelated=").Append(Related == null ? null : String.Join(",", Related));
         }
     }
 }

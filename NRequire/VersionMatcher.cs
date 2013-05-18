@@ -6,6 +6,14 @@ using System.Globalization;
 using NRequire.Matcher;
 
 namespace NRequire {
+
+    /// <summary>
+    /// http://docs.codehaus.org/display/MAVEN/Dependency+Mediation+and+Conflict+Resolution
+    /// [ -> >=  greater than or equal
+    /// ( -> > greater than
+    /// ) -> < less than
+    /// ] -> <= less than or equal
+    /// </summary>
 	public class VersionMatcher : IMatcher<Version> {
 
         private string m_versionString;
@@ -14,6 +22,10 @@ namespace NRequire {
         private VersionMatcher(String versionString, IMatcher<Version> match) {
             m_match = match;
             m_versionString = versionString;
+        }
+
+        public static implicit operator VersionMatcher(String s){
+            return VersionMatcher.Parse(s);
         }
 
         public static VersionMatcher Parse(String versionMatch) {
@@ -25,15 +37,14 @@ namespace NRequire {
         }
 
         private static VersionMatcher InternalParse(String versionMatch){
-            //http://docs.codehaus.org/display/MAVEN/Dependency+Mediation+and+Conflict+Resolution
-            // [  -> >=
-            // ( -> >
-            // ] -> <=
-            // ) -> <
-            var from = 0;
-            char lastLimiter = ',';
             var any = new AnyMatcher();
+            //support wildcard
+            if (versionMatch == null || versionMatch.Trim() == "*") {
+                return new VersionMatcher(versionMatch,any.Collapse());
+            }
 
+            var from = 0;
+            char lastLimiter = ','; 
             RangeMatcher range = null;
             var getRangePair = new Func<RangeMatcher>(() => {
                 if (range == null) {

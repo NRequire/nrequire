@@ -1,0 +1,9 @@
+U:\users\bert\workspace\nrequire\NRequire.Test.Support\obj\Debug\NRequire.Test.Support.csprojResolveAssemblyReference.cache
+U:\users\bert\workspace\nrequire\NRequire.Test.Support\bin\Debug\NRequire.Test.Support.dll
+U:\users\bert\workspace\nrequire\NRequire.Test.Support\bin\Debug\NRequire.Test.Support.pdb
+U:\users\bert\workspace\nrequire\NRequire.Test.Support\bin\Debug\nrequire.exe
+U:\users\bert\workspace\nrequire\NRequire.Test.Support\bin\Debug\nunit.framework.dll
+U:\users\bert\workspace\nrequire\NRequire.Test.Support\bin\Debug\nrequire.pdb
+U:\users\bert\workspace\nrequire\NRequire.Test.Support\bin\Debug\nunit.framework.xml
+U:\users\bert\workspace\nrequire\NRequire.Test.Support\obj\Debug\NRequire.Test.Support.dll
+U:\users\bert\workspace\nrequire\NRequire.Test.Support\obj\Debug\NRequire.Test.Support.pdb

@@ -31,25 +31,28 @@ namespace NRequire {
 
             Assert.AreEqual("MyName", dep.Name);
             Assert.AreEqual("MyGroup", dep.Group);
-            Assert.AreEqual("MyRuntime", dep.Runtime);
+            Assert.AreEqual("myarch", dep.Arch);
+            Assert.AreEqual("myruntime", dep.Runtime);
             Assert.AreEqual("http://nowhere.com/mine", dep.Url.ToString());
             Assert.AreEqual("1.0.0.SNAPSHOT", dep.VersionString);
 
-            var child1 = dep.Transitive[0];
+            var child1 = dep.TransitiveWishes[0];
             Assert.AreEqual("MyChildName1", child1.Name);
             Assert.AreEqual("MyChildGroup1", child1.Group);
             Assert.AreEqual("MyChildExt1", child1.Ext);
-            Assert.AreEqual("MyChildRuntime1", child1.Runtime);
+            Assert.AreEqual("mychildruntime1", child1.Runtime);
+            Assert.AreEqual("mychildarch1", child1.Arch);
+
             Assert.AreEqual("http://nowhere.com/mychild1", child1.Url.ToString());
             Assert.AreEqual("1.2.3", child1.VersionString);
-            Assert.AreEqual("arch-MyChildArch1_key1-val1_key2-val2_runtime-MyChildRuntime1", child1.ClassifiersString);
+            Assert.AreEqual("arch-mychildarch1_key1-val1_key2-val2_runtime-mychildruntime1", child1.ClassifiersString);
 
          
-            var child2 = dep.Transitive[1];
+            var child2 = dep.TransitiveWishes[1];
             Assert.AreEqual("MyChildName2", child2.Name);
             Assert.AreEqual("MyChildGroup2", child2.Group);
             Assert.AreEqual("MyChildExt2", child2.Ext);
-            Assert.AreEqual("MyChildRuntime2", child2.Runtime);
+            Assert.AreEqual("mychildruntime2", child2.Runtime);
             Assert.AreEqual("http://nowhere.com/mychild2", child2.Url.ToString());
             Assert.AreEqual("4.5.6", child2.VersionString);
          

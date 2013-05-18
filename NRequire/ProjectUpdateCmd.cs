@@ -7,12 +7,11 @@ using System.IO;
 namespace NRequire {
 
     internal class ProjectUpdateCommand {
-        private const String DEP_FILE = "nrequire.json";
 
         private readonly JsonReader m_jsonReader = new JsonReader();
 
-        internal DependencyCache LocalCache { get; set; }
-        internal DependencyCache SolutionCache { get; set; }
+        internal IDependencyCache LocalCache { get; set; }
+        internal IDependencyCache SolutionCache { get; set; }
         internal FileInfo SolutionFile { get; set; }
         internal FileInfo ProjectFile { get; set; }
         internal bool FailOnProjectChanged { get; set; }
@@ -23,13 +22,13 @@ namespace NRequire {
             CheckNotNotNull(LocalCache, "LocalCache");
             CheckNotNotNull(SolutionCache, "SolutionCache");
 
+            //TODO:merge the resolved deps with the wishes again, as we need to pull
+            //additional info from the wishes like where the user wants to copy things across too
+            //etc
             var deps = ResolveDependencies();
-            var resources = ResolveResources(deps);
-            var related = ResolveRelatedResources(deps);
+            var resources = ResolveResourcesFor(deps);
 
             CopyRequired(resources);
-            CopyRequired(related);
-
             UpdateVSProject(resources);
         }
 
@@ -59,10 +58,10 @@ namespace NRequire {
         }
 
         private IList<Dependency> ResolveDependencies() {
-            var soln = m_jsonReader.ReadSolution(LookupJsonFileFor(SolutionFile));
-            var proj = m_jsonReader.ReadProject(LookupJsonFileFor(ProjectFile));
+            var soln = m_jsonReader.ReadSolution(LookupJsonFileForSolution(SolutionFile));
+            var proj = m_jsonReader.ReadProject(LookupJsonFileForProject(ProjectFile));
 
-            var deps = DependencyResolverV1.WithCache(LocalCache).ResolveDependencies(soln, proj);
+            var deps = ProjectResolver.WithCache(LocalCache).MergeAndResolveDependencies(soln, proj);
             return deps;
         }
 
@@ -79,16 +78,21 @@ namespace NRequire {
             }
         }
 
-        private IList<Resource> ResolveResources(IEnumerable<Dependency> deps) {
+        private IList<Resource> ResolveResourcesFor(IEnumerable<Dependency> deps) {
             var notFound = new List<Resource>();
             var resources = new List<Resource>();
             //now update the project!
             foreach (var d in deps) {
-                var resource = SolutionCache.GetResourceFor(d);
-                if (!resource.Exists) {
-                    notFound.Add(resource);
+                var depResources = SolutionCache.GetResourcesFor(d);
+                foreach( var r in depResources){
+                    if(!r.IsType("pdb") && !r.IsType("xml")){
+                        if(r.Exists){
+                            resources.Add(r);
+                        } else {
+                            notFound.Add(r);
+                        }
+                    }
                 }
-                resources.Add(resource);
             }
             if (notFound.Count > 0) {
                 throw new InvalidOperationException(String.Format("Could not find dependencies [\n\t{0}\n\t]", String.Join<Resource>(",\n\t", notFound)));
@@ -96,31 +100,19 @@ namespace NRequire {
             return resources;
         }
 
-        private IList<Resource> ResolveRelatedResources(IEnumerable<Dependency> deps) {
-            var resources = new List<Resource>();
-            foreach (var dep in deps) {
-                if(dep.HasRelatedDependencies){
-                    AddRelatedResources(dep, resources);
-                }
-            }
-            return resources;
+        private FileInfo LookupJsonFileForSolution(FileInfo file) {
+            return LookupJsonFileFor(file, "solution");
+        }
+        private FileInfo LookupJsonFileForProject(FileInfo file) {
+            return LookupJsonFileFor(file, "project");
         }
 
-        private void AddRelatedResources(Dependency dep, IList<Resource> addTo) {
-            foreach (var related in dep.Related) {
-                var resource = SolutionCache.GetResourceFor(related);
-                if (resource.Exists) {
-                    addTo.Add(resource);
-                }
-            }
-        }
-
-        private FileInfo LookupJsonFileFor(FileInfo file) {
-            var jsonFileByName = new FileInfo(Path.Combine(file.DirectoryName, FileNameMinusExtension(file) + "." + DEP_FILE));
+        private FileInfo LookupJsonFileFor(FileInfo file, String typeName) {
+            var jsonFileByName = new FileInfo(Path.Combine(file.DirectoryName, FileNameMinusExtension(file) + ".nrequire." + typeName + ".json"));
             if (jsonFileByName.Exists) {
                 return jsonFileByName;
             }
-            var jsonFile = new FileInfo(Path.Combine(file.DirectoryName, DEP_FILE));
+            var jsonFile = new FileInfo(Path.Combine(file.DirectoryName, "nrequire." + typeName + ".json"));
             if (!jsonFile.Exists) {
                 throw new ArgumentException(String.Format("Neither json file '{0}' or '{1}' exists", jsonFileByName.FullName, jsonFile.FullName));
             }

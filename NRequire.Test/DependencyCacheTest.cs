@@ -13,29 +13,28 @@ namespace NRequire {
         [Test]
         public void FindWishesForDep() {
             var cache = NewDependencyCache.With()
-                .A(NewNode("A", "1.0").Wish("C", "[1.0,1.2)"))
-                .A(NewNode("A", "1.1").Wish("D", "[1.0,1.1]"))
-                .A(NewNode("B", "1.0").Wish("E", "[1.0,1.1]"));
+                .A(ModuleWith("A", "1.0").RequiresWishWith("C", "[1.0,1.2)"))
+                .A(ModuleWith("A", "1.1").RequiresWishWith("D", "[1.0,1.1]"))
+                .A(ModuleWith("B", "1.0").RequiresWishWith("E", "[1.0,1.1]"));
 
-            var actual = cache.FindWishesFor(Dep("A", "1.0"));
+            var actual = cache.FindWishesFor(DepWith("A", "1.0"));
 
-            var expect = ListWith(Wish("C", "[1.0,1.2)"));
-            AssertAreEqual(expect, actual);
+            Expect.That(actual)
+                .Is(AList.InOrder().WithOnly(AWishWith("C", "[1.0,1.2)")));
         }
 
         [Test]
         public void FindDependenciesMatching() {
             var cache = NewDependencyCache.With()
-                .A(NewNode("A", "1.0"))
-                .A(NewNode("A", "1.1"))
-                .A(NewNode("A", "1.3"))
-                .A(NewNode("A", "2.0"));
+                .A(ModuleWith("A", "1.0"))
+                .A(ModuleWith("A", "1.1"))
+                .A(ModuleWith("A", "1.3"))
+                .A(ModuleWith("A", "2.0"));
 
-            var actual = cache.FindDependenciesMatching(Wish("A", "[1.1,2.0)"));
+            var actual = cache.FindDependenciesMatching(WishWith("A", "[1.1,2.0)"));
 
-            var expect = ListWith(Dep("A", "1.3"),Dep("A", "1.1"));
-
-            AssertAreEqual(expect, actual);
+            Expect.That(actual)
+                .Is(AList.InOrder().With(ADepWith("A", "1.3")).And(ADepWith("A", "1.1")));
         }
 
 
@@ -45,45 +44,80 @@ namespace NRequire {
             var classifiersNonMatching = "key1-val1_key2-val2NonMatching";
 
             var cache = NewDependencyCache.With()
-                .Dependency(NewDependency.With().Defaults().Version("1.0.0").Classifiers(classifiersMatching))
-                .Dependency(NewDependency.With().Defaults().Version("1.2.3").Classifiers(classifiersMatching))
-                .Dependency(NewDependency.With().Defaults().Version("1.2.4").Classifiers(classifiersNonMatching))
-                .Dependency(NewDependency.With().Defaults().Version("2.3.4.SNAPSHOT").Classifiers(classifiersMatching))
+                .A(ModuleWith().Defaults().Version("1.0.0").Classifiers(classifiersMatching))
+                .A(ModuleWith().Defaults().Version("1.2.3").Classifiers(classifiersMatching))
+                .A(ModuleWith().Defaults().Version("1.2.4").Classifiers(classifiersNonMatching))
+                .A(ModuleWith().Defaults().Version("2.3.4.SNAPSHOT").Classifiers(classifiersMatching))
             ;
-            var versions = cache.GetVersionsMatching(NewDependencyWish.With().Defaults().Classifiers(classifiersMatching));
+            var deps = cache.FindDependenciesMatching(WishWith().Defaults().Classifiers(classifiersMatching));
          
-            Assert.AreEqual(Versions("2.3.4.SNAPSHOT","1.2.3","1.0.0"), versions);
+            Expect
+                .That(deps)
+                    .Is(AList.InOrder().WithOnly(
+                        ADepWith().Version("2.3.4.SNAPSHOT"),
+                        ADepWith().Version("1.2.3"),
+                        ADepWith().Version("1.0.0")));
         }
 
         [Test]
-        public void DependenciesForWish() {
+        public void DependenciesWithClassifiersAnyVersionForWish() {
             var classifiersMatching = "key1-val1_key2-val2";
             var classifiersNonMatching = "key1-val1_key2-val2NonMatching";
 
             var cache = NewDependencyCache.With()
-                .Dependency(NewDependency.With().Defaults().Version("1.0.0").Classifiers(classifiersMatching))
-                .Dependency(NewDependency.With().Defaults().Version("1.2.3").Classifiers(classifiersMatching))
-                .Dependency(NewDependency.With().Defaults().Version("1.2.4").Classifiers(classifiersNonMatching))
-                .Dependency(NewDependency.With().Defaults().Version("2.3.4.SNAPSHOT").Classifiers(classifiersMatching))
+                .A(ModuleWith().Defaults().Version("1.0.0").Classifiers(classifiersMatching))
+                .A(ModuleWith().Defaults().Version("1.2.3").Classifiers(classifiersMatching))
+                .A(ModuleWith().Defaults().Version("1.2.4").Classifiers(classifiersNonMatching))
+                .A(ModuleWith().Defaults().Version("2.3.4.SNAPSHOT").Classifiers(classifiersMatching))
             ;
-            var actual = cache.FindDependenciesMatching(NewDependencyWish.With().Defaults().Classifiers(classifiersMatching));
+            var actual = cache.FindDependenciesMatching(NewWish.With().Defaults().Classifiers(classifiersMatching));
 
             Expect
                 .That(actual)
-                .Is(AList
-                    .With(ADependency.With().Version("2.3.4.SNAPSHOT"))
-                    .And(ADependency.With().Version("1.2.3"))
-                    .And(ADependency.With().Version("1.0.0")));
+                .Is(AList.InOrder()
+                    .With(ADepWith().Version("2.3.4.SNAPSHOT"))
+                    .And(ADepWith().Version("1.2.3"))
+                    .And(ADepWith().Version("1.0.0")));
         }
 
-
-       
         [Test]
-        public void ListWishesForDependency() {
+        public void ListWishesForDependencyClassfiers() {
+            var classifiersMatching = "key1-val1_key2-val2";
+            var classifiersNonMatching = "key1-val1_key2-val2NonMatching";
 
+            var cache = NewDependencyCache.With()
+                .A(ModuleWith().Defaults().Version("1.0.0").Classifiers(classifiersMatching))
+                .A(ModuleWith().Defaults().Version("1.2.3").Classifiers(classifiersMatching))
+                .A(ModuleWith().Defaults().Version("2.0.0").Classifiers(classifiersNonMatching))
+                .A(ModuleWith().Defaults().Version("1.2.5").Classifiers(classifiersNonMatching))
+            ;
+            var actual = cache.FindDependenciesMatching(NewWish.With().Defaults().Classifiers(classifiersMatching));
+
+            Expect
+                .That(actual)
+                .Is(AList.InOrder()
+                    .With(ADepWith().Version("1.2.3"))
+                    .And(ADepWith().Version("1.0.0")));
         }
 
+        [Test]
+        public void ListWishesForDependencyVersion() {
 
+            var cache = NewDependencyCache.With()
+                .A(ModuleWith().Defaults().Version("1.0.0"))
+                .A(ModuleWith().Defaults().Version("1.2.0"))
+                .A(ModuleWith().Defaults().Version("1.2.5"))
+                .A(ModuleWith().Defaults().Version("1.3.0"))
+                .A(ModuleWith().Defaults().Version("2.0.0"))
+            ;
+            var actual = cache.FindDependenciesMatching(NewWish.With().Defaults().Version("[1.2,1.3)"));
+
+            Expect
+                .That(actual)
+                .Is(AList.InOrder()
+                    .With(ADepWith().Version("1.2.5"))
+                    .And(ADepWith().Version("1.2.0")));
+        }
         private static IList<Version> Versions(params String[] versionStrings) {
             var list = new List<Version>();
             foreach (var s in versionStrings) {
