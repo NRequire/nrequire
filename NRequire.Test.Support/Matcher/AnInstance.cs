@@ -6,7 +6,7 @@ using System.Text;
 namespace NRequire.Matcher {
     public static class AnInstance {
 
-        public static IExtendedMatcher<T> SameAs<T>(T expect) where T : class {
+        public static IExtendedMatcher<T> SameAs<T>(T expect) {
             if (expect == null) {
                 return Null<T>();
             }
@@ -15,7 +15,7 @@ namespace NRequire.Matcher {
                 () => "same instance as " + expect.ToString());
         }
 
-        public static IExtendedMatcher<T> EqualTo<T>(T expect) where T:class{
+        public static IExtendedMatcher<T> EqualTo<T>(T expect) {
             if (expect == null) {
                 return Null<T>();
             }
@@ -24,7 +24,7 @@ namespace NRequire.Matcher {
                 ()=>"AnInstance equal to " + expect.ToString());
         }
 
-        public static IExtendedMatcher<T> Null<T>() where T:class {
+        public static IExtendedMatcher<T> Null<T>()  {
             return FunctionMatcher.For<T>(
                 (actual) => actual == null,
                 () => "AnInstance equal to null");

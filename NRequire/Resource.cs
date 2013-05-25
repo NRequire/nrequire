@@ -11,10 +11,10 @@ namespace NRequire {
         public String Type { get { return File.Extension.Substring(1).ToLowerInvariant() ; } }
         public bool Exists { get { return File.Exists; } }
         public FileInfo File { get; private set; }
-        public Dependency Dep { get; set; }
+        public IResolved Dep { get; set; }
         public DateTime TimeStamp { get { return File.LastWriteTime;  } }
 
-        public Resource(Dependency dep, FileInfo fullPath, String vsProjectPath) {
+        public Resource(IResolved dep, FileInfo fullPath, String vsProjectPath) {
             Dep = dep;
             File = fullPath;
             VSProjectPath = vsProjectPath;

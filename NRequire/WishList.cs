@@ -12,7 +12,7 @@ namespace NRequire {
         }
 
         public void MergeChild(Wish wish) {
-            var key = wish.Signature();
+            var key = wish.GetKey();
 
             Wish existing;
             if (m_wishesByKey.TryGetValue(key, out existing)) {
@@ -27,7 +27,7 @@ namespace NRequire {
         }
 
         public void AddOrFailIfExists(Wish wish) {
-            var key = wish.Signature();
+            var key = wish.GetKey();
             if (m_wishesByKey.ContainsKey(key)) {
                 throw new ResolutionException("Duplicate wish :" + wish);
             }

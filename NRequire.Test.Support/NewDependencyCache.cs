@@ -26,7 +26,7 @@ namespace NRequire {
             return m_cache.CacheDir;
         }
 
-        public IList<Resource> GetResourcesFor(Dependency d) {
+        public IList<Resource> GetResourcesFor(IResolved d) {
             return m_cache.GetResourcesFor(d);
         }
 
@@ -34,7 +34,7 @@ namespace NRequire {
             return m_cache.FindDependenciesMatching(wish);
         }
 
-        public IList<Wish> FindWishesFor(Dependency d) {
+        public IList<Wish> FindWishesFor(IResolved d) {
             return m_cache.FindWishesFor(d);
         }
 
@@ -45,7 +45,7 @@ namespace NRequire {
 
         public NewDependencyCache A(Module module) {
             var resourceFile = m_cache.GetFullPathFor(module);
-            WriteFileWithContent(resourceFile, "module:" + module.ToString());
+            WriteFileWithContent(resourceFile, "module.binary.file.for:" + module.ToString());
 
             //write the wishes to disk
             var jsonFile = m_cache.GetFullPathFor(m_cache.GetRelPathFor(module) + ".nrequire.module.json");

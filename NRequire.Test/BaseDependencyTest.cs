@@ -38,6 +38,11 @@ namespace NRequire
             return ADependency.With();
         }
 
+        /// <summary>
+        /// Parse from  group:name:version:ext:classifiers:scope
+        /// </summary>
+        /// <param name="parseString"></param>
+        /// <returns></returns>
         protected Wish WishFrom(String parseString) {
             return Wish.Parse(parseString);
         }
@@ -58,6 +63,11 @@ namespace NRequire
             return AWish.With();
         }
 
+        /// <summary>
+        /// Parse from  group:name:version:ext:classifiers
+        /// </summary>
+        /// <param name="parseString"></param>
+        /// <returns></returns>
         protected NewModule ModuleFrom(String parseString) {
             return NewModule.Parse(parseString);
         }

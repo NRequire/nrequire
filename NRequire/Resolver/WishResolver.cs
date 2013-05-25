@@ -17,6 +17,10 @@ namespace NRequire.Resolver
         private static readonly int RecursionLimitDepth = 150;
         private static readonly int RecursionLimitWidth = 300;
 
+        public static WishResolver WithCache(IDependencyCache cache) {
+            return new WishResolver(cache);
+        }
+
         internal WishResolver(IDependencyCache cache)
         {
             m_cache = cache;
@@ -25,16 +29,19 @@ namespace NRequire.Resolver
         public List<Dependency> Resolve(IList<Wish> require)
         {
             //todo:extract transitive
-
+            foreach (var wish in require) {
+                Log.Trace("require : " + wish.SafeToSummary());
+            }
             var root = new ResolverLine(m_cache);
             foreach (var wish in require) {
                 root.AddWish(wish);
             }
+
             var resolved = Resolve(root);
             if (Log.IsDebugEnabled()) {
                 Log.Debug("resolved dependencies:");
                 foreach (var dep in resolved) {
-                    Log.Debug(dep.Summary());
+                    Log.Debug(dep.SafeToSummary());
                 }
             }
             return resolved;
@@ -45,7 +52,7 @@ namespace NRequire.Resolver
             var resolved = new List<Dependency>();
             firstLine.ResolveWhatCanBe();
             firstLine.CanMatchOrThrow();
-            if (firstLine.IsAllResolvedTo()) {
+            if (firstLine.IsAllResolved()) {
                 Log.Debug("line resolved, collecting results");
                 resolved = firstLine.FindAllResolved();
             } else {
@@ -71,7 +78,7 @@ namespace NRequire.Resolver
                 if (nodePosition > RecursionLimitWidth) {
                     throw new ResolverException(ResolverException.InfiniteRecursion + ", in sideways traverse");
                 }
-                if (nextLine.IsAllResolvedTo()) {
+                if (nextLine.IsAllResolved()) {
                     Log.Debug("Line resolved, collecting results");
                     var found = nextLine.FindAllResolved();
                     resolved.AddRange(found);

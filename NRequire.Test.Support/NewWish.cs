@@ -13,6 +13,16 @@ namespace NRequire {
             return new NewWish();
         }
 
+        /// <summary>
+        /// Parse from group:name:version:ext:classifiers:scope
+        /// </summary>
+        /// <param name="fullString">Full string.</param>
+        public static new NewWish Parse(String fullString) {
+            var wish = new NewWish();
+            wish.SetAllFromParse(fullString);
+            return wish;
+        }
+
         public Wish Build(){
             return this.Clone();
         }

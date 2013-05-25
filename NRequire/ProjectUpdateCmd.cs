@@ -25,11 +25,42 @@ namespace NRequire {
             //TODO:merge the resolved deps with the wishes again, as we need to pull
             //additional info from the wishes like where the user wants to copy things across too
             //etc
-            var deps = ResolveDependencies();
-            var resources = ResolveResourcesFor(deps);
+            var soln = m_jsonReader.ReadSolution(LookupJsonFileForSolution(SolutionFile));
+            var proj = m_jsonReader.ReadProject(LookupJsonFileForProject(ProjectFile));
 
-            CopyRequired(resources);
-            UpdateVSProject(resources);
+            //all the stuff we need to meet all the requirements
+            var deps = ProjectResolver
+                    .WithCache(LocalCache)
+                    .MergeAndResolveDependencies(soln, proj);
+            //merge the reolved deps with the additional wish settings like copyToDir, scope etc
+            var wishesBySig = proj
+                    .GetAllWishes()
+                    .ToDictionary(w=>w.GetKey());
+
+            var holders = new List<ResourceHolder>();
+            foreach (var d in deps) {
+                var holder = new ResourceHolder {
+                    Dep = d
+                }; 
+                Wish wish;
+                if (wishesBySig.TryGetValue(d.GetKey(), out wish)) {
+                    if (wish.Scope == Scopes.Provided) {
+                        //skip,expect it to exist
+                        continue;
+                    }
+                    holder.Wish = wish;
+                }
+                holder.Resources = SolutionCache.GetResourcesFor(d);
+                holders.Add(holder);
+            }
+            CopyRequired(holders);
+            UpdateVSProject(holders);
+        }
+
+        public class ResourceHolder {
+            public Wish Wish { get; set; }
+            public Dependency Dep { get; set; }
+            public IList<Resource> Resources { get; set; }
         }
 
         private static void CheckNotNotNull<T>(T val, String name) where T:class {
@@ -38,66 +69,49 @@ namespace NRequire {
             }
         }
 
-        //and deps marked with a copyTo property will be copied into the appropriate destination 
-        private void CopyRequired(IEnumerable<Resource> resources) {
-            foreach (var r in resources) {
-                if (!String.IsNullOrEmpty(r.Dep.CopyTo)) {
-                    CopyResource(r);
+        //and wishes marked with a copyTo property will be copied into the appropriate destination 
+        //else just referenced directly from the local cache
+        private void CopyRequired(IEnumerable<ResourceHolder> holders) {
+            foreach (var h in holders) {
+                if (h.Wish != null && !String.IsNullOrEmpty(h.Wish.CopyTo)) {
+                    CopyResources(h.Resources, h.Wish.CopyTo);
                 }
             }
         }
 
-        private void CopyResource(Resource resource) {
+        private void CopyResources(IEnumerable<Resource>  resources, String path) {
             var projDir = ProjectFile.Directory;
             //TODO:look if absolute or relative?
-            var targetFile = new FileInfo(Path.Combine(projDir.FullName, resource.Dep.CopyTo, resource.File.Name));
-
-            if (!targetFile.Exists || targetFile.LastWriteTime != resource.TimeStamp) {
-                resource.CopyTo(targetFile);
+            foreach (var r in resources) {
+                var targetFile = new FileInfo(Path.Combine(projDir.FullName, path, r.File.Name));
+                if (!targetFile.Exists || targetFile.LastWriteTime != r.TimeStamp) {
+                    r.CopyTo(targetFile);
+                }
             }
         }
 
-        private IList<Dependency> ResolveDependencies() {
-            var soln = m_jsonReader.ReadSolution(LookupJsonFileForSolution(SolutionFile));
-            var proj = m_jsonReader.ReadProject(LookupJsonFileForProject(ProjectFile));
-
-            var deps = ProjectResolver.WithCache(LocalCache).MergeAndResolveDependencies(soln, proj);
-            return deps;
-        }
-
-        public void UpdateVSProject(IEnumerable<Resource> resources) {
-            //some deps may be copied or available elsewhere and not needed for compilation
-            var applyResources = resources.Where((r) => r.Dep.Scope != Scopes.Provided);
+        private void UpdateVSProject(IEnumerable<ResourceHolder> holders) {
+            var refs = new List<VSProject.Reference>();
+            foreach (var h in holders) {
+                foreach (var r in h.Resources) {
+                    if( !r.IsType("pdb") && !r.IsType("xml")){
+                        var reference = new VSProject.Reference {
+                            Include = h.Dep.Name,
+                            HintPath = r.VSProjectPath,
+                            EmbeddedResource = h.Wish!=null &&h.Wish.CopyTo !=null
+                        };
+                        refs.Add(reference);
+                    }
+                }
+            }
 
             var changed = VSProject
                 .FromPath(ProjectFile)
-                .UpdateReferences(applyResources);
+                .UpdateReferences(refs);
 
             if (changed && FailOnProjectChanged) {
                 throw new FailBuildException(String.Format("VS Project  '{0}' needed updating and fail enabled so stopping the build", ProjectFile.FullName));
             }
-        }
-
-        private IList<Resource> ResolveResourcesFor(IEnumerable<Dependency> deps) {
-            var notFound = new List<Resource>();
-            var resources = new List<Resource>();
-            //now update the project!
-            foreach (var d in deps) {
-                var depResources = SolutionCache.GetResourcesFor(d);
-                foreach( var r in depResources){
-                    if(!r.IsType("pdb") && !r.IsType("xml")){
-                        if(r.Exists){
-                            resources.Add(r);
-                        } else {
-                            notFound.Add(r);
-                        }
-                    }
-                }
-            }
-            if (notFound.Count > 0) {
-                throw new InvalidOperationException(String.Format("Could not find dependencies [\n\t{0}\n\t]", String.Join<Resource>(",\n\t", notFound)));
-            }
-            return resources;
         }
 
         private FileInfo LookupJsonFileForSolution(FileInfo file) {

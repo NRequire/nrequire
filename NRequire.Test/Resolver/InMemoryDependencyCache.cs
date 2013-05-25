@@ -14,9 +14,9 @@ namespace NRequire
     internal class InMemoryDependencyCache : IDependencyCache
     {
 		private static readonly Logger Log = Logger.GetLogger(typeof(InMemoryDependencyCache));
-        private static readonly SortedList<Version,Dependency> EmptyList = NewSortedList();
+        private static readonly SortedList<Version, IResolved> EmptyList = NewSortedList();
 
-        private Dictionary<String,SortedList<Version,Dependency>> m_depsBySignatureKey = new Dictionary<string, SortedList<Version,Dependency>>();
+        private Dictionary<String, SortedList<Version, IResolved>> m_depsBySignatureKey = new Dictionary<string, SortedList<Version, IResolved>>();
         private Dictionary<String, Module> m_modulesByVersionKey = new Dictionary<string, Module>();
 
         public static InMemoryDependencyCache With(){
@@ -42,25 +42,25 @@ namespace NRequire
             }
             m_modulesByVersionKey.Add(VersionKeyFor(module), module);
             return this;
-        }   
-
-        private static SortedList<Version,Dependency> NewSortedList()
-        {
-            return new SortedList<Version,Dependency>(InvertedComparer.Instance);
         }
 
-        public bool ContainsDependency(Dependency d)
+        private static SortedList<Version, IResolved> NewSortedList()
+        {
+            return new SortedList<Version, IResolved>(InvertedComparer.Instance);
+        }
+
+        public bool ContainsDependency(IResolved d)
         {
             var deps = FindByKey(KeyFor(d));
             return deps.Count > 0;
         }
 
-        public IList<Resource> GetResourcesFor(Dependency d)
+        public IList<Resource> GetResourcesFor(IResolved d)
         {
             throw new NotImplementedException();
         }
 
-        public IList<Wish> FindWishesFor(Dependency d)
+        public IList<Wish> FindWishesFor(IResolved d)
         {
             var key = VersionKeyFor(d);
             Module node;
@@ -73,7 +73,16 @@ namespace NRequire
         public IList<Dependency> FindDependenciesMatching(Wish wish)
         {
             var deps = FindByKey(KeyFor(wish));
-            return deps.Values.Where(d=>wish.Version.Match(d.Version)).Select(d=>d.Clone()).ToList();
+            return deps.Values
+                    .Where(d => wish.Version.Match(d.Version))
+                    .Select(r => new Dependency{
+                        Name = r.Name,
+                        Group = r.Group,
+                        Ext = r.Ext,
+                        Classifiers = r.Classifiers.Clone(),
+                        Version = r.Version
+                    })
+                    .ToList();
         }
 
         public IList<Version> FindVersionsMatching(Wish wish)
@@ -82,23 +91,23 @@ namespace NRequire
             return deps.Keys.Where(v=>wish.Version.Match(v)).ToList();
         }
 
-        private SortedList<Version,Dependency> FindByKey(String key)
+        private SortedList<Version,IResolved> FindByKey(String key)
         {
-            SortedList<Version,Dependency> deps;
+            SortedList<Version, IResolved> deps;
             if (!m_depsBySignatureKey.TryGetValue(key, out deps)) {
                 return EmptyList;
             }
             return deps;
         }
 
-        private String VersionKeyFor(Dependency d)
+        private String VersionKeyFor(IResolved d)
         {
             return KeyFor(d) + "-" + d.Version.ToString();
         }
 
-        private String KeyFor(AbstractDependency d)
+        private String KeyFor(IResolvable d)
         {
-            return d.Signature();
+            return d.GetKey();
         }
 
         private class InvertedComparer : IComparer<Version>

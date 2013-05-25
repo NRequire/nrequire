@@ -5,13 +5,14 @@ using System.Text;
 using System.IO;
 using Newtonsoft.Json;
 using NRequire.Json;
+using NRequire.Util;
 
 namespace NRequire {
 
 	/// <summary>
 	/// A wish for a dependency which matches the given criteria
 	/// </summary>
-    public class Wish : AbstractDependency,IRequireLoadNotification {
+    public class Wish : AbstractDependency,IRequireLoadNotification, IResolvable {
 
         [JsonConverter(typeof(VersionMatcherConverter))]
         public VersionMatcher Version { get; set; }
@@ -34,6 +35,8 @@ namespace NRequire {
         /// </summary>
         public List<Wish> TransitiveWishes { get; set;  }
 
+        public String CopyTo { get; set; }
+
         /// <summary>
         /// Create a new wish set to require the exact given version
         /// </summary>
@@ -47,30 +50,36 @@ namespace NRequire {
         }
 
         /// <summary>
-        /// Parse from  group:name:version:ext:classifiers
+        /// Parse from  group:name:version:ext:classifiers:scope
         /// </summary>
         /// <param name="fullString">Full string.</param>
         public static Wish Parse(String fullString) {
             var wish = new Wish();
-
-            var parts = fullString.Split(new char[] { ':' });
-            if (parts.Length > 0) {
-                wish.Group = parts[0];
-            }
-            if (parts.Length > 1) {
-                wish.Name = parts[1];
-            }
-            if (parts.Length > 2) {
-                wish.Version = VersionMatcher.Parse(parts[2]);
-            }
-            if (parts.Length > 3) {
-                wish.Ext = parts[3];
-            }
-            if (parts.Length > 4) {
-                wish.Classifiers = Classifiers.Parse(parts[4]);
-            }
-
+            wish.SetAllFromParse(fullString);
             return wish;
+        }
+
+        protected void SetAllFromParse(String fullString) {
+
+            DepParser.Parse(fullString,
+                (s) => Group = s,
+                (s) => Name = s,
+                (s) => Version = VersionMatcher.Parse(s),
+                (s) => Ext = s,
+                (s) => Classifiers = Classifiers.Parse(s),
+                (s) => Scope = (Scopes)Enum.Parse(typeof(Scopes),s,true))
+                ;
+        }
+
+        private static String CleanOrValue(String v, String defaultVal) {
+            if( v == null){
+                return defaultVal;
+            }
+            v = v.Trim();
+            if (v.Length == 0) {
+                return defaultVal;
+            }
+            return v;
         }
 
         public void AfterLoad() {
@@ -87,6 +96,7 @@ namespace NRequire {
             Clone(clone);
             clone.Version = Version;
             clone.Scope = Scope;
+            clone.CopyTo = CopyTo;
             clone.TransitiveWishes = TransitiveWishes==null?new List<Wish>():new List<Wish>(TransitiveWishes);
             return clone;
         }
@@ -178,9 +188,9 @@ namespace NRequire {
                 return new List<Wish>(parentWishes);
             }
 
-            var merged = parentWishes.ToDictionary(d=>d.Signature());
+            var merged = parentWishes.ToDictionary(d=>d.GetKey());
             foreach (var wish in childWishes) {
-                var sig = wish.Signature();
+                var sig = wish.GetKey();
                 if (merged.ContainsKey(sig)) {
                     var parentDep = merged[sig];
                     //merged.Remove(key);
@@ -218,21 +228,15 @@ namespace NRequire {
             }
         }
 
-        public override string ToString() {
-            var sb = new StringBuilder("DependencyWish@").Append(GetHashCode()).Append("<");
-            sb.Append("\n\tGroup=").Append(Group);
-            sb.Append(",\n\tName=").Append(Name);
+        protected override void ToString(StringBuilder sb) {
+            base.ToString(sb);
             sb.Append(",\n\tVersion=").Append(Version);
-            sb.Append(",\n\tExt=").Append(Ext);
-            sb.Append(",\n\tArch=").Append(Arch);
-            sb.Append(",\n\tRuntime=").Append(Runtime);
-            sb.Append(",\n\tClassifiers=").Append(Classifiers);
-            sb.Append(",\n\tUrl=").Append(Url);
             sb.Append(",\n\tCopyTo=").Append(CopyTo);
-            sb.Append(",\n\tSource=").Append(Source);
-            sb.Append(",\n\tScope=").Append(Scope);
-            sb.Append(">");
-            return sb.ToString();
+            sb.Append(",\n\tTransitiveWishes=").Append(String.Join(",\n\t\t", TransitiveWishes));
+        }
+
+        public override String ToSummary() {
+            return String.Format(GetType().Name + "<{0}:{1}:{2}:{3}>", GetKey(), Version, Ext, Scope);
         }
     }
 }

@@ -74,6 +74,10 @@
     <Compile Include="CommandLineParser.cs" />
     <Compile Include="CommandParseException.cs" />
     <Compile Include="ConsoleLogAppender.cs" />
+    <Compile Include="IHaveSignature.cs" />
+    <Compile Include="IResolved.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Util\DepParser.cs" />
     <Compile Include="WishList.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Wish.cs" />
@@ -91,7 +95,6 @@
     <Compile Include="Matcher\RangeMatcher.cs" />
     <Compile Include="ResolutionException.cs" />
     <Compile Include="Resolver\AllWishSets.cs" />
-    <Compile Include="Resolver\Extensions.cs" />
     <Compile Include="Resolver\ResolverException.cs" />
     <Compile Include="Resolver\ResolverLine.cs" />
     <Compile Include="Resolver\ResolverWishSet.cs" />

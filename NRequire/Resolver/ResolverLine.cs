@@ -41,21 +41,21 @@ namespace NRequire.Resolver
             //TODO:introduce a strategy here to allow different pick strategies
             //pick a version of each requirement. Pick versions with the least amount of change first
             //a.k.a build incr first, then minor, then major
-            foreach (var unfixed in m_wishSets.FindAllUnfixedWishSets().Where(w=>w.RequiresResolution())) {
+            foreach (var unfixed in m_wishSets.FindAllUnfixedWishSets().Where(w => !w.HasOnlyTransitive())) {
                 Dependency fixedDep;
                 do {
                     var nextWishSetToBeFixed = m_wishSets.LocalWishSetFor(unfixed.FirstWish);
-                    Log.Debug("picking dep for wishes : " + nextWishSetToBeFixed.Summary());
+                    Log.Debug("picking dep for wishes : " + nextWishSetToBeFixed.ToSummary());
                     fixedDep = nextWishSetToBeFixed.PickNextFixedDependency();
-                    Log.Debug("picked dep : " + fixedDep.Summary());
+                    Log.Debug("picked dep : " + fixedDep.SafeToSummary());
                     if (fixedDep == null) {
-                        Log.Debug("no more options for : " + nextWishSetToBeFixed.Summary());
+                        Log.Debug("no more options for : " + nextWishSetToBeFixed.SafeToSummary());
                         //no more deps to pick from, lets try to pick another wish to fix tos a set dependency
                         continue;
                     }
                     var nextLine = NewChildLine();
                     var fixedWish = new Wish(fixedDep){Scope = unfixed.HighestScope};
-                    Log.Debug("fixing dep using wish : " + fixedWish.Summary());
+                    Log.Debug("fixing dep using wish : " + fixedWish.SafeToSummary());
                     nextLine.AddWish(fixedWish);
                     nextLine.ResolveWhatCanBe();
                     if (nextLine.CanMatch()) {
@@ -74,7 +74,7 @@ namespace NRequire.Resolver
         /// </summary>
         public List<Dependency> FindAllResolved()
         {
-            return m_wishSets.FindAllResolved().ToList();
+            return m_wishSets.FindAllResolvedDeps().ToList();
         }
 
         public void ResolveWhatCanBe()
@@ -98,9 +98,9 @@ namespace NRequire.Resolver
         /// <summary>
         /// Are all the wishes we have so far resolved?
         /// </summary>
-        public bool IsAllResolvedTo()
+        public bool IsAllResolved()
         {
-            return m_wishSets.IsAllResolvedTo();
+            return m_wishSets.IsAllResolved();
         }
 
         private bool CanMatch()
@@ -115,7 +115,7 @@ namespace NRequire.Resolver
 
         private static String Key(Wish wish)
         {
-            return wish.Group + "-" + wish.Name;
+            return wish.GetKey();
         }
     }
 }

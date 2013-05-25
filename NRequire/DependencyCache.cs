@@ -15,7 +15,7 @@ namespace NRequire {
         /// </summary>
         /// <param name="d"></param>
         /// <returns></returns>
-        IList<Resource> GetResourcesFor(Dependency d);
+        IList<Resource> GetResourcesFor(IResolved d);
 
         /// <summary>
         /// Find all the dependencies which match the given wish.
@@ -29,7 +29,7 @@ namespace NRequire {
         /// </summary>
         /// <param name="dep"></param>
         /// <returns>a modifiable list of wishes which are free to be modified (changes will not be reflected in the cache)</returns>
-        IList<Wish> FindWishesFor(Dependency dep);
+        IList<Wish> FindWishesFor(IResolved dep);
     }
 
     public class DependencyCache : IDependencyCache {
@@ -59,37 +59,27 @@ namespace NRequire {
         }
 
         public IList<Dependency> FindDependenciesMatching(Wish wish){
-            Log.DebugFormat("find deps matching '{0}'", wish);
+            Log.DebugFormat("find deps matching {0}", wish.SafeToSummary());
             //TODO:reverse this so deps are returned and versions extracted?
             var deps= FindAllVersionsFor(wish)
                 .Where(v=>wish.Version==null||wish.Version.Match(v))
-                .Select(v => new Dependency {
-                    Group = wish.Group,
-                    Name = wish.Name,
-                    Ext = wish.Ext,
-                    Classifiers = wish.Classifiers.Clone(),
-                    Version = v,
-                    Source = new SourceLocations(Source).Add(wish.Source),
-                    CopyTo = wish.CopyTo,
-                    //Related = wish.Related,
-                    Url = wish.Url
-                    
-            }).ToList();
+                .Select(v => ReadModuleForOrCreate(wish, v).ToDependency())
+                .ToList();
             Log.Debug("found " + deps.Count);
             return deps;
         }
 
-        private IList<Version> FindAllVersionsFor(AbstractDependency dep){
-            Log.DebugFormat("finding versions for '{0}'", dep);
+        private IList<Version> FindAllVersionsFor(IResolvable resolvable){
+            Log.DebugFormat("finding versions for {0}", resolvable.SafeToSummary());
 
-            var relPath = String.Format("{0}\\{1}", dep.Group, dep.Name);
+            var relPath = String.Format("{0}\\{1}", resolvable.Group, resolvable.Name);
             var topVersionsDir = new DirectoryInfo(Path.Combine(CacheDir.FullName,relPath));
             Log.TraceFormat("topVersionsDir '{0}'", topVersionsDir.FullName);
             if(!topVersionsDir.Exists){
                 return new List<Version>();
             }
             //And what about empty?
-            var classifierPathPart = ToPathPart(dep.Classifiers);
+            var classifierPathPart = ToPathPart(resolvable.Classifiers);
             //TODO:cache this?
             //.Where((versionDir) => Directory.GetDirectories(Path.Combine(dir.FullName,versionDir)).Contains(classifiers));
             //check each contains the matching classifiers
@@ -112,21 +102,21 @@ namespace NRequire {
 
             Log.Debug("found " + versions.Count);
             if (Log.IsTraceEnabled()) {
-                Log.TraceFormat("Versions found for dep {0} and classifier '{1}' were {2}", dep, dep.Classifiers, String.Join(",", versions));
+                Log.TraceFormat("Versions found for {0} and classifier '{1}' were {2}", resolvable.SafeToSummary(), resolvable.Classifiers, String.Join(",", versions));
             }
             return versions;
         }
 
-        public IList<Resource> GetResourcesFor(Dependency dep) {
-            Log.DebugFormat("Finding resources for dep {0}", dep);
+        public IList<Resource> GetResourcesFor(IResolved resolved) {
+            Log.DebugFormat("Finding resources for {0}", resolved.SafeToSummary());
             var resources = new List<Resource>();
-            var relPathMinusExt = GetRelPathFor(dep);
-            var depPath = GetFullPathFor(relPathMinusExt + "." + dep.Ext);
+            var relPathMinusExt = GetRelPathFor(resolved);
+            var depPath = GetFullPathFor(relPathMinusExt + "." + resolved.Ext);
             Log.TraceFormat("checking dep is locally copied, file={0}", depPath);
             //download from upstream
             if (!depPath.Exists) {
                 if (UpstreamCache != null) {
-                    var upstreamResources = UpstreamCache.GetResourcesFor(dep);
+                    var upstreamResources = UpstreamCache.GetResourcesFor(resolved);
                     foreach (var r in upstreamResources) {
                         var localResourcePath = GetFullPathFor(relPathMinusExt + "." + r.Type);
                         Log.TraceFormat("localResourcePath '{0}'", localResourcePath);
@@ -137,12 +127,12 @@ namespace NRequire {
                         r.CopyTo(localResourcePath);
                     }
                 } else {
-                    throw new Exception("couldn't find resources for dep : " + dep);
+                    throw new Exception("couldn't find resources for : " + resolved.SafeToSummary());
                 }
             }
             //TODO:ad more error checking around here to fail if expected resources don't exist (e.g. the dll)
            
-            var extensions = FindExtensionsFor(dep);
+            var extensions = FindExtensionsFor(resolved);
             if( Log.IsTraceEnabled()){
                 Log.TraceFormat("Found extensions [{0}]", String.Join(",",extensions));
             }
@@ -151,7 +141,7 @@ namespace NRequire {
                 var resourcePath = GetFullPathFor(resourceRelPath);
                 //TODO:if SNAPSHOT,then check localcache timestamp
                 if (resourcePath.Exists) {
-                    resources.Add(new Resource(dep, resourcePath, VSProjectBaseSymbol + "\\" + resourceRelPath));
+                    resources.Add(new Resource(resolved, resourcePath, VSProjectBaseSymbol + "\\" + resourceRelPath));
                 }
             }
             if( Log.IsTraceEnabled()){
@@ -162,13 +152,13 @@ namespace NRequire {
             return resources;
         }
 
-        private List<String> FindExtensionsFor(Dependency dep){
+        private List<String> FindExtensionsFor(IResolved resolved) {
             var relatedExtensions = new List<String>();
-            if (DefaultRelatedByExt.ContainsKey(dep.Ext)) {
-                relatedExtensions.AddRange(DefaultRelatedByExt[dep.Ext]);
+            if (DefaultRelatedByExt.ContainsKey(resolved.Ext)) {
+                relatedExtensions.AddRange(DefaultRelatedByExt[resolved.Ext]);
             }
-            if (!relatedExtensions.Contains(dep.Ext)) {
-                relatedExtensions.Add(dep.Ext);
+            if (!relatedExtensions.Contains(resolved.Ext)) {
+                relatedExtensions.Add(resolved.Ext);
             }
             //TODO:need to grab this from the modules file at some point
 /*            if (dep.Related.Count > 0) {
@@ -177,43 +167,57 @@ namespace NRequire {
             return relatedExtensions;
         }
 
-        public IList<Wish> FindWishesFor(Dependency dep){
-            Log.Debug("Finding wishes for " + dep);
-            var file = GetFullPathFor(GetRelPathFor(dep) + ".nrequire.module.json");
-            Log.TraceFormat("looking for module file {0}", file.FullName);
-            var wishes = new List<Wish>();
-            if(file.Exists){
-                var module = m_reader.Read<Module>(file);
-                wishes.AddRange(module.RuntimeWishes);
-                wishes.AddRange(module.OptionalWishes);
-                wishes.AddRange(module.TransitiveWishes);
-
-                Log.TraceFormat("Found module {0}", module);
-            }
+        public IList<Wish> FindWishesFor(IResolved resolved) {
+            Log.Debug("Finding wishes for " + resolved.SafeToSummary());
+            var module = ReadModuleForOrCreate(resolved);
+            var wishes = module.GetWishes();
             Log.Debug("found " + wishes.Count);
             return wishes;
         }
-
-        internal String GetRelPathWithExtFor(Dependency d) {
-            return GetRelPathWithExtFor(d,d.Version);
+        
+        private Module ReadModuleForOrCreate(IResolved resolved) {
+            return ReadModuleForOrCreate(resolved, resolved.Version);
         }
 
-        internal String GetRelPathWithExtFor(AbstractDependency d,Version v) {
-            PreConditions.NotBlank(d.Ext, "Extention", ()=>"dep=" + d);
-            return GetRelPathFor(d, v) + "." + d.Ext;
+        private Module ReadModuleForOrCreate(IResolvable resolvable, Version v) {
+            Module module;
+            var file = GetFullPathFor(GetRelPathFor(resolvable, v) + ".nrequire.module.json");
+            Log.TraceFormat("looking for module file {0}", file.FullName);
+            if (file.Exists) {
+                module = m_reader.Read<Module>(file);
+                module.Version = v;
+                Log.TraceFormat("Found module {0}", module);
+            } else {
+                module = new Module {
+                    Group = resolvable.Group,
+                    Name = resolvable.Name,
+                    Classifiers = resolvable.Classifiers.Clone(),
+                    Version = v,
+                    Ext = resolvable.Ext ?? "dll"
+                };
+            }
+            return module;
         }
 
-        internal String GetRelPathFor(Dependency d) {
-            return GetRelPathFor(d,d.Version);
+        internal String GetRelPathWithExtFor(IResolved resolved) {
+            var ext = resolved.Ext;
+            if (String.IsNullOrEmpty(ext)) {
+                ext = "dll";
+            }
+            return GetRelPathFor(resolved) + "." + ext;
         }
 
-        internal String GetRelPathFor(AbstractDependency d, Version v) {
-            PreConditions.NotBlank(d.Group, "Group", ()=>"dep=" + d);
-            PreConditions.NotBlank(d.Name, "Name", ()=>"dep=" + d);
+        internal String GetRelPathFor(IResolved resolved) {
+            return GetRelPathFor(resolved, resolved.Version);
+        }
+
+        internal String GetRelPathFor(IResolvable resolvable, Version v) {
+            PreConditions.NotBlank(resolvable.Group, "Group", ()=>"dep=" + resolvable);
+            PreConditions.NotBlank(resolvable.Name, "Name", ()=>"dep=" + resolvable);
             var parts = new List<String>(3);
-            parts.Add(String.Format("{0}\\{1}\\{2}", d.Group, d.Name, v.ToString()));
-            parts.Add(ToPathPart(d.Classifiers));
-            parts.Add(d.Name);
+            parts.Add(String.Format("{0}\\{1}\\{2}", resolvable.Group, resolvable.Name, v.ToString()));
+            parts.Add(ToPathPart(resolvable.Classifiers));
+            parts.Add(resolvable.Name);
             return Path.Combine(parts.ToArray());
         }
 
@@ -223,7 +227,7 @@ namespace NRequire {
             return String.Join("_", classifiers);
         }
 
-        internal FileInfo GetFullPathFor(Dependency d) {
+        internal FileInfo GetFullPathFor(IResolved d) {
             return GetFullPathFor(GetRelPathWithExtFor(d));
         }
 

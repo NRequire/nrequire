@@ -63,7 +63,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResolverTest.cs" />
     <Compile Include="Resolver\InMemoryDependencyCache.cs" />
-    <Compile Include="Resolver\DependencyResolverTest.cs" />
+    <Compile Include="Resolver\WishResolverTest.cs" />
     <Compile Include="NewDependencyCacheTest.cs" />
     <Compile Include="Matcher\ExactMatcherTest2.cs" />
     <Compile Include="Matcher\MatcherTest.cs" />

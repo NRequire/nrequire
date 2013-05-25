@@ -71,7 +71,7 @@ namespace NRequire {
 
             AssertDependencyCopied(projDir, "MyLibDir\\TransitiveName.TransitiveExt");
             AssertDependencyCopied(projDir, "MyLibDir\\ProvidedName.dll");
-            //solnDir.Delete(true);
+            solnDir.Delete(true);
         }
 
         private static void AssertDepResourceExists(DirectoryInfo cacheDir,String relPath) {

@@ -14,7 +14,7 @@ namespace NRequire
         {
             var cache = NewDependencyCache.With()
                 .A(ModuleWith().Defaults().Version("1.2.3")
-                    .RequiresWishWith("A","2.0"));
+                    .RuntimeWishWith("A","2.0"));
 
             var cacheDir = cache.GetCacheDir();
 
@@ -40,8 +40,8 @@ namespace NRequire
         {
             var cache = NewDependencyCache.With()
                 .A(ModuleFrom("SomeGroup:SomeName:3.0:SomeExt:Arch-SomeArch_RunTime-SomeRuntime")
-                   .RequiresWishWith(WishFrom("OtherGroup:OtherName:1.0:OtherExt:Arch-OtherArch_RunTime-OtherRuntime"))
-                   .RequiresWishWith(WishWith().Name("OtherName2").Group("OtherGroup2").Ext("OtherExt2").Arch("OtherArch2").Runtime("OtherRuntime2").Version("1.2"))
+                   .RuntimeWishWith(WishFrom("OtherGroup:OtherName:1.0:OtherExt:Arch-OtherArch_RunTime-OtherRuntime"))
+                   .RuntimeWishWith(WishWith().Name("OtherName2").Group("OtherGroup2").Ext("OtherExt2").Arch("OtherArch2").Runtime("OtherRuntime2").Version("1.2"))
             );
 
             var cacheDir = cache.GetCacheDir();

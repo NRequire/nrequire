@@ -8,6 +8,7 @@ using System.Collections;
 namespace NRequire
 {
 	//holds a collection of constraints for a given dependency
+    //builds upon parent sets to further constrain the available versions
     internal class ResolverWishSet : IMatcher<Version>
     {
         private static readonly Logger Log = Logger.GetLogger(typeof(ResolverWishSet));
@@ -34,7 +35,7 @@ namespace NRequire
 
             m_parentDependencies = cache.FindDependenciesMatching(wish);
             m_allVersionStrings = new List<String>();
-            m_key = wish.Signature();
+            m_key = wish.GetKey();
         }
 
         internal ResolverWishSet(Wish wish, ResolverWishSet parentWishList)
@@ -42,7 +43,7 @@ namespace NRequire
             m_parentDependencies = parentWishList.FindMatchingDependencies();
             FirstWish = wish;
             m_allVersionStrings = new List<string>(parentWishList.m_allVersionStrings);
-            m_key = wish.Signature();
+            m_key = wish.GetKey();
             HighestScope = parentWishList.HighestScope;
         }
 
@@ -67,18 +68,19 @@ namespace NRequire
         {
             CheckNotPicking();
             CheckKeys(wish);
-
+            var changed = false;
             if (wish.Scope > HighestScope ) {
                 HighestScope = wish.Scope;
+                changed = true;
             }
             var versionString = wish.Version.ToString();
             if (!m_allVersionStrings.Contains(versionString)) {
                 m_allVersionStrings.Add(versionString);
                 m_wishes.Add(wish);
                 m_cachedFilteredDeps = null;//reset cache to recalculate
-                return true;
+                changed = true;
             }
-            return false;
+            return changed;
         }
 
         private void CheckNotPicking()
@@ -89,8 +91,8 @@ namespace NRequire
         }
 
         private void CheckKeys(Wish wish) {
-            if (wish.Signature() != m_key) {
-                throw new ArgumentException(String.Format("wish signatures don't match. Expected '{0}' but got '{1}'", m_key, wish.Signature()));
+            if (wish.GetKey() != m_key) {
+                throw new ArgumentException(String.Format("wish signatures don't match. Expected '{0}' but got '{1}'", m_key, wish.GetKey()));
             }
         }
 		/// <summary>
@@ -100,10 +102,6 @@ namespace NRequire
         public bool CanMatch()
         {
             return FindMatchingDependencies().Count() > 0;
-        }
-
-        public bool RequiresResolution(){
-            return !HasOnlyTransitive();
         }
 
         public bool HasOnlyTransitive() {
@@ -153,7 +151,11 @@ namespace NRequire
 
         public override string ToString()
         {
-            return String.Format("DependencyWishList@{0}<key={1},wishes={2}>", base.GetHashCode(), m_key, String.Join(",", m_wishes.Select(w=>w.Version.ToString())));
+            return String.Format( base.ToString() + "<key={0},Scope={1},wishes={2}>", m_key, HighestScope, String.Join(",", m_wishes.Select(w=>w.Version.ToString())));
+        }
+
+        public String ToSummary() {
+            return String.Format(GetType().Name + "<{0}:{1}:{2}>", m_key, String.Join(",", m_allVersionStrings), HighestScope);
         }
     }
 }

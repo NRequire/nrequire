@@ -40,41 +40,51 @@ namespace NRequire.Resolver
         }
 
         public IEnumerable<ResolverWishSet> FindAllUnfixedWishSets() {
-            return m_wishSetsByKey.Values.Where(set => !set.IsFixed());
+            return m_wishSetsByKey.Values.Where(set => !set.IsFixed() && !set.HasOnlyTransitive());
         }
 
-        public bool IsAllResolvedTo() {
-            return m_wishSetsByKey.Values.Where(w=>w.RequiresResolution()).All(set => set.IsFixed());
+        public bool IsAllResolved() {
+            return m_wishSetsByKey.Values.Where(w=>!w.HasOnlyTransitive()).All(set => set.IsFixed());
         }
 
-        public bool WishExists(Wish wish) {
-            var key = Key(wish);
-            ResolverWishSet wishes;
-            if (m_wishSetsByKey.TryGetValue(key, out wishes)) {
-                return wishes.ContainsVersion(wish.Version);
-            }
-            return false;
-        }
-
-        public IEnumerable<Dependency> FindAllResolved() {
-            return m_wishSetsByKey.Values
-                .Where(set => set.IsFixed())
-                    .Select(set => set.FindMatchingDependencies().First());
-        }
 
         /// <summary>
         /// Add a wish unless there is already a matching constraint
         /// </summary>
         /// <returns>true if added, false if there was already a wish matching the same requirements</returns>
         public bool AddWish(Wish wish) {
-            //only add the wish if not already added in self or a parent
-            if (WishExists(wish)) {
+            if (FilterExistsFor(wish)) {
                 return false;
             }
+            Log.Trace("Adding " + wish.ToSummary());
             return LocalWishSetFor(wish).AddIfNotExists(wish);
         }
 
+        public bool FilterExistsFor(Wish wish) {
+            var set = GetWishSetForOrNull(wish);
+            return set != null && set.ContainsVersion(wish.Version) && set.HighestScope >= wish.Scope;
+        }
+
+        private ResolverWishSet GetWishSetForOrNull(Wish wish) {
+            ResolverWishSet set;
+            if(m_wishSetsByKey.TryGetValue(Key(wish), out set)){
+                return set;
+            }
+            return null;
+        }
+
+        public IEnumerable<Dependency> FindAllResolvedDeps() {
+            return m_wishSetsByKey.Values
+                .Where(set => set.IsFixed() && !set.HasOnlyTransitive())
+                    .Select(set => {
+                        var dep = set.FindMatchingDependencies().First();
+                        dep.Scope = set.HighestScope;
+                        return dep;
+                    });
+        }
+
         public void ResolveWhatCanBe(){
+            Log.Trace("Resolving what can be");
             var wishesAdded = false;
             //ensure the fixed versions requirements are also added to the requirements
             var keysUpdated = new List<String>();//to prevent pointless recheck of what we already just added
@@ -82,14 +92,18 @@ namespace NRequire.Resolver
                 wishesAdded = false;
                 foreach (var key in LocalKeys.Where(k=>!keysUpdated.Contains(k)).ToList()) {//because list is modified
                     var wishSet = m_wishSetsByKey[key];
-                    if(wishSet.RequiresResolution() && wishSet.IsFixed()){
+                    if(!wishSet.HasOnlyTransitive() && wishSet.IsFixed()){
+                        Log.Trace("trying to resolve:" + wishSet.SafeToSummary());
                         keysUpdated.Add(key);
                         var dep = wishSet.FindMatchingDependencies().First();//is fixed so should only be one
                         dep = dep.Clone();
                         dep.Scope = wishSet.HighestScope;
-                        Log.Debug("finding wishes for fixed dependency : " + dep.Summary());
+                        Log.Trace("adding wishes for fixed wishset dependency: " + dep.ToSummary());
                         foreach (var wish in m_cache.FindWishesFor(dep)) {
-                            wish.Scope = wishSet.HighestScope;
+                            //if( wish.Scope<wishSet.HighestScope ) {
+                            //    wish.Scope = wishSet.HighestScope;
+                            //    Log.Trace("upgraded wish scope to " + wish.Scope);
+                            //}
                             if (AddWish(wish)) { //if we don't already have it
                                 wishesAdded = true;
                             }
@@ -97,6 +111,7 @@ namespace NRequire.Resolver
                     }
                 }
             } while( wishesAdded );//adding wishes might cause resolution, so lets keep going until no more changes
+            Log.Trace("done resolving what can be");
         }
 
         public ResolverWishSet LocalWishSetFor(Wish wish) {
@@ -110,12 +125,12 @@ namespace NRequire.Resolver
             if (m_wishSetsByKey.TryGetValue(key, out existingWishes)) { //if we already have a wishlist for this type then add another version constraint on to it
                 var wrappingSet = new ResolverWishSet(wish, existingWishes);
                 m_wishSetsByKey[key] = wrappingSet;
-                Log.Trace("Wrapped existing wishset : " + existingWishes.Summary());
+                Log.Trace("Wrapped existing wishset : " + existingWishes.ToSummary());
                 return wrappingSet;
             } else { //a new key and therefore wishlist
                 var newSet = new ResolverWishSet(wish, m_cache);
                 m_wishSetsByKey[key] = newSet;
-                Log.Trace("Added new wishset : " + newSet.Summary());
+                Log.Trace("Added new wishset : " + newSet.ToSummary());
                 return newSet;
             }
         }
@@ -146,7 +161,7 @@ namespace NRequire.Resolver
             Log.Trace("effectively fixed versions so far");
             var found = false;
             foreach (var wishList in m_wishSetsByKey.Values.Where(w => w.IsFixed())) {
-                Log.Debug("-->" + wishList.Summary());
+                Log.Debug("-->" + wishList.ToSummary());
                 found = true;
             }
             if (!found) {
@@ -161,7 +176,7 @@ namespace NRequire.Resolver
             Log.Trace("need to resolve wishes");
             var found = false;
             foreach (var wishList in m_wishSetsByKey.Values.Where(w => !w.IsFixed())) {
-                Log.Trace("->" + wishList.Summary());
+                Log.Trace("->" + wishList.ToSummary());
                 found = true;
             }
             if (!found) {
@@ -178,7 +193,7 @@ namespace NRequire.Resolver
         }
 
         internal static String Key(Wish wish) {
-            return wish.Signature();
+            return wish.GetKey();
         }
     }
 }

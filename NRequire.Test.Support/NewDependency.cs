@@ -17,24 +17,7 @@ namespace NRequire {
         /// <param name="fullString">Full string.</param>
         public static new NewDependency Parse(String fullString) {
             var dep = new NewDependency();
-
-            var parts = fullString.Split(new char[] { ':' });
-            if (parts.Length > 0) {
-                dep.Group(parts[0]);
-            }
-            if (parts.Length > 1) {
-                dep.Name(parts[1]);
-            }
-            if (parts.Length > 2) {
-                dep.Version(parts[2]);
-            }
-            if (parts.Length > 3) {
-                dep.Ext(parts[3]);
-            }
-            if (parts.Length > 4) {
-                dep.Classifiers(NRequire.Classifiers.Parse(parts[4]));
-            }
-
+            dep.SetAllFromParse(fullString);
             return dep;
         }
 

@@ -1,22 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="NRequire\DependencyCache.cs">
-    <Files>
-      <File FileName="NRequire\Solution.cs" Line="19" Column="69" />
-      <File FileName="NRequire\ProjectResolver.cs" Line="90" Column="48" />
-      <File FileName="NRequire\ProjectUpdateCmd.cs" Line="62" Column="48" />
-      <File FileName="NRequire\AbstractDependency.cs" Line="26" Column="31" />
-      <File FileName="NRequire.Test\JsonReaderTest.depsfile1.json" Line="8" Column="1" />
-      <File FileName="NRequire.Test\ProgramTest\MySoln\MyProject\MyProject.nrequire.project.json" Line="8" Column="15" />
-      <File FileName="NRequire\Program.cs" Line="143" Column="47" />
-      <File FileName="NRequire\DependencyCache.cs" Line="41" Column="30" />
-      <File FileName="NRequire\Project.cs" Line="13" Column="60" />
-      <File FileName="NRequire\ISource.cs" Line="5" Column="29" />
-      <File FileName="NRequire\Json\JsonReader.cs" Line="37" Column="88" />
-      <File FileName="NRequire\SourceLocations.cs" Line="64" Column="59" />
-      <File FileName="NRequire.Test\JsonReaderTest.cs" Line="29" Column="13" />
-      <File FileName="NRequire\Resource.cs" Line="23" Column="42" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
@@ -53,7 +37,7 @@
         <State />
       </Pad>
       <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State expanded="True" />
+        <State expanded="True" selected="True" />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

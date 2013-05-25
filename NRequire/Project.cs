@@ -10,7 +10,7 @@ namespace NRequire {
 
         private const String SupportedVersion = "1";
 
-        public String SourceName { get { return "Project:" + Source; } }
+        public override String SourceName { get { return "Project:" + Source; } }
 
         private static readonly Wish DefaultWishValues = new Wish { 
             Arch = AbstractDependency.DefaultArch, 
@@ -20,7 +20,6 @@ namespace NRequire {
         };
         public String ProjectFormat { get; set; }
 
-        //public List<Wish> CompileWishes { get; set; }
         public List<Wish> ProvidedWishes { get; set; }
         
         public Wish WishDefaults { get; set; }
@@ -105,14 +104,6 @@ namespace NRequire {
                 SetChildTransitivies(child);
             }
         }
-
-        public override string ToString() {
-            var sb = new StringBuilder("Project@").Append(GetHashCode()).Append("<");
-            ToString(sb);
-            sb.Append(">");
-            return sb.ToString();
-        }
-
 
         protected override void ToString(StringBuilder sb) {
             base.ToString(sb);

@@ -41,9 +41,9 @@ namespace NRequire {
         public override string ToString() {
             var sb = new StringBuilder();
             sb.Append(typeof(T).Name);
-            sb.Append(" with properties [");
+            sb.Append(" with properties \n[\t");
             sb.Append(String.Join(",\n\t", m_matchers));
-            sb.Append("]");
+            sb.Append("\n]");
             return sb.ToString();
         }
     }

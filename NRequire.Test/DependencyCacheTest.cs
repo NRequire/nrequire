@@ -13,9 +13,9 @@ namespace NRequire {
         [Test]
         public void FindWishesForDep() {
             var cache = NewDependencyCache.With()
-                .A(ModuleWith("A", "1.0").RequiresWishWith("C", "[1.0,1.2)"))
-                .A(ModuleWith("A", "1.1").RequiresWishWith("D", "[1.0,1.1]"))
-                .A(ModuleWith("B", "1.0").RequiresWishWith("E", "[1.0,1.1]"));
+                .A(ModuleWith("A", "1.0").RuntimeWishWith("C", "[1.0,1.2)"))
+                .A(ModuleWith("A", "1.1").RuntimeWishWith("D", "[1.0,1.1]"))
+                .A(ModuleWith("B", "1.0").RuntimeWishWith("E", "[1.0,1.1]"));
 
             var actual = cache.FindWishesFor(DepWith("A", "1.0"));
 

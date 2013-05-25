@@ -16,9 +16,9 @@ namespace NRequire {
             var projFile = FileUtil.CopyToTmpFile(from);
 
             var proj = VSProject.FromPath(projFile);
-            var resources = new List<Resource> {
-                new Resource(new Dependency{Name="MyChildArtifactId1"}, null, "%CACHE_PATH%\\path\\to\\child1.ext"),
-                new Resource(new Dependency{Name="MyChildArtifactId2", EmbeddedResource = true }, null, "%CACHE_PATH%\\path\\to\\child2.ext")
+            var resources = new List<VSProject.Reference> {
+                new VSProject.Reference{Include="MyChildArtifactId1", HintPath="%CACHE_PATH%\\path\\to\\child1.ext" },
+                new VSProject.Reference{Include="MyChildArtifactId2", EmbeddedResource = true, HintPath="%CACHE_PATH%\\path\\to\\child2.ext"}
             };
             proj.UpdateReferences(resources);
 
@@ -36,9 +36,9 @@ namespace NRequire {
             var projFile = FileUtil.CopyToTmpFile(from);
 
             var proj = VSProject.FromPath(projFile);
-            var resources = new List<Resource> {
-                new Resource(new Dependency{Name="MyChildArtifactId1"}, null, "%CACHE_PATH%\\path\\to\\child1.ext"),
-                new Resource(new Dependency{Name="MyChildArtifactId2"}, null, "%CACHE_PATH%\\path\\to\\child2.ext")
+            var resources = new List<VSProject.Reference> {
+                new VSProject.Reference{Include="MyChildArtifactId1", HintPath="%CACHE_PATH%\\path\\to\\child1.ext"},
+                new VSProject.Reference{Include="MyChildArtifactId2",HintPath="%CACHE_PATH%\\path\\to\\child2.ext"}
             };
             var changed1stTime = proj.UpdateReferences(resources);
             Assert.True(changed1stTime);

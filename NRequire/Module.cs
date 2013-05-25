@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NRequire.Util;
 
 namespace NRequire {
-    public class Module : Dependency, IRequireLoadNotification, ISource {
+    public class Module : AbstractDependency, IRequireLoadNotification, ISource, IResolved {
 
         public virtual String SourceName { get { return "Module:" + Source; } }
 
+        public Version Version { get; set;  }
         public List<Wish> RuntimeWishes { get; set; }
         //for additional runtime options. Like transitive but clearer
         public List<Wish> OptionalWishes { get; set; }
@@ -19,7 +21,37 @@ namespace NRequire {
             TransitiveWishes = new List<Wish>();
         }
 
-        public new Module Clone() {
+        public Dependency ToDependency() {
+            return new Dependency { 
+                Group = Group,
+                Name = Name,
+                Version = Version,
+                Url = Url,
+                Classifiers = Classifiers.Clone(),
+                Ext = Ext??"dll",
+                Source = new SourceLocations().Add(Source)
+            };
+        }
+        /// <summary>
+        /// Parse from  group:name:version:ext:classifiers
+        /// </summary>
+        /// <param name="fullString">Full string.</param>
+        public static Module Parse(String fullString) {
+            var module = new Module();
+            module.SetAllFromParse(fullString);
+            return module;
+        }
+
+        protected void SetAllFromParse(String fullString) {
+            DepParser.Parse(fullString,
+            (s) => Group = s,
+            (s) => Name = s,
+            (s) => Version = Version.Parse(s),
+            (s) => Ext = s,
+            (s) => Classifiers = Classifiers.Parse(s));
+        }
+
+        public Module Clone() {
             return Clone(new Module());
         }
 
@@ -41,12 +73,13 @@ namespace NRequire {
             SourceLocations.AddSourceLocations(TransitiveWishes, Source);
         }
 
+        public List<Wish> GetWishes() {
+            var wishes = new List<Wish>();
+            wishes.AddRange(RuntimeWishes);
+            wishes.AddRange(OptionalWishes);
+            wishes.AddRange(TransitiveWishes);
 
-        public override string ToString() {
-            var sb = new StringBuilder("Module@").Append(GetHashCode()).Append("<");
-            ToString(sb);
-            sb.Append(">");
-            return sb.ToString();
+            return wishes;
         }
 
         protected override void ToString(StringBuilder sb) {
@@ -54,6 +87,10 @@ namespace NRequire {
             sb.Append(",\n\tRuntimeWishes=").Append(String.Join(",\n\t\t", RuntimeWishes));
             sb.Append(",\n\tOptionalWishes=").Append(String.Join(",\n\t\t", OptionalWishes));
             sb.Append(",\n\tTransitiveWishes=").Append(String.Join(",\n\t\t", TransitiveWishes));
+        }
+
+        public override String ToSummary() {
+            return String.Format(GetType().Name + "<{0}:{1}:{2}>", GetKey(), Version, Ext);
         }
     }
 }

@@ -100,7 +100,7 @@ namespace NRequire.Matcher
                 return true;
             }
 
-            private void PrintAll<T>(IEnumerable<T> items, IMatchDiagnostics diag){
+           private void PrintAll<TItem>(IEnumerable<TItem> items, IMatchDiagnostics diag) {
                 if (!diag.Enabled) {
                     return;
                 }

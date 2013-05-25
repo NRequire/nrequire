@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NRequire.Test;
+using NRequire.Util;
 
 namespace NRequire {
     public class NewModule : Module {
@@ -16,26 +17,9 @@ namespace NRequire {
         /// </summary>
         /// <param name="fullString">Full string.</param>
         public static new NewModule Parse(String fullString) {
-            var dep = new NewModule();
-
-            var parts = fullString.Split(new char[] { ':' });
-            if (parts.Length > 0) {
-                dep.Group(parts[0]);
-            }
-            if (parts.Length > 1) {
-                dep.Name(parts[1]);
-            }
-            if (parts.Length > 2) {
-                dep.Version(parts[2]);
-            }
-            if (parts.Length > 3) {
-                dep.Ext(parts[3]);
-            }
-            if (parts.Length > 4) {
-                dep.Classifiers(NRequire.Classifiers.Parse(parts[4]));
-            }
-
-            return dep;
+            var module = new NewModule();
+            module.SetAllFromParse(fullString);
+            return module;
         }
 
 
@@ -46,9 +30,9 @@ namespace NRequire {
 
         public List<Module> Versions(params String[] versions) {
             var list = new List<Module>();
-            foreach (var s in versions) {
+            foreach (var v in versions) {
                 var clone = Clone();
-                clone.VersionString = s;
+                clone.Version = NRequire.Version.Parse(v);
                 list.Add(clone);
             }
             return list;
@@ -98,24 +82,46 @@ namespace NRequire {
             return this;
         }
 
-        public NewModule WishFrom(String parseString) {
-            RequiresWishWith(NewWish.Parse(parseString));
+
+        /// <summary>
+        /// group:name:version:ext:classifiers:scope
+        /// </summary>
+        /// <param name="parseString"></param>
+        /// <returns></returns>
+        public NewModule RuntimeWishFrom(String parseString) {
+            RuntimeWishWith(NewWish.Parse(parseString));
             return this;
         }
 
-        public NewModule RequiresWishWith(String name, String version) {
-            RequiresWishWith(NewWish.With().Defaults().Name(name).Version(version));
+        public NewModule RuntimeWishWith(String name, String version) {
+            RuntimeWishWith(NewWish.With().Defaults().Name(name).Version(version));
             return this;
         }
 
-        public NewModule RequiresWishWith(Wish wish) {
+        public NewModule RuntimeWishWith(Wish wish) {
             base.RuntimeWishes.Add(wish);
             return this;
         }
 
-        public NewModule RequiresTransitiveWishWith(Wish wish) {
+        public NewModule TransitiveWishWith(Wish wish) {
             base.TransitiveWishes.Add(wish);
             return this;
         }
+
+        public NewModule TransitiveWishFrom(String parseString) {
+            base.TransitiveWishes.Add(NewWish.Parse(parseString));
+            return this;
+        }
+
+        public NewModule OptionalWishWith(Wish wish) {
+            base.OptionalWishes.Add(wish);
+            return this;
+        }
+
+        public NewModule OptionalWishFrom(String parseString) {
+            base.OptionalWishes.Add(NewWish.Parse(parseString));
+            return this;
+        }
+
     }
 }
