@@ -18,10 +18,10 @@ namespace NRequire {
         /// <param name="fullString">Full string.</param>
         public static new NewModule Parse(String fullString) {
             var module = new NewModule();
+            module.Defaults();
             module.SetAllFromParse(fullString);
             return module;
         }
-
 
         public NewModule Defaults() {
             TestDefaults.Apply(this);

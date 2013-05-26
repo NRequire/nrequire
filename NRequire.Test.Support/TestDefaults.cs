@@ -6,9 +6,9 @@ namespace NRequire.Test
     {
         public const String Group ="MyGroup";
         public const String Name = "MyName";
-        public const String Arch = "MyArch";
-        public const String Runtime ="MyRuntime";
-        public const String Ext = "dll";
+        public const String Arch = "any";
+        public const String Runtime ="any";
+        public const String Ext = null;//"dll";
         public const String Url = "http://localhost/somewhere";
 
 

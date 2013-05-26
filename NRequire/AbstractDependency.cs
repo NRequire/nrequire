@@ -11,7 +11,7 @@ namespace NRequire {
 
         public const String DefaultArch = "any";
         public const String DefaultRuntime = "any";
-        public const String DefaultExt = "dll";
+        public const String DefaultExt = null;
 
         public const String KeyArch = "arch";
         public const String KeyRuntime = "runtime";
@@ -45,12 +45,7 @@ namespace NRequire {
         }
 
         protected internal T Clone<T>(T clone) where T:AbstractDependency {
-            clone.Classifiers = Classifiers.Clone();
-            clone.Ext = Ext;
-            clone.Group = Group;
-            clone.Name = Name;
-            clone.Url = Url;
-            clone.Scope = Scope;
+            clone.SetAllFrom(this);
             return clone;
         }
 
@@ -58,6 +53,8 @@ namespace NRequire {
             Group = d.Group;
             Name = d.Name;
             Ext = d.Ext;
+            Url = d.Url;
+            Scope = d.Scope;
             Classifiers = d.Classifiers.Clone();
         }
 

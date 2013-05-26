@@ -205,12 +205,11 @@ namespace NRequire {
 
         public void ValidateRequiredSet() {
             ValidateMergeValuesSet();
-            if (Version==null) {
-                throw new ArgumentException("Expect Version to be set on " + this);
-            }
-            if (String.IsNullOrWhiteSpace(Ext)) {
-                throw new ArgumentException("Expect Extension to be set on " + this);
-            }
+            //if (Version==null) {
+            //    throw new ArgumentException("Expect Version to be set on " + this);
+            //}           // if (String.IsNullOrWhiteSpace(Ext)) {
+           //     throw new ArgumentException("Expect Extension to be set on " + this);
+           // }
         }
 
         public void ValidateMergeValuesSet() {

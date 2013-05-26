@@ -18,8 +18,8 @@ namespace NRequire
 
             var cacheDir = cache.GetCacheDir();
 
-            AssertExists(cacheDir, "MyGroup/MyName/1.2.3/arch-myarch_runtime-myruntime/MyName.dll");
-            AssertExists(cacheDir, "MyGroup/MyName/1.2.3/arch-myarch_runtime-myruntime/MyName.nrequire.module.json");
+            AssertExists(cacheDir, "MyGroup/MyName/1.2.3/arch-any_runtime-any/MyName.dll");
+            AssertExists(cacheDir, "MyGroup/MyName/1.2.3/arch-any_runtime-any/MyName.nrequire.module.json");
 
             var wishes = cache.FindWishesFor(DepWith().Defaults().Version("1.2.3"));
             Expect.That(wishes)

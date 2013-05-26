@@ -36,8 +36,8 @@ namespace NRequire.Matcher {
         }
 
         public static IExtendedMatcher<String> Null() {
-            return FunctionMatcher.For<String>
-                    (actual => actual ==null,
+            return FunctionMatcher.ForAllowNull<String>
+                    (actual => actual == null,
                     () => String.Format("AString equal to null"));
         }
     }

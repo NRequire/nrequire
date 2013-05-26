@@ -1,21 +1,24 @@
 ﻿{
 	projectFormat:1,
-    wishDefaults:{
-		arch:"any", 
-        runtime:"4.0"
+    
+    Group:"MyProject",
+    Name:"MyProject",
+    
+ 	wishDefaults:{
+	    runtime:"4.0"
 	},
-
+	
 	runtimeWishes:[
 		{
 			group:"Group0",
 			name:"Name0",
-            arch:"Arch0", 
-            runtime:"Runtime0",
-            copyTo:"MyLibDir"
+            runtime:"any"
+            
 		},
 		{
 			group:"Group1",
-			name:"Name1"
+			name:"Name1",
+            copyTo:"MyLibDir"
 		}
 	],
 

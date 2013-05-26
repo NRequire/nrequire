@@ -7,6 +7,12 @@ using NUnit.Framework;
 namespace NRequire {
     [TestFixture]
     public class VersionMatcherTest {
+
+        [Test]
+        public void AnyMatcherTest(){
+            Match("*", "0.0","1.0","1.2.3","1.2.3.SNAPSHOT");
+        }
+
         [Test]
         public void SimpleMatchTest() {
             Match("0", "0.0", "0.0.0", "0.0.0.123", "0.1", "0.2", "0.0.1", "0.2.3");

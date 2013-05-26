@@ -41,10 +41,18 @@ namespace NRequire
         /// <summary>
         /// Parse from  group:name:version:ext:classifiers:scope
         /// </summary>
+        /// <returns></returns>
+        protected ADependency ADepFrom(String parseString) {
+            return ADependency.From(parseString);
+        }
+
+        /// <summary>
+        /// Parse from  group:name:version:ext:classifiers:scope
+        /// </summary>
         /// <param name="parseString"></param>
         /// <returns></returns>
         protected Wish WishFrom(String parseString) {
-            return Wish.Parse(parseString);
+            return NewWish.Parse(parseString);
         }
 
         protected Wish WishWith(String name, String version) {

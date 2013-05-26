@@ -16,6 +16,8 @@ namespace NRequire {
     /// </summary>
 	public class VersionMatcher : IMatcher<Version> {
 
+        public static VersionMatcher AnyMatcher = new VersionMatcher("*", new AlwaysTrueMatcher<Version>());
+
         private string m_versionString;
         private IMatcher<Version> m_match;
         
@@ -37,12 +39,14 @@ namespace NRequire {
         }
 
         private static VersionMatcher InternalParse(String versionMatch){
-            var any = new AnyMatcher();
+            if (String.IsNullOrWhiteSpace(versionMatch)) {
+                throw new ArgumentException("Empty version. Set a version range or a wildcard *");
+            }
             //support wildcard
             if (versionMatch == null || versionMatch.Trim() == "*") {
-                return new VersionMatcher(versionMatch,any.Collapse());
+                return AnyMatcher;
             }
-
+            var any = new AnyMatcher();
             var from = 0;
             char lastLimiter = ','; 
             RangeMatcher range = null;
@@ -97,7 +101,7 @@ namespace NRequire {
                             }
                         } else if (lastLimiter == '[' || lastLimiter == '(') {
                             if (lastLimiter == '(' && c == ')') {
-                                throw new ArgumentException("Nothing can match (x), use [x) or (x] or (x,y) as position " + i);
+                                throw new ArgumentException("Nothing can match (x), use [x) or (x] or (x,y) at position " + i);
                             }
                             getRangePair().From = ExactMatcher.Parse(lastLimiter, part);
                             getRangePair().To = ExactMatcher.Parse(c, part);

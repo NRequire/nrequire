@@ -28,7 +28,7 @@ namespace NRequire {
                 Version = Version,
                 Url = Url,
                 Classifiers = Classifiers.Clone(),
-                Ext = Ext??"dll",
+                Ext = Ext,
                 Source = new SourceLocations().Add(Source)
             };
         }
@@ -42,7 +42,7 @@ namespace NRequire {
             return module;
         }
 
-        protected void SetAllFromParse(String fullString) {
+        public void SetAllFromParse(String fullString) {
             DepParser.Parse(fullString,
             (s) => Group = s,
             (s) => Name = s,

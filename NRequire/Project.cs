@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NRequire;
 using NRequire.Json;
 using Newtonsoft.Json;
 
 namespace NRequire {
     public class Project : Module, IRequireLoadNotification, ISource {
 
-        private const String SupportedVersion = "1";
+        public const String SupportedVersion = "1";
 
         public override String SourceName { get { return "Project:" + Source; } }
 
@@ -89,10 +90,14 @@ namespace NRequire {
 
         private List<Wish> PostProcess(List<Wish> wishes, Wish defaults, Scopes scope) {
             wishes = Wish.CloneAndFillInBlanksFrom(wishes, defaults);
-            wishes.ForEach(w => w.Scope = scope);
-
-            //TODO:recursive?
-            wishes.ForEach(w => SetChildTransitivies(w));
+            wishes.ForEach(w => {
+                w.Scope = scope;
+                if( w.Version==null ){
+                    w.Version = VersionMatcher.AnyMatcher;
+                }
+                //TODO:recursive?
+                SetChildTransitivies(w);
+            });
 
             SourceLocations.AddSourceLocations(wishes, Source);
             return wishes;

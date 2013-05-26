@@ -18,13 +18,16 @@ namespace NRequire {
             DepsCache = cache;
         }
 
-        internal static ProjectResolver WithCache(IDependencyCache cache) {
+        public static ProjectResolver WithCache(IDependencyCache cache) {
             return new ProjectResolver(cache);
         }
 
         public IList<Dependency> MergeAndResolveDependencies(Solution soln, Project proj) {
             try {
-                var wishes = MergeWishes(soln, proj).ToList();
+                var wishes = new List<Wish>();
+                wishes.AddRange(soln.GetAllWishes());
+                wishes.AddRange(proj.GetAllWishes());
+
 
                 if (Log.IsTraceEnabled()) {
                     Log.Trace("merged wishes=\n" + String.Join("\n",wishes));
@@ -52,7 +55,7 @@ namespace NRequire {
             }
         }
 
-        private List<Wish> MergeWishes(Solution soln, Project proj) {
+    /*    private List<Wish> MergeWishes(Solution soln, Project proj) {
             //TODO:remove duplicates and merge wishes, or let cache resolver sort it out? it already does this...
 
             var mergedWishes = new WishList();
@@ -62,5 +65,7 @@ namespace NRequire {
 
             return mergedWishes.ToList();
         }
+
+*/
     }
 }

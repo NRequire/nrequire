@@ -58,6 +58,12 @@ namespace NRequire {
             return Self;
         }
 
+        public TSelf NullExt() {
+            Ext(AString.Null());
+            return Self;
+        }
+
+
         public TSelf Ext(String expect) {
             Ext(AString.EqualTo(expect));
             return Self;

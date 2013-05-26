@@ -7,11 +7,21 @@ namespace NRequire {
     public class NewSolution : Solution {
 
         public static NewSolution With() {
-            return new NewSolution();
+            var soln = new NewSolution();
+            soln.SolutionFormat = "1";
+            return soln;
         }
 
-        public NewSolution Dependency(Wish d) {
-            base.Wishes.Add(d.Clone());
+        /// <summary>
+        /// Parse from  group:name:version:ext:classifiers:scope
+        /// </summary>
+        public NewSolution Wish(String parseString) {
+            Wish(NRequire.Wish.Parse(parseString));
+            return this;
+        }
+
+        public NewSolution Wish(Wish wish) {
+            base.Wishes.Add(wish.Clone());
             return this;
         }
 

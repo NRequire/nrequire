@@ -6,12 +6,11 @@ using System.Text;
 namespace NRequire {
     public class Solution : ITakeSourceLocation, IRequireLoadNotification, ISource {
 
-        private const String SupportedVersion = "1";
+        public const String SupportedVersion = "1";
 
         private static readonly Wish DefaultWishValues = new Wish { 
             Arch = AbstractDependency.DefaultArch,
             Runtime = AbstractDependency.DefaultRuntime,
-            Ext = AbstractDependency.DefaultExt,
             Source = new SourceLocations("Solution.Default.Wish"),
             Scope = Scopes.Transitive
         };

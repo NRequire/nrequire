@@ -55,7 +55,7 @@ Global
 		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = NRequire.Test\NRequire.Test.csproj
+		StartupItem = NRequire\NRequire.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
 		$1.FileWidth = 120

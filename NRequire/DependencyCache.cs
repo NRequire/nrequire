@@ -34,6 +34,8 @@ namespace NRequire {
 
     public class DependencyCache : IDependencyCache {
 
+        private const String DefaultExt = "dll";
+
         private static readonly IDictionary<String, IList<String>> DefaultRelatedByExt = new Dictionary<String, IList<String>>{
             { "dll", new List<String>{ "xml", "pdb" }},
             { "exe", new List<String>{ "xml", "pdb" }}
@@ -90,7 +92,7 @@ namespace NRequire {
             var versionDirs = (String.IsNullOrWhiteSpace(classifierPathPart) ? topVersionsDir.EnumerateDirectories() : topVersionsDir.DirectoriesWithSubDirsNamed(classifierPathPart)).ToList();
 
             if (Log.IsTraceEnabled()) {
-                Log.TraceFormat("version dirs found were [{0}]", String.Join(",", versionDirs.Select(d=>d.Name)));
+                Log.TraceFormat("version dirs found (with classifier dirs in them) were [{0}]", String.Join(",", versionDirs.Select(d=>d.Name)));
             }
 
             var versions = versionDirs
@@ -111,7 +113,7 @@ namespace NRequire {
             Log.DebugFormat("Finding resources for {0}", resolved.SafeToSummary());
             var resources = new List<Resource>();
             var relPathMinusExt = GetRelPathFor(resolved);
-            var depPath = GetFullPathFor(relPathMinusExt + "." + resolved.Ext);
+            var depPath = GetFullPathFor(relPathMinusExt + "." + ExtOrDefault(resolved.Ext));
             Log.TraceFormat("checking dep is locally copied, file={0}", depPath);
             //download from upstream
             if (!depPath.Exists) {
@@ -127,7 +129,7 @@ namespace NRequire {
                         r.CopyTo(localResourcePath);
                     }
                 } else {
-                    throw new Exception("couldn't find resources for : " + resolved.SafeToSummary());
+                    throw new Exception(String.Format("couldn't find resources for {0} looked in {1}", resolved.SafeToSummary(), relPathMinusExt));
                 }
             }
             //TODO:ad more error checking around here to fail if expected resources don't exist (e.g. the dll)
@@ -154,17 +156,23 @@ namespace NRequire {
 
         private List<String> FindExtensionsFor(IResolved resolved) {
             var relatedExtensions = new List<String>();
-            if (DefaultRelatedByExt.ContainsKey(resolved.Ext)) {
-                relatedExtensions.AddRange(DefaultRelatedByExt[resolved.Ext]);
+            var ext = ExtOrDefault(resolved.Ext);
+
+            if (DefaultRelatedByExt.ContainsKey(ext)) {
+                relatedExtensions.AddRange(DefaultRelatedByExt[ext]);
             }
-            if (!relatedExtensions.Contains(resolved.Ext)) {
-                relatedExtensions.Add(resolved.Ext);
+            if (!relatedExtensions.Contains(ext)) {
+                relatedExtensions.Add(ext);
             }
             //TODO:need to grab this from the modules file at some point
 /*            if (dep.Related.Count > 0) {
 
             }*/
             return relatedExtensions;
+        }
+
+        private static String ExtOrDefault(String ext) {
+            return String.IsNullOrWhiteSpace(ext) ? DefaultExt : ext; 
         }
 
         public IList<Wish> FindWishesFor(IResolved resolved) {
@@ -192,19 +200,14 @@ namespace NRequire {
                     Group = resolvable.Group,
                     Name = resolvable.Name,
                     Classifiers = resolvable.Classifiers.Clone(),
-                    Version = v,
-                    Ext = resolvable.Ext ?? "dll"
+                    Version = v
                 };
             }
             return module;
         }
 
         internal String GetRelPathWithExtFor(IResolved resolved) {
-            var ext = resolved.Ext;
-            if (String.IsNullOrEmpty(ext)) {
-                ext = "dll";
-            }
-            return GetRelPathFor(resolved) + "." + ext;
+            return GetRelPathFor(resolved) + "." + ExtOrDefault(resolved.Ext);
         }
 
         internal String GetRelPathFor(IResolved resolved) {

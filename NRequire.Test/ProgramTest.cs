@@ -50,27 +50,28 @@ namespace NRequire {
             var solnCacheDir = new DirectoryInfo(solnDir.FullName + "\\.cache");
 
             Assert.IsTrue(solnDir.Exists);
-            AssertDepResourceExists(solnCacheDir, "Group0\\Name0\\0.0.0\\arch-Arch0_runtime-Runtime0\\Name0.dll");
-            AssertDepResourceExists(solnCacheDir, "Group0\\Name0\\0.0.0\\arch-Arch0_runtime-Runtime0\\Name0.xml");
-            AssertDepResourceExists(solnCacheDir, "Group0\\Name0\\0.0.0\\arch-Arch0_runtime-Runtime0\\Name0.pdb");
-            AssertDepResourceNotExists(solnCacheDir, "Group0\\Name0\\0.0.0\\arch-Arch0_runtime-Runtime0\\Name0.ignored");
+            AssertDepResourceExists(solnCacheDir, "Group0\\Name0\\0.0.0\\arch-any_runtime-any\\Name0.dll");
+            AssertDepResourceExists(solnCacheDir, "Group0\\Name0\\0.0.0\\arch-any_runtime-any\\Name0.xml");
+            AssertDepResourceExists(solnCacheDir, "Group0\\Name0\\0.0.0\\arch-any_runtime-any\\Name0.pdb");
+            AssertDepResourceNotExists(solnCacheDir, "Group0\\Name0\\0.0.0\\arch-any_runtime-4.0\\Name0.ignored");
 
-            AssertDepResourceNotExists(solnCacheDir, "Group1\\Name1\\1.2.3\\arch-any_runtime-4.0\\Name1.dll");
-            AssertDepResourceExists(solnCacheDir, "Group1\\Name1\\1.2.3\\arch-any_runtime-4.0\\Name1.Ext1");
-            AssertDepResourceNotExists(solnCacheDir, "Group1\\Name1\\1.2.3\\arch-any_runtime-4.0\\Name1.xml");
-            AssertDepResourceNotExists(solnCacheDir, "Group1\\Name1\\1.2.3\\arch-any_runtime-4.0\\Name1.pdb");
+            AssertDepResourceExists(solnCacheDir, "Group1\\Name1\\1.2.3\\arch-any_runtime-4.0\\Name1.dll");
+            //AssertDepResourceExists(solnCacheDir, "Group1\\Name1\\1.2.3\\arch-any_runtime-4.0\\Name1.Ext1");
+            AssertDepResourceExists(solnCacheDir, "Group1\\Name1\\1.2.3\\arch-any_runtime-4.0\\Name1.xml");
+            AssertDepResourceExists(solnCacheDir, "Group1\\Name1\\1.2.3\\arch-any_runtime-4.0\\Name1.pdb");
 
             var projDir = new DirectoryInfo(projectFile.Directory.FullName);
 
-            AssertDependencyCopied(projDir, "MyLibDir\\Name0.dll");
-            AssertDependencyCopied(projDir, "MyLibDir\\Name0.xml");
-            AssertDependencyCopied(projDir, "MyLibDir\\Name0.pdb");
+            AssertDependencyNotCopied(projDir, "MyLibDir\\Name0.dll");
+            AssertDependencyNotCopied(projDir, "MyLibDir\\Name0.xml");
+            AssertDependencyNotCopied(projDir, "MyLibDir\\Name0.pdb");
 
-            AssertDependencyCopied(projDir, "MyLibDir\\Name1.Ext1");
-            AssertDependencyCopied(projDir, "MyLibDir\\Name1.related");
+            AssertDependencyCopied(projDir, "MyLibDir\\Name1.dll");
+            AssertDependencyCopied(projDir, "MyLibDir\\Name1.xml");
+            AssertDependencyNotCopied(projDir, "MyLibDir\\Name1.related");
 
-            AssertDependencyCopied(projDir, "MyLibDir\\TransitiveName.TransitiveExt");
-            AssertDependencyCopied(projDir, "MyLibDir\\ProvidedName.dll");
+            //AssertDependencyNotCopied(projDir, "MyLibDir\\TransitiveName.dll");
+            //AssertDependencyNotCopied(projDir, "MyLibDir\\ProvidedName.dll");
             solnDir.Delete(true);
         }
 
@@ -92,6 +93,13 @@ namespace NRequire {
             var file = new FileInfo(Path.Combine(baseTargetDir.FullName, relPath));
             if (!file.Exists) {
                 Assert.Fail("Dependency file '{0}' was not copied", file.FullName);
+            }
+        }
+
+        private static void AssertDependencyNotCopied(DirectoryInfo baseTargetDir, String relPath) {
+            var file = new FileInfo(Path.Combine(baseTargetDir.FullName, relPath));
+            if (file.Exists) {
+                Assert.Fail("Dependency file '{0}' was not expected to be copied", file.FullName);
             }
         }
 

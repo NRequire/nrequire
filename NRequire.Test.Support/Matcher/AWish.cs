@@ -19,5 +19,17 @@ namespace NRequire.Matcher {
             AddProperty<String>("Version", (actual) => { return actual.Version==null?null:actual.Version.ToString();}, matcher);
             return Self;
         }
+
+        public AWish Scope(Scopes scope) {
+            Scope(AnInstance.EqualTo(scope));
+            return this;
+        }
+
+        public AWish Scope(IExtendedMatcher<Scopes> matcher) {
+            AddProperty<Scopes>("Scope", (actual) => actual.Scope, matcher);
+            return Self;
+        }
+
+
     }
 }

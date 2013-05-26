@@ -16,11 +16,13 @@ namespace NRequire {
 
             var soln = NewSolution.With()
                 //exclude 1.2.7
-                .Dependency(NewWish.With().Defaults().Version("[1.2.2,1.2.7)"));
+                .Wish(NewWish.With().Defaults().Version("[1.2.2,1.2.7)"));
             var proj = NewProject.With()
                 //version should be merged in from soln
                 .RuntimeWish(NewWish.With().Defaults());
-            
+
+            soln.AfterLoad();
+            proj.AfterLoad();
             var resolvedDeps = resolver.MergeAndResolveDependencies(soln, proj);
             Assert.AreEqual(1, resolvedDeps.Count);
             var actual = resolvedDeps.FirstOrDefault();
@@ -44,10 +46,13 @@ namespace NRequire {
 
             var soln = NewSolution.With()
                 //exclude 1.2.3
-                .Dependency(NewWish.With().Defaults().Version("1.2.4"));
+                .Wish(NewWish.With().Defaults().Version("1.2.4"));
 
             var proj = NewProject.With()
                 .RuntimeWish(NewWish.With().Defaults());//should grab version from soln
+
+            soln.AfterLoad();
+            proj.AfterLoad();
 
             var resolvedDeps = resolver.MergeAndResolveDependencies(soln, proj);
             Assert.AreEqual(1, resolvedDeps.Count);

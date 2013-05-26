@@ -52,6 +52,10 @@
     <Compile Include="BaseDependencyTest.cs" />
     <Compile Include="CommandLineParserTest.cs" />
     <Compile Include="DependencyCacheTest.cs" />
+    <Compile Include="ProjectResolverTest.cs" />
+    <Compile Include="ProjectTest.cs">
+      <DependentUpon>ProjectResolverTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="WishTest.cs" />
     <Compile Include="JsonReaderTest.cs" />
     <Compile Include="NUnitConsoleRunner.cs" />
@@ -67,6 +71,7 @@
     <Compile Include="NewDependencyCacheTest.cs" />
     <Compile Include="Matcher\ExactMatcherTest2.cs" />
     <Compile Include="Matcher\MatcherTest.cs" />
+    <Compile Include="SolutionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NRequire\NRequire.csproj">
@@ -97,39 +102,42 @@
     <Content Include="ProgramTest\LocalCache\Group1\Name1\1.2.1\arch-any_runtime-4.0\Name1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="ProgramTest\LocalCache\Group1\Name1\1.2.3\arch-any_runtime-4.0\Name1.pdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="ProgramTest\LocalCache\ProvidedGroup\ProvidedName\1.1.1\arch-any_runtime-4.0\ProvidedName.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="ProgramTest\LocalCache\Group1\Name1\1.2.2\arch-any_runtime-4.0\Name1.Ext1">
+    <Content Include="ProgramTest\LocalCache\Group1\Name1\1.2.2\arch-any_runtime-4.0\Name1.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="ProgramTest\LocalCache\Group1\Name1\1.2.2\arch-any_runtime-4.0\Name1.related">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ProgramTest\LocalCache\Group1\Name1\1.2.1\arch-any_runtime-4.0\Name1.Ext1">
+    <Content Include="ProgramTest\LocalCache\Group1\Name1\1.2.1\arch-any_runtime-4.0\Name1.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="ProgramTest\LocalCache\Group1\Name1\1.2.1\arch-any_runtime-4.0\Name1.related">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ProgramTest\LocalCache\TransitiveGroup\TransitiveName\1.1.1\arch-TransitiveArch_runtime-TransitiveRuntime\TransitiveName.TransitiveExt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="ProgramTest\LocalCache\Group0\Name0\0.0.0\arch-Arch0_runtime-Runtime0\Name0.ignored">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <Content Include="ProgramTest\LocalCache\Group0\Name0\0.0.0\arch-Arch0_runtime-Runtime0\Name0.pdb">
+    <Content Include="ProgramTest\LocalCache\TransitiveGroup\TransitiveName\1.1.1\arch-any_runtime-4.0\TransitiveName.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ProgramTest\LocalCache\Group0\Name0\0.0.0\arch-Arch0_runtime-Runtime0\Name0.xml">
+    <None Include="ProgramTest\LocalCache\Group0\Name0\0.0.0\arch-any_runtime-any\Name0.ignored">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="ProgramTest\LocalCache\Group0\Name0\0.0.0\arch-any_runtime-any\Name0.pdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="ProgramTest\LocalCache\Group1\Name1\1.2.3\arch-any_runtime-4.0\Name1.Ext1">
+    <Content Include="ProgramTest\LocalCache\Group0\Name0\0.0.0\arch-any_runtime-any\Name0.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="ProgramTest\LocalCache\Group2\Name2\4.5.6\arch-any_runtime-4.0\Name2.Ext2">
+    </Content>
+    <Content Include="ProgramTest\LocalCache\Group1\Name1\1.2.3\arch-any_runtime-4.0\Name1.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
+    <Content Include="ProgramTest\LocalCache\Group2\Name2\4.5.6\arch-any_runtime-4.0\Name2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="ProgramTest\MySoln\MyProject\MyProject.csproj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -144,10 +152,10 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="README.txt" />
-    <Content Include="ProgramTest\MySoln\MyProject\MyProject.nrequire.project.json">
+    <Content Include="ProgramTest\MySoln\MyProject\MyProject.csproj.nrequire.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ProgramTest\MySoln\MySoln.nrequire.solution.json">
+    <Content Include="ProgramTest\MySoln\MySoln.sln.nrequire.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -159,12 +167,12 @@
     <Content Include="ProgramTest\LocalCache\Group1\Name1\1.2.3\arch-any_runtime-4.0\Name1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ProgramTest\LocalCache\Group0\Name0\0.0.0\arch-Arch0_runtime-Runtime0\Name0.dll">
+    <Content Include="ProgramTest\LocalCache\Group0\Name0\0.0.0\arch-any_runtime-any\Name0.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="ProgramTest\LocalCache\GroupSolnOnly\MyName\1.2.3\arch-any_runtime-4.0\MyName.MyExt">
+    <Content Include="ProgramTest\LocalCache\GroupSolnOnly\MyName\1.2.3\arch-any_runtime-4.0\MyName.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

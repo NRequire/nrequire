@@ -144,8 +144,8 @@ namespace NRequire.Resolver
         public void DepsReturnedShouldBeScopeRuntime() {
             var cache = CacheWith()
                 .A(ModuleFrom("group:mydep:1.0")
-                    .RuntimeWishFrom("group:myruntime:1.0:dll"))
-                .A(ModuleFrom("group:myruntime:1.0:dll"));
+                    .RuntimeWishFrom("group:myruntime:1.0"))
+                .A(ModuleFrom("group:myruntime:1.0"));
 
             var resolved = WishResolver
                 .WithCache(cache)
@@ -154,20 +154,20 @@ namespace NRequire.Resolver
             Expect
                .That(resolved)
                .Is(AList.InOrder()
-                    .With(ADependency.From("group:mydep:1.0:dll").Scope(Scopes.Runtime))
-                    .And(ADependency.From("group:myruntime:1.0:dll").Scope(Scopes.Runtime)));
+                    .With(ADependency.From("group:mydep:1.0").Scope(Scopes.Runtime))
+                    .And(ADependency.From("group:myruntime:1.0").Scope(Scopes.Runtime)));
         }
 
         [Test]
         public void TransitivesOnlyNotResolved() {
             var cache = CacheWith()
                 .A(ModuleFrom("group:mydep:1.0")
-                    .RuntimeWishFrom("group:myruntime:1.0:dll")//should be included
-                    .TransitiveWishFrom("group:mytransitive:1.0:dll"))//should be ignored
-                .A(ModuleFrom("group:myruntime:1.0:dll")
-                    .TransitiveWishFrom("group:mytransitive2:1.0:dll"))
-                .A(ModuleFrom("group:mytransitive:1.0:dll"))//not used, ensure no filtered cose it don't exist
-                .A(ModuleFrom("group:mytransitive2:1.0:dll"));//not used, ensure no filtered cose it don't exist
+                    .RuntimeWishFrom("group:myruntime:1.0")//should be included
+                    .TransitiveWishFrom("group:mytransitive:1.0"))//should be ignored
+                .A(ModuleFrom("group:myruntime:1.0")
+                    .TransitiveWishFrom("group:mytransitive2:1.0"))
+                .A(ModuleFrom("group:mytransitive:1.0"))//not used, ensure no filtered cose it don't exist
+                .A(ModuleFrom("group:mytransitive2:1.0"));//not used, ensure no filtered cose it don't exist
 
             var resolved = WishResolver
                 .WithCache(cache)
@@ -176,18 +176,18 @@ namespace NRequire.Resolver
             Expect
                .That(resolved)
                .Is(AList.InOrder()
-                    .With(ADependency.From("group:mydep:1.0:dll"))
-                    .And(ADependency.From("group:myruntime:1.0:dll")));
+                    .With(ADependency.From("group:mydep:1.0"))
+                    .And(ADependency.From("group:myruntime:1.0")));
         }
         [Test]
         public void TransitiveRequiredResolvedSimple() {
             var cache = CacheWith()
                 .A(ModuleFrom("group:mydep:1.0")
-                    .RuntimeWishFrom("group:myruntime:1.0:dll")
-                    .TransitiveWishFrom("group:mytransitive:1.0:dll"))//not resolved by default
-                .A(ModuleFrom("group:myruntime:1.0:dll")//include a dep which force transitive above to be resolved
-                    .RuntimeWishFrom("group:mytransitive:1.0:dll"))
-                .A(ModuleFrom("group:mytransitive:1.0:dll"));//ignored as not matched
+                    .RuntimeWishFrom("group:myruntime:1.0")
+                    .TransitiveWishFrom("group:mytransitive:1.0"))//not resolved by default
+                .A(ModuleFrom("group:myruntime:1.0")//include a dep which force transitive above to be resolved
+                    .RuntimeWishFrom("group:mytransitive:1.0"))
+                .A(ModuleFrom("group:mytransitive:1.0"));//ignored as not matched
 
             var resolved = WishResolver
                 .WithCache(cache)
@@ -196,22 +196,22 @@ namespace NRequire.Resolver
             Expect
                .That(resolved)
                .Is(AList.InOrder()
-                    .With(ADependency.From("group:mydep:1.0:dll"))
-                    .And(ADependency.From("group:myruntime:1.0:dll"))
-                    .And(ADependency.From("group:mytransitive:1.0:dll")));
+                    .With(ADependency.From("group:mydep:1.0"))
+                    .And(ADependency.From("group:myruntime:1.0"))
+                    .And(ADependency.From("group:mytransitive:1.0")));
         }
 
         [Test]
         public void TransitiveRequiredResolved() {
             var cache = CacheWith()
                 .A(ModuleFrom("group:mydep:1.0")
-                    .RuntimeWishFrom("group:myruntime:1.0:dll")
-                    .TransitiveWishFrom("group:mytransitive:1.0:dll"))//not resolved by default
-                .A(ModuleFrom("group:myruntime:1.0:dll")//include a dep which force transitive above to be resolved
-                    .RuntimeWishFrom("group:myruntime2:1.0:dll"))
-                .A(ModuleFrom("group:myruntime2:1.0:dll")
-                    .RuntimeWishFrom("group:mytransitive:[1.0]:dll"))//force transitive above to be resolved
-                .A(ModuleFrom("group:mytransitive:1.0:dll"));//ignored as not matched
+                    .RuntimeWishFrom("group:myruntime:1.0")
+                    .TransitiveWishFrom("group:mytransitive:1.0"))//not resolved by default
+                .A(ModuleFrom("group:myruntime:1.0")//include a dep which force transitive above to be resolved
+                    .RuntimeWishFrom("group:myruntime2:1.0"))
+                .A(ModuleFrom("group:myruntime2:1.0")
+                    .RuntimeWishFrom("group:mytransitive:[1.0]"))//force transitive above to be resolved
+                .A(ModuleFrom("group:mytransitive:1.0"));//ignored as not matched
 
             var resolved = WishResolver
                 .WithCache(cache)
@@ -220,10 +220,10 @@ namespace NRequire.Resolver
             Expect
                .That(resolved)
                .Is(AList.InOrder()
-                    .With(ADependency.From("group:mydep:1.0:dll"))
-                    .And(ADependency.From("group:myruntime:1.0:dll"))
-                    .And(ADependency.From("group:myruntime2:1.0:dll"))
-                    .And(ADependency.From("group:mytransitive:1.0:dll")));
+                    .With(ADependency.From("group:mydep:1.0"))
+                    .And(ADependency.From("group:myruntime:1.0"))
+                    .And(ADependency.From("group:myruntime2:1.0"))
+                    .And(ADependency.From("group:mytransitive:1.0")));
         }
 
         

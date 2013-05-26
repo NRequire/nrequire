@@ -19,6 +19,7 @@ namespace NRequire {
         /// <param name="fullString">Full string.</param>
         public static new NewWish Parse(String fullString) {
             var wish = new NewWish();
+            wish.Defaults();
             wish.SetAllFromParse(fullString);
             return wish;
         }

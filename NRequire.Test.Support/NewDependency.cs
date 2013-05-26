@@ -14,9 +14,9 @@ namespace NRequire {
         /// <summary>
         /// Parse from  group:name:version:ext:classifiers
         /// </summary>
-        /// <param name="fullString">Full string.</param>
         public static new NewDependency Parse(String fullString) {
             var dep = new NewDependency();
+            dep.Defaults();
             dep.SetAllFromParse(fullString);
             return dep;
         }
