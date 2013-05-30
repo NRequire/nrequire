@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace NRequire {
 
-    //*.vsproj
+    //*.csproj
     public class VSProject {
 
         public FileInfo Path { get; private set; }
@@ -23,14 +23,12 @@ namespace NRequire {
             return new VSProject(path);
         }
 
-        //internal bool UpdateReferences(IEnumerable<Resource> resources) {
-        //    return UpdateReferences(resources.Select((res) => new Reference {
-        //        Include = res.Dep.Name,
-        //        HintPath = res.VSProjectPath,
-        //        EmbeddedResource = res.Dep.EmbeddedResource
-        //    }).ToList());
-        //}
+        public Guid ProjectGuid() {
+            var xmlDoc = ReadXML();
+            var assemblyNameNode = xmlDoc.GetElementsByTagName("AssemblyName");
 
+            return Guid.Parse(assemblyNameNode.Item(0).Value);
+        }
         /// <summary>
         /// Update the project file with the given references. Only change the file if 
         /// there would be an actual change tot he file required

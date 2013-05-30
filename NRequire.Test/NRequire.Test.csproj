@@ -51,6 +51,8 @@
   <ItemGroup>
     <Compile Include="BaseDependencyTest.cs" />
     <Compile Include="CommandLineParserTest.cs" />
+    <Compile Include="MatchGeneratorTest.cs" />
+    <Compile Include="VSSolutionTest.cs" />
     <Compile Include="DependencyCacheTest.cs" />
     <Compile Include="ProjectResolverTest.cs" />
     <Compile Include="ProjectTest.cs">
@@ -111,6 +113,7 @@
     <Content Include="ProgramTest\LocalCache\Group1\Name1\1.2.2\arch-any_runtime-4.0\Name1.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="VSSolutionTest\MySolution.sln" />
     <None Include="ProgramTest\LocalCache\Group1\Name1\1.2.2\arch-any_runtime-4.0\Name1.related">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

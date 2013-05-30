@@ -1,10 +1,1 @@
-﻿X- add version class and adopt the maven version range format
-X- add ability to query repo for latest version of a given artifact, latest release etc
-- possibly cache above info and only update on change?
-X- split dependency into raw and extended or something. One is for json, the other logic
-X- create a dependency resolver which will do all the hard work
-X- for project only use require deps, not all listed in the soln.
-- add nrequire version check to solution and project. Can specify what version of nrequire required as a normal range check
-- support the C# versions of Major.Minor.Revision.Build
-- range limits to stated version? as in 2.2 will keep in 2.2 branch not skip to 2.3? Or is this supported
-by [2.2,2.3) ?
+﻿- take into account all projects in a solution when resolving

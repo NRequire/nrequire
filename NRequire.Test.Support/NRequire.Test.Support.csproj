@@ -37,6 +37,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Matcher\AFileInfo.cs" />
+    <Compile Include="Matcher\AVSProject.cs" />
+    <Compile Include="Matcher\ABool.cs" />
+    <Compile Include="Matcher\AVSSolution.cs" />
+    <Compile Include="MatchGenerator.cs" />
+    <Compile Include="MatchGeneratorTest.cs" />
     <Compile Include="NewModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Matcher\NillMatchDiagnostics.cs" />

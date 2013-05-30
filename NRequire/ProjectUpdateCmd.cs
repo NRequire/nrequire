@@ -24,9 +24,8 @@ namespace NRequire {
             CheckNotNotNull(LocalCache, "LocalCache");
             CheckNotNotNull(SolutionCache, "SolutionCache");
 
-            //TODO:merge the resolved deps with the wishes again, as we need to pull
-            //additional info from the wishes like where the user wants to copy things across too
-            //etc
+            //TODO:take into consideration all projects in the solution
+            
             var soln = m_jsonReader.ReadSolution(LookupJsonFileForSolution(SolutionFile));
             var proj = m_jsonReader.ReadProject(LookupJsonFileForProject(ProjectFile));
 
