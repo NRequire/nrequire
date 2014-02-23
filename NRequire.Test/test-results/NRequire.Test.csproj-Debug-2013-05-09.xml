@@ -1,0 +1,1347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TestRecord xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results />
+  <Tests>
+    <TestRecord Name="NRequire">
+      <Results />
+      <Tests>
+        <TestRecord Name="NodeResolverTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-09T09:38:25</TestDate>
+              <Passed>5</Passed>
+              <Errors>1</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>One or more child tests had errors</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="CacheRequires">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T07:54:38</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Versions don't match at 0</Message>
+                  <StackTrace>   at NUnit.Framework.Assert.Fail(String message, Object[] args)
+   at NUnit.Framework.Assert.Fail(String message)
+   at NRequire.NodeResolverTest.Fail[T](String msg, List`1 expect, List`1 actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 104
+   at NRequire.NodeResolverTest.AssertAreEqual(List`1 expect, List`1 actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 78
+   at NRequire.NodeResolverTest.CacheRequires() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 28</StackTrace>
+                  <ConsoleOutput>Failed because:Versions don't match at 0
+expected:
+0 Dependency@45653674&lt;
+	Group:group,
+	Name:C,
+	Version:[1.0,1.2),
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:,
+	Url:,
+	CopyTo:,
+	Related:[],
+	Dependencies:[]
+&gt;
+actual:
+0 Dependency@41149443&lt;
+	Group:group,
+	Name:C,
+	Version:[1.0,1.2),
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:,
+	Url:,
+	CopyTo:,
+	Related:[],
+	Dependencies:[]
+&gt;
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T07:58:00</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.06ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T07:58:09</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.06ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T08:20:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.06ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T09:38:25</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="CacheFind">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T08:10:07</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Versions don't match at 0</Message>
+                  <StackTrace>   at NUnit.Framework.Assert.Fail(String message, Object[] args)
+   at NUnit.Framework.Assert.Fail(String message)
+   at NRequire.NodeResolverTest.Fail[T](String msg, IEnumerable`1 expect, IEnumerable`1 actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 120
+   at NRequire.NodeResolverTest.AssertAreEqual(IList`1 expect, IList`1 actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 108
+   at NRequire.NodeResolverTest.CacheFind() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 46</StackTrace>
+                  <ConsoleOutput>Failed because:Versions don't match at 0
+expected:
+0 DependencyWish@45653674&lt;
+	Group:group,
+	Name:A,
+	Version:1.3.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+1 DependencyWish@39785641&lt;
+	Group:group,
+	Name:A,
+	Version:1.1.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+actual:
+0 DependencyWish@45523402&lt;
+	Group:group,
+	Name:A,
+	Version:1.1.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+1 DependencyWish@35287174&lt;
+	Group:group,
+	Name:A,
+	Version:1.3.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T08:10:37</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Versions don't match at 0</Message>
+                  <StackTrace>   at NUnit.Framework.Assert.Fail(String message, Object[] args)
+   at NUnit.Framework.Assert.Fail(String message)
+   at NRequire.NodeResolverTest.Fail[T](String msg, IEnumerable`1 expect, IEnumerable`1 actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 120
+   at NRequire.NodeResolverTest.AssertAreEqual(IList`1 expect, IList`1 actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 108
+   at NRequire.NodeResolverTest.CacheFind() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 46</StackTrace>
+                  <ConsoleOutput>Failed because:Versions don't match at 0
+expected:
+0 DependencyWish@45653674&lt;
+	Group:group,
+	Name:A,
+	Version:1.3.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+1 DependencyWish@39785641&lt;
+	Group:group,
+	Name:A,
+	Version:1.1.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+actual:
+0 DependencyWish@45523402&lt;
+	Group:group,
+	Name:A,
+	Version:1.1.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+1 DependencyWish@35287174&lt;
+	Group:group,
+	Name:A,
+	Version:1.3.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T08:10:41</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Versions don't match at 0</Message>
+                  <StackTrace>   at NUnit.Framework.Assert.Fail(String message, Object[] args)
+   at NUnit.Framework.Assert.Fail(String message)
+   at NRequire.NodeResolverTest.Fail[T](String msg, IEnumerable`1 expect, IEnumerable`1 actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 120
+   at NRequire.NodeResolverTest.AssertAreEqual(IList`1 expect, IList`1 actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 108
+   at NRequire.NodeResolverTest.CacheFind() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 46</StackTrace>
+                  <ConsoleOutput>Failed because:Versions don't match at 0
+expected:
+0 DependencyWish@45653674&lt;
+	Group:group,
+	Name:A,
+	Version:1.3.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+1 DependencyWish@39785641&lt;
+	Group:group,
+	Name:A,
+	Version:1.1.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+actual:
+0 DependencyWish@45523402&lt;
+	Group:group,
+	Name:A,
+	Version:1.1.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+1 DependencyWish@35287174&lt;
+	Group:group,
+	Name:A,
+	Version:1.3.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T08:16:34</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Versions don't match at 0</Message>
+                  <StackTrace>   at NUnit.Framework.Assert.Fail(String message, Object[] args)
+   at NUnit.Framework.Assert.Fail(String message)
+   at NRequire.NodeResolverTest.Fail[T](String msg, IEnumerable`1 expect, IEnumerable`1 actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 120
+   at NRequire.NodeResolverTest.AssertAreEqual(IList`1 expect, IList`1 actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 108
+   at NRequire.NodeResolverTest.CacheFind() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 46</StackTrace>
+                  <ConsoleOutput>Failed because:Versions don't match at 0
+expected:
+0 DependencyWish@45653674&lt;
+	Group:group,
+	Name:A,
+	Version:1.3.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+1 DependencyWish@39785641&lt;
+	Group:group,
+	Name:A,
+	Version:1.1.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+actual:
+0 DependencyWish@45523402&lt;
+	Group:group,
+	Name:A,
+	Version:1.1.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+1 DependencyWish@35287174&lt;
+	Group:group,
+	Name:A,
+	Version:1.3.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T08:20:45</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.17ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T09:38:25</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.17ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="DependencyWishList_HasMultipleMatches">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T08:31:18</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.10ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T09:38:25</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.02ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="DependencyWishlist_HasNoMatches">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T08:31:22</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.10ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T09:38:25</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="DependencyWishList_Resolved">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T08:31:26</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.10ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T09:38:25</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="ResolveSimple">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T08:31:31</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Counts don't match</Message>
+                  <StackTrace>   at NUnit.Framework.Assert.Fail(String message, Object[] args)
+   at NUnit.Framework.Assert.Fail(String message)
+   at NRequire.NodeResolverTest.Fail[T](String msg, IEnumerable`1 expect, IEnumerable`1 actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 179
+   at NRequire.NodeResolverTest.AssertAreEqual(IList`1 expect, IList`1 actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 160
+   at NRequire.NodeResolverTest.ResolveSimple() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 133</StackTrace>
+                  <ConsoleOutput>Failed because:Counts don't match
+expected:
+0 DependencyWish@45653674&lt;
+	Group:group,
+	Name:A,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+1 DependencyWish@39785641&lt;
+	Group:group,
+	Name:B,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+2 DependencyWish@45523402&lt;
+	Group:group,
+	Name:C,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+3 DependencyWish@35287174&lt;
+	Group:group,
+	Name:D,
+	Version:1.1.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+4 DependencyWish@44419000&lt;
+	Group:group,
+	Name:E,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+actual:
+0 DependencyWish@52697953&lt;
+	Group:group,
+	Name:A,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+1 DependencyWish@22597652&lt;
+	Group:group,
+	Name:B,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T08:35:06</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Counts don't match</Message>
+                  <StackTrace>   at NUnit.Framework.Assert.Fail(String message, Object[] args)
+   at NUnit.Framework.Assert.Fail(String message)
+   at NRequire.NodeResolverTest.Fail[T](String msg, IEnumerable`1 expect, IEnumerable`1 actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 179
+   at NRequire.NodeResolverTest.AssertAreEqual(IList`1 expect, IList`1 actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 160
+   at NRequire.NodeResolverTest.ResolveSimple() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 133</StackTrace>
+                  <ConsoleOutput>Failed because:Counts don't match
+expected:
+0 DependencyWish@45653674&lt;
+	Group:group,
+	Name:A,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+1 DependencyWish@39785641&lt;
+	Group:group,
+	Name:B,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+2 DependencyWish@45523402&lt;
+	Group:group,
+	Name:C,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+3 DependencyWish@35287174&lt;
+	Group:group,
+	Name:D,
+	Version:1.1.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+4 DependencyWish@44419000&lt;
+	Group:group,
+	Name:E,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+actual:
+0 DependencyWish@52697953&lt;
+	Group:group,
+	Name:A,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+1 DependencyWish@22597652&lt;
+	Group:group,
+	Name:B,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T08:36:10</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Counts don't match</Message>
+                  <StackTrace>   at NUnit.Framework.Assert.Fail(String message, Object[] args)
+   at NUnit.Framework.Assert.Fail(String message)
+   at NRequire.NodeResolverTest.Fail[T](String msg, IEnumerable`1 expect, IEnumerable`1 actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 179
+   at NRequire.NodeResolverTest.AssertAreEqual(IList`1 expect, IList`1 actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 160
+   at NRequire.NodeResolverTest.ResolveSimple() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 133</StackTrace>
+                  <ConsoleOutput>Failed because:Counts don't match
+expected:
+0 Dependency@45653674&lt;
+	Group:group,
+	Name:A,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+1 Dependency@39785641&lt;
+	Group:group,
+	Name:B,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+2 Dependency@45523402&lt;
+	Group:group,
+	Name:C,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+3 Dependency@35287174&lt;
+	Group:group,
+	Name:D,
+	Version:1.1.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+4 Dependency@44419000&lt;
+	Group:group,
+	Name:E,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+actual:
+0 Dependency@52697953&lt;
+	Group:group,
+	Name:A,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+1 Dependency@22597652&lt;
+	Group:group,
+	Name:B,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T08:39:34</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Counts don't match</Message>
+                  <StackTrace>   at NUnit.Framework.Assert.Fail(String message, Object[] args)
+   at NUnit.Framework.Assert.Fail(String message)
+   at NRequire.NodeResolverTest.Fail[T](String msg, IEnumerable`1 expect, IEnumerable`1 actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 179
+   at NRequire.NodeResolverTest.AssertAreEqual(IList`1 expect, IList`1 actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 160
+   at NRequire.NodeResolverTest.ResolveSimple() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 133</StackTrace>
+                  <ConsoleOutput>Failed because:Counts don't match
+expected:
+0 Dependency@45653674&lt;
+	Group:group,
+	Name:A,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+1 Dependency@39785641&lt;
+	Group:group,
+	Name:B,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+2 Dependency@45523402&lt;
+	Group:group,
+	Name:C,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+3 Dependency@35287174&lt;
+	Group:group,
+	Name:D,
+	Version:1.1.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+4 Dependency@44419000&lt;
+	Group:group,
+	Name:E,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+actual:
+0 Dependency@52697953&lt;
+	Group:group,
+	Name:A,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+1 Dependency@22597652&lt;
+	Group:group,
+	Name:B,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T08:40:11</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Counts don't match</Message>
+                  <StackTrace>   at NUnit.Framework.Assert.Fail(String message, Object[] args)
+   at NUnit.Framework.Assert.Fail(String message)
+   at NRequire.NodeResolverTest.Fail[T](String msg, IEnumerable`1 expect, IEnumerable`1 actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 179
+   at NRequire.NodeResolverTest.AssertAreEqual(IList`1 expect, IList`1 actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 160
+   at NRequire.NodeResolverTest.ResolveSimple() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 133</StackTrace>
+                  <ConsoleOutput>Ctxt resolved
+Failed because:Counts don't match
+expected:
+0 Dependency@45653674&lt;
+	Group:group,
+	Name:A,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+1 Dependency@39785641&lt;
+	Group:group,
+	Name:B,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+2 Dependency@45523402&lt;
+	Group:group,
+	Name:C,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+3 Dependency@35287174&lt;
+	Group:group,
+	Name:D,
+	Version:1.1.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+4 Dependency@44419000&lt;
+	Group:group,
+	Name:E,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+actual:
+0 Dependency@52697953&lt;
+	Group:group,
+	Name:A,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+1 Dependency@22597652&lt;
+	Group:group,
+	Name:B,
+	Version:1.0.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T08:46:53</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>NRequire.ResolveException : expected to have a wish to need resolving</Message>
+                  <StackTrace>   at NRequire.MatchContext.NextChildContext() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\MatchContext.cs:line 87
+   at NRequire.NodeResolver.Resolve(IList`1 require) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolver.cs:line 44
+   at NRequire.NodeResolverTest.ResolveSimple() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 131</StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T09:23:34</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>NRequire.ResolveException : Could not find any solutions</Message>
+                  <StackTrace>   at NRequire.NodeResolver.Resolve(IList`1 require) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolver.cs:line 47
+   at NRequire.NodeResolverTest.ResolveSimple() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 131</StackTrace>
+                  <ConsoleOutput>can't resolve
+next child ctxt
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T09:24:00</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>NRequire.ResolveException : Could not find any solutions</Message>
+                  <StackTrace>   at NRequire.NodeResolver.Resolve(IList`1 require) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolver.cs:line 47
+   at NRequire.NodeResolverTest.ResolveSimple() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 131</StackTrace>
+                  <ConsoleOutput>can't resolve
+next child ctxt
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T09:24:12</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Object reference not set to an instance of an object.</Message>
+                  <StackTrace>   at MonoDevelop.NUnit.UnitTestResult.CreateFailure(String message, Exception ex)
+   at MonoDevelop.NUnit.NUnitAssemblyTestSuite.RunUnitTest(UnitTest test, String suiteName, String pathName, String testName, TestContext testContext)
+   at MonoDevelop.NUnit.NUnitTestCase.OnRun(TestContext testContext)
+   at MonoDevelop.NUnit.UnitTest.Run(TestContext testContext)</StackTrace>
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T09:38:25</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>NRequire.ResolveException : don't know what to pick. Expected a possibility</Message>
+                  <StackTrace>   at NRequire.MatchContext.NextChildContext() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\MatchContext.cs:line 91
+   at NRequire.NodeResolver.Resolve(MatchContext ctxt, List`1 resolved) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolver.cs:line 71
+   at NRequire.NodeResolver.Resolve(IList`1 require) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolver.cs:line 46
+   at NRequire.NodeResolverTest.ResolveSimple() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 131</StackTrace>
+                  <ConsoleOutput>can't resolve
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T09:38:55</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Object reference not set to an instance of an object.</Message>
+                  <StackTrace>   at MonoDevelop.NUnit.UnitTestResult.CreateFailure(String message, Exception ex)
+   at MonoDevelop.NUnit.NUnitAssemblyTestSuite.RunUnitTest(UnitTest test, String suiteName, String pathName, String testName, TestContext testContext)
+   at MonoDevelop.NUnit.NUnitTestCase.OnRun(TestContext testContext)
+   at MonoDevelop.NUnit.UnitTest.Run(TestContext testContext)</StackTrace>
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-09T09:51:15</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>NRequire.ResolveException : don't know what to pick. Expected a possibility</Message>
+                  <StackTrace>   at NRequire.MatchContext.NextChildContext() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\MatchContext.cs:line 93
+   at NRequire.NodeResolver.Resolve(MatchContext ctxt, List`1 resolved) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolver.cs:line 71
+   at NRequire.NodeResolver.Resolve(IList`1 require) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolver.cs:line 46
+   at NRequire.NodeResolverTest.ResolveSimple() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 131</StackTrace>
+                  <ConsoleOutput>Adding requirements for :DependencyWishList@45653674&lt;key:group-A,wishes:1.0&gt;
+Adding wish:DependencyWish@41149443&lt;
+	Group:group,
+	Name:C,
+	Version:[1.0,1.2),
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:,
+	Url:,
+	CopyTo:,
+	Related:[],
+	Dependencies:[]
+&gt;
+Adding requirements for :DependencyWishList@39785641&lt;key:group-B,wishes:1.0&gt;
+Adding wish:DependencyWish@45523402&lt;
+	Group:group,
+	Name:D,
+	Version:[1.0,1.1],
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:,
+	Url:,
+	CopyTo:,
+	Related:[],
+	Dependencies:[]
+&gt;
+Picking dep for wishes :DependencyWishList@35287174&lt;key:group-D,wishes:[1.0,1.1]&gt;
+Picked dep :Dependency@44419000&lt;
+	Group:group,
+	Name:D,
+	Version:1.1.0,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;
+Adding requirements for :DependencyWishList@22597652&lt;key:group-D,wishes:1.1.0&gt;
+Adding wish:DependencyWish@10261382&lt;
+	Group:group,
+	Name:E,
+	Version:[1.1,1.2],
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:,
+	Scope:,
+	Url:,
+	CopyTo:,
+	Related:[],
+	Dependencies:[]
+&gt;
+can't resolve
+Picking dep for wishes :DependencyWishList@59109011&lt;key:group-E,wishes:[1.1,1.2]&gt;
+Picked dep :
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+      </Tests>
+    </TestRecord>
+  </Tests>
+</TestRecord>

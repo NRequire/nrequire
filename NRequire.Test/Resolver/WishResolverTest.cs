@@ -5,6 +5,8 @@ using NUnit.Framework;
 using NRequire.Matcher;
 using System.Collections.Generic;
 using System.Collections;
+using TestFirst.Net;
+using TestFirst.Net.Matcher;
 
 namespace NRequire.Resolver
 {
@@ -154,7 +156,7 @@ namespace NRequire.Resolver
             Expect
                .That(resolved)
                .Is(AList.InOrder()
-                    .With(ADependency.From("group:mydep:1.0").Scope(Scopes.Runtime))
+                    .WithOnly(ADependency.From("group:mydep:1.0").Scope(Scopes.Runtime))
                     .And(ADependency.From("group:myruntime:1.0").Scope(Scopes.Runtime)));
         }
 
@@ -176,7 +178,7 @@ namespace NRequire.Resolver
             Expect
                .That(resolved)
                .Is(AList.InOrder()
-                    .With(ADependency.From("group:mydep:1.0"))
+                    .WithOnly(ADependency.From("group:mydep:1.0"))
                     .And(ADependency.From("group:myruntime:1.0")));
         }
         [Test]
@@ -196,7 +198,7 @@ namespace NRequire.Resolver
             Expect
                .That(resolved)
                .Is(AList.InOrder()
-                    .With(ADependency.From("group:mydep:1.0"))
+                    .WithOnly(ADependency.From("group:mydep:1.0"))
                     .And(ADependency.From("group:myruntime:1.0"))
                     .And(ADependency.From("group:mytransitive:1.0")));
         }
@@ -220,7 +222,7 @@ namespace NRequire.Resolver
             Expect
                .That(resolved)
                .Is(AList.InOrder()
-                    .With(ADependency.From("group:mydep:1.0"))
+                    .WithOnly(ADependency.From("group:mydep:1.0"))
                     .And(ADependency.From("group:myruntime:1.0"))
                     .And(ADependency.From("group:myruntime2:1.0"))
                     .And(ADependency.From("group:mytransitive:1.0")));

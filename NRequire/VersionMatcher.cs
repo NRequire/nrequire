@@ -14,7 +14,7 @@ namespace NRequire {
     /// ) -> < less than
     /// ] -> <= less than or equal
     /// </summary>
-	public class VersionMatcher : IMatcher<Version> {
+    public class VersionMatcher : IMatcher<Version> {
 
         public static VersionMatcher AnyMatcher = new VersionMatcher("*", new AlwaysTrueMatcher<Version>());
 

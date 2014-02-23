@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TestRecord xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results />
+  <Tests>
+    <TestRecord Name="NRequire">
+      <Results />
+      <Tests>
+        <TestRecord Name="DependencyCacheTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-14T22:51:48</TestDate>
+              <Passed>4</Passed>
+              <Errors>0</Errors>
+              <Failures>1</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>One or more child tests had errors</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="ListVersionsInOrderTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-14T22:20:49</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object.</Message>
+                  <StackTrace>   at NRequire.DependencyCache.&lt;&gt;c__DisplayClass5.&lt;GetVersionsMatching&gt;b__4(Version v) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 41
+   at System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at NRequire.DependencyCache.GetVersionsMatching(DependencyWish wish) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 40
+   at NRequire.DependencyCacheTest.ListVersionsInOrderTest() in u:\users\bert\workspace\nrequire\NRequire.Test\DependencyCacheTest.cs:line 52</StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-14T22:25:13</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object.</Message>
+                  <StackTrace>   at NRequire.DependencyCache.&lt;&gt;c__DisplayClass5.&lt;GetVersionsMatching&gt;b__4(Version v) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 41
+   at System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at NRequire.DependencyCache.GetVersionsMatching(DependencyWish wish) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 40
+   at NRequire.DependencyCacheTest.ListVersionsInOrderTest() in u:\users\bert\workspace\nrequire\NRequire.Test\DependencyCacheTest.cs:line 52</StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-14T22:26:02</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object.</Message>
+                  <StackTrace>   at NRequire.DependencyCache.&lt;&gt;c__DisplayClass5.&lt;GetVersionsMatching&gt;b__4(Version v) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 41
+   at System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at NRequire.DependencyCache.GetVersionsMatching(DependencyWish wish) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 40
+   at NRequire.DependencyCacheTest.ListVersionsInOrderTest() in u:\users\bert\workspace\nrequire\NRequire.Test\DependencyCacheTest.cs:line 52</StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-14T22:46:40</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object.</Message>
+                  <StackTrace>   at NRequire.DependencyCache.&lt;&gt;c__DisplayClass5.&lt;GetVersionsMatching&gt;b__4(Version v) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 43
+   at System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at NRequire.DependencyCache.GetVersionsMatching(DependencyWish wish) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 43
+   at NRequire.DependencyCacheTest.ListVersionsInOrderTest() in u:\users\bert\workspace\nrequire\NRequire.Test\DependencyCacheTest.cs:line 52</StackTrace>
+                  <ConsoleOutput>XXX Versions =&gt;2.3.4.SNAPSHOT,1.2.3,1.0.0
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-14T22:51:48</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.07ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="DependenciesForWish">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-14T22:51:48</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected is &lt;System.Collections.Generic.List`1[NRequire.Version]&gt; with 3 elements, actual is &lt;System.Collections.Generic.List`1[NRequire.Dependency]&gt; with 3 elements
+  Values differ at index [0]
+  Expected: &lt;2.3.4.SNAPSHOT&gt;
+  But was:  &lt;Dependency@22597652&lt;
+	Group:Group,
+	Name:Name,
+	Version:2.3.4.SNAPSHOT,
+	Ext:,
+	Arch:,
+	Runtime:,
+	Classifiers:key1-val1_key2-val2,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[]'
+&gt;&gt;
+</Message>
+                  <StackTrace>   at NUnit.Framework.Assert.That(Object actual, IResolveConstraint expression, String message, Object[] args)
+   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)
+   at NRequire.DependencyCacheTest.DependenciesForWish() in u:\users\bert\workspace\nrequire\NRequire.Test\DependencyCacheTest.cs:line 70</StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="FindDependenciesMatching">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-14T22:51:48</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.74ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="FindWishesForDep">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-14T22:51:48</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.35ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="ListWishesForDependency">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-14T22:51:48</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+      </Tests>
+    </TestRecord>
+  </Tests>
+</TestRecord>

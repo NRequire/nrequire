@@ -1,0 +1,2206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TestRecord xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <UnitTestResult>
+      <TestDate>2013-05-01T17:02:59</TestDate>
+      <Passed>31</Passed>
+      <Errors>0</Errors>
+      <Failures>0</Failures>
+      <Inconclusive>0</Inconclusive>
+      <NotRunnable>0</NotRunnable>
+      <Skipped>0</Skipped>
+      <Ignored>0</Ignored>
+      <Time />
+      <Message>Test successful
+
+Execution time: 3.82ms</Message>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2013-05-01T17:06:27</TestDate>
+      <Passed>31</Passed>
+      <Errors>0</Errors>
+      <Failures>0</Failures>
+      <Inconclusive>0</Inconclusive>
+      <NotRunnable>0</NotRunnable>
+      <Skipped>0</Skipped>
+      <Ignored>0</Ignored>
+      <Time />
+      <Message>Test successful
+
+Execution time: 3.48ms</Message>
+    </UnitTestResult>
+  </Results>
+  <Tests>
+    <TestRecord Name="NRequire">
+      <Results>
+        <UnitTestResult>
+          <TestDate>2013-05-01T17:02:59</TestDate>
+          <Passed>31</Passed>
+          <Errors>0</Errors>
+          <Failures>0</Failures>
+          <Inconclusive>0</Inconclusive>
+          <NotRunnable>0</NotRunnable>
+          <Skipped>0</Skipped>
+          <Ignored>0</Ignored>
+          <Time />
+          <Message>Test successful
+
+Execution time: 3.80ms</Message>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2013-05-01T17:06:27</TestDate>
+          <Passed>31</Passed>
+          <Errors>0</Errors>
+          <Failures>0</Failures>
+          <Inconclusive>0</Inconclusive>
+          <NotRunnable>0</NotRunnable>
+          <Skipped>0</Skipped>
+          <Ignored>0</Ignored>
+          <Time />
+          <Message>Test successful
+
+Execution time: 3.45ms</Message>
+        </UnitTestResult>
+      </Results>
+      <Tests>
+        <TestRecord Name="CommandLineParserTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-01T17:02:59</TestDate>
+              <Passed>2</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.31ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-05-01T17:06:27</TestDate>
+              <Passed>2</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.22ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="ExtractOptionsTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.05ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.04ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="NoArgsThrowsExceptionTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="DependencyCacheTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-01T17:02:59</TestDate>
+              <Passed>1</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.11ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-05-01T17:06:27</TestDate>
+              <Passed>1</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.10ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="ListVersionsInOrderTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.11ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.10ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="DependencyWishTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-01T17:02:59</TestDate>
+              <Passed>6</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.20ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-05-01T17:06:27</TestDate>
+              <Passed>6</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.20ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="CloneChildDependenciesTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.02ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="CloneEmptyDepTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="CloneSimplePropsTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.08ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.08ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="MergeChildChildDependenciesTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.02ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="MergeChildDependenciesTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="MergeSimplePropsTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="JsonReaderTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-01T17:02:59</TestDate>
+              <Passed>2</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.80ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-05-01T17:06:27</TestDate>
+              <Passed>2</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.60ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="ReadAllFieldsTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.77ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.58ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="ThrowsExceptionOnNonExistentJsonFileTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="Matcher">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-01T17:02:59</TestDate>
+              <Passed>2</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.03ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-05-01T17:06:27</TestDate>
+              <Passed>2</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.04ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="ExactMatcherTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>2</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.03ms</Message>
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>2</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.03ms</Message>
+                </UnitTestResult>
+              </Results>
+              <Tests>
+                <TestRecord Name="MajorMinorRevisionTest">
+                  <Results>
+                    <UnitTestResult>
+                      <TestDate>2013-05-01T17:02:59</TestDate>
+                      <Passed>1</Passed>
+                      <Errors>0</Errors>
+                      <Failures>0</Failures>
+                      <Inconclusive>0</Inconclusive>
+                      <NotRunnable>0</NotRunnable>
+                      <Skipped>0</Skipped>
+                      <Ignored>0</Ignored>
+                      <Time />
+                      <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                      <ConsoleOutput />
+                      <ConsoleError />
+                    </UnitTestResult>
+                    <UnitTestResult>
+                      <TestDate>2013-05-01T17:06:27</TestDate>
+                      <Passed>1</Passed>
+                      <Errors>0</Errors>
+                      <Failures>0</Failures>
+                      <Inconclusive>0</Inconclusive>
+                      <NotRunnable>0</NotRunnable>
+                      <Skipped>0</Skipped>
+                      <Ignored>0</Ignored>
+                      <Time />
+                      <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                      <ConsoleOutput />
+                      <ConsoleError />
+                    </UnitTestResult>
+                  </Results>
+                  <Tests />
+                </TestRecord>
+                <TestRecord Name="MajorTest">
+                  <Results>
+                    <UnitTestResult>
+                      <TestDate>2013-05-01T17:02:59</TestDate>
+                      <Passed>1</Passed>
+                      <Errors>0</Errors>
+                      <Failures>0</Failures>
+                      <Inconclusive>0</Inconclusive>
+                      <NotRunnable>0</NotRunnable>
+                      <Skipped>0</Skipped>
+                      <Ignored>0</Ignored>
+                      <Time />
+                      <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                      <ConsoleOutput />
+                      <ConsoleError />
+                    </UnitTestResult>
+                    <UnitTestResult>
+                      <TestDate>2013-05-01T17:06:27</TestDate>
+                      <Passed>1</Passed>
+                      <Errors>0</Errors>
+                      <Failures>0</Failures>
+                      <Inconclusive>0</Inconclusive>
+                      <NotRunnable>0</NotRunnable>
+                      <Skipped>0</Skipped>
+                      <Ignored>0</Ignored>
+                      <Time />
+                      <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                      <ConsoleOutput />
+                      <ConsoleError />
+                    </UnitTestResult>
+                  </Results>
+                  <Tests />
+                </TestRecord>
+              </Tests>
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="ProgramTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-01T17:02:59</TestDate>
+              <Passed>1</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.88ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-05-01T17:06:27</TestDate>
+              <Passed>1</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.83ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="HappyPathTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.88ms</Message>
+                  <ConsoleOutput>[Debug] DependencyCache Versions dir 'U:\users\bert\workspace\nrequire\NRequire.Test\bin\Debug\ProgramTest\LocalCache\Group0\Name0'
+[Debug] DependencyCache Versions dir.dirs '0.0.0'
+[Debug] DependencyCache Versions found for dep Dependency@29475730&lt;
+	Group:Group0,
+	Name:Name0,
+	Version:0.0.0,
+	Ext:dll,
+	Arch:Arch0,
+	Runtime:Runtime0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mydep0,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt; an classifier 'arch-Arch0_runtime-Runtime0' were 0.0.0
+[Debug] Resolver Found versions:0.0.0
+[Debug] Resolver Matched version 0.0.0 for dep Dependency@29475730&lt;
+	Group:Group0,
+	Name:Name0,
+	Version:0.0.0,
+	Ext:dll,
+	Arch:Arch0,
+	Runtime:Runtime0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mydep0,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt;
+[Debug] DependencyCache Versions dir 'U:\users\bert\workspace\nrequire\NRequire.Test\bin\Debug\ProgramTest\LocalCache\Group1\Name1'
+[Debug] DependencyCache Versions dir.dirs '1.2.1,1.2.2,1.2.3'
+[Debug] DependencyCache Versions found for dep Dependency@51339472&lt;
+	Group:Group1,
+	Name:Name1,
+	Version:[1.2.2,),
+	Ext:Ext1,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mychild1,
+	CopyTo:MyLibDir,
+	Related:[related],
+	Dependencies:[]
+&gt; an classifier 'arch-any_runtime-4.0' were 1.2.3,1.2.2,1.2.1
+[Debug] Resolver Found versions:1.2.3,1.2.2,1.2.1
+[Debug] Resolver Matched version 1.2.3 for dep Dependency@51339472&lt;
+	Group:Group1,
+	Name:Name1,
+	Version:[1.2.2,),
+	Ext:Ext1,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mychild1,
+	CopyTo:MyLibDir,
+	Related:[related],
+	Dependencies:[]
+&gt;
+[Debug] DependencyCache Versions dir 'U:\users\bert\workspace\nrequire\NRequire.Test\bin\Debug\ProgramTest\LocalCache\Group2\Name2'
+[Debug] DependencyCache Versions dir.dirs '4.5.6'
+[Debug] DependencyCache Versions found for dep Dependency@10801856&lt;
+	Group:Group2,
+	Name:Name2,
+	Version:[4.5.6],
+	Ext:Ext2,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mychild2,
+	CopyTo:,
+	Related:[],
+	Dependencies:[
+	Dependency@28574894&lt;
+	Group:TransitiveGroup,
+	Name:TransitiveName,
+	Version:1.1.1,
+	Ext:TransitiveExt,
+	Arch:TransitiveArch,
+	Runtime:TransitiveRuntime,
+	Classifiers:,
+	Scope:,
+	Url:http://nowhere.com/myTransitive,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt;
+	]
+&gt; an classifier 'arch-any_runtime-4.0' were 4.5.6
+[Debug] Resolver Found versions:4.5.6
+[Debug] Resolver Matched version 4.5.6 for dep Dependency@10801856&lt;
+	Group:Group2,
+	Name:Name2,
+	Version:[4.5.6],
+	Ext:Ext2,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mychild2,
+	CopyTo:,
+	Related:[],
+	Dependencies:[
+	Dependency@28574894&lt;
+	Group:TransitiveGroup,
+	Name:TransitiveName,
+	Version:1.1.1,
+	Ext:TransitiveExt,
+	Arch:TransitiveArch,
+	Runtime:TransitiveRuntime,
+	Classifiers:,
+	Scope:,
+	Url:http://nowhere.com/myTransitive,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt;
+	]
+&gt;
+[Debug] DependencyCache Versions dir 'U:\users\bert\workspace\nrequire\NRequire.Test\bin\Debug\ProgramTest\LocalCache\ProvidedGroup\ProvidedName'
+[Debug] DependencyCache Versions dir.dirs '1.1.1'
+[Debug] DependencyCache Versions found for dep Dependency@16321512&lt;
+	Group:ProvidedGroup,
+	Name:ProvidedName,
+	Version:1.1.1,
+	Ext:dll,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Provided,
+	Url:,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt; an classifier 'arch-any_runtime-4.0' were 1.1.1
+[Debug] Resolver Found versions:1.1.1
+[Debug] Resolver Matched version 1.1.1 for dep Dependency@16321512&lt;
+	Group:ProvidedGroup,
+	Name:ProvidedName,
+	Version:1.1.1,
+	Ext:dll,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Provided,
+	Url:,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt;
+[Debug] DependencyCache Versions dir 'U:\users\bert\workspace\nrequire\NRequire.Test\bin\Debug\ProgramTest\LocalCache\TransitiveGroup\TransitiveName'
+[Debug] DependencyCache Versions dir.dirs '1.1.1'
+[Debug] DependencyCache Versions found for dep Dependency@63379435&lt;
+	Group:TransitiveGroup,
+	Name:TransitiveName,
+	Version:1.1.1,
+	Ext:TransitiveExt,
+	Arch:TransitiveArch,
+	Runtime:TransitiveRuntime,
+	Classifiers:,
+	Scope:Transitive,
+	Url:http://nowhere.com/myTransitive,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt; an classifier 'arch-TransitiveArch_runtime-TransitiveRuntime' were 1.1.1
+[Debug] Resolver Found versions:1.1.1
+[Debug] Resolver Matched version 1.1.1 for dep Dependency@63379435&lt;
+	Group:TransitiveGroup,
+	Name:TransitiveName,
+	Version:1.1.1,
+	Ext:TransitiveExt,
+	Arch:TransitiveArch,
+	Runtime:TransitiveRuntime,
+	Classifiers:,
+	Scope:Transitive,
+	Url:http://nowhere.com/myTransitive,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt;
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.82ms</Message>
+                  <ConsoleOutput>[Debug] DependencyCache Versions dir 'U:\users\bert\workspace\nrequire\NRequire.Test\bin\Debug\ProgramTest\LocalCache\Group0\Name0'
+[Debug] DependencyCache Versions dir.dirs '0.0.0'
+[Debug] DependencyCache Versions found for dep Dependency@29475730&lt;
+	Group:Group0,
+	Name:Name0,
+	Version:0.0.0,
+	Ext:dll,
+	Arch:Arch0,
+	Runtime:Runtime0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mydep0,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt; an classifier 'arch-Arch0_runtime-Runtime0' were 0.0.0
+[Debug] Resolver Found versions:0.0.0
+[Debug] Resolver Matched version 0.0.0 for dep Dependency@29475730&lt;
+	Group:Group0,
+	Name:Name0,
+	Version:0.0.0,
+	Ext:dll,
+	Arch:Arch0,
+	Runtime:Runtime0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mydep0,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt;
+[Debug] DependencyCache Versions dir 'U:\users\bert\workspace\nrequire\NRequire.Test\bin\Debug\ProgramTest\LocalCache\Group1\Name1'
+[Debug] DependencyCache Versions dir.dirs '1.2.1,1.2.2,1.2.3'
+[Debug] DependencyCache Versions found for dep Dependency@51339472&lt;
+	Group:Group1,
+	Name:Name1,
+	Version:[1.2.2,),
+	Ext:Ext1,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mychild1,
+	CopyTo:MyLibDir,
+	Related:[related],
+	Dependencies:[]
+&gt; an classifier 'arch-any_runtime-4.0' were 1.2.3,1.2.2,1.2.1
+[Debug] Resolver Found versions:1.2.3,1.2.2,1.2.1
+[Debug] Resolver Matched version 1.2.3 for dep Dependency@51339472&lt;
+	Group:Group1,
+	Name:Name1,
+	Version:[1.2.2,),
+	Ext:Ext1,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mychild1,
+	CopyTo:MyLibDir,
+	Related:[related],
+	Dependencies:[]
+&gt;
+[Debug] DependencyCache Versions dir 'U:\users\bert\workspace\nrequire\NRequire.Test\bin\Debug\ProgramTest\LocalCache\Group2\Name2'
+[Debug] DependencyCache Versions dir.dirs '4.5.6'
+[Debug] DependencyCache Versions found for dep Dependency@10801856&lt;
+	Group:Group2,
+	Name:Name2,
+	Version:[4.5.6],
+	Ext:Ext2,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mychild2,
+	CopyTo:,
+	Related:[],
+	Dependencies:[
+	Dependency@28574894&lt;
+	Group:TransitiveGroup,
+	Name:TransitiveName,
+	Version:1.1.1,
+	Ext:TransitiveExt,
+	Arch:TransitiveArch,
+	Runtime:TransitiveRuntime,
+	Classifiers:,
+	Scope:,
+	Url:http://nowhere.com/myTransitive,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt;
+	]
+&gt; an classifier 'arch-any_runtime-4.0' were 4.5.6
+[Debug] Resolver Found versions:4.5.6
+[Debug] Resolver Matched version 4.5.6 for dep Dependency@10801856&lt;
+	Group:Group2,
+	Name:Name2,
+	Version:[4.5.6],
+	Ext:Ext2,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mychild2,
+	CopyTo:,
+	Related:[],
+	Dependencies:[
+	Dependency@28574894&lt;
+	Group:TransitiveGroup,
+	Name:TransitiveName,
+	Version:1.1.1,
+	Ext:TransitiveExt,
+	Arch:TransitiveArch,
+	Runtime:TransitiveRuntime,
+	Classifiers:,
+	Scope:,
+	Url:http://nowhere.com/myTransitive,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt;
+	]
+&gt;
+[Debug] DependencyCache Versions dir 'U:\users\bert\workspace\nrequire\NRequire.Test\bin\Debug\ProgramTest\LocalCache\ProvidedGroup\ProvidedName'
+[Debug] DependencyCache Versions dir.dirs '1.1.1'
+[Debug] DependencyCache Versions found for dep Dependency@16321512&lt;
+	Group:ProvidedGroup,
+	Name:ProvidedName,
+	Version:1.1.1,
+	Ext:dll,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Provided,
+	Url:,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt; an classifier 'arch-any_runtime-4.0' were 1.1.1
+[Debug] Resolver Found versions:1.1.1
+[Debug] Resolver Matched version 1.1.1 for dep Dependency@16321512&lt;
+	Group:ProvidedGroup,
+	Name:ProvidedName,
+	Version:1.1.1,
+	Ext:dll,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Provided,
+	Url:,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt;
+[Debug] DependencyCache Versions dir 'U:\users\bert\workspace\nrequire\NRequire.Test\bin\Debug\ProgramTest\LocalCache\TransitiveGroup\TransitiveName'
+[Debug] DependencyCache Versions dir.dirs '1.1.1'
+[Debug] DependencyCache Versions found for dep Dependency@63379435&lt;
+	Group:TransitiveGroup,
+	Name:TransitiveName,
+	Version:1.1.1,
+	Ext:TransitiveExt,
+	Arch:TransitiveArch,
+	Runtime:TransitiveRuntime,
+	Classifiers:,
+	Scope:Transitive,
+	Url:http://nowhere.com/myTransitive,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt; an classifier 'arch-TransitiveArch_runtime-TransitiveRuntime' were 1.1.1
+[Debug] Resolver Found versions:1.1.1
+[Debug] Resolver Matched version 1.1.1 for dep Dependency@63379435&lt;
+	Group:TransitiveGroup,
+	Name:TransitiveName,
+	Version:1.1.1,
+	Ext:TransitiveExt,
+	Arch:TransitiveArch,
+	Runtime:TransitiveRuntime,
+	Classifiers:,
+	Scope:Transitive,
+	Url:http://nowhere.com/myTransitive,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt;
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="ResolverTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-01T17:02:59</TestDate>
+              <Passed>2</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.07ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-05-01T17:06:27</TestDate>
+              <Passed>2</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.10ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="ResolveToLatestMatchingVersion">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.04ms</Message>
+                  <ConsoleOutput>[Debug] DependencyCache Versions dir 'C:\tmp\nunit-NRequire.FileUtil\1367427783167.72\Group\Name'
+[Debug] DependencyCache Versions dir.dirs '1.2.3,1.2.4,1.2.5,1.2.6,1.2.7'
+[Debug] DependencyCache Versions found for dep Dependency@38600745&lt;
+	Group:Group,
+	Name:Name,
+	Version:[1.2.2,1.2.7),
+	Ext:Ext,
+	Arch:Any,
+	Runtime:Any,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[],
+	Dependencies:[]
+&gt; an classifier 'arch-Any_runtime-Any' were 1.2.7,1.2.6,1.2.5,1.2.4,1.2.3
+[Debug] Resolver Found versions:1.2.7,1.2.6,1.2.5,1.2.4,1.2.3
+[Debug] Resolver Matched version 1.2.6 for dep Dependency@38600745&lt;
+	Group:Group,
+	Name:Name,
+	Version:[1.2.2,1.2.7),
+	Ext:Ext,
+	Arch:Any,
+	Runtime:Any,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[],
+	Dependencies:[]
+&gt;
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.05ms</Message>
+                  <ConsoleOutput>[Debug] DependencyCache Versions dir 'C:\tmp\nunit-NRequire.FileUtil\1367427990588.58\Group\Name'
+[Debug] DependencyCache Versions dir.dirs '1.2.3,1.2.4,1.2.5,1.2.6,1.2.7'
+[Debug] DependencyCache Versions found for dep Dependency@38600745&lt;
+	Group:Group,
+	Name:Name,
+	Version:[1.2.2,1.2.7),
+	Ext:Ext,
+	Arch:Any,
+	Runtime:Any,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[],
+	Dependencies:[]
+&gt; an classifier 'arch-Any_runtime-Any' were 1.2.7,1.2.6,1.2.5,1.2.4,1.2.3
+[Debug] Resolver Found versions:1.2.7,1.2.6,1.2.5,1.2.4,1.2.3
+[Debug] Resolver Matched version 1.2.6 for dep Dependency@38600745&lt;
+	Group:Group,
+	Name:Name,
+	Version:[1.2.2,1.2.7),
+	Ext:Ext,
+	Arch:Any,
+	Runtime:Any,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[],
+	Dependencies:[]
+&gt;
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="ResolveTransitiveDepsTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.02ms</Message>
+                  <ConsoleOutput>[Debug] DependencyCache Versions dir 'C:\tmp\nunit-NRequire.FileUtil\1367427783215.72\Group\Name'
+[Debug] DependencyCache Versions dir.dirs '1.2.3,1.2.4'
+[Debug] DependencyCache Versions found for dep Dependency@48916090&lt;
+	Group:Group,
+	Name:Name,
+	Version:1.2.4,
+	Ext:Ext,
+	Arch:Any,
+	Runtime:Any,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[],
+	Dependencies:[]
+&gt; an classifier 'arch-Any_runtime-Any' were 1.2.4,1.2.3
+[Debug] Resolver Found versions:1.2.4,1.2.3
+[Debug] Resolver Matched version 1.2.4 for dep Dependency@48916090&lt;
+	Group:Group,
+	Name:Name,
+	Version:1.2.4,
+	Ext:Ext,
+	Arch:Any,
+	Runtime:Any,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[],
+	Dependencies:[]
+&gt;
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.03ms</Message>
+                  <ConsoleOutput>[Debug] DependencyCache Versions dir 'C:\tmp\nunit-NRequire.FileUtil\1367427990651.58\Group\Name'
+[Debug] DependencyCache Versions dir.dirs '1.2.3,1.2.4'
+[Debug] DependencyCache Versions found for dep Dependency@48916090&lt;
+	Group:Group,
+	Name:Name,
+	Version:1.2.4,
+	Ext:Ext,
+	Arch:Any,
+	Runtime:Any,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[],
+	Dependencies:[]
+&gt; an classifier 'arch-Any_runtime-Any' were 1.2.4,1.2.3
+[Debug] Resolver Found versions:1.2.4,1.2.3
+[Debug] Resolver Matched version 1.2.4 for dep Dependency@48916090&lt;
+	Group:Group,
+	Name:Name,
+	Version:1.2.4,
+	Ext:Ext,
+	Arch:Any,
+	Runtime:Any,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[],
+	Dependencies:[]
+&gt;
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="VersionMatcherTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-01T17:02:59</TestDate>
+              <Passed>3</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.04ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-05-01T17:06:27</TestDate>
+              <Passed>3</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.04ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="RangeMatchTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="SimpleMatchTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="SimpleRangeMatchTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="VersionTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-01T17:02:59</TestDate>
+              <Passed>10</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.12ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-05-01T17:06:27</TestDate>
+              <Passed>10</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.13ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="CompareToTests">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="MajorMinor">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="MajorMinorRevision">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="MajorOnly">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="ToMatchStringTests">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="ToStringTests">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="WithBuild">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="WithQualifier">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="WithSnapshot">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="WithTimestamp">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="VSProjectTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-01T17:02:59</TestDate>
+              <Passed>2</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 1.07ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-05-01T17:06:27</TestDate>
+              <Passed>2</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 1.06ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="CanUpdateProjectTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.03ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.03ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="WontUpdateIfNoChangeInReferencesTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:02:59</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 1.02ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T17:06:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 1.02ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="NodeResolverTest">
+          <Results />
+          <Tests>
+            <TestRecord Name="ResolveSimple">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T18:39:29</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected is &lt;System.Collections.Generic.List`1[NRequire.NodeResolverTest+Node]&gt; with 5 elements, actual is &lt;System.Collections.Generic.List`1[NRequire.NodeResolverTest+Node]&gt; with 0 elements
+  Values differ at index [0]
+  Missing:  &lt; &lt;NRequire.NodeResolverTest+Node&gt;, &lt;NRequire.NodeResolverTest+Node&gt;, &lt;NRequire.NodeResolverTest+Node&gt;... &gt;</Message>
+                  <StackTrace>   at NUnit.Framework.Assert.That(Object actual, IResolveConstraint expression, String message, Object[] args)
+   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)
+   at NRequire.NodeResolverTest.ResolveSimple() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\ResolverTest.cs:line 30</StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T18:49:12</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected and actual are both &lt;System.Collections.Generic.List`1[NRequire.NodeResolverTest+Node]&gt; with 5 elements
+  Values differ at index [1]
+  Expected: &lt;NRequire.NodeResolverTest+Node&gt;
+  But was:  &lt;NRequire.NodeResolverTest+Node&gt;
+</Message>
+                  <StackTrace>   at NUnit.Framework.Assert.That(Object actual, IResolveConstraint expression, String message, Object[] args)
+   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)
+   at NRequire.NodeResolverTest.ResolveSimple() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\ResolverTest.cs:line 30</StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T18:58:51</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>  Expected and actual are both &lt;System.Collections.Generic.List`1[System.String]&gt; with 5 elements
+  Values differ at index [4]
+  String lengths are both 1. Strings differ at index 0.
+  Expected: "F"
+  But was:  "E"
+  -----------^
+</Message>
+                  <StackTrace>   at NUnit.Framework.Assert.That(Object actual, IResolveConstraint expression, String message, Object[] args)
+   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)
+   at NRequire.NodeResolverTest.AssertAreEqual(NodeList expect, NodeList actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 42
+   at NRequire.NodeResolverTest.ResolveSimple() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 34</StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T19:03:13</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Failed match, expected [A,B,C,D,F], but got [A,B,C,D,E]</Message>
+                  <StackTrace>   at NRequire.NodeResolverTest.AssertAreEqual(NodeList expect, NodeList actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 45
+   at NRequire.NodeResolverTest.ResolveSimple() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 34</StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T19:03:52</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>1</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Failed match, expected [A,B,C,D], but got [A,B,C,D,E]</Message>
+                  <StackTrace>   at NRequire.NodeResolverTest.AssertAreEqual(NodeList expect, NodeList actual) in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 45
+   at NRequire.NodeResolverTest.ResolveSimple() in u:\users\bert\workspace\nrequire\NRequire.Test\Resolver\NodeResolverTest.cs:line 34</StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-01T19:04:14</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.08ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+      </Tests>
+    </TestRecord>
+  </Tests>
+</TestRecord>

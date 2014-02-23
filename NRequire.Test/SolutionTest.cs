@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using NRequire.Matcher;
+using TestFirst.Net;
+using TestFirst.Net.Matcher;
 
 namespace NRequire {
     [TestFixture]
@@ -19,7 +21,7 @@ namespace NRequire {
             Expect
                 .That(soln.Wishes)
                 .Is(AList.WithOnly(AWish.With()
-                    .Group("MyGroup").Name("MyName").Version(AString.Null()).NullExt().Scope(Scopes.Transitive).Classifiers("arch-any_runtime-any")));
+                    .Group("MyGroup").Name("MyName").VersionNull().ExtNull().Scope(Scopes.Transitive).Classifiers("arch-any_runtime-any")));
         }
 
         [Test]
@@ -48,7 +50,7 @@ namespace NRequire {
             Expect
                 .That(soln.Wishes)
                     .Is(AList.InOrder()
-                        .With(AWish.With().Group("Group").Name("MyName1a").Version("1.2.3").Ext("Ext").Classifiers("arch-any_key-val_runtime-any"))
+                        .WithOnly(AWish.With().Group("Group").Name("MyName1a").Version("1.2.3").Ext("Ext").Classifiers("arch-any_key-val_runtime-any"))
                         .And(AWish.With().Group("MyGroup").Name("MyName1b").Version("1.2.3").Ext("Ext").Classifiers("arch-any_key-val_runtime-any"))
                         .And(AWish.With().Group("MyGroup").Name("MyName1c").Version("1.0").Ext("Ext").Classifiers("arch-any_key-val_runtime-any"))
                         .And(AWish.With().Group("MyGroup").Name("MyName1d").Version("1.0").Ext("MyExt").Classifiers("arch-any_key-val_runtime-any"))

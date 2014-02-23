@@ -5,6 +5,8 @@ using System.Text;
 using System.IO;
 using NUnit.Framework;
 using NRequire.Matcher;
+using TestFirst.Net;
+using TestFirst.Net.Matcher;
 
 namespace NRequire {
     [TestFixture]
@@ -34,7 +36,7 @@ namespace NRequire {
             var actual = cache.FindDependenciesMatching(WishWith("A", "[1.1,2.0)"));
 
             Expect.That(actual)
-                .Is(AList.InOrder().With(ADepWith("A", "1.3")).And(ADepWith("A", "1.1")));
+                .Is(AList.InOrder().WithOnly(ADepWith("A", "1.3")).And(ADepWith("A", "1.1")));
         }
 
 
@@ -75,7 +77,7 @@ namespace NRequire {
             Expect
                 .That(actual)
                 .Is(AList.InOrder()
-                    .With(ADepWith().Version("2.3.4.SNAPSHOT"))
+                    .WithOnly(ADepWith().Version("2.3.4.SNAPSHOT"))
                     .And(ADepWith().Version("1.2.3"))
                     .And(ADepWith().Version("1.0.0")));
         }
@@ -96,7 +98,7 @@ namespace NRequire {
             Expect
                 .That(actual)
                 .Is(AList.InOrder()
-                    .With(ADepWith().Version("1.2.3"))
+                    .WithOnly(ADepWith().Version("1.2.3"))
                     .And(ADepWith().Version("1.0.0")));
         }
 
@@ -115,7 +117,7 @@ namespace NRequire {
             Expect
                 .That(actual)
                 .Is(AList.InOrder()
-                    .With(ADepWith().Version("1.2.5"))
+                    .WithOnly(ADepWith().Version("1.2.5"))
                     .And(ADepWith().Version("1.2.0")));
         }
         private static IList<Version> Versions(params String[] versionStrings) {

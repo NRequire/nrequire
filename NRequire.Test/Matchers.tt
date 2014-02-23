@@ -1,0 +1,40 @@
+﻿<#@ template language="C#" debug="true" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(SolutionDir)\NRequire\bin\Debug\nrequire.exe" #>
+<#@ assembly name="$(SolutionDir)\packages\TestFirst.Net.0.2.0.1\lib\net40\TestFirst.Net.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="NRequire" #>
+<#@ import namespace="TestFirst.Net" #>
+<#@ import namespace="TestFirst.Net.Template" #>
+<#    
+    var template = new TestFirst.Net.Template.MatchersTemplate();
+    
+    //template.Defaults();//.Namespace("NRequire");
+  
+    template.ForPropertyType<Classifiers>()
+        .AddMatchMethodTaking<String>("$propertyName(AClassifier.EqualTo($argName));")
+        .AddMatchMethodTaking<Classifiers>("$propertyName(AClassifier.EqualTo($argName));");
+
+    template.ForPropertyType<NRequire.Version>()
+        .AddMatchMethodTaking<String>("$propertyName(NRequire.Version.Parse($argName));")
+        .AddMatchMethodTaking<NRequire.Version>("$propertyName(AnInstance.EqualTo($argName));");
+
+    template.ForPropertyType<VersionMatcher>()
+        .AddMatchMethodTaking<String>("$propertyName(Matchers.Function<VersionMatcher>(actual => actual.ToString().Equals($argName), () => $argName));")
+        .AddMatchMethodTaking<NRequire.Version>("$propertyName($argName.ToString());");
+
+    template.GenerateFor<NRequire.Version>();
+    //template.GenerateFor<VersionMatcher>();
+    template.GenerateFor<Classifiers>().MatcherName("AClassifier");
+    template.GenerateFor<Dependency>();
+    template.GenerateFor<Wish>();
+    template.GenerateFor<Module>();
+    template.GenerateFor<Solution>();
+    template.GenerateFor<Project>();
+    template.GenerateFor<VSSolution>();
+    template.GenerateFor<VSSolution.ProjectReference>();
+    template.GenerateFor<VSProject>();
+ #>
+ <#=template.Render() #>

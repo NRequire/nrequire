@@ -6,8 +6,10 @@ using System.IO;
 using NUnit.Framework;
 
 namespace NRequire {
+
     [TestFixture]
     public class JsonReaderTest {
+
         [Test]
         public void ThrowsExceptionOnNonExistentJsonFileTest() {
             ArgumentException thrown = null;
@@ -24,7 +26,7 @@ namespace NRequire {
         [Test]
         public void ReadAllFieldsTest() {
             var reader = new JsonReader();
-            var depFile = FileUtil.FileFor<JsonReaderTest>(".depsfile1.json");
+            var depFile = FileUtil.FileFor<JsonReaderTest>("depsfile1.json");
             var dep = reader.ReadDependency(depFile);
 
             Assert.NotNull(dep);

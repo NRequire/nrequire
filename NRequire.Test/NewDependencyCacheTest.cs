@@ -3,6 +3,8 @@ using System.IO;
 using NUnit.Framework;
 using NRequire.Matcher;
 using NRequire.Test;
+using TestFirst.Net;
+using TestFirst.Net.Matcher;
 
 namespace NRequire
 {
@@ -52,7 +54,7 @@ namespace NRequire
             var wishes = cache.FindWishesFor(DepWith().Name("SomeName").Group("SomeGroup").Ext("SomeExt").Arch("somearch").Runtime("someruntime").Version("3.0"));
             Expect.That(wishes)
                 .Is(AList.InOrder()
-                    .With(AWishWith().Name("OtherName").Group("OtherGroup").Ext("OtherExt").Arch("otherarch").Runtime("otherruntime").Version("1.0"))
+                    .WithOnly(AWishWith().Name("OtherName").Group("OtherGroup").Ext("OtherExt").Arch("otherarch").Runtime("otherruntime").Version("1.0"))
                     .And(AWishWith().Name("OtherName2").Group("OtherGroup2").Ext("OtherExt2").Arch("otherarch2").Runtime("otherruntime2").Version("1.2")));
 
             var deps = cache.FindDependenciesMatching(WishWith().Name("SomeName").Group("SomeGroup").Ext("SomeExt").Arch("SomeArch").Runtime("SomeRuntime"));

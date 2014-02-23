@@ -55,6 +55,25 @@
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -74,6 +93,7 @@
     <Compile Include="CommandLineParser.cs" />
     <Compile Include="CommandParseException.cs" />
     <Compile Include="ConsoleLogAppender.cs" />
+    <Compile Include="Json\VersionConverter.cs" />
     <Compile Include="VSSolution.cs" />
     <Compile Include="IHaveSignature.cs" />
     <Compile Include="IResolved.cs" />
@@ -120,7 +140,6 @@
     </Compile>
     <Compile Include="ProjectResolver.cs" />
     <Compile Include="Json\JsonWriter.cs" />
-    <Compile Include="u:\users\bert\workspace\nrequire\NRequire\Json\VersionConverter.cs" />
     <Compile Include="Json\VersionMatcherConverter.cs" />
     <Compile Include="Resolver\WishResolver.cs" />
     <Compile Include="IRequireLoadNotification.cs" />
@@ -152,7 +171,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="LICENSE.txt" />
     <Content Include="README.txt" />
+    <EmbeddedResource Include="Properties\Resources.resx" />
     <EmbeddedResource Include="Resources\Newtonsoft.Json.dll" />
     <Content Include="TODO.txt" />
   </ItemGroup>

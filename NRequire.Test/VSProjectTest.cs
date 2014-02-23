@@ -12,7 +12,7 @@ namespace NRequire {
 
         [Test]
         public void CanUpdateProjectTest() {
-            var from = FileUtil.ResourceFileFor<VSProjectTest>("_before.csproj.xml");
+            var from = FileUtil.ResourceFileFor<VSProjectTest>("before.csproj.xml");
             var projFile = FileUtil.CopyToTmpFile(from);
 
             var proj = VSProject.FromPath(projFile);
@@ -23,7 +23,7 @@ namespace NRequire {
             proj.UpdateReferences(resources);
 
             //now check file equals the expected one
-            var expectTxt = FileUtil.ReadResourceFileAsString<VSProjectTest>("_expect.csproj.xml");
+            var expectTxt = FileUtil.ReadResourceFileAsString<VSProjectTest>("expect.csproj.xml");
             var actualTxt = FileUtil.ReadFileAsString(projFile);
             Assert.AreEqual(expectTxt,actualTxt);
 
@@ -32,7 +32,7 @@ namespace NRequire {
 
         [Test]
         public void WontUpdateIfNoChangeInReferencesTest() {
-            var from = FileUtil.ResourceFileFor<VSProjectTest>("_before.csproj.xml");
+            var from = FileUtil.ResourceFileFor<VSProjectTest>("before.csproj.xml");
             var projFile = FileUtil.CopyToTmpFile(from);
 
             var proj = VSProject.FromPath(projFile);

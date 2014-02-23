@@ -1,0 +1,2779 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TestRecord xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <UnitTestResult>
+      <TestDate>2013-05-13T08:24:27</TestDate>
+      <Passed>0</Passed>
+      <Errors>0</Errors>
+      <Failures>0</Failures>
+      <Inconclusive>0</Inconclusive>
+      <NotRunnable>0</NotRunnable>
+      <Skipped>0</Skipped>
+      <Ignored>0</Ignored>
+      <Time />
+      <Message>No connection could be made because the target machine actively refused it 127.0.0.1:65459</Message>
+      <StackTrace>
+Server stack trace: 
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Connect(EndPoint remoteEP)
+   at System.Runtime.Remoting.Channels.RemoteConnection.CreateNewSocket(EndPoint ipEndPoint)
+   at System.Runtime.Remoting.Channels.RemoteConnection.CreateNewSocket()
+   at System.Runtime.Remoting.Channels.RemoteConnection.GetSocket()
+   at System.Runtime.Remoting.Channels.SocketCache.GetSocket(String machinePortAndSid, Boolean openNew)
+   at System.Runtime.Remoting.Channels.Tcp.TcpClientTransportSink.SendRequestWithRetry(IMessage msg, ITransportHeaders requestHeaders, Stream requestStream)
+   at System.Runtime.Remoting.Channels.Tcp.TcpClientTransportSink.ProcessMessage(IMessage msg, ITransportHeaders requestHeaders, Stream requestStream, ITransportHeaders&amp; responseHeaders, Stream&amp; responseStream)
+   at System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage(IMessage msg)
+
+Exception rethrown at [0]: 
+   at System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   at System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData&amp; msgData, Int32 type)
+   at MonoDevelop.Core.Execution.RemoteProcessObject.Dispose()
+   at MonoDevelop.NUnit.NUnitAssemblyTestSuite.RunUnitTest(UnitTest test, String suiteName, String pathName, String testName, TestContext testContext)
+   at MonoDevelop.NUnit.NUnitAssemblyTestSuite.OnRun(TestContext testContext)
+   at MonoDevelop.NUnit.UnitTest.Run(TestContext testContext)</StackTrace>
+    </UnitTestResult>
+    <UnitTestResult>
+      <TestDate>2013-05-13T22:00:28</TestDate>
+      <Passed>40</Passed>
+      <Errors>2</Errors>
+      <Failures>0</Failures>
+      <Inconclusive>0</Inconclusive>
+      <NotRunnable>0</NotRunnable>
+      <Skipped>0</Skipped>
+      <Ignored>0</Ignored>
+      <Time />
+      <Message>One or more child tests had errors</Message>
+    </UnitTestResult>
+  </Results>
+  <Tests>
+    <TestRecord Name="NRequire">
+      <Results>
+        <UnitTestResult>
+          <TestDate>2013-05-13T21:34:23</TestDate>
+          <Passed>0</Passed>
+          <Errors>0</Errors>
+          <Failures>0</Failures>
+          <Inconclusive>0</Inconclusive>
+          <NotRunnable>0</NotRunnable>
+          <Skipped>0</Skipped>
+          <Ignored>0</Ignored>
+          <Time />
+          <Message>An existing connection was forcibly closed by the remote host</Message>
+          <StackTrace>
+Server stack trace: 
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Runtime.Remoting.Channels.SocketStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at System.Runtime.Remoting.Channels.SocketHandler.ReadFromSocket(Byte[] buffer, Int32 offset, Int32 count)
+   at System.Runtime.Remoting.Channels.SocketHandler.Read(Byte[] buffer, Int32 offset, Int32 count)
+   at System.Runtime.Remoting.Channels.SocketHandler.ReadAndMatchFourBytes(Byte[] buffer)
+   at System.Runtime.Remoting.Channels.Tcp.TcpSocketHandler.ReadAndMatchPreamble()
+   at System.Runtime.Remoting.Channels.Tcp.TcpSocketHandler.ReadVersionAndOperation(UInt16&amp; operation)
+   at System.Runtime.Remoting.Channels.Tcp.TcpClientSocketHandler.ReadHeaders()
+   at System.Runtime.Remoting.Channels.Tcp.TcpClientTransportSink.ProcessMessage(IMessage msg, ITransportHeaders requestHeaders, Stream requestStream, ITransportHeaders&amp; responseHeaders, Stream&amp; responseStream)
+   at System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage(IMessage msg)
+
+Exception rethrown at [0]: 
+   at System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   at System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData&amp; msgData, Int32 type)
+   at MonoDevelop.NUnit.External.ExternalTestRunner.Run(IRemoteEventListener listener, ITestFilter filter, String path, String suiteName, List`1 supportAssemblies, String testRunnerType, String testRunnerAssembly)
+   at MonoDevelop.NUnit.NUnitAssemblyTestSuite.RunUnitTest(UnitTest test, String suiteName, String pathName, String testName, TestContext testContext)</StackTrace>
+        </UnitTestResult>
+        <UnitTestResult>
+          <TestDate>2013-05-13T22:00:28</TestDate>
+          <Passed>40</Passed>
+          <Errors>2</Errors>
+          <Failures>0</Failures>
+          <Inconclusive>0</Inconclusive>
+          <NotRunnable>0</NotRunnable>
+          <Skipped>0</Skipped>
+          <Ignored>0</Ignored>
+          <Time />
+          <Message>One or more child tests had errors</Message>
+        </UnitTestResult>
+      </Results>
+      <Tests>
+        <TestRecord Name="CommandLineParserTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-13T08:24:27</TestDate>
+              <Passed>2</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.51ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-05-13T08:32:20</TestDate>
+              <Passed>2</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.29ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-05-13T21:34:23</TestDate>
+              <Passed>2</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.55ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-05-13T22:00:28</TestDate>
+              <Passed>2</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.38ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="ExtractOptionsTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:24:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.08ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:32:20</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.06ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T21:34:23</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.05ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.05ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="NoArgsThrowsExceptionTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:24:27</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.02ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:32:20</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.02ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T21:34:23</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.02ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.02ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="DependencyCacheTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-13T08:24:55</TestDate>
+              <Passed>0</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>An existing connection was forcibly closed by the remote host</Message>
+              <StackTrace>
+Server stack trace: 
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Runtime.Remoting.Channels.SocketStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at System.Runtime.Remoting.Channels.SocketHandler.ReadFromSocket(Byte[] buffer, Int32 offset, Int32 count)
+   at System.Runtime.Remoting.Channels.SocketHandler.Read(Byte[] buffer, Int32 offset, Int32 count)
+   at System.Runtime.Remoting.Channels.SocketHandler.ReadAndMatchFourBytes(Byte[] buffer)
+   at System.Runtime.Remoting.Channels.Tcp.TcpSocketHandler.ReadAndMatchPreamble()
+   at System.Runtime.Remoting.Channels.Tcp.TcpSocketHandler.ReadVersionAndOperation(UInt16&amp; operation)
+   at System.Runtime.Remoting.Channels.Tcp.TcpClientSocketHandler.ReadHeaders()
+   at System.Runtime.Remoting.Channels.Tcp.TcpClientTransportSink.ProcessMessage(IMessage msg, ITransportHeaders requestHeaders, Stream requestStream, ITransportHeaders&amp; responseHeaders, Stream&amp; responseStream)
+   at System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage(IMessage msg)
+
+Exception rethrown at [0]: 
+   at System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   at System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData&amp; msgData, Int32 type)
+   at MonoDevelop.NUnit.External.ExternalTestRunner.Run(IRemoteEventListener listener, ITestFilter filter, String path, String suiteName, List`1 supportAssemblies, String testRunnerType, String testRunnerAssembly)
+   at MonoDevelop.NUnit.NUnitAssemblyTestSuite.RunUnitTest(UnitTest test, String suiteName, String pathName, String testName, TestContext testContext)</StackTrace>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-05-13T22:00:28</TestDate>
+              <Passed>3</Passed>
+              <Errors>2</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>One or more child tests had errors</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="DependenciesForWish">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:24:27</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NotImplementedException : The method or operation is not implemented.</Message>
+                  <StackTrace>   at NRequire.DependencyCache.FindDependenciesMatching(DependencyWish wish) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 130
+   at NRequire.DependencyCacheTest.DependenciesForWish() in u:\users\bert\workspace\nrequire\NRequire.Test\DependencyCacheTest.cs:line 68</StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:24:55</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NotImplementedException : The method or operation is not implemented.</Message>
+                  <StackTrace>   at NRequire.DependencyCache.FindDependenciesMatching(DependencyWish wish) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 130
+   at NRequire.DependencyCacheTest.DependenciesForWish() in u:\users\bert\workspace\nrequire\NRequire.Test\DependencyCacheTest.cs:line 68</StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T21:34:23</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NotImplementedException : The method or operation is not implemented.</Message>
+                  <StackTrace>   at NRequire.DependencyCache.FindDependenciesMatching(DependencyWish wish) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 131
+   at NRequire.DependencyCacheTest.DependenciesForWish() in u:\users\bert\workspace\nrequire\NRequire.Test\DependencyCacheTest.cs:line 68</StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T21:36:13</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NotImplementedException : The method or operation is not implemented.</Message>
+                  <StackTrace>   at NRequire.DependencyCache.FindDependenciesMatching(DependencyWish wish) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 131
+   at NRequire.DependencyCacheTest.DependenciesForWish() in u:\users\bert\workspace\nrequire\NRequire.Test\DependencyCacheTest.cs:line 68</StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object.</Message>
+                  <StackTrace>   at NRequire.DependencyCache.&lt;&gt;c__DisplayClass5.&lt;GetVersionsMatching&gt;b__4(Version v) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 41
+   at System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at NRequire.DependencyCache.GetVersionsMatching(DependencyWish wish) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 40
+   at NRequire.DependencyCache.FindDependenciesMatching(DependencyWish wish) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 0
+   at NRequire.DependencyCacheTest.DependenciesForWish() in u:\users\bert\workspace\nrequire\NRequire.Test\DependencyCacheTest.cs:line 68</StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="FindDependenciesMatching">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:24:27</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>An existing connection was forcibly closed by the remote host</Message>
+                  <StackTrace>
+Server stack trace: 
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Runtime.Remoting.Channels.SocketStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at System.Runtime.Remoting.Channels.SocketHandler.ReadFromSocket(Byte[] buffer, Int32 offset, Int32 count)
+   at System.Runtime.Remoting.Channels.SocketHandler.Read(Byte[] buffer, Int32 offset, Int32 count)
+   at System.Runtime.Remoting.Channels.SocketHandler.ReadAndMatchFourBytes(Byte[] buffer)
+   at System.Runtime.Remoting.Channels.Tcp.TcpSocketHandler.ReadAndMatchPreamble()
+   at System.Runtime.Remoting.Channels.Tcp.TcpSocketHandler.ReadVersionAndOperation(UInt16&amp; operation)
+   at System.Runtime.Remoting.Channels.Tcp.TcpClientSocketHandler.ReadHeaders()
+   at System.Runtime.Remoting.Channels.Tcp.TcpClientTransportSink.ProcessMessage(IMessage msg, ITransportHeaders requestHeaders, Stream requestStream, ITransportHeaders&amp; responseHeaders, Stream&amp; responseStream)
+   at System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage(IMessage msg)
+
+Exception rethrown at [0]: 
+   at System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   at System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData&amp; msgData, Int32 type)
+   at MonoDevelop.NUnit.External.ExternalTestRunner.Run(IRemoteEventListener listener, ITestFilter filter, String path, String suiteName, List`1 supportAssemblies, String testRunnerType, String testRunnerAssembly)
+   at MonoDevelop.NUnit.NUnitAssemblyTestSuite.RunUnitTest(UnitTest test, String suiteName, String pathName, String testName, TestContext testContext)</StackTrace>
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:24:55</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>An existing connection was forcibly closed by the remote host</Message>
+                  <StackTrace>
+Server stack trace: 
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Runtime.Remoting.Channels.SocketStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at System.Runtime.Remoting.Channels.SocketHandler.ReadFromSocket(Byte[] buffer, Int32 offset, Int32 count)
+   at System.Runtime.Remoting.Channels.SocketHandler.Read(Byte[] buffer, Int32 offset, Int32 count)
+   at System.Runtime.Remoting.Channels.SocketHandler.ReadAndMatchFourBytes(Byte[] buffer)
+   at System.Runtime.Remoting.Channels.Tcp.TcpSocketHandler.ReadAndMatchPreamble()
+   at System.Runtime.Remoting.Channels.Tcp.TcpSocketHandler.ReadVersionAndOperation(UInt16&amp; operation)
+   at System.Runtime.Remoting.Channels.Tcp.TcpClientSocketHandler.ReadHeaders()
+   at System.Runtime.Remoting.Channels.Tcp.TcpClientTransportSink.ProcessMessage(IMessage msg, ITransportHeaders requestHeaders, Stream requestStream, ITransportHeaders&amp; responseHeaders, Stream&amp; responseStream)
+   at System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage(IMessage msg)
+
+Exception rethrown at [0]: 
+   at System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   at System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData&amp; msgData, Int32 type)
+   at MonoDevelop.NUnit.External.ExternalTestRunner.Run(IRemoteEventListener listener, ITestFilter filter, String path, String suiteName, List`1 supportAssemblies, String testRunnerType, String testRunnerAssembly)
+   at MonoDevelop.NUnit.NUnitAssemblyTestSuite.RunUnitTest(UnitTest test, String suiteName, String pathName, String testName, TestContext testContext)</StackTrace>
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T21:34:23</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>An existing connection was forcibly closed by the remote host</Message>
+                  <StackTrace>
+Server stack trace: 
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Runtime.Remoting.Channels.SocketStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at System.Runtime.Remoting.Channels.SocketHandler.ReadFromSocket(Byte[] buffer, Int32 offset, Int32 count)
+   at System.Runtime.Remoting.Channels.SocketHandler.Read(Byte[] buffer, Int32 offset, Int32 count)
+   at System.Runtime.Remoting.Channels.SocketHandler.ReadAndMatchFourBytes(Byte[] buffer)
+   at System.Runtime.Remoting.Channels.Tcp.TcpSocketHandler.ReadAndMatchPreamble()
+   at System.Runtime.Remoting.Channels.Tcp.TcpSocketHandler.ReadVersionAndOperation(UInt16&amp; operation)
+   at System.Runtime.Remoting.Channels.Tcp.TcpClientSocketHandler.ReadHeaders()
+   at System.Runtime.Remoting.Channels.Tcp.TcpClientTransportSink.ProcessMessage(IMessage msg, ITransportHeaders requestHeaders, Stream requestStream, ITransportHeaders&amp; responseHeaders, Stream&amp; responseStream)
+   at System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage(IMessage msg)
+
+Exception rethrown at [0]: 
+   at System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   at System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData&amp; msgData, Int32 type)
+   at MonoDevelop.NUnit.External.ExternalTestRunner.Run(IRemoteEventListener listener, ITestFilter filter, String path, String suiteName, List`1 supportAssemblies, String testRunnerType, String testRunnerAssembly)
+   at MonoDevelop.NUnit.NUnitAssemblyTestSuite.RunUnitTest(UnitTest test, String suiteName, String pathName, String testName, TestContext testContext)</StackTrace>
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T21:36:34</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NotImplementedException : The method or operation is not implemented.</Message>
+                  <StackTrace>   at NRequire.DependencyCache.FindDependenciesMatching(DependencyWish wish) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 131
+   at NRequire.DependencyCacheTest.FindDependenciesMatching() in u:\users\bert\workspace\nrequire\NRequire.Test\DependencyCacheTest.cs:line 33</StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 1.23ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="FindWishesForDep">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:31:49</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>No connection could be made because the target machine actively refused it 127.0.0.1:65503</Message>
+                  <StackTrace>
+Server stack trace: 
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Connect(EndPoint remoteEP)
+   at System.Runtime.Remoting.Channels.RemoteConnection.CreateNewSocket(EndPoint ipEndPoint)
+   at System.Runtime.Remoting.Channels.RemoteConnection.CreateNewSocket()
+   at System.Runtime.Remoting.Channels.RemoteConnection.GetSocket()
+   at System.Runtime.Remoting.Channels.SocketCache.GetSocket(String machinePortAndSid, Boolean openNew)
+   at System.Runtime.Remoting.Channels.Tcp.TcpClientTransportSink.SendRequestWithRetry(IMessage msg, ITransportHeaders requestHeaders, Stream requestStream)
+   at System.Runtime.Remoting.Channels.Tcp.TcpClientTransportSink.ProcessMessage(IMessage msg, ITransportHeaders requestHeaders, Stream requestStream, ITransportHeaders&amp; responseHeaders, Stream&amp; responseStream)
+   at System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage(IMessage msg)
+
+Exception rethrown at [0]: 
+   at System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   at System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData&amp; msgData, Int32 type)
+   at MonoDevelop.Core.Execution.RemoteProcessObject.Dispose()
+   at MonoDevelop.NUnit.NUnitAssemblyTestSuite.RunUnitTest(UnitTest test, String suiteName, String pathName, String testName, TestContext testContext)
+   at MonoDevelop.NUnit.NUnitTestCase.OnRun(TestContext testContext)
+   at MonoDevelop.NUnit.UnitTest.Run(TestContext testContext)</StackTrace>
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:36:45</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>An existing connection was forcibly closed by the remote host</Message>
+                  <StackTrace>
+Server stack trace: 
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Runtime.Remoting.Channels.SocketStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at System.Runtime.Remoting.Channels.SocketHandler.ReadFromSocket(Byte[] buffer, Int32 offset, Int32 count)
+   at System.Runtime.Remoting.Channels.SocketHandler.Read(Byte[] buffer, Int32 offset, Int32 count)
+   at System.Runtime.Remoting.Channels.SocketHandler.ReadAndMatchFourBytes(Byte[] buffer)
+   at System.Runtime.Remoting.Channels.Tcp.TcpSocketHandler.ReadAndMatchPreamble()
+   at System.Runtime.Remoting.Channels.Tcp.TcpSocketHandler.ReadVersionAndOperation(UInt16&amp; operation)
+   at System.Runtime.Remoting.Channels.Tcp.TcpClientSocketHandler.ReadHeaders()
+   at System.Runtime.Remoting.Channels.Tcp.TcpClientTransportSink.ProcessMessage(IMessage msg, ITransportHeaders requestHeaders, Stream requestStream, ITransportHeaders&amp; responseHeaders, Stream&amp; responseStream)
+   at System.Runtime.Remoting.Channels.BinaryClientFormatterSink.SyncProcessMessage(IMessage msg)
+
+Exception rethrown at [0]: 
+   at MonoDevelop.NUnit.NUnitAssemblyTestSuite.RunUnitTest(UnitTest test, String suiteName, String pathName, String testName, TestContext testContext)
+   at MonoDevelop.NUnit.NUnitTestCase.OnRun(TestContext testContext)
+   at MonoDevelop.NUnit.UnitTest.Run(TestContext testContext)</StackTrace>
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T21:36:47</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.97ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.24ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="ListWishesForDependency">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:36:32</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.04ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="ListVersionsInOrderTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:36:38</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.24ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object.</Message>
+                  <StackTrace>   at NRequire.DependencyCache.&lt;&gt;c__DisplayClass5.&lt;GetVersionsMatching&gt;b__4(Version v) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 41
+   at System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at NRequire.DependencyCache.GetVersionsMatching(DependencyWish wish) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 40
+   at NRequire.DependencyCacheTest.ListVersionsInOrderTest() in u:\users\bert\workspace\nrequire\NRequire.Test\DependencyCacheTest.cs:line 52</StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:40</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object.</Message>
+                  <StackTrace>   at NRequire.DependencyCache.&lt;&gt;c__DisplayClass5.&lt;GetVersionsMatching&gt;b__4(Version v) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 41
+   at System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at NRequire.DependencyCache.GetVersionsMatching(DependencyWish wish) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 40
+   at NRequire.DependencyCacheTest.ListVersionsInOrderTest() in u:\users\bert\workspace\nrequire\NRequire.Test\DependencyCacheTest.cs:line 52</StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:10:38</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object.</Message>
+                  <StackTrace>   at NRequire.DependencyCache.&lt;&gt;c__DisplayClass5.&lt;GetVersionsMatching&gt;b__4(Version v) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 41
+   at System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at NRequire.DependencyCache.GetVersionsMatching(DependencyWish wish) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 40
+   at NRequire.DependencyCacheTest.ListVersionsInOrderTest() in u:\users\bert\workspace\nrequire\NRequire.Test\DependencyCacheTest.cs:line 52</StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:12:09</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object.</Message>
+                  <StackTrace>   at NRequire.DependencyCache.&lt;&gt;c__DisplayClass5.&lt;GetVersionsMatching&gt;b__4(Version v) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 41
+   at System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at NRequire.DependencyCache.GetVersionsMatching(DependencyWish wish) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 40
+   at NRequire.DependencyCacheTest.ListVersionsInOrderTest() in u:\users\bert\workspace\nrequire\NRequire.Test\DependencyCacheTest.cs:line 52</StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:13:12</TestDate>
+                  <Passed>0</Passed>
+                  <Errors>1</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>System.NullReferenceException : Object reference not set to an instance of an object.</Message>
+                  <StackTrace>   at NRequire.DependencyCache.&lt;&gt;c__DisplayClass5.&lt;GetVersionsMatching&gt;b__4(Version v) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 41
+   at System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at NRequire.DependencyCache.GetVersionsMatching(DependencyWish wish) in u:\users\bert\workspace\nrequire\NRequire\DependencyCache.cs:line 40
+   at NRequire.DependencyCacheTest.ListVersionsInOrderTest() in u:\users\bert\workspace\nrequire\NRequire.Test\DependencyCacheTest.cs:line 52</StackTrace>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="DependencyWishTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-13T08:32:05</TestDate>
+              <Passed>6</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.56ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-05-13T08:36:24</TestDate>
+              <Passed>6</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.74ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-05-13T22:00:28</TestDate>
+              <Passed>6</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.20ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="CloneChildDependenciesTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:32:05</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.08ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:36:24</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.12ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.02ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="CloneEmptyDepTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:32:05</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:36:24</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="CloneSimplePropsTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:32:05</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.10ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:36:24</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.15ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.08ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="MergeChildChildDependenciesTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:32:05</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.02ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:36:24</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.03ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.02ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="MergeChildDependenciesTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:32:05</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:36:24</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="MergeSimplePropsTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:32:05</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:36:24</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.02ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="JsonReaderTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-13T08:32:13</TestDate>
+              <Passed>2</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 1.62ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-05-13T22:00:28</TestDate>
+              <Passed>2</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.05ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="ReadAllFieldsTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:32:13</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 1.26ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.03ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+            <TestRecord Name="ThrowsExceptionOnNonExistentJsonFileTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:32:13</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="Resolver">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-13T08:32:32</TestDate>
+              <Passed>7</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.58ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-05-13T22:00:28</TestDate>
+              <Passed>7</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.47ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="DependencyResolverV2Test">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:32:32</TestDate>
+                  <Passed>4</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.46ms</Message>
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>4</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.34ms</Message>
+                </UnitTestResult>
+              </Results>
+              <Tests>
+                <TestRecord Name="CircularDeps">
+                  <Results>
+                    <UnitTestResult>
+                      <TestDate>2013-05-13T08:32:32</TestDate>
+                      <Passed>1</Passed>
+                      <Errors>0</Errors>
+                      <Failures>0</Failures>
+                      <Inconclusive>0</Inconclusive>
+                      <NotRunnable>0</NotRunnable>
+                      <Skipped>0</Skipped>
+                      <Ignored>0</Ignored>
+                      <Time />
+                      <Message>Test successful
+
+Execution time: 0.22ms</Message>
+                      <ConsoleOutput />
+                      <ConsoleError />
+                    </UnitTestResult>
+                    <UnitTestResult>
+                      <TestDate>2013-05-13T22:00:28</TestDate>
+                      <Passed>1</Passed>
+                      <Errors>0</Errors>
+                      <Failures>0</Failures>
+                      <Inconclusive>0</Inconclusive>
+                      <NotRunnable>0</NotRunnable>
+                      <Skipped>0</Skipped>
+                      <Ignored>0</Ignored>
+                      <Time />
+                      <Message>Test successful
+
+Execution time: 0.10ms</Message>
+                      <ConsoleOutput>[Debug] AllWishSets finding wishes for fixed dependency : A-1.0.0
+[Debug] AllWishSets finding wishes for fixed dependency : B-1.0.0
+[Debug] AllWishSets effectively fixed versions so far
+[Debug] AllWishSets --&gt;DependencyWishList@66996861&lt;key:group-A,wishes:1.0,[1.0,1.1]&gt;
+[Debug] AllWishSets --&gt;DependencyWishList@62068736&lt;key:group-B,wishes:1.0,[1.0,1.2]&gt;
+[Debug] AllWishSets need to resolve wishes
+[Debug] AllWishSets -&gt;DependencyWishList@41629729&lt;key:group-C,wishes:[1.0,1.2]&gt;
+[Debug] ResolverLine picking dep for wishes : DependencyWishList@41629729&lt;key:group-C,wishes:[1.0,1.2]&gt;
+[Debug] ResolverLine picked dep : C-1.1.0
+[Debug] ResolverLine fixing dep using wish : C-1.1.0
+[Debug] AllWishSets finding wishes for fixed dependency : C-1.1.0
+[Debug] ResolverLine Can't match next line, trying next new line
+[Debug] ResolverLine picking dep for wishes : DependencyWishList@41629729&lt;key:group-C,wishes:[1.0,1.2]&gt;
+[Debug] ResolverLine picked dep : C-1.0.0
+[Debug] ResolverLine fixing dep using wish : C-1.0.0
+[Debug] AllWishSets finding wishes for fixed dependency : C-1.0.0
+[Debug] ResolverLine returning next line
+[Debug] DependencyResolverV2 picked next line at position 0 at depth 0
+[Debug] DependencyResolverV2 Line resolved, collecting results
+[Debug] DependencyResolverV2 resolved dependencies:
+[Debug] DependencyResolverV2 A-1.0.0
+[Debug] DependencyResolverV2 B-1.0.0
+[Debug] DependencyResolverV2 C-1.0.0
+</ConsoleOutput>
+                      <ConsoleError />
+                    </UnitTestResult>
+                  </Results>
+                  <Tests />
+                </TestRecord>
+                <TestRecord Name="NoSolution">
+                  <Results>
+                    <UnitTestResult>
+                      <TestDate>2013-05-13T08:32:32</TestDate>
+                      <Passed>1</Passed>
+                      <Errors>0</Errors>
+                      <Failures>0</Failures>
+                      <Inconclusive>0</Inconclusive>
+                      <NotRunnable>0</NotRunnable>
+                      <Skipped>0</Skipped>
+                      <Ignored>0</Ignored>
+                      <Time />
+                      <Message>Test successful
+
+Execution time: 0.02ms</Message>
+                      <ConsoleOutput />
+                      <ConsoleError />
+                    </UnitTestResult>
+                    <UnitTestResult>
+                      <TestDate>2013-05-13T22:00:28</TestDate>
+                      <Passed>1</Passed>
+                      <Errors>0</Errors>
+                      <Failures>0</Failures>
+                      <Inconclusive>0</Inconclusive>
+                      <NotRunnable>0</NotRunnable>
+                      <Skipped>0</Skipped>
+                      <Ignored>0</Ignored>
+                      <Time />
+                      <Message>Test successful
+
+Execution time: 0.02ms</Message>
+                      <ConsoleOutput>[Debug] AllWishSets finding wishes for fixed dependency : A-1.0.0
+[Debug] AllWishSets effectively fixed versions so far
+[Debug] AllWishSets --&gt;DependencyWishList@11469592&lt;key:group-A,wishes:1.0&gt;
+[Debug] AllWishSets need to resolve wishes
+[Debug] AllWishSets -&gt;DependencyWishList@46369596&lt;key:group-B,wishes:[1.0,1.1]&gt;
+[Debug] ResolverLine picking dep for wishes : DependencyWishList@46369596&lt;key:group-B,wishes:[1.0,1.1]&gt;
+[Debug] ResolverLine picked dep : B-1.1.0
+[Debug] ResolverLine fixing dep using wish : B-1.1.0
+[Debug] AllWishSets finding wishes for fixed dependency : B-1.1.0
+[Debug] AllWishSets finding wishes for fixed dependency : C-1.1.0
+[Debug] AllWishSets finding wishes for fixed dependency : E-1.0.0
+[Debug] AllWishSets finding wishes for fixed dependency : D-1.1.0
+[Debug] ResolverLine Can't match next line, trying next new line
+[Debug] ResolverLine picking dep for wishes : DependencyWishList@46369596&lt;key:group-B,wishes:[1.0,1.1]&gt;
+[Debug] ResolverLine picked dep : B-1.0.0
+[Debug] ResolverLine fixing dep using wish : B-1.0.0
+[Debug] AllWishSets finding wishes for fixed dependency : B-1.0.0
+[Debug] AllWishSets finding wishes for fixed dependency : C-1.0.0
+[Debug] AllWishSets finding wishes for fixed dependency : E-1.1.0
+[Debug] AllWishSets finding wishes for fixed dependency : D-1.0.0
+[Debug] ResolverLine Can't match next line, trying next new line
+[Debug] ResolverLine picking dep for wishes : DependencyWishList@46369596&lt;key:group-B,wishes:[1.0,1.1]&gt;
+[Debug] ResolverLine picked dep : 
+[Debug] ResolverLine no more options for : DependencyWishList@46369596&lt;key:group-B,wishes:[1.0,1.1]&gt;
+[Info] DependencyResolverV2 No solution possible
+</ConsoleOutput>
+                      <ConsoleError />
+                    </UnitTestResult>
+                  </Results>
+                  <Tests />
+                </TestRecord>
+                <TestRecord Name="ResolveSimple">
+                  <Results>
+                    <UnitTestResult>
+                      <TestDate>2013-05-13T08:32:32</TestDate>
+                      <Passed>1</Passed>
+                      <Errors>0</Errors>
+                      <Failures>0</Failures>
+                      <Inconclusive>0</Inconclusive>
+                      <NotRunnable>0</NotRunnable>
+                      <Skipped>0</Skipped>
+                      <Ignored>0</Ignored>
+                      <Time />
+                      <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                      <ConsoleOutput />
+                      <ConsoleError />
+                    </UnitTestResult>
+                    <UnitTestResult>
+                      <TestDate>2013-05-13T22:00:28</TestDate>
+                      <Passed>1</Passed>
+                      <Errors>0</Errors>
+                      <Failures>0</Failures>
+                      <Inconclusive>0</Inconclusive>
+                      <NotRunnable>0</NotRunnable>
+                      <Skipped>0</Skipped>
+                      <Ignored>0</Ignored>
+                      <Time />
+                      <Message>Test successful
+
+Execution time: 0.02ms</Message>
+                      <ConsoleOutput>[Debug] AllWishSets finding wishes for fixed dependency : A-1.0.0
+[Debug] AllWishSets finding wishes for fixed dependency : B-1.0.0
+[Debug] AllWishSets finding wishes for fixed dependency : C-1.0.0
+[Debug] AllWishSets effectively fixed versions so far
+[Debug] AllWishSets --&gt;DependencyWishList@60718826&lt;key:group-A,wishes:1.0&gt;
+[Debug] AllWishSets --&gt;DependencyWishList@47992654&lt;key:group-B,wishes:1.0&gt;
+[Debug] AllWishSets --&gt;DependencyWishList@12185796&lt;key:group-C,wishes:[1.0,1.2)&gt;
+[Debug] AllWishSets need to resolve wishes
+[Debug] AllWishSets -&gt;DependencyWishList@11489911&lt;key:group-D,wishes:[1.0,1.1]&gt;
+[Debug] ResolverLine picking dep for wishes : DependencyWishList@11489911&lt;key:group-D,wishes:[1.0,1.1]&gt;
+[Debug] ResolverLine picked dep : D-1.1.0
+[Debug] ResolverLine fixing dep using wish : D-1.1.0
+[Debug] AllWishSets finding wishes for fixed dependency : D-1.1.0
+[Debug] ResolverLine Can't match next line, trying next new line
+[Debug] ResolverLine picking dep for wishes : DependencyWishList@11489911&lt;key:group-D,wishes:[1.0,1.1]&gt;
+[Debug] ResolverLine picked dep : D-1.0.0
+[Debug] ResolverLine fixing dep using wish : D-1.0.0
+[Debug] AllWishSets finding wishes for fixed dependency : D-1.0.0
+[Debug] AllWishSets finding wishes for fixed dependency : E-1.0.0
+[Debug] ResolverLine returning next line
+[Debug] DependencyResolverV2 picked next line at position 0 at depth 0
+[Debug] DependencyResolverV2 Line resolved, collecting results
+[Debug] DependencyResolverV2 resolved dependencies:
+[Debug] DependencyResolverV2 A-1.0.0
+[Debug] DependencyResolverV2 B-1.0.0
+[Debug] DependencyResolverV2 C-1.0.0
+[Debug] DependencyResolverV2 D-1.0.0
+[Debug] DependencyResolverV2 E-1.0.0
+</ConsoleOutput>
+                      <ConsoleError />
+                    </UnitTestResult>
+                  </Results>
+                  <Tests />
+                </TestRecord>
+                <TestRecord Name="ResolveSimple2">
+                  <Results>
+                    <UnitTestResult>
+                      <TestDate>2013-05-13T08:32:32</TestDate>
+                      <Passed>1</Passed>
+                      <Errors>0</Errors>
+                      <Failures>0</Failures>
+                      <Inconclusive>0</Inconclusive>
+                      <NotRunnable>0</NotRunnable>
+                      <Skipped>0</Skipped>
+                      <Ignored>0</Ignored>
+                      <Time />
+                      <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                      <ConsoleOutput />
+                      <ConsoleError />
+                    </UnitTestResult>
+                    <UnitTestResult>
+                      <TestDate>2013-05-13T22:00:28</TestDate>
+                      <Passed>1</Passed>
+                      <Errors>0</Errors>
+                      <Failures>0</Failures>
+                      <Inconclusive>0</Inconclusive>
+                      <NotRunnable>0</NotRunnable>
+                      <Skipped>0</Skipped>
+                      <Ignored>0</Ignored>
+                      <Time />
+                      <Message>Test successful
+
+Execution time: 0.05ms</Message>
+                      <ConsoleOutput>[Debug] AllWishSets finding wishes for fixed dependency : A-1.0.0
+[Debug] AllWishSets finding wishes for fixed dependency : B-1.0.0
+[Debug] AllWishSets effectively fixed versions so far
+[Debug] AllWishSets --&gt;DependencyWishList@52801053&lt;key:group-A,wishes:1.0&gt;
+[Debug] AllWishSets --&gt;DependencyWishList@27237168&lt;key:group-B,wishes:1.0&gt;
+[Debug] AllWishSets need to resolve wishes
+[Debug] AllWishSets -&gt;DependencyWishList@17713017&lt;key:group-C,wishes:[1.0,1.2)&gt;
+[Debug] AllWishSets -&gt;DependencyWishList@58888299&lt;key:group-D,wishes:[1.0,1.1]&gt;
+[Debug] ResolverLine picking dep for wishes : DependencyWishList@17713017&lt;key:group-C,wishes:[1.0,1.2)&gt;
+[Debug] ResolverLine picked dep : C-1.1.0
+[Debug] ResolverLine fixing dep using wish : C-1.1.0
+[Debug] AllWishSets finding wishes for fixed dependency : C-1.1.0
+[Debug] ResolverLine returning next line
+[Debug] DependencyResolverV2 picked next line at position 0 at depth 0
+[Debug] AllWishSets effectively fixed versions so far
+[Debug] AllWishSets --&gt;DependencyWishList@52801053&lt;key:group-A,wishes:1.0&gt;
+[Debug] AllWishSets --&gt;DependencyWishList@27237168&lt;key:group-B,wishes:1.0&gt;
+[Debug] AllWishSets --&gt;DependencyWishList@63464403&lt;key:group-C,wishes:1.1.0&gt;
+[Debug] AllWishSets need to resolve wishes
+[Debug] AllWishSets -&gt;DependencyWishList@58888299&lt;key:group-D,wishes:[1.0,1.1]&gt;
+[Debug] AllWishSets -&gt;DependencyWishList@32727789&lt;key:group-E,wishes:[1.3,1.4]&gt;
+[Debug] ResolverLine picking dep for wishes : DependencyWishList@37325887&lt;key:group-D,wishes:&gt;
+[Debug] ResolverLine picked dep : D-1.1.0
+[Debug] ResolverLine fixing dep using wish : D-1.1.0
+[Debug] AllWishSets finding wishes for fixed dependency : D-1.1.0
+[Debug] ResolverLine returning next line
+[Debug] DependencyResolverV2 picked next line at position 0 at depth 1
+[Debug] AllWishSets effectively fixed versions so far
+[Debug] AllWishSets --&gt;DependencyWishList@52801053&lt;key:group-A,wishes:1.0&gt;
+[Debug] AllWishSets --&gt;DependencyWishList@27237168&lt;key:group-B,wishes:1.0&gt;
+[Debug] AllWishSets --&gt;DependencyWishList@63464403&lt;key:group-C,wishes:1.1.0&gt;
+[Debug] AllWishSets --&gt;DependencyWishList@1943350&lt;key:group-D,wishes:1.1.0&gt;
+[Debug] AllWishSets need to resolve wishes
+[Debug] AllWishSets -&gt;DependencyWishList@20341925&lt;key:group-E,wishes:[1.1,1.4]&gt;
+[Debug] ResolverLine picking dep for wishes : DependencyWishList@20341925&lt;key:group-E,wishes:[1.1,1.4]&gt;
+[Debug] ResolverLine picked dep : E-1.4.0
+[Debug] ResolverLine fixing dep using wish : E-1.4.0
+[Debug] AllWishSets finding wishes for fixed dependency : E-1.4.0
+[Debug] ResolverLine returning next line
+[Debug] DependencyResolverV2 picked next line at position 0 at depth 2
+[Debug] DependencyResolverV2 Line resolved, collecting results
+[Debug] DependencyResolverV2 resolved dependencies:
+[Debug] DependencyResolverV2 A-1.0.0
+[Debug] DependencyResolverV2 B-1.0.0
+[Debug] DependencyResolverV2 C-1.1.0
+[Debug] DependencyResolverV2 D-1.1.0
+[Debug] DependencyResolverV2 E-1.4.0
+</ConsoleOutput>
+                      <ConsoleError />
+                    </UnitTestResult>
+                  </Results>
+                  <Tests />
+                </TestRecord>
+              </Tests>
+            </TestRecord>
+            <TestRecord Name="DependencyWishSetTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:32:32</TestDate>
+                  <Passed>3</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.04ms</Message>
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>3</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.04ms</Message>
+                </UnitTestResult>
+              </Results>
+              <Tests>
+                <TestRecord Name="DependencyWishList_HasMultipleMatches">
+                  <Results>
+                    <UnitTestResult>
+                      <TestDate>2013-05-13T08:32:32</TestDate>
+                      <Passed>1</Passed>
+                      <Errors>0</Errors>
+                      <Failures>0</Failures>
+                      <Inconclusive>0</Inconclusive>
+                      <NotRunnable>0</NotRunnable>
+                      <Skipped>0</Skipped>
+                      <Ignored>0</Ignored>
+                      <Time />
+                      <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                      <ConsoleOutput />
+                      <ConsoleError />
+                    </UnitTestResult>
+                    <UnitTestResult>
+                      <TestDate>2013-05-13T22:00:28</TestDate>
+                      <Passed>1</Passed>
+                      <Errors>0</Errors>
+                      <Failures>0</Failures>
+                      <Inconclusive>0</Inconclusive>
+                      <NotRunnable>0</NotRunnable>
+                      <Skipped>0</Skipped>
+                      <Ignored>0</Ignored>
+                      <Time />
+                      <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                      <ConsoleOutput />
+                      <ConsoleError />
+                    </UnitTestResult>
+                  </Results>
+                  <Tests />
+                </TestRecord>
+                <TestRecord Name="DependencyWishlist_HasNoMatches">
+                  <Results>
+                    <UnitTestResult>
+                      <TestDate>2013-05-13T08:32:32</TestDate>
+                      <Passed>1</Passed>
+                      <Errors>0</Errors>
+                      <Failures>0</Failures>
+                      <Inconclusive>0</Inconclusive>
+                      <NotRunnable>0</NotRunnable>
+                      <Skipped>0</Skipped>
+                      <Ignored>0</Ignored>
+                      <Time />
+                      <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                      <ConsoleOutput />
+                      <ConsoleError />
+                    </UnitTestResult>
+                    <UnitTestResult>
+                      <TestDate>2013-05-13T22:00:28</TestDate>
+                      <Passed>1</Passed>
+                      <Errors>0</Errors>
+                      <Failures>0</Failures>
+                      <Inconclusive>0</Inconclusive>
+                      <NotRunnable>0</NotRunnable>
+                      <Skipped>0</Skipped>
+                      <Ignored>0</Ignored>
+                      <Time />
+                      <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                      <ConsoleOutput />
+                      <ConsoleError />
+                    </UnitTestResult>
+                  </Results>
+                  <Tests />
+                </TestRecord>
+                <TestRecord Name="DependencyWishList_Resolved">
+                  <Results>
+                    <UnitTestResult>
+                      <TestDate>2013-05-13T08:32:32</TestDate>
+                      <Passed>1</Passed>
+                      <Errors>0</Errors>
+                      <Failures>0</Failures>
+                      <Inconclusive>0</Inconclusive>
+                      <NotRunnable>0</NotRunnable>
+                      <Skipped>0</Skipped>
+                      <Ignored>0</Ignored>
+                      <Time />
+                      <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                      <ConsoleOutput />
+                      <ConsoleError />
+                    </UnitTestResult>
+                    <UnitTestResult>
+                      <TestDate>2013-05-13T22:00:28</TestDate>
+                      <Passed>1</Passed>
+                      <Errors>0</Errors>
+                      <Failures>0</Failures>
+                      <Inconclusive>0</Inconclusive>
+                      <NotRunnable>0</NotRunnable>
+                      <Skipped>0</Skipped>
+                      <Ignored>0</Ignored>
+                      <Time />
+                      <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                      <ConsoleOutput />
+                      <ConsoleError />
+                    </UnitTestResult>
+                  </Results>
+                  <Tests />
+                </TestRecord>
+              </Tests>
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="ProgramTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-13T08:32:37</TestDate>
+              <Passed>1</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 1.98ms</Message>
+            </UnitTestResult>
+            <UnitTestResult>
+              <TestDate>2013-05-13T22:00:28</TestDate>
+              <Passed>1</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 1.01ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="HappyPathTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T08:32:37</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 1.92ms</Message>
+                  <ConsoleOutput>[Debug] DependencyCache Versions dir 'U:\users\bert\workspace\nrequire\NRequire.Test\bin\Debug\ProgramTest\LocalCache\Group0\Name0'
+[Debug] DependencyCache Versions dir.dirs '0.0.0'
+[Debug] DependencyCache Versions found for dep DependencyWish@18262443&lt;
+	Group:Group0,
+	Name:Name0,
+	Version:0.0.0,
+	Ext:dll,
+	Arch:Arch0,
+	Runtime:Runtime0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mydep0,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt; an classifier 'arch-Arch0_runtime-Runtime0' were 0.0.0
+[Debug] DependencyResolverV1 Found versions:0.0.0
+[Debug] DependencyResolverV1 Matched version 0.0.0 for dep DependencyWish@18262443&lt;
+	Group:Group0,
+	Name:Name0,
+	Version:0.0.0,
+	Ext:dll,
+	Arch:Arch0,
+	Runtime:Runtime0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mydep0,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt;
+[Debug] DependencyCache Versions dir 'U:\users\bert\workspace\nrequire\NRequire.Test\bin\Debug\ProgramTest\LocalCache\Group1\Name1'
+[Debug] DependencyCache Versions dir.dirs '1.2.1,1.2.2,1.2.3'
+[Debug] DependencyCache Versions found for dep DependencyWish@4463106&lt;
+	Group:Group1,
+	Name:Name1,
+	Version:[1.2.2,),
+	Ext:Ext1,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mychild1,
+	CopyTo:MyLibDir,
+	Related:[related],
+	Dependencies:[]
+&gt; an classifier 'arch-any_runtime-4.0' were 1.2.3,1.2.2,1.2.1
+[Debug] DependencyResolverV1 Found versions:1.2.3,1.2.2,1.2.1
+[Debug] DependencyResolverV1 Matched version 1.2.3 for dep DependencyWish@4463106&lt;
+	Group:Group1,
+	Name:Name1,
+	Version:[1.2.2,),
+	Ext:Ext1,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mychild1,
+	CopyTo:MyLibDir,
+	Related:[related],
+	Dependencies:[]
+&gt;
+[Debug] DependencyCache Versions dir 'U:\users\bert\workspace\nrequire\NRequire.Test\bin\Debug\ProgramTest\LocalCache\Group2\Name2'
+[Debug] DependencyCache Versions dir.dirs '4.5.6'
+[Debug] DependencyCache Versions found for dep DependencyWish@45203171&lt;
+	Group:Group2,
+	Name:Name2,
+	Version:[4.5.6],
+	Ext:Ext2,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mychild2,
+	CopyTo:,
+	Related:[],
+	Dependencies:[
+	DependencyWish@66622070&lt;
+	Group:TransitiveGroup,
+	Name:TransitiveName,
+	Version:1.1.1,
+	Ext:TransitiveExt,
+	Arch:TransitiveArch,
+	Runtime:TransitiveRuntime,
+	Classifiers:,
+	Scope:,
+	Url:http://nowhere.com/myTransitive,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt;
+	]
+&gt; an classifier 'arch-any_runtime-4.0' were 4.5.6
+[Debug] DependencyResolverV1 Found versions:4.5.6
+[Debug] DependencyResolverV1 Matched version 4.5.6 for dep DependencyWish@45203171&lt;
+	Group:Group2,
+	Name:Name2,
+	Version:[4.5.6],
+	Ext:Ext2,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mychild2,
+	CopyTo:,
+	Related:[],
+	Dependencies:[
+	DependencyWish@66622070&lt;
+	Group:TransitiveGroup,
+	Name:TransitiveName,
+	Version:1.1.1,
+	Ext:TransitiveExt,
+	Arch:TransitiveArch,
+	Runtime:TransitiveRuntime,
+	Classifiers:,
+	Scope:,
+	Url:http://nowhere.com/myTransitive,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt;
+	]
+&gt;
+[Debug] DependencyCache Versions dir 'U:\users\bert\workspace\nrequire\NRequire.Test\bin\Debug\ProgramTest\LocalCache\ProvidedGroup\ProvidedName'
+[Debug] DependencyCache Versions dir.dirs '1.1.1'
+[Debug] DependencyCache Versions found for dep DependencyWish@20876819&lt;
+	Group:ProvidedGroup,
+	Name:ProvidedName,
+	Version:1.1.1,
+	Ext:dll,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Provided,
+	Url:,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt; an classifier 'arch-any_runtime-4.0' were 1.1.1
+[Debug] DependencyResolverV1 Found versions:1.1.1
+[Debug] DependencyResolverV1 Matched version 1.1.1 for dep DependencyWish@20876819&lt;
+	Group:ProvidedGroup,
+	Name:ProvidedName,
+	Version:1.1.1,
+	Ext:dll,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Provided,
+	Url:,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt;
+[Debug] DependencyCache Versions dir 'U:\users\bert\workspace\nrequire\NRequire.Test\bin\Debug\ProgramTest\LocalCache\TransitiveGroup\TransitiveName'
+[Debug] DependencyCache Versions dir.dirs '1.1.1'
+[Debug] DependencyCache Versions found for dep DependencyWish@67041637&lt;
+	Group:TransitiveGroup,
+	Name:TransitiveName,
+	Version:1.1.1,
+	Ext:TransitiveExt,
+	Arch:TransitiveArch,
+	Runtime:TransitiveRuntime,
+	Classifiers:,
+	Scope:Transitive,
+	Url:http://nowhere.com/myTransitive,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt; an classifier 'arch-TransitiveArch_runtime-TransitiveRuntime' were 1.1.1
+[Debug] DependencyResolverV1 Found versions:1.1.1
+[Debug] DependencyResolverV1 Matched version 1.1.1 for dep DependencyWish@67041637&lt;
+	Group:TransitiveGroup,
+	Name:TransitiveName,
+	Version:1.1.1,
+	Ext:TransitiveExt,
+	Arch:TransitiveArch,
+	Runtime:TransitiveRuntime,
+	Classifiers:,
+	Scope:Transitive,
+	Url:http://nowhere.com/myTransitive,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt;
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 1.00ms</Message>
+                  <ConsoleOutput>[Debug] DependencyCache Versions dir 'U:\users\bert\workspace\nrequire\NRequire.Test\bin\Debug\ProgramTest\LocalCache\Group0\Name0'
+[Debug] DependencyCache Versions dir.dirs '0.0.0'
+[Debug] DependencyCache Versions found for dep DependencyWish@50985389&lt;
+	Group:Group0,
+	Name:Name0,
+	Version:0.0.0,
+	Ext:dll,
+	Arch:Arch0,
+	Runtime:Runtime0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mydep0,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt; and classifier 'arch-Arch0_runtime-Runtime0' were 0.0.0
+[Debug] DependencyResolverV1 Found versions:0.0.0
+[Debug] DependencyResolverV1 Matched version 0.0.0 for dep DependencyWish@50985389&lt;
+	Group:Group0,
+	Name:Name0,
+	Version:0.0.0,
+	Ext:dll,
+	Arch:Arch0,
+	Runtime:Runtime0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mydep0,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt;
+[Debug] DependencyCache Versions dir 'U:\users\bert\workspace\nrequire\NRequire.Test\bin\Debug\ProgramTest\LocalCache\Group1\Name1'
+[Debug] DependencyCache Versions dir.dirs '1.2.1,1.2.2,1.2.3'
+[Debug] DependencyCache Versions found for dep DependencyWish@12641169&lt;
+	Group:Group1,
+	Name:Name1,
+	Version:[1.2.2,),
+	Ext:Ext1,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mychild1,
+	CopyTo:MyLibDir,
+	Related:[related],
+	Dependencies:[]
+&gt; and classifier 'arch-any_runtime-4.0' were 1.2.3,1.2.2,1.2.1
+[Debug] DependencyResolverV1 Found versions:1.2.3,1.2.2
+[Debug] DependencyResolverV1 Matched version 1.2.3 for dep DependencyWish@12641169&lt;
+	Group:Group1,
+	Name:Name1,
+	Version:[1.2.2,),
+	Ext:Ext1,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mychild1,
+	CopyTo:MyLibDir,
+	Related:[related],
+	Dependencies:[]
+&gt;
+[Debug] DependencyCache Versions dir 'U:\users\bert\workspace\nrequire\NRequire.Test\bin\Debug\ProgramTest\LocalCache\Group2\Name2'
+[Debug] DependencyCache Versions dir.dirs '4.5.6'
+[Debug] DependencyCache Versions found for dep DependencyWish@29890231&lt;
+	Group:Group2,
+	Name:Name2,
+	Version:[4.5.6],
+	Ext:Ext2,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mychild2,
+	CopyTo:,
+	Related:[],
+	Dependencies:[
+	DependencyWish@31981697&lt;
+	Group:TransitiveGroup,
+	Name:TransitiveName,
+	Version:1.1.1,
+	Ext:TransitiveExt,
+	Arch:TransitiveArch,
+	Runtime:TransitiveRuntime,
+	Classifiers:,
+	Scope:,
+	Url:http://nowhere.com/myTransitive,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt;
+	]
+&gt; and classifier 'arch-any_runtime-4.0' were 4.5.6
+[Debug] DependencyResolverV1 Found versions:4.5.6
+[Debug] DependencyResolverV1 Matched version 4.5.6 for dep DependencyWish@29890231&lt;
+	Group:Group2,
+	Name:Name2,
+	Version:[4.5.6],
+	Ext:Ext2,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Compile,
+	Url:http://nowhere.com/mychild2,
+	CopyTo:,
+	Related:[],
+	Dependencies:[
+	DependencyWish@31981697&lt;
+	Group:TransitiveGroup,
+	Name:TransitiveName,
+	Version:1.1.1,
+	Ext:TransitiveExt,
+	Arch:TransitiveArch,
+	Runtime:TransitiveRuntime,
+	Classifiers:,
+	Scope:,
+	Url:http://nowhere.com/myTransitive,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt;
+	]
+&gt;
+[Debug] DependencyCache Versions dir 'U:\users\bert\workspace\nrequire\NRequire.Test\bin\Debug\ProgramTest\LocalCache\ProvidedGroup\ProvidedName'
+[Debug] DependencyCache Versions dir.dirs '1.1.1'
+[Debug] DependencyCache Versions found for dep DependencyWish@2883140&lt;
+	Group:ProvidedGroup,
+	Name:ProvidedName,
+	Version:1.1.1,
+	Ext:dll,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Provided,
+	Url:,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt; and classifier 'arch-any_runtime-4.0' were 1.1.1
+[Debug] DependencyResolverV1 Found versions:1.1.1
+[Debug] DependencyResolverV1 Matched version 1.1.1 for dep DependencyWish@2883140&lt;
+	Group:ProvidedGroup,
+	Name:ProvidedName,
+	Version:1.1.1,
+	Ext:dll,
+	Arch:any,
+	Runtime:4.0,
+	Classifiers:,
+	Scope:Provided,
+	Url:,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt;
+[Debug] DependencyCache Versions dir 'U:\users\bert\workspace\nrequire\NRequire.Test\bin\Debug\ProgramTest\LocalCache\TransitiveGroup\TransitiveName'
+[Debug] DependencyCache Versions dir.dirs '1.1.1'
+[Debug] DependencyCache Versions found for dep DependencyWish@62632450&lt;
+	Group:TransitiveGroup,
+	Name:TransitiveName,
+	Version:1.1.1,
+	Ext:TransitiveExt,
+	Arch:TransitiveArch,
+	Runtime:TransitiveRuntime,
+	Classifiers:,
+	Scope:Transitive,
+	Url:http://nowhere.com/myTransitive,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt; and classifier 'arch-TransitiveArch_runtime-TransitiveRuntime' were 1.1.1
+[Debug] DependencyResolverV1 Found versions:1.1.1
+[Debug] DependencyResolverV1 Matched version 1.1.1 for dep DependencyWish@62632450&lt;
+	Group:TransitiveGroup,
+	Name:TransitiveName,
+	Version:1.1.1,
+	Ext:TransitiveExt,
+	Arch:TransitiveArch,
+	Runtime:TransitiveRuntime,
+	Classifiers:,
+	Scope:Transitive,
+	Url:http://nowhere.com/myTransitive,
+	CopyTo:MyLibDir,
+	Related:[],
+	Dependencies:[]
+&gt;
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+              <Tests />
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="Matcher">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-13T22:00:28</TestDate>
+              <Passed>2</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.03ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="ExactMatcherTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>2</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.02ms</Message>
+                </UnitTestResult>
+              </Results>
+              <Tests>
+                <TestRecord Name="MajorMinorRevisionTest">
+                  <Results>
+                    <UnitTestResult>
+                      <TestDate>2013-05-13T22:00:28</TestDate>
+                      <Passed>1</Passed>
+                      <Errors>0</Errors>
+                      <Failures>0</Failures>
+                      <Inconclusive>0</Inconclusive>
+                      <NotRunnable>0</NotRunnable>
+                      <Skipped>0</Skipped>
+                      <Ignored>0</Ignored>
+                      <Time />
+                      <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                      <ConsoleOutput />
+                      <ConsoleError />
+                    </UnitTestResult>
+                  </Results>
+                </TestRecord>
+                <TestRecord Name="MajorTest">
+                  <Results>
+                    <UnitTestResult>
+                      <TestDate>2013-05-13T22:00:28</TestDate>
+                      <Passed>1</Passed>
+                      <Errors>0</Errors>
+                      <Failures>0</Failures>
+                      <Inconclusive>0</Inconclusive>
+                      <NotRunnable>0</NotRunnable>
+                      <Skipped>0</Skipped>
+                      <Ignored>0</Ignored>
+                      <Time />
+                      <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                      <ConsoleOutput />
+                      <ConsoleError />
+                    </UnitTestResult>
+                  </Results>
+                </TestRecord>
+              </Tests>
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="ResolverTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-13T22:00:28</TestDate>
+              <Passed>2</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.09ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="ResolveToLatestMatchingVersion">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.05ms</Message>
+                  <ConsoleOutput>[Debug] DependencyCache Versions dir 'C:\tmp\nunit-NRequire.FileUtil\1368482433991.5\Group\Name'
+[Debug] DependencyCache Versions dir.dirs '1.2.3,1.2.4,1.2.5,1.2.6,1.2.7'
+[Debug] DependencyCache Versions found for dep DependencyWish@40953208&lt;
+	Group:Group,
+	Name:Name,
+	Version:[1.2.2,1.2.7),
+	Ext:Ext,
+	Arch:Any,
+	Runtime:Any,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[],
+	Dependencies:[]
+&gt; and classifier 'arch-Any_runtime-Any' were 1.2.7,1.2.6,1.2.5,1.2.4,1.2.3
+[Debug] DependencyResolverV1 Found versions:1.2.6,1.2.5,1.2.4,1.2.3
+[Debug] DependencyResolverV1 Matched version 1.2.6 for dep DependencyWish@40953208&lt;
+	Group:Group,
+	Name:Name,
+	Version:[1.2.2,1.2.7),
+	Ext:Ext,
+	Arch:Any,
+	Runtime:Any,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[],
+	Dependencies:[]
+&gt;
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="ResolveTransitiveDepsTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.02ms</Message>
+                  <ConsoleOutput>[Debug] DependencyCache Versions dir 'C:\tmp\nunit-NRequire.FileUtil\1368482434052.51\Group\Name'
+[Debug] DependencyCache Versions dir.dirs '1.2.3,1.2.4'
+[Debug] DependencyCache Versions found for dep DependencyWish@4322080&lt;
+	Group:Group,
+	Name:Name,
+	Version:1.2.4,
+	Ext:Ext,
+	Arch:Any,
+	Runtime:Any,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[],
+	Dependencies:[]
+&gt; and classifier 'arch-Any_runtime-Any' were 1.2.4,1.2.3
+[Debug] DependencyResolverV1 Found versions:1.2.4
+[Debug] DependencyResolverV1 Matched version 1.2.4 for dep DependencyWish@4322080&lt;
+	Group:Group,
+	Name:Name,
+	Version:1.2.4,
+	Ext:Ext,
+	Arch:Any,
+	Runtime:Any,
+	Classifiers:,
+	Scope:Compile,
+	Url:,
+	CopyTo:,
+	Related:[],
+	Dependencies:[]
+&gt;
+</ConsoleOutput>
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="VersionMatcherTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-13T22:00:28</TestDate>
+              <Passed>3</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.04ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="RangeMatchTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="SimpleMatchTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="SimpleRangeMatchTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="VersionTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-13T22:00:28</TestDate>
+              <Passed>10</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 0.14ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="CompareToTests">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="MajorMinor">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.01ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="MajorMinorRevision">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="MajorOnly">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="ToMatchStringTests">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="ToStringTests">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="WithBuild">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="WithQualifier">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="WithSnapshot">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="WithTimestamp">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.00ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+        <TestRecord Name="VSProjectTest">
+          <Results>
+            <UnitTestResult>
+              <TestDate>2013-05-13T22:00:28</TestDate>
+              <Passed>2</Passed>
+              <Errors>0</Errors>
+              <Failures>0</Failures>
+              <Inconclusive>0</Inconclusive>
+              <NotRunnable>0</NotRunnable>
+              <Skipped>0</Skipped>
+              <Ignored>0</Ignored>
+              <Time />
+              <Message>Test successful
+
+Execution time: 1.07ms</Message>
+            </UnitTestResult>
+          </Results>
+          <Tests>
+            <TestRecord Name="CanUpdateProjectTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 0.03ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+            <TestRecord Name="WontUpdateIfNoChangeInReferencesTest">
+              <Results>
+                <UnitTestResult>
+                  <TestDate>2013-05-13T22:00:28</TestDate>
+                  <Passed>1</Passed>
+                  <Errors>0</Errors>
+                  <Failures>0</Failures>
+                  <Inconclusive>0</Inconclusive>
+                  <NotRunnable>0</NotRunnable>
+                  <Skipped>0</Skipped>
+                  <Ignored>0</Ignored>
+                  <Time />
+                  <Message>Test successful
+
+Execution time: 1.02ms</Message>
+                  <ConsoleOutput />
+                  <ConsoleError />
+                </UnitTestResult>
+              </Results>
+            </TestRecord>
+          </Tests>
+        </TestRecord>
+      </Tests>
+    </TestRecord>
+  </Tests>
+</TestRecord>

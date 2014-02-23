@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{939DEE5C-F92A-4C9C-BE68-F080A0F9069B}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NRequire</RootNamespace>
     <AssemblyName>NRequire.Test</AssemblyName>
@@ -14,6 +14,8 @@
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,25 +35,53 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>NRequire.NUnitConsoleRunner</StartupObject>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit-console-runner">
-      <HintPath>C:\opt\NUnit-2.6.2\bin\lib\nunit-console-runner.dll</HintPath>
+    <Reference Include="Moq, Version=4.0.10827.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Xml" />
-    <Reference Include="nunit.framework">
-      <HintPath>C:\Users\bert\.nrequire\cache\NUnit\nunit.framework\2.6.2\arch-any_runtime-any\nunit.framework.dll</HintPath>
+    <Reference Include="TestFirst.Net, Version=0.2.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\TestFirst.Net.0.2.0.1\lib\net40\TestFirst.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="TestFirst.Net.Extensions, Version=0.2.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\TestFirst.Net.Extensions.0.2.0.1\lib\net40\TestFirst.Net.Extensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AClassifier.cs" />
+    <Compile Include="ADependency.cs" />
+    <Compile Include="AVersion.cs" />
+    <Compile Include="AVSProject.cs" />
+    <Compile Include="AVSSolution.cs" />
     <Compile Include="BaseDependencyTest.cs" />
     <Compile Include="CommandLineParserTest.cs" />
-    <Compile Include="MatchGeneratorTest.cs" />
+    <Compile Include="FileUtil.cs" />
+    <Compile Include="Matchers.cs">
+      <DependentUpon>Matchers.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="NewDependency.cs" />
+    <Compile Include="NewDependencyCache.cs" />
+    <Compile Include="NewModule.cs" />
+    <Compile Include="NewProject.cs" />
+    <Compile Include="NewSolution.cs" />
+    <Compile Include="NewWish.cs" />
+    <Compile Include="TestDefaults.cs" />
     <Compile Include="VSSolutionTest.cs" />
     <Compile Include="DependencyCacheTest.cs" />
     <Compile Include="ProjectResolverTest.cs" />
@@ -60,7 +90,6 @@
     </Compile>
     <Compile Include="WishTest.cs" />
     <Compile Include="JsonReaderTest.cs" />
-    <Compile Include="NUnitConsoleRunner.cs" />
     <Compile Include="ProgramTest.cs" />
     <Compile Include="Resolver\DependencyWishSetTest.cs" />
     <Compile Include="VersionMatcherTest.cs" />
@@ -71,7 +100,6 @@
     <Compile Include="Resolver\InMemoryDependencyCache.cs" />
     <Compile Include="Resolver\WishResolverTest.cs" />
     <Compile Include="NewDependencyCacheTest.cs" />
-    <Compile Include="Matcher\ExactMatcherTest2.cs" />
     <Compile Include="Matcher\MatcherTest.cs" />
     <Compile Include="SolutionTest.cs" />
   </ItemGroup>
@@ -79,10 +107,6 @@
     <ProjectReference Include="..\NRequire\NRequire.csproj">
       <Project>{C9D962C9-A65B-4A69-97D4-130B77C558FE}</Project>
       <Name>NRequire</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NRequire.Test.Support\NRequire.Test.Support.csproj">
-      <Project>{331967EF-527A-4A69-B28D-F87737F4CC15}</Project>
-      <Name>NRequire.Test.Support</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -98,6 +122,7 @@
     <Content Include="DependencyCacheTest\LocalCache\Group0\Name0\2.3.4.SNAPSHOT\key1-val1_key2-val2\Name0.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="LICENSE.txt" />
     <Content Include="ProgramTest\LocalCache\Group1\Name1\1.2.2\arch-any_runtime-4.0\Name1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -113,7 +138,14 @@
     <Content Include="ProgramTest\LocalCache\Group1\Name1\1.2.2\arch-any_runtime-4.0\Name1.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="VSSolutionTest\MySolution.sln" />
+    <Content Include="VSSolutionTest\MySolution.sln">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Matchers.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Matchers.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
     <None Include="ProgramTest\LocalCache\Group1\Name1\1.2.2\arch-any_runtime-4.0\Name1.related">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -147,10 +179,10 @@
     <Content Include="ProgramTest\MySoln\MySoln.sln">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="VSProjectTest_before.csproj.xml">
+    <Content Include="VSProjectTest\before.csproj.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="VSProjectTest_expect.csproj.xml">
+    <Content Include="VSProjectTest\expect.csproj.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
@@ -164,7 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="JsonReaderTest.depsfile1.json">
+    <None Include="JsonReaderTest\depsfile1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="ProgramTest\LocalCache\Group1\Name1\1.2.3\arch-any_runtime-4.0\Name1.xml">
@@ -177,7 +209,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -188,4 +223,11 @@
   -->
   <ItemGroup />
   <ItemGroup />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
 </Project>

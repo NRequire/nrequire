@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using NRequire.Matcher;
+using TestFirst.Net;
+using TestFirst.Net.Matcher;
 
 namespace NRequire {
     [TestFixture]

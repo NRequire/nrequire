@@ -9,9 +9,9 @@ using NRequire.Util;
 
 namespace NRequire {
 
-	/// <summary>
-	/// A wish for a dependency which matches the given criteria
-	/// </summary>
+    /// <summary>
+    /// A wish for a dependency which matches the given criteria
+    /// </summary>
     public class Wish : AbstractDependency,IRequireLoadNotification, IResolvable {
 
         [JsonConverter(typeof(VersionMatcherConverter))]

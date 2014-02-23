@@ -1,11 +1,18 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NRequire", "NRequire\NRequire.csproj", "{C9D962C9-A65B-4A69-97D4-130B77C558FE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NRequire.Test", "NRequire.Test\NRequire.Test.csproj", "{939DEE5C-F92A-4C9C-BE68-F080A0F9069B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NRequire.Test.Support", "NRequire.Test.Support\NRequire.Test.Support.csproj", "{331967EF-527A-4A69-B28D-F87737F4CC15}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{093B1175-265C-4088-A02E-8757691BD636}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,18 +24,18 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{331967EF-527A-4A69-B28D-F87737F4CC15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{331967EF-527A-4A69-B28D-F87737F4CC15}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{331967EF-527A-4A69-B28D-F87737F4CC15}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{331967EF-527A-4A69-B28D-F87737F4CC15}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{331967EF-527A-4A69-B28D-F87737F4CC15}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{331967EF-527A-4A69-B28D-F87737F4CC15}.Debug|x86.Build.0 = Debug|Any CPU
-		{331967EF-527A-4A69-B28D-F87737F4CC15}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{331967EF-527A-4A69-B28D-F87737F4CC15}.Release|Any CPU.Build.0 = Release|Any CPU
-		{331967EF-527A-4A69-B28D-F87737F4CC15}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{331967EF-527A-4A69-B28D-F87737F4CC15}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{331967EF-527A-4A69-B28D-F87737F4CC15}.Release|x86.ActiveCfg = Release|Any CPU
-		{331967EF-527A-4A69-B28D-F87737F4CC15}.Release|x86.Build.0 = Release|Any CPU
+		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Debug|x86.ActiveCfg = Debug|x86
+		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Debug|x86.Build.0 = Debug|x86
+		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Release|Mixed Platforms.Build.0 = Release|x86
+		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Release|x86.ActiveCfg = Release|x86
+		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Release|x86.Build.0 = Release|x86
 		{939DEE5C-F92A-4C9C-BE68-F080A0F9069B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{939DEE5C-F92A-4C9C-BE68-F080A0F9069B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{939DEE5C-F92A-4C9C-BE68-F080A0F9069B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -41,23 +48,14 @@ Global
 		{939DEE5C-F92A-4C9C-BE68-F080A0F9069B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{939DEE5C-F92A-4C9C-BE68-F080A0F9069B}.Release|x86.ActiveCfg = Release|Any CPU
 		{939DEE5C-F92A-4C9C-BE68-F080A0F9069B}.Release|x86.Build.0 = Release|Any CPU
-		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Debug|Any CPU.Build.0 = Debug|x86
-		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Debug|x86.ActiveCfg = Debug|x86
-		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Debug|x86.Build.0 = Debug|x86
-		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Release|Any CPU.ActiveCfg = Release|x86
-		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Release|Any CPU.Build.0 = Release|x86
-		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Release|Mixed Platforms.Build.0 = Release|x86
-		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Release|x86.ActiveCfg = Release|x86
-		{C9D962C9-A65B-4A69-97D4-130B77C558FE}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = NRequire\NRequire.csproj
 		Policies = $0
-		$0.TextStylePolicy = $1
+		$0.TextStylePolicy = $3
 		$1.FileWidth = 120
 		$1.inheritsSet = VisualStudio
 		$1.inheritsScope = text/plain
@@ -73,7 +71,6 @@ Global
 		$2.inheritsSet = Mono
 		$2.inheritsScope = text/x-csharp
 		$2.scope = text/x-csharp
-		$0.TextStylePolicy = $3
 		$3.inheritsSet = null
 		$3.scope = application/xml
 		$0.XmlFormattingPolicy = $4
@@ -83,8 +80,5 @@ Global
 		$0.StandardHeader = $5
 		$5.Text = 
 		$5.IncludeInNewFiles = False
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
