@@ -52,13 +52,13 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Xml" />
-    <Reference Include="TestFirst.Net, Version=0.2.0.1, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="TestFirst.Net, Version=0.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\TestFirst.Net.0.2.0.1\lib\net40\TestFirst.Net.dll</HintPath>
+      <HintPath>..\packages\TestFirst.Net.0.2.1.0\lib\net40\TestFirst.Net.dll</HintPath>
     </Reference>
-    <Reference Include="TestFirst.Net.Extensions, Version=0.2.0.1, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="TestFirst.Net.Extensions, Version=0.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\TestFirst.Net.Extensions.0.2.0.1\lib\net40\TestFirst.Net.Extensions.dll</HintPath>
+      <HintPath>..\packages\TestFirst.Net.Extensions.0.2.1.0\lib\net40\TestFirst.Net.Extensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
