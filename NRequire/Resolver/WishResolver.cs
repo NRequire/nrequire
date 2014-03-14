@@ -1,18 +1,14 @@
-using System;
-using System.Linq;
-using System.Linq.Expressions;
-using NRequire.Matcher;
 using System.Collections.Generic;
-using System.Collections;
+using System.Linq;
 
 namespace NRequire.Resolver
 {
-	//tries to find a list of deps which satsify a set of dependencies (and their wishes) 
-	//and a list of wishes  
+    //tries to find a list of deps which satsify a set of dependencies (and their wishes) 
+    //and a list of wishes  
     internal class WishResolver
     {
         private readonly Logger Log = Logger.GetLogger(typeof(WishResolver));
-        private IDependencyCache m_cache;
+        private readonly IDependencyCache m_cache;
 
         private static readonly int RecursionLimitDepth = 150;
         private static readonly int RecursionLimitWidth = 300;

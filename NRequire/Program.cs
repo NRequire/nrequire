@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using NRequire.Util;
 
 namespace NRequire {
     class Program {
@@ -18,20 +19,32 @@ namespace NRequire {
                 new Program().InvokeWithArgs(args);
                 Environment.ExitCode = 0;
             } catch(FailBuildException e){
-                Console.WriteLine(e.Message);
+                PrintError(e);
                 Environment.ExitCode = -1;
             } catch (CommandParseException e) {
-                Console.WriteLine(e.Message);
-                Console.WriteLine(GetParser().PrintHelp());
+                PrintError(e);
+                Console.WriteLine(GetParser().PrintHelp(args));
                 Environment.ExitCode = -1;
             } catch (Exception e) {
-                Console.WriteLine("Unhandled error :" + e.Message);
-                Console.WriteLine(e.StackTrace);
-                Console.WriteLine(GetParser().PrintHelp());
+                PrintError(e, stacktrace:true);
+                Console.WriteLine(GetParser().PrintHelp(args));
                 Environment.ExitCode = -1;
             }
         }
 
+        private static void PrintError(Exception e, bool stacktrace= false)
+        {
+            var root = e;
+            while( e != null)
+            {
+                Console.Error.WriteLine(e.Message);
+                e = e.InnerException;
+            }
+            if (stacktrace)
+            {
+                Console.Error.WriteLine(root.StackTrace);
+            }
+        }
         private static CommandLineParser GetParser() {
             return new CommandLineParser()
                 .ProgramName("nrequire")
@@ -115,6 +128,7 @@ namespace NRequire {
                 }.Build();
             }
 
+            FileUtil.EnsureExists(localCache.CacheDir);
             if (!localCache.CacheDir.Exists) {
                 throw new ArgumentException(String.Format("Local cache dir '{0}' does not exist", localCache.CacheDir.FullName));
             }
@@ -136,10 +150,8 @@ namespace NRequire {
                 }.Build();
             }
 
-            if (!solutionCache.CacheDir.Exists) {
-                solutionCache.CacheDir.Create();
-            }
-
+            FileUtil.EnsureExists(solutionCache.CacheDir);
+            
             var cmd = new ProjectUpdateCommand {
                 FailOnProjectChanged = result.GetOptionValueOrDefault("--fail", true) == "true",
                 LocalCache = localCache,

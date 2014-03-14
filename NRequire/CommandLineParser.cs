@@ -6,12 +6,14 @@ using System.Text;
 namespace NRequire {
     internal class CommandLineParser {
 
-        private IDictionary<String, Options> m_options = new Dictionary<string, Options>();
+        private readonly IDictionary<String, Options> m_options = new Dictionary<string, Options>();
 
         private String m_executableName = "prog";
 
-        public String PrintHelp() {
+        public String PrintHelp(String[] args) {
             var sb = new StringBuilder();
+            var result = ParseOrNullOnError(args);
+
             sb.Append("Usage: ").Append(m_executableName).Append(" CMD OPTIONS");
             foreach (var cmd in m_options.Keys) {
                 var opts = m_options[cmd];
@@ -40,6 +42,10 @@ namespace NRequire {
                         sb.AppendLine().Append("       - default : ").Append(opt.DefaultVal);
                     }
                     sb.AppendLine().Append("       - ").Append(opt.IsRequired ? "required" : "optional");
+                    if (result != null && result.HasOptionValue(opt.ArgName))
+                    {
+                        sb.AppendLine().Append("       - given : ").Append(result.GetOptionValue(opt.ArgName)); 
+                    }
                 }
                 if (opts.Examples.Count > 0) {
                     sb.AppendLine(); 
@@ -49,6 +55,7 @@ namespace NRequire {
                         sb.AppendLine().Append("      ").Append(m_executableName).Append(" ").Append(cmd).Append(" ").Append(example);
                     }
                 }
+                
             }
             return sb.ToString();
         }
@@ -82,6 +89,17 @@ namespace NRequire {
             return m_options[command];
         }
 
+        private ParseResult ParseOrNullOnError(String[] args)
+        {
+            try
+            {
+                return Parse(args);
+            }
+            catch (CommandParseException e)
+            {
+                return null;
+            }
+        }
         internal ParseResult Parse(string[] args) {
             if (args == null || args.Length == 0) {
                 throw new CommandParseException(String.Format("Expected atleast one command. Options are : [{0}]", 

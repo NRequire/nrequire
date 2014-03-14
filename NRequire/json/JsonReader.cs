@@ -22,7 +22,7 @@ namespace NRequire {
 
         public T Read<T>(FileInfo jsonFile) {
             if (!jsonFile.Exists) {
-                throw new ArgumentException(String.Format("Could not read json dependency file: '{0}'", jsonFile.FullName));
+                throw new ArgumentException(String.Format("Json file does not exist for {0} using path '{1}'", typeof(T).Name, jsonFile.FullName));
             }
 
             String json = null;
@@ -43,7 +43,7 @@ namespace NRequire {
 
                 return obj;
             } catch (Exception e) {
-                throw new Exception(String.Format("Error while trying to parse file '{0}', with contents:\n{1}", jsonFile.FullName, json), e);
+                throw new Exception(String.Format("Error while trying to parse file '{0}', {1}, with contents:{2}", jsonFile.FullName, e.Message,json), e);
             }
         }
 
@@ -52,7 +52,7 @@ namespace NRequire {
         }
         
         private static void SetSourceLocations(Object obj, ISource source) {
-            SourceLocations.AddSourceLocations(obj, source);
+            SourceLocations.AddToSourceLocations(obj, source);
         }
 
         private static String ReadFileAsString(FileInfo file) {

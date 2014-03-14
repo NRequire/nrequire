@@ -173,7 +173,7 @@ namespace NRequire {
             this.TransitiveWishes = MergeLists(fromWish.TransitiveWishes, this.TransitiveWishes);
 
             if (modified) {
-                SourceLocations.AddSourceLocations(this, fromWish.Source);
+                SourceLocations.AddToSourceLocations(this, fromWish.Source);
             }
         }
 

@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Collections;
 using NRequire.Resolver;
 
 namespace NRequire {
@@ -28,11 +24,10 @@ namespace NRequire {
                 wishes.AddRange(soln.GetAllWishes());
                 wishes.AddRange(proj.GetAllWishes());
 
-
                 if (Log.IsTraceEnabled()) {
                     Log.Trace("merged wishes=\n" + String.Join("\n",wishes));
                 }
-                ValidateAllSet(wishes);
+                ValidateAll(wishes);
 
                 //now the fun begins. Resolve transitive deps, find closest versions
                 //TODO:resolve for all but pick only what the current project needs
@@ -49,7 +44,7 @@ namespace NRequire {
             }
         }
 
-        private void ValidateAllSet(List<Wish> wishes) {
+        private void ValidateAll(IEnumerable<Wish> wishes) {
             foreach (var wish in wishes) {
                 wish.ValidateRequiredSet();
             }

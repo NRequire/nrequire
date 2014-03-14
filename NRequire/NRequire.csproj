@@ -94,6 +94,7 @@
     <Compile Include="CommandParseException.cs" />
     <Compile Include="ConsoleLogAppender.cs" />
     <Compile Include="Json\VersionConverter.cs" />
+    <Compile Include="Util\FIleUtil.cs" />
     <Compile Include="VSSolution.cs" />
     <Compile Include="IHaveSignature.cs" />
     <Compile Include="IResolved.cs" />

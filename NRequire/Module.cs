@@ -68,9 +68,9 @@ namespace NRequire {
             OptionalWishes.ForEach(w=>w.Scope = Scopes.Transitive);
             TransitiveWishes.ForEach(w=>w.Scope = Scopes.Transitive);
 
-            SourceLocations.AddSourceLocations(RuntimeWishes, Source);
-            SourceLocations.AddSourceLocations(OptionalWishes, Source);
-            SourceLocations.AddSourceLocations(TransitiveWishes, Source);
+            SourceLocations.AddToSourceLocations(RuntimeWishes, Source);
+            SourceLocations.AddToSourceLocations(OptionalWishes, Source);
+            SourceLocations.AddToSourceLocations(TransitiveWishes, Source);
         }
 
         public List<Wish> GetWishes() {

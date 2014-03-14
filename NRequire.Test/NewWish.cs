@@ -69,7 +69,7 @@ namespace NRequire {
         }
 
         public new NewWish Source(ISource location) {
-            SourceLocations.AddSourceLocations(this, location);
+            SourceLocations.AddToSourceLocations(this, location);
             return this;
         }
 

@@ -50,7 +50,7 @@ namespace NRequire {
             cloneTarget.Scope = Scope;
             cloneTarget.Version = Version;
 
-            SourceLocations.AddSourceLocations(cloneTarget, Source);
+            SourceLocations.AddToSourceLocations(cloneTarget, Source);
             return cloneTarget;
         }
 

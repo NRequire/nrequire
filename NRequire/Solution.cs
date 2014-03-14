@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace NRequire {
     public class Solution : ITakeSourceLocation, IRequireLoadNotification, ISource {
@@ -38,9 +36,9 @@ namespace NRequire {
             WishDefaults = WishDefaults == null ? DefaultWishValues.Clone() : WishDefaults.CloneAndFillInBlanksFrom(DefaultWishValues);
             WishDefaults.Scope = Scopes.Transitive;
             Wishes = Wish.CloneAndFillInBlanksFrom(Wishes, WishDefaults);
-            Wishes.Select(w => w.Scope = Scopes.Transitive);
+            Wishes.ForEach(w => w.Scope = Scopes.Transitive);
 
-            SourceLocations.AddSourceLocations(Wishes, Source);
+            SourceLocations.AddToSourceLocations(Wishes, Source);
 
             ValidateReadyForMerge(Wishes);
         }

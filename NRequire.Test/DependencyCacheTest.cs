@@ -120,12 +120,5 @@ namespace NRequire {
                     .WithOnly(ADepWith().Version("1.2.5"))
                     .And(ADepWith().Version("1.2.0")));
         }
-        private static IList<Version> Versions(params String[] versionStrings) {
-            var list = new List<Version>();
-            foreach (var s in versionStrings) {
-                list.Add(Version.Parse(s));
-            }
-            return list;
-        }
     }
 }

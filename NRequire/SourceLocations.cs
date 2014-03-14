@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace NRequire {
 
@@ -10,7 +8,7 @@ namespace NRequire {
     /// </summary>
     public class SourceLocations {
 
-        private Dictionary<String,ISource> m_sourcesByName = new Dictionary<String,ISource>();
+        private readonly Dictionary<String,ISource> m_sourcesByName = new Dictionary<String,ISource>();
 
         public SourceLocations() {
         }
@@ -48,16 +46,16 @@ namespace NRequire {
             return "from:" + String.Join(",", m_sourcesByName.Keys);
         }
 
-        public static void AddSourceLocations(IEnumerable<Object> items, SourceLocations locations) {
+        public static void AddToSourceLocations(IEnumerable<Object> items, SourceLocations locations) {
             if (locations == null || items == null) {
                 return;
             }
             foreach (var item in items) {
-                AddSourceLocations(item, locations);
+                AddToSourceLocations(item, locations);
             }
         }
 
-        public static void AddSourceLocations(Object obj, SourceLocations locations) {
+        public static void AddToSourceLocations(Object obj, SourceLocations locations) {
             if (locations == null) {
                 return;
             }
@@ -69,7 +67,7 @@ namespace NRequire {
             }
         }
 
-        public static void AddSourceLocations(Object obj,ISource location) {
+        public static void AddToSourceLocations(Object obj,ISource location) {
             var source = GetOrSet(obj);
             if (source != null) {
                 source.Add(location);

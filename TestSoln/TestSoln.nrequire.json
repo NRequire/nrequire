@@ -1,6 +1,7 @@
 {
 	solutionFormat:1,
-	dependencies:[
+    
+	wishes:[
 		{
 			group:"Json.Net",
 			name:"Newtonsoft.Json",

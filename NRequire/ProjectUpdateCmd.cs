@@ -30,7 +30,7 @@ namespace NRequire {
             var proj = m_jsonReader.ReadProject(LookupJsonFileForProject(ProjectFile));
 
             //all the stuff we need to meet all the requirements
-            var deps = ProjectResolver
+            var projectDeps = ProjectResolver
                     .WithCache(LocalCache)
                     .MergeAndResolveDependencies(soln, proj);
             //merge the resolved deps with the additional wish settings like copyToDir, scope etc
@@ -39,19 +39,17 @@ namespace NRequire {
                     .ToDictionary(w=>w.GetKey());
 
             var holders = new List<ResourceHolder>();
-            foreach (var d in deps) {
-                var holder = new ResourceHolder {
-                    Dep = d
-                }; 
+            foreach (var dep in projectDeps) {
+                var holder = new ResourceHolder { Dep = dep }; 
                 Wish wish;
-                if (wishesBySig.TryGetValue(d.GetKey(), out wish)) {
+                if (wishesBySig.TryGetValue(dep.GetKey(), out wish)) {
                     if (wish.Scope == Scopes.Provided) {
                         //skip,expect it to exist
                         continue;
                     }
                     holder.Wish = wish;
                 }
-                holder.Resources = SolutionCache.GetResourcesFor(d);
+                holder.Resources = SolutionCache.GetResourcesFor(dep);
                 holders.Add(holder);
             }
             CopyRequired(holders);
@@ -59,9 +57,9 @@ namespace NRequire {
         }
 
         public class ResourceHolder {
-            public Wish Wish { get; set; }
-            public Dependency Dep { get; set; }
-            public IList<Resource> Resources { get; set; }
+            public Wish Wish { get; set; }//what we want
+            public Dependency Dep { get; set; }//what we actually resolve to
+            public IList<Resource> Resources { get; set; }//actual stuff we end up needing
         }
 
         private static void CheckNotNotNull<T>(T val, String name) where T:class {

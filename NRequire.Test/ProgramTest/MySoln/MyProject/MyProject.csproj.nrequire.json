@@ -1,38 +1,35 @@
 ﻿{
-	projectFormat:1,
+    projectFormat:1,
     
-    Group:"MyProject",
-    Name:"MyProject",
+    wishDefaults:{
+        runtime:"4.0"
+    },
     
- 	wishDefaults:{
-	    runtime:"4.0"
-	},
-	
-	runtimeWishes:[
-		{
-			group:"Group0",
-			name:"Name0",
+    runtimeWishes:[
+        {
+            group:"Group0",
+            name:"Name0",
             runtime:"any"
             
-		},
-		{
-			group:"Group1",
-			name:"Name1",
+        },
+        {
+            group:"Group1",
+            name:"Name1",
             copyTo:"MyLibDir"
-		}
-	],
+        }
+    ],
 
-	transitiveWishes:[
-		{
-			group:"Group2",
-			name:"Name2"    
-		}
-	],
-	
-	providedWishes:[
-		{
-			group:"ProvidedGroup",
-			name:"ProvidedName"
-		}
-	]
+    transitiveWishes:[
+        {
+            group:"Group2",
+            name:"Name2"    
+        }
+    ],
+    
+    providedWishes:[
+        {
+            group:"ProvidedGroup",
+            name:"ProvidedName"
+        }
+    ]
 }

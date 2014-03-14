@@ -8,12 +8,12 @@ using System.Collections;
 
 namespace NRequire
 {
-	/// <summary>
+    /// <summary>
     /// In memory cache to use for testing. 
     /// </summary>
     internal class InMemoryDependencyCache : IDependencyCache
     {
-		private static readonly Logger Log = Logger.GetLogger(typeof(InMemoryDependencyCache));
+        private static readonly Logger Log = Logger.GetLogger(typeof(InMemoryDependencyCache));
         private static readonly SortedList<Version, IResolved> EmptyList = NewSortedList();
 
         private Dictionary<String, SortedList<Version, IResolved>> m_depsBySignatureKey = new Dictionary<string, SortedList<Version, IResolved>>();
@@ -32,7 +32,7 @@ namespace NRequire
         public InMemoryDependencyCache Add(Module module)
         {
             var key = KeyFor(module);
-			
+            
             if (m_depsBySignatureKey.ContainsKey(key)) {
                 m_depsBySignatureKey[key].Add(module.Version, module);
             } else {

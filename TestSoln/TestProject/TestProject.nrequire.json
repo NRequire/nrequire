@@ -1,6 +1,7 @@
 {
 	projectFormat:1,
-	compile:[
+	
+    runtimeWishes:[
 		{
 			group:"Json.Net",
 			name:"Newtonsoft.Json",

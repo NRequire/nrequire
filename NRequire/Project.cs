@@ -99,7 +99,7 @@ namespace NRequire {
                 SetChildTransitivies(w);
             });
 
-            SourceLocations.AddSourceLocations(wishes, Source);
+            SourceLocations.AddToSourceLocations(wishes, Source);
             return wishes;
         }
 

@@ -1,1 +1,1 @@
-﻿- take into account all projects in a solution when resolving
+﻿See github issue tracker
