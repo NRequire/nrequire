@@ -1,8 +1,6 @@
 using System;
 using System.IO;
 using NUnit.Framework;
-using NRequire.Matcher;
-using NRequire.Test;
 using TestFirst.Net;
 using TestFirst.Net.Matcher;
 

@@ -69,7 +69,7 @@
     <Compile Include="AVSSolution.cs" />
     <Compile Include="BaseDependencyTest.cs" />
     <Compile Include="CommandLineParserTest.cs" />
-    <Compile Include="FileUtil.cs" />
+    <Compile Include="FileHelper.cs" />
     <Compile Include="Matchers.cs">
       <DependentUpon>Matchers.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -82,26 +82,26 @@
     <Compile Include="NewSolution.cs" />
     <Compile Include="NewWish.cs" />
     <Compile Include="TestDefaults.cs" />
-    <Compile Include="VSSolutionTest.cs" />
-    <Compile Include="DependencyCacheTest.cs" />
-    <Compile Include="ProjectResolverTest.cs" />
-    <Compile Include="ProjectTest.cs">
+    <Compile Include="Model\VSSolutionTest.cs" />
+    <Compile Include="Model\DependencyCacheTest.cs" />
+    <Compile Include="Resolver\ProjectResolverTest.cs" />
+    <Compile Include="Resolver\ProjectTest.cs">
       <DependentUpon>ProjectResolverTest.cs</DependentUpon>
     </Compile>
-    <Compile Include="WishTest.cs" />
-    <Compile Include="JsonReaderTest.cs" />
+    <Compile Include="Model\WishTest.cs" />
+    <Compile Include="IO\Json\JsonReaderTest.cs" />
     <Compile Include="ProgramTest.cs" />
     <Compile Include="Resolver\DependencyWishSetTest.cs" />
-    <Compile Include="VersionMatcherTest.cs" />
-    <Compile Include="VersionTest.cs" />
-    <Compile Include="VSProjectTest.cs" />
+    <Compile Include="Model\VersionMatcherTest.cs" />
+    <Compile Include="Model\VersionTest.cs" />
+    <Compile Include="Model\VSProjectTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResolverTest.cs" />
-    <Compile Include="Resolver\InMemoryDependencyCache.cs" />
+    <Compile Include="Resolver\ResolverTest.cs" />
+    <Compile Include="InMemoryDependencyCache.cs" />
     <Compile Include="Resolver\WishResolverTest.cs" />
     <Compile Include="NewDependencyCacheTest.cs" />
     <Compile Include="Matcher\MatcherTest.cs" />
-    <Compile Include="SolutionTest.cs" />
+    <Compile Include="Model\SolutionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NRequire\NRequire.csproj">
@@ -138,7 +138,7 @@
     <Content Include="ProgramTest\LocalCache\Group1\Name1\1.2.2\arch-any_runtime-4.0\Name1.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="VSSolutionTest\MySolution.sln">
+    <Content Include="Model\VSSolutionTest\MySolution.sln">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Matchers.tt">
@@ -179,10 +179,10 @@
     <Content Include="ProgramTest\MySoln\MySoln.sln">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="VSProjectTest\before.csproj.xml">
+    <Content Include="Model\VSProjectTest\before.csproj.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="VSProjectTest\expect.csproj.xml">
+    <Content Include="Model\VSProjectTest\expect.csproj.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
@@ -196,7 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="JsonReaderTest\depsfile1.json">
+    <None Include="IO\Json\JsonReaderTest\depsfile1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="ProgramTest\LocalCache\Group1\Name1\1.2.3\arch-any_runtime-4.0\Name1.xml">

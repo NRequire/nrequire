@@ -1,15 +1,12 @@
-﻿using NRequire;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using TestFirst.Net;
 using TestFirst.Net.Matcher;
+using Version = NRequire.Model.Version;
 
 namespace NRequire {
     public partial class AVersion {
 
-        public static IMatcher<NRequire.Version> EqualTo(NRequire.Version expect)
+        public static IMatcher<Version> EqualTo(Version expect)
         {
             if (expect == null)
             {
@@ -18,19 +15,19 @@ namespace NRequire {
             return EqualTo(expect.ToString());
         }
         
-        public static IMatcher<NRequire.Version> EqualTo(String expect)
+        public static IMatcher<Version> EqualTo(String expect)
         {
             return Matchers.Function<Version>(actual=>expect.Equals(actual.ToString()),expect);
         }
 
-        public static IMatcher<NRequire.Version> VersionRange(String range)
+        public static IMatcher<Version> VersionRange(String range)
         {
             return VersionRange(VersionMatcher.Parse(range));
         }
 
-        public static IMatcher<NRequire.Version> VersionRange(VersionMatcher expect)
+        public static IMatcher<Version> VersionRange(VersionMatcher expect)
         {
-            return Matchers.Function<NRequire.Version>(
+            return Matchers.Function<Version>(
                 (actual) => expect.Match(actual),
                 () => "AVersion matching version range " + expect);
         }

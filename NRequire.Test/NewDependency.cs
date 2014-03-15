@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NRequire.Test;
+using NRequire.Model;
 
 namespace NRequire {
     public class NewDependency : Dependency {
@@ -37,7 +35,7 @@ namespace NRequire {
         }
 
         public new NewDependency Version(String val) {
-            base.Version = NRequire.Version.Parse(val);
+            base.Version = Model.Version.Parse(val);
             return this;
         }
 
@@ -72,7 +70,7 @@ namespace NRequire {
         }
 
         public new NewDependency Classifiers(String s) {
-            base.Classifiers = NRequire.Classifiers.Parse(s);
+            base.Classifiers = Model.Classifiers.Parse(s);
             return this;
         }
 

@@ -1,12 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
-using NRequire;
-using NRequire.Matcher;
-using NRequire.Resolver;
-using NRequire.Test;
+using NRequire.Model;
 
 namespace NRequire 
 {

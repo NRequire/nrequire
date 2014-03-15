@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NRequire.Test;
-using NRequire.Util;
+using NRequire.Model;
 
 namespace NRequire {
     public class NewModule : Module {
@@ -32,13 +29,13 @@ namespace NRequire {
             var list = new List<Module>();
             foreach (var v in versions) {
                 var clone = Clone();
-                clone.Version = NRequire.Version.Parse(v);
+                clone.Version = Model.Version.Parse(v);
                 list.Add(clone);
             }
             return list;
         }
         public new NewModule Version(String val) {
-            base.Version = NRequire.Version.Parse(val);
+            base.Version = Model.Version.Parse(val);
             return this;
         }
 
@@ -73,7 +70,7 @@ namespace NRequire {
         }
 
         public new NewModule Classifiers(String s) {
-            base.Classifiers = NRequire.Classifiers.Parse(s);
+            base.Classifiers = Model.Classifiers.Parse(s);
             return this;
         }
 

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Globalization;
 using NRequire.Matcher;
+using Version = NRequire.Model.Version;
 
 namespace NRequire {
 

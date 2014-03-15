@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using Version = NRequire.Model.Version;
+
 namespace NRequire.Matcher {
 
     [TestFixture]

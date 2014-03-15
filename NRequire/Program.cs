@@ -1,8 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
+using NRequire.Cmd;
+using NRequire.IO;
+using NRequire.IO.Json;
+using NRequire.Logging;
+using NRequire.Model;
 using NRequire.Util;
 
 namespace NRequire {
@@ -21,7 +23,7 @@ namespace NRequire {
             } catch(FailBuildException e){
                 PrintError(e);
                 Environment.ExitCode = -1;
-            } catch (CommandParseException e) {
+            } catch (CommandLineParseException e) {
                 PrintError(e);
                 Console.WriteLine(GetParser().PrintHelp(args));
                 Environment.ExitCode = -1;
@@ -87,11 +89,11 @@ namespace NRequire {
         public void InvokeWithArgs(string[] args) {
             var result = GetParser().Parse(args);
             if (result.IsCommand("--help")) {
-                throw new CommandParseException("Help");
+                throw new CommandLineParseException("Help");
             } else if(result.IsCommand("update-vsproj")) {
                 UpdateProjectCmd(result);
             } else {
-                throw new CommandParseException("Don't recognize command:" + result.Command);
+                throw new CommandLineParseException("Don't recognize command:" + result.Command);
             }
         }
 

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
+using NRequire.IO.Json;
 using NRequire.Lang;
+using NRequire.Logging;
+using NRequire.Model;
 
 namespace NRequire {
     public class NewDependencyCache : IDependencyCache {
@@ -15,7 +16,7 @@ namespace NRequire {
         private DependencyCache m_cache;
 
         private NewDependencyCache() {
-            m_cache = new DependencyCache.Builder { CacheDir = FileUtil.newTmpDir("deps-cache") }.Build();
+            m_cache = new DependencyCache.Builder { CacheDir = FileHelper.NewTmpDir("deps-cache") }.Build();
         }
 
         public static NewDependencyCache With() {

@@ -1,14 +1,14 @@
 using System;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using NRequire.Matcher;
 using System.Collections.Generic;
-using System.Collections;
+using System.Linq;
+using System.Text;
+using NRequire.Logging;
+using NRequire.Model;
+using NRequire.Util;
 
 namespace NRequire.Resolver
 {
-    internal class AllWishSets {
+     class AllWishSets {
 
         private static readonly Logger Log = Logger.GetLogger(typeof(AllWishSets));
         private readonly IDependencyCache m_cache;

@@ -1,13 +1,14 @@
 using System;
-using System.Linq;
-using System.Linq.Expressions;
-using NRequire.Matcher;
 using System.Collections.Generic;
-using System.Collections;
+using System.Linq;
+using NRequire.Logging;
+using NRequire.Matcher;
+using NRequire.Model;
+using Version = NRequire.Model.Version;
 
-namespace NRequire
+namespace NRequire.Resolver
 {
-	//holds a collection of constraints for a given dependency
+    //holds a collection of constraints for a given dependency
     //builds upon parent sets to further constrain the available versions
     internal class ResolverWishSet : IMatcher<Version>
     {
@@ -51,18 +52,18 @@ namespace NRequire
         {
             return m_wishes.All(w=>w.Version.Match(v));
         }
-		/// <summary>
-		/// Check if there is already a similair wish in the current list
-		/// </summary>
-		/// <param name="wish">Wish.</param>
+        /// <summary>
+        /// Check if there is already a similair wish in the current list
+        /// </summary>
+        /// <param name="wish">Wish.</param>
         internal bool ContainsVersion(VersionMatcher version)
         {
             return m_allVersionStrings.Contains(version.ToString());
         }
-		/// <summary>
-		/// Adds the wish if not already a similair wish
-		/// </summary>
-		/// <param name="wish">Wish.</param>
+        /// <summary>
+        /// Adds the wish if not already a similair wish
+        /// </summary>
+        /// <param name="wish">Wish.</param>
         /// <returns>true if added, false if there was already a wish matching the same requirements</returns>
         internal bool AddIfNotExists(Wish wish)
         {
@@ -95,10 +96,10 @@ namespace NRequire
                 throw new ArgumentException(String.Format("wish signatures don't match. Expected '{0}' but got '{1}'", m_key, wish.GetKey()));
             }
         }
-		/// <summary>
-		/// If there are still deps which can satisfy the criteria
-		/// </summary>
-		/// <returns><c>true</c> if this instance can match; otherwise, <c>false</c>.</returns>
+        /// <summary>
+        /// If there are still deps which can satisfy the criteria
+        /// </summary>
+        /// <returns><c>true</c> if this instance can match; otherwise, <c>false</c>.</returns>
         public bool CanMatch()
         {
             return FindMatchingDependencies().Count() > 0;
@@ -108,10 +109,10 @@ namespace NRequire
             return HighestScope <= Scopes.Transitive;
         }
 
-		/// <summary>
-		/// If there is only a single dependency which can match all the criteria
-		/// </summary>
-		/// <returns><c>true</c> if this instance is resolved; otherwise, <c>false</c>.</returns>
+        /// <summary>
+        /// If there is only a single dependency which can match all the criteria
+        /// </summary>
+        /// <returns><c>true</c> if this instance is resolved; otherwise, <c>false</c>.</returns>
         public bool IsFixed()
         {
             return FindMatchingDependencies().Count() == 1;

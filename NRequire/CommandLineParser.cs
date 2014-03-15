@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace NRequire {
@@ -95,21 +94,21 @@ namespace NRequire {
             {
                 return Parse(args);
             }
-            catch (CommandParseException e)
+            catch (CommandLineParseException)
             {
                 return null;
             }
         }
         internal ParseResult Parse(string[] args) {
             if (args == null || args.Length == 0) {
-                throw new CommandParseException(String.Format("Expected atleast one command. Options are : [{0}]", 
+                throw new CommandLineParseException(String.Format("Expected atleast one command. Options are : [{0}]", 
                     String.Join(",", m_options.Keys)));
             }
             var result = new ParseResult();
 
             var cmd = args[0];
             if (!m_options.ContainsKey(cmd)) {
-                throw new CommandParseException(String.Format("Unrecognized command '{0}', valid commands are : [{1}]", 
+                throw new CommandLineParseException(String.Format("Unrecognized command '{0}', valid commands are : [{1}]", 
                     cmd, String.Join(",", m_options.Keys)));
             }
             result.Command = cmd;
@@ -118,7 +117,7 @@ namespace NRequire {
             for (int i = 1; i < args.Length; i++) {
                 var optName = args[i];
                 if (!options.ContainsOption(optName)) {
-                    throw new CommandParseException(String.Format("Unrecognized option '{0}' for command '{1}', valid options are : [{2}]",
+                    throw new CommandLineParseException(String.Format("Unrecognized option '{0}' for command '{1}', valid options are : [{2}]",
                         optName, cmd, String.Join(",", options.OptionKeys)));
                 }
                 if (i < args.Length - 1) {
@@ -187,7 +186,7 @@ namespace NRequire {
                     if( defVal != null){
                         return defVal.ToString();
                     }
-                    throw new CommandParseException(
+                    throw new CommandLineParseException(
                             String.Format("No option named '{0}' set, but do have [{1}]", 
                                 optName, String.Join(",", m_optionsValues.Keys)));
                 }

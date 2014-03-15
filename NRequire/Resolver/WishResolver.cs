@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using NRequire.Logging;
+using NRequire.Model;
+using NRequire.Util;
 
 namespace NRequire.Resolver
 {

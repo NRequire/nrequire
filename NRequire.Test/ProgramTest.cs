@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using System.IO;
+using System.Linq;
+using NRequire.Model;
 using NUnit.Framework;
-using NRequire.Matcher;
 
 namespace NRequire {
     [TestFixture]
@@ -16,10 +13,10 @@ namespace NRequire {
             var cache = CacheWith()
                 ;
 
-            var resourceDir = FileUtil.DirectoryFor<ProgramTest>();
+            var resourceDir = FileHelper.DirectoryFor<ProgramTest>();
             var localCacheDir = new DirectoryInfo(Path.Combine(resourceDir.FullName,"LocalCache"));
 
-            var solnDir = FileUtil.CopyToTmpDir(new DirectoryInfo(Path.Combine(resourceDir.FullName, "MySoln")));
+            var solnDir = FileHelper.CopyToTmpDir(new DirectoryInfo(Path.Combine(resourceDir.FullName, "MySoln")));
             var solnFile = new FileInfo(Path.Combine(solnDir.FullName, "MySoln.sln"));
             var projectFile = new FileInfo(Path.Combine(solnDir.FullName, "MyProject/MyProject.csproj"));
           

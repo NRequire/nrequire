@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using NRequire.Model;
 
 namespace NRequire {
     public class NewSolution : Solution {
@@ -16,7 +14,7 @@ namespace NRequire {
         /// Parse from  group:name:version:ext:classifiers:scope
         /// </summary>
         public NewSolution Wish(String parseString) {
-            Wish(NRequire.Wish.Parse(parseString));
+            Wish(Model.Wish.Parse(parseString));
             return this;
         }
 

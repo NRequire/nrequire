@@ -2,30 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TestFirst.Net;
+ using NRequire.Model;
+ using TestFirst.Net;
 using TestFirst.Net.Matcher;
+ using Version = NRequire.Model.Version;
 
 namespace NRequire {
 
-    public partial class AVersion : PropertyMatcher<NRequire.Version>{
+    public partial class AVersion : PropertyMatcher<Version>{
 
         // provide IDE rename and find reference support
-        private static readonly NRequire.Version PropertyNames = null;
+        private static readonly Version PropertyNames = null;
 
 
         public static AVersion With(){
                 return new AVersion();
         }
 
-        public static IMatcher<NRequire.Version> Null(){
-                return AnInstance.Null<NRequire.Version>();
+        public static IMatcher<Version> Null(){
+                return AnInstance.Null<Version>();
         }
 
-        public static IMatcher<NRequire.Version> NotNull(){
-                return AnInstance.NotNull<NRequire.Version>();
+        public static IMatcher<Version> NotNull(){
+                return AnInstance.NotNull<Version>();
         }
 
-        public static IMatcher<NRequire.Version> Instance(NRequire.Version expect){
+        public static IMatcher<Version> Instance(Version expect){
                 return AnInstance.SameAs(expect);
         }
 
@@ -158,25 +160,25 @@ namespace NRequire {
 
 namespace NRequire {
 
-    public partial class AClassifier : PropertyMatcher<NRequire.Classifiers>{
+    public partial class AClassifier : PropertyMatcher<Classifiers>{
 
         // provide IDE rename and find reference support
-        private static readonly NRequire.Classifiers PropertyNames = null;
+        private static readonly Classifiers PropertyNames = null;
 
 
         public static AClassifier With(){
                 return new AClassifier();
         }
 
-        public static IMatcher<NRequire.Classifiers> Null(){
-                return AnInstance.Null<NRequire.Classifiers>();
+        public static IMatcher<Classifiers> Null(){
+                return AnInstance.Null<Classifiers>();
         }
 
-        public static IMatcher<NRequire.Classifiers> NotNull(){
-                return AnInstance.NotNull<NRequire.Classifiers>();
+        public static IMatcher<Classifiers> NotNull(){
+                return AnInstance.NotNull<Classifiers>();
         }
 
-        public static IMatcher<NRequire.Classifiers> Instance(NRequire.Classifiers expect){
+        public static IMatcher<Classifiers> Instance(Classifiers expect){
                 return AnInstance.SameAs(expect);
         }
 
@@ -194,25 +196,25 @@ namespace NRequire {
 
 namespace NRequire {
 
-    public partial class ADependency : PropertyMatcher<NRequire.Dependency>{
+    public partial class ADependency : PropertyMatcher<Dependency>{
 
         // provide IDE rename and find reference support
-        private static readonly NRequire.Dependency PropertyNames = null;
+        private static readonly Dependency PropertyNames = null;
 
 
         public static ADependency With(){
                 return new ADependency();
         }
 
-        public static IMatcher<NRequire.Dependency> Null(){
-                return AnInstance.Null<NRequire.Dependency>();
+        public static IMatcher<Dependency> Null(){
+                return AnInstance.Null<Dependency>();
         }
 
-        public static IMatcher<NRequire.Dependency> NotNull(){
-                return AnInstance.NotNull<NRequire.Dependency>();
+        public static IMatcher<Dependency> NotNull(){
+                return AnInstance.NotNull<Dependency>();
         }
 
-        public static IMatcher<NRequire.Dependency> Instance(NRequire.Dependency expect){
+        public static IMatcher<Dependency> Instance(Dependency expect){
                 return AnInstance.SameAs(expect);
         }
 
@@ -236,17 +238,17 @@ namespace NRequire {
             return this;
         }
 
-        public ADependency Classifiers(NRequire.Classifiers expect) {
+        public ADependency Classifiers(Classifiers expect) {
             Classifiers(AClassifier.EqualTo(expect));
             return this;
         }
 
         public ADependency ClassifiersNull() {
-            Classifiers(AnInstance.EqualTo<NRequire.Classifiers>(null));
+            Classifiers(AnInstance.EqualTo<Classifiers>(null));
             return this;
         }
 
-        public ADependency Classifiers(IMatcher<NRequire.Classifiers> matcher) {
+        public ADependency Classifiers(IMatcher<Classifiers> matcher) {
             WithProperty(()=>PropertyNames.Classifiers,matcher);
             return this;
         }
@@ -311,22 +313,22 @@ namespace NRequire {
             return this;
         }
 
-        public ADependency Scope(NRequire.Scopes? expect) {
+        public ADependency Scope(Scopes? expect) {
             Scope(AnInstance.EqualTo(expect));
             return this;
         }
 
-        public ADependency Scope(IMatcher<NRequire.Scopes?> matcher) {
+        public ADependency Scope(IMatcher<Scopes?> matcher) {
             WithProperty(()=>PropertyNames.Scope,matcher);
             return this;
         }
 
         public ADependency SourceNull() {
-            Source(AnInstance.EqualTo<NRequire.SourceLocations>(null));
+            Source(AnInstance.EqualTo<SourceLocations>(null));
             return this;
         }
 
-        public ADependency Source(IMatcher<NRequire.SourceLocations> matcher) {
+        public ADependency Source(IMatcher<SourceLocations> matcher) {
             WithProperty(()=>PropertyNames.Source,matcher);
             return this;
         }
@@ -347,21 +349,21 @@ namespace NRequire {
         }
 
         public ADependency Version(string expect) {
-            Version(NRequire.Version.Parse(expect));
+            Version(Model.Version.Parse(expect));
             return this;
         }
 
-        public ADependency Version(NRequire.Version expect) {
+        public ADependency Version(Version expect) {
             Version(AnInstance.EqualTo(expect));
             return this;
         }
 
         public ADependency VersionNull() {
-            Version(AnInstance.EqualTo<NRequire.Version>(null));
+            Version(AnInstance.EqualTo<Version>(null));
             return this;
         }
 
-        public ADependency Version(IMatcher<NRequire.Version> matcher) {
+        public ADependency Version(IMatcher<Version> matcher) {
             WithProperty(()=>PropertyNames.Version,matcher);
             return this;
         }
@@ -370,25 +372,25 @@ namespace NRequire {
 
 namespace NRequire {
 
-    public partial class AWish : PropertyMatcher<NRequire.Wish>{
+    public partial class AWish : PropertyMatcher<Wish>{
 
         // provide IDE rename and find reference support
-        private static readonly NRequire.Wish PropertyNames = null;
+        private static readonly Wish PropertyNames = null;
 
 
         public static AWish With(){
                 return new AWish();
         }
 
-        public static IMatcher<NRequire.Wish> Null(){
-                return AnInstance.Null<NRequire.Wish>();
+        public static IMatcher<Wish> Null(){
+                return AnInstance.Null<Wish>();
         }
 
-        public static IMatcher<NRequire.Wish> NotNull(){
-                return AnInstance.NotNull<NRequire.Wish>();
+        public static IMatcher<Wish> NotNull(){
+                return AnInstance.NotNull<Wish>();
         }
 
-        public static IMatcher<NRequire.Wish> Instance(NRequire.Wish expect){
+        public static IMatcher<Wish> Instance(Wish expect){
                 return AnInstance.SameAs(expect);
         }
 
@@ -412,17 +414,17 @@ namespace NRequire {
             return this;
         }
 
-        public AWish Classifiers(NRequire.Classifiers expect) {
+        public AWish Classifiers(Classifiers expect) {
             Classifiers(AClassifier.EqualTo(expect));
             return this;
         }
 
         public AWish ClassifiersNull() {
-            Classifiers(AnInstance.EqualTo<NRequire.Classifiers>(null));
+            Classifiers(AnInstance.EqualTo<Classifiers>(null));
             return this;
         }
 
-        public AWish Classifiers(IMatcher<NRequire.Classifiers> matcher) {
+        public AWish Classifiers(IMatcher<Classifiers> matcher) {
             WithProperty(()=>PropertyNames.Classifiers,matcher);
             return this;
         }
@@ -502,32 +504,32 @@ namespace NRequire {
             return this;
         }
 
-        public AWish Scope(NRequire.Scopes? expect) {
+        public AWish Scope(Scopes? expect) {
             Scope(AnInstance.EqualTo(expect));
             return this;
         }
 
-        public AWish Scope(IMatcher<NRequire.Scopes?> matcher) {
+        public AWish Scope(IMatcher<Scopes?> matcher) {
             WithProperty(()=>PropertyNames.Scope,matcher);
             return this;
         }
 
         public AWish SourceNull() {
-            Source(AnInstance.EqualTo<NRequire.SourceLocations>(null));
+            Source(AnInstance.EqualTo<SourceLocations>(null));
             return this;
         }
 
-        public AWish Source(IMatcher<NRequire.SourceLocations> matcher) {
+        public AWish Source(IMatcher<SourceLocations> matcher) {
             WithProperty(()=>PropertyNames.Source,matcher);
             return this;
         }
 
         public AWish TransitiveWishesNull() {
-            TransitiveWishes(AnInstance.EqualTo<System.Collections.Generic.IEnumerable<NRequire.Wish>>(null));
+            TransitiveWishes(AnInstance.EqualTo<System.Collections.Generic.IEnumerable<Wish>>(null));
             return this;
         }
 
-        public AWish TransitiveWishes(IMatcher<System.Collections.Generic.IEnumerable<NRequire.Wish>> matcher) {
+        public AWish TransitiveWishes(IMatcher<System.Collections.Generic.IEnumerable<Wish>> matcher) {
             WithProperty(()=>PropertyNames.TransitiveWishes,matcher);
             return this;
         }
@@ -552,7 +554,7 @@ namespace NRequire {
             return this;
         }
 
-        public AWish Version(NRequire.Version expect) {
+        public AWish Version(Version expect) {
             Version(expect.ToString());
             return this;
         }
@@ -571,25 +573,25 @@ namespace NRequire {
 
 namespace NRequire {
 
-    public partial class AModule : PropertyMatcher<NRequire.Module>{
+    public partial class AModule : PropertyMatcher<Module>{
 
         // provide IDE rename and find reference support
-        private static readonly NRequire.Module PropertyNames = null;
+        private static readonly Module PropertyNames = null;
 
 
         public static AModule With(){
                 return new AModule();
         }
 
-        public static IMatcher<NRequire.Module> Null(){
-                return AnInstance.Null<NRequire.Module>();
+        public static IMatcher<Module> Null(){
+                return AnInstance.Null<Module>();
         }
 
-        public static IMatcher<NRequire.Module> NotNull(){
-                return AnInstance.NotNull<NRequire.Module>();
+        public static IMatcher<Module> NotNull(){
+                return AnInstance.NotNull<Module>();
         }
 
-        public static IMatcher<NRequire.Module> Instance(NRequire.Module expect){
+        public static IMatcher<Module> Instance(Module expect){
                 return AnInstance.SameAs(expect);
         }
 
@@ -613,17 +615,17 @@ namespace NRequire {
             return this;
         }
 
-        public AModule Classifiers(NRequire.Classifiers expect) {
+        public AModule Classifiers(Classifiers expect) {
             Classifiers(AClassifier.EqualTo(expect));
             return this;
         }
 
         public AModule ClassifiersNull() {
-            Classifiers(AnInstance.EqualTo<NRequire.Classifiers>(null));
+            Classifiers(AnInstance.EqualTo<Classifiers>(null));
             return this;
         }
 
-        public AModule Classifiers(IMatcher<NRequire.Classifiers> matcher) {
+        public AModule Classifiers(IMatcher<Classifiers> matcher) {
             WithProperty(()=>PropertyNames.Classifiers,matcher);
             return this;
         }
@@ -674,11 +676,11 @@ namespace NRequire {
         }
 
         public AModule OptionalWishesNull() {
-            OptionalWishes(AnInstance.EqualTo<System.Collections.Generic.IEnumerable<NRequire.Wish>>(null));
+            OptionalWishes(AnInstance.EqualTo<System.Collections.Generic.IEnumerable<Wish>>(null));
             return this;
         }
 
-        public AModule OptionalWishes(IMatcher<System.Collections.Generic.IEnumerable<NRequire.Wish>> matcher) {
+        public AModule OptionalWishes(IMatcher<System.Collections.Generic.IEnumerable<Wish>> matcher) {
             WithProperty(()=>PropertyNames.OptionalWishes,matcher);
             return this;
         }
@@ -699,31 +701,31 @@ namespace NRequire {
         }
 
         public AModule RuntimeWishesNull() {
-            RuntimeWishes(AnInstance.EqualTo<System.Collections.Generic.IEnumerable<NRequire.Wish>>(null));
+            RuntimeWishes(AnInstance.EqualTo<System.Collections.Generic.IEnumerable<Wish>>(null));
             return this;
         }
 
-        public AModule RuntimeWishes(IMatcher<System.Collections.Generic.IEnumerable<NRequire.Wish>> matcher) {
+        public AModule RuntimeWishes(IMatcher<System.Collections.Generic.IEnumerable<Wish>> matcher) {
             WithProperty(()=>PropertyNames.RuntimeWishes,matcher);
             return this;
         }
 
-        public AModule Scope(NRequire.Scopes? expect) {
+        public AModule Scope(Scopes? expect) {
             Scope(AnInstance.EqualTo(expect));
             return this;
         }
 
-        public AModule Scope(IMatcher<NRequire.Scopes?> matcher) {
+        public AModule Scope(IMatcher<Scopes?> matcher) {
             WithProperty(()=>PropertyNames.Scope,matcher);
             return this;
         }
 
         public AModule SourceNull() {
-            Source(AnInstance.EqualTo<NRequire.SourceLocations>(null));
+            Source(AnInstance.EqualTo<SourceLocations>(null));
             return this;
         }
 
-        public AModule Source(IMatcher<NRequire.SourceLocations> matcher) {
+        public AModule Source(IMatcher<SourceLocations> matcher) {
             WithProperty(()=>PropertyNames.Source,matcher);
             return this;
         }
@@ -744,11 +746,11 @@ namespace NRequire {
         }
 
         public AModule TransitiveWishesNull() {
-            TransitiveWishes(AnInstance.EqualTo<System.Collections.Generic.IEnumerable<NRequire.Wish>>(null));
+            TransitiveWishes(AnInstance.EqualTo<System.Collections.Generic.IEnumerable<Wish>>(null));
             return this;
         }
 
-        public AModule TransitiveWishes(IMatcher<System.Collections.Generic.IEnumerable<NRequire.Wish>> matcher) {
+        public AModule TransitiveWishes(IMatcher<System.Collections.Generic.IEnumerable<Wish>> matcher) {
             WithProperty(()=>PropertyNames.TransitiveWishes,matcher);
             return this;
         }
@@ -769,21 +771,21 @@ namespace NRequire {
         }
 
         public AModule Version(string expect) {
-            Version(NRequire.Version.Parse(expect));
+            Version(Model.Version.Parse(expect));
             return this;
         }
 
-        public AModule Version(NRequire.Version expect) {
+        public AModule Version(Version expect) {
             Version(AnInstance.EqualTo(expect));
             return this;
         }
 
         public AModule VersionNull() {
-            Version(AnInstance.EqualTo<NRequire.Version>(null));
+            Version(AnInstance.EqualTo<Version>(null));
             return this;
         }
 
-        public AModule Version(IMatcher<NRequire.Version> matcher) {
+        public AModule Version(IMatcher<Version> matcher) {
             WithProperty(()=>PropertyNames.Version,matcher);
             return this;
         }
@@ -792,25 +794,25 @@ namespace NRequire {
 
 namespace NRequire {
 
-    public partial class ASolution : PropertyMatcher<NRequire.Solution>{
+    public partial class ASolution : PropertyMatcher<Solution>{
 
         // provide IDE rename and find reference support
-        private static readonly NRequire.Solution PropertyNames = null;
+        private static readonly Solution PropertyNames = null;
 
 
         public static ASolution With(){
                 return new ASolution();
         }
 
-        public static IMatcher<NRequire.Solution> Null(){
-                return AnInstance.Null<NRequire.Solution>();
+        public static IMatcher<Solution> Null(){
+                return AnInstance.Null<Solution>();
         }
 
-        public static IMatcher<NRequire.Solution> NotNull(){
-                return AnInstance.NotNull<NRequire.Solution>();
+        public static IMatcher<Solution> NotNull(){
+                return AnInstance.NotNull<Solution>();
         }
 
-        public static IMatcher<NRequire.Solution> Instance(NRequire.Solution expect){
+        public static IMatcher<Solution> Instance(Solution expect){
                 return AnInstance.SameAs(expect);
         }
 
@@ -830,11 +832,11 @@ namespace NRequire {
         }
 
         public ASolution SourceNull() {
-            Source(AnInstance.EqualTo<NRequire.SourceLocations>(null));
+            Source(AnInstance.EqualTo<SourceLocations>(null));
             return this;
         }
 
-        public ASolution Source(IMatcher<NRequire.SourceLocations> matcher) {
+        public ASolution Source(IMatcher<SourceLocations> matcher) {
             WithProperty(()=>PropertyNames.Source,matcher);
             return this;
         }
@@ -855,21 +857,21 @@ namespace NRequire {
         }
 
         public ASolution WishDefaultsNull() {
-            WishDefaults(AnInstance.EqualTo<NRequire.Wish>(null));
+            WishDefaults(AnInstance.EqualTo<Wish>(null));
             return this;
         }
 
-        public ASolution WishDefaults(IMatcher<NRequire.Wish> matcher) {
+        public ASolution WishDefaults(IMatcher<Wish> matcher) {
             WithProperty(()=>PropertyNames.WishDefaults,matcher);
             return this;
         }
 
         public ASolution WishesNull() {
-            Wishes(AnInstance.EqualTo<System.Collections.Generic.IEnumerable<NRequire.Wish>>(null));
+            Wishes(AnInstance.EqualTo<System.Collections.Generic.IEnumerable<Wish>>(null));
             return this;
         }
 
-        public ASolution Wishes(IMatcher<System.Collections.Generic.IEnumerable<NRequire.Wish>> matcher) {
+        public ASolution Wishes(IMatcher<System.Collections.Generic.IEnumerable<Wish>> matcher) {
             WithProperty(()=>PropertyNames.Wishes,matcher);
             return this;
         }
@@ -878,25 +880,25 @@ namespace NRequire {
 
 namespace NRequire {
 
-    public partial class AProject : PropertyMatcher<NRequire.Project>{
+    public partial class AProject : PropertyMatcher<Project>{
 
         // provide IDE rename and find reference support
-        private static readonly NRequire.Project PropertyNames = null;
+        private static readonly Project PropertyNames = null;
 
 
         public static AProject With(){
                 return new AProject();
         }
 
-        public static IMatcher<NRequire.Project> Null(){
-                return AnInstance.Null<NRequire.Project>();
+        public static IMatcher<Project> Null(){
+                return AnInstance.Null<Project>();
         }
 
-        public static IMatcher<NRequire.Project> NotNull(){
-                return AnInstance.NotNull<NRequire.Project>();
+        public static IMatcher<Project> NotNull(){
+                return AnInstance.NotNull<Project>();
         }
 
-        public static IMatcher<NRequire.Project> Instance(NRequire.Project expect){
+        public static IMatcher<Project> Instance(Project expect){
                 return AnInstance.SameAs(expect);
         }
 
@@ -920,17 +922,17 @@ namespace NRequire {
             return this;
         }
 
-        public AProject Classifiers(NRequire.Classifiers expect) {
+        public AProject Classifiers(Classifiers expect) {
             Classifiers(AClassifier.EqualTo(expect));
             return this;
         }
 
         public AProject ClassifiersNull() {
-            Classifiers(AnInstance.EqualTo<NRequire.Classifiers>(null));
+            Classifiers(AnInstance.EqualTo<Classifiers>(null));
             return this;
         }
 
-        public AProject Classifiers(IMatcher<NRequire.Classifiers> matcher) {
+        public AProject Classifiers(IMatcher<Classifiers> matcher) {
             WithProperty(()=>PropertyNames.Classifiers,matcher);
             return this;
         }
@@ -981,11 +983,11 @@ namespace NRequire {
         }
 
         public AProject OptionalWishesNull() {
-            OptionalWishes(AnInstance.EqualTo<System.Collections.Generic.IEnumerable<NRequire.Wish>>(null));
+            OptionalWishes(AnInstance.EqualTo<System.Collections.Generic.IEnumerable<Wish>>(null));
             return this;
         }
 
-        public AProject OptionalWishes(IMatcher<System.Collections.Generic.IEnumerable<NRequire.Wish>> matcher) {
+        public AProject OptionalWishes(IMatcher<System.Collections.Generic.IEnumerable<Wish>> matcher) {
             WithProperty(()=>PropertyNames.OptionalWishes,matcher);
             return this;
         }
@@ -1006,11 +1008,11 @@ namespace NRequire {
         }
 
         public AProject ProvidedWishesNull() {
-            ProvidedWishes(AnInstance.EqualTo<System.Collections.Generic.IEnumerable<NRequire.Wish>>(null));
+            ProvidedWishes(AnInstance.EqualTo<System.Collections.Generic.IEnumerable<Wish>>(null));
             return this;
         }
 
-        public AProject ProvidedWishes(IMatcher<System.Collections.Generic.IEnumerable<NRequire.Wish>> matcher) {
+        public AProject ProvidedWishes(IMatcher<System.Collections.Generic.IEnumerable<Wish>> matcher) {
             WithProperty(()=>PropertyNames.ProvidedWishes,matcher);
             return this;
         }
@@ -1031,31 +1033,31 @@ namespace NRequire {
         }
 
         public AProject RuntimeWishesNull() {
-            RuntimeWishes(AnInstance.EqualTo<System.Collections.Generic.IEnumerable<NRequire.Wish>>(null));
+            RuntimeWishes(AnInstance.EqualTo<System.Collections.Generic.IEnumerable<Wish>>(null));
             return this;
         }
 
-        public AProject RuntimeWishes(IMatcher<System.Collections.Generic.IEnumerable<NRequire.Wish>> matcher) {
+        public AProject RuntimeWishes(IMatcher<System.Collections.Generic.IEnumerable<Wish>> matcher) {
             WithProperty(()=>PropertyNames.RuntimeWishes,matcher);
             return this;
         }
 
-        public AProject Scope(NRequire.Scopes? expect) {
+        public AProject Scope(Scopes? expect) {
             Scope(AnInstance.EqualTo(expect));
             return this;
         }
 
-        public AProject Scope(IMatcher<NRequire.Scopes?> matcher) {
+        public AProject Scope(IMatcher<Scopes?> matcher) {
             WithProperty(()=>PropertyNames.Scope,matcher);
             return this;
         }
 
         public AProject SourceNull() {
-            Source(AnInstance.EqualTo<NRequire.SourceLocations>(null));
+            Source(AnInstance.EqualTo<SourceLocations>(null));
             return this;
         }
 
-        public AProject Source(IMatcher<NRequire.SourceLocations> matcher) {
+        public AProject Source(IMatcher<SourceLocations> matcher) {
             WithProperty(()=>PropertyNames.Source,matcher);
             return this;
         }
@@ -1076,11 +1078,11 @@ namespace NRequire {
         }
 
         public AProject TransitiveWishesNull() {
-            TransitiveWishes(AnInstance.EqualTo<System.Collections.Generic.IEnumerable<NRequire.Wish>>(null));
+            TransitiveWishes(AnInstance.EqualTo<System.Collections.Generic.IEnumerable<Wish>>(null));
             return this;
         }
 
-        public AProject TransitiveWishes(IMatcher<System.Collections.Generic.IEnumerable<NRequire.Wish>> matcher) {
+        public AProject TransitiveWishes(IMatcher<System.Collections.Generic.IEnumerable<Wish>> matcher) {
             WithProperty(()=>PropertyNames.TransitiveWishes,matcher);
             return this;
         }
@@ -1101,31 +1103,31 @@ namespace NRequire {
         }
 
         public AProject Version(string expect) {
-            Version(NRequire.Version.Parse(expect));
+            Version(Model.Version.Parse(expect));
             return this;
         }
 
-        public AProject Version(NRequire.Version expect) {
+        public AProject Version(Version expect) {
             Version(AnInstance.EqualTo(expect));
             return this;
         }
 
         public AProject VersionNull() {
-            Version(AnInstance.EqualTo<NRequire.Version>(null));
+            Version(AnInstance.EqualTo<Version>(null));
             return this;
         }
 
-        public AProject Version(IMatcher<NRequire.Version> matcher) {
+        public AProject Version(IMatcher<Version> matcher) {
             WithProperty(()=>PropertyNames.Version,matcher);
             return this;
         }
 
         public AProject WishDefaultsNull() {
-            WishDefaults(AnInstance.EqualTo<NRequire.Wish>(null));
+            WishDefaults(AnInstance.EqualTo<Wish>(null));
             return this;
         }
 
-        public AProject WishDefaults(IMatcher<NRequire.Wish> matcher) {
+        public AProject WishDefaults(IMatcher<Wish> matcher) {
             WithProperty(()=>PropertyNames.WishDefaults,matcher);
             return this;
         }
@@ -1134,25 +1136,25 @@ namespace NRequire {
 
 namespace NRequire {
 
-    public partial class AVSSolution : PropertyMatcher<NRequire.VSSolution>{
+    public partial class AVSSolution : PropertyMatcher<VSSolution>{
 
         // provide IDE rename and find reference support
-        private static readonly NRequire.VSSolution PropertyNames = null;
+        private static readonly VSSolution PropertyNames = null;
 
 
         public static AVSSolution With(){
                 return new AVSSolution();
         }
 
-        public static IMatcher<NRequire.VSSolution> Null(){
-                return AnInstance.Null<NRequire.VSSolution>();
+        public static IMatcher<VSSolution> Null(){
+                return AnInstance.Null<VSSolution>();
         }
 
-        public static IMatcher<NRequire.VSSolution> NotNull(){
-                return AnInstance.NotNull<NRequire.VSSolution>();
+        public static IMatcher<VSSolution> NotNull(){
+                return AnInstance.NotNull<VSSolution>();
         }
 
-        public static IMatcher<NRequire.VSSolution> Instance(NRequire.VSSolution expect){
+        public static IMatcher<VSSolution> Instance(VSSolution expect){
                 return AnInstance.SameAs(expect);
         }
 
@@ -1175,25 +1177,25 @@ namespace NRequire {
 
 namespace NRequire {
 
-    public partial class AProjectReference : PropertyMatcher<NRequire.VSSolution.ProjectReference>{
+    public partial class AProjectReference : PropertyMatcher<VSSolution.ProjectReference>{
 
         // provide IDE rename and find reference support
-        private static readonly NRequire.VSSolution.ProjectReference PropertyNames = null;
+        private static readonly VSSolution.ProjectReference PropertyNames = null;
 
 
         public static AProjectReference With(){
                 return new AProjectReference();
         }
 
-        public static IMatcher<NRequire.VSSolution.ProjectReference> Null(){
-                return AnInstance.Null<NRequire.VSSolution.ProjectReference>();
+        public static IMatcher<VSSolution.ProjectReference> Null(){
+                return AnInstance.Null<VSSolution.ProjectReference>();
         }
 
-        public static IMatcher<NRequire.VSSolution.ProjectReference> NotNull(){
-                return AnInstance.NotNull<NRequire.VSSolution.ProjectReference>();
+        public static IMatcher<VSSolution.ProjectReference> NotNull(){
+                return AnInstance.NotNull<VSSolution.ProjectReference>();
         }
 
-        public static IMatcher<NRequire.VSSolution.ProjectReference> Instance(NRequire.VSSolution.ProjectReference expect){
+        public static IMatcher<VSSolution.ProjectReference> Instance(VSSolution.ProjectReference expect){
                 return AnInstance.SameAs(expect);
         }
 
@@ -1241,25 +1243,25 @@ namespace NRequire {
 
 namespace NRequire {
 
-    public partial class AVSProject : PropertyMatcher<NRequire.VSProject>{
+    public partial class AVSProject : PropertyMatcher<VSProject>{
 
         // provide IDE rename and find reference support
-        private static readonly NRequire.VSProject PropertyNames = null;
+        private static readonly VSProject PropertyNames = null;
 
 
         public static AVSProject With(){
                 return new AVSProject();
         }
 
-        public static IMatcher<NRequire.VSProject> Null(){
-                return AnInstance.Null<NRequire.VSProject>();
+        public static IMatcher<VSProject> Null(){
+                return AnInstance.Null<VSProject>();
         }
 
-        public static IMatcher<NRequire.VSProject> NotNull(){
-                return AnInstance.NotNull<NRequire.VSProject>();
+        public static IMatcher<VSProject> NotNull(){
+                return AnInstance.NotNull<VSProject>();
         }
 
-        public static IMatcher<NRequire.VSProject> Instance(NRequire.VSProject expect){
+        public static IMatcher<VSProject> Instance(VSProject expect){
                 return AnInstance.SameAs(expect);
         }
 

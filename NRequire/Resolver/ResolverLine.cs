@@ -1,10 +1,9 @@
 using System;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using NRequire.Matcher;
 using System.Collections.Generic;
-using System.Collections;
+using System.Linq;
+using NRequire.Logging;
+using NRequire.Model;
+using NRequire.Util;
 
 namespace NRequire.Resolver
 {

@@ -1,8 +1,8 @@
 using System;
 
-namespace NRequire
+namespace NRequire.Resolver
 {
-	//thrown to indicate there was an error while trying to resolve the dependencies
+    //thrown to indicate there was an error while trying to resolve the dependencies
     public class ResolverException : ApplicationException
     {
 

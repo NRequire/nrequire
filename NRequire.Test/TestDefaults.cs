@@ -1,6 +1,7 @@
 using System;
+using NRequire.Model;
 
-namespace NRequire.Test
+namespace NRequire
 {
     public static class TestDefaults
     {

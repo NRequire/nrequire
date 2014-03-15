@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NUnit.Framework;
 
 namespace NRequire {
@@ -10,10 +7,10 @@ namespace NRequire {
 
         [Test]
         public void NoArgsThrowsExceptionTest() {
-            CommandParseException thrown = null;
+            CommandLineParseException thrown = null;
             try {
                 new CommandLineParser().Parse(new String[] {});
-            } catch (CommandParseException e) {
+            } catch (CommandLineParseException e) {
                 thrown = e;
             }
             Assert.NotNull(thrown);

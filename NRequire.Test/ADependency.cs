@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NRequire.Test;
 using NRequire.Util;
-using TestFirst.Net.Matcher;
 
 namespace NRequire
 {
@@ -21,7 +16,7 @@ namespace NRequire
         }
 
         protected void SetAllFromParse(String fullString) {
-            DepParser.Parse(fullString,
+            PartsParser.ParseParts(fullString,
             (s) => Group(s),
             (s) => Name(s),
             (s) => Version(s),
