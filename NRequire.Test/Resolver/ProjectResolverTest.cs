@@ -24,7 +24,7 @@ namespace NRequire.Resolver {
                 .A(ModuleFrom("group4:name4:4.0"))
                 .A(ModuleFrom("group5:name5:5.0"))
                 ;
-            var resolver = ProjectResolver.WithCache(cache);
+            var resolver = ProjectDependencyResolver.WithCache(cache);
 
             var soln = NewSolution.With()
                 .Wish("group1:name1:1.0")

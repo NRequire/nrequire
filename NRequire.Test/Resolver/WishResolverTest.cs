@@ -21,7 +21,7 @@ namespace NRequire.Resolver
                 .A(ModuleWith("A", "1.0").RuntimeWishWith("B", "[1.0]"))
                 .A(ModuleWith("B", "1.0"));
 
-            var actual = new WishResolver(cache).Resolve(ListWith(WishWith("A", "1.0")));
+            var actual = new WishDependencyResolver(cache).Resolve(ListWith(WishWith("A", "1.0")));
 
             Expect.That(actual).Is(AList.InOrder().WithOnly(ADepWith("A", "1.0"), ADepWith("B", "1.0")));
         }
@@ -39,7 +39,7 @@ namespace NRequire.Resolver
 
             var require = ListWith(WishWith("A", "1.0"), WishWith("B", "1.0"));
 
-            var actual = new WishResolver(cache).Resolve(require);
+            var actual = new WishDependencyResolver(cache).Resolve(require);
 
             Expect
                 .That(actual)
@@ -72,7 +72,7 @@ namespace NRequire.Resolver
 
             var require = ListWith(WishWith("A", "1.0"), WishWith("B", "1.0"));
 
-            var actual = new WishResolver(cache).Resolve(require);
+            var actual = new WishDependencyResolver(cache).Resolve(require);
 
             Expect
                 .That(actual)
@@ -93,7 +93,7 @@ namespace NRequire.Resolver
 
             var require = ListWith(WishWith("A", "1.0"), WishWith("B", "1.0"));
 
-            var actual = new WishResolver(cache).Resolve(require);
+            var actual = new WishDependencyResolver(cache).Resolve(require);
 
             Expect
                 .That(actual)
@@ -125,7 +125,7 @@ namespace NRequire.Resolver
 
             ResolverException thrown = null;
             try {
-                new WishResolver(cache).Resolve(require);
+                new WishDependencyResolver(cache).Resolve(require);
             } catch (ResolverException e) {
                 thrown = e;
             }
@@ -144,7 +144,7 @@ namespace NRequire.Resolver
                     .RuntimeWishFrom("group:myruntime:1.0"))
                 .A(ModuleFrom("group:myruntime:1.0"));
 
-            var resolved = WishResolver
+            var resolved = WishDependencyResolver
                 .WithCache(cache)
                 .Resolve(ListWith(WishFrom("group:mydep:[1.0,2.0]:::runtime")));
 
@@ -166,7 +166,7 @@ namespace NRequire.Resolver
                 .A(ModuleFrom("group:mytransitive:1.0"))//not used, ensure no filtered cose it don't exist
                 .A(ModuleFrom("group:mytransitive2:1.0"));//not used, ensure no filtered cose it don't exist
 
-            var resolved = WishResolver
+            var resolved = WishDependencyResolver
                 .WithCache(cache)
                 .Resolve(ListWith(WishFrom("group:mydep:[1.0,2.0]:::runtime")));
 
@@ -186,7 +186,7 @@ namespace NRequire.Resolver
                     .RuntimeWishFrom("group:mytransitive:1.0"))
                 .A(ModuleFrom("group:mytransitive:1.0"));//ignored as not matched
 
-            var resolved = WishResolver
+            var resolved = WishDependencyResolver
                 .WithCache(cache)
                 .Resolve(ListWith(WishFrom("group:mydep:[1.0,2.0]:::runtime")));
 
@@ -210,7 +210,7 @@ namespace NRequire.Resolver
                     .RuntimeWishFrom("group:mytransitive:[1.0]"))//force transitive above to be resolved
                 .A(ModuleFrom("group:mytransitive:1.0"));//ignored as not matched
 
-            var resolved = WishResolver
+            var resolved = WishDependencyResolver
                 .WithCache(cache)
                 .Resolve(ListWith(WishFrom("group:mydep:[1.0,2.0]:::runtime")));
 

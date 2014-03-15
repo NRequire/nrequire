@@ -28,7 +28,7 @@ namespace NRequire.Model {
         public void AddOrFailIfExists(Wish wish) {
             var key = wish.GetKey();
             if (m_wishesByKey.ContainsKey(key)) {
-                throw new ResolutionException("Duplicate wish :" + wish);
+                throw new ResolverException("Duplicate wish :" + wish);
             }
             m_wishesByKey[key] = wish;
         }

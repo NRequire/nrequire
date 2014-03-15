@@ -34,7 +34,7 @@ namespace NRequire.Cmd {
             var proj = m_jsonReader.ReadProject(LookupJsonFileForProject(ProjectFile));
 
             //all the stuff we need to meet all the requirements
-            var projectDeps = ProjectResolver
+            var projectDeps = ProjectDependencyResolver
                     .WithCache(LocalCache)
                     .MergeAndResolveDependencies(soln, proj);
             //merge the resolved deps with the additional wish settings like copyToDir, scope etc

@@ -5,18 +5,18 @@ using NRequire.Model;
 
 namespace NRequire.Resolver {
     
-    public class ProjectResolver {
+    public class ProjectDependencyResolver {
 
-        private static readonly Logger Log = Logger.GetLogger(typeof(ProjectResolver));
+        private static readonly Logger Log = Logger.GetLogger(typeof(ProjectDependencyResolver));
 
         public IDependencyCache DepsCache { get; private set; }
 
-        private ProjectResolver(IDependencyCache cache) {
+        private ProjectDependencyResolver(IDependencyCache cache) {
             DepsCache = cache;
         }
 
-        public static ProjectResolver WithCache(IDependencyCache cache) {
-            return new ProjectResolver(cache);
+        public static ProjectDependencyResolver WithCache(IDependencyCache cache) {
+            return new ProjectDependencyResolver(cache);
         }
 
         public IList<Dependency> MergeAndResolveDependencies(Solution soln, Project proj) {
@@ -33,7 +33,7 @@ namespace NRequire.Resolver {
                 //now the fun begins. Resolve transitive deps, find closest versions
                 //TODO:resolve for all but pick only what the current project needs
                 //TODO:keep the calculated cache for how long? how to decide when to recalc all?
-                var resolver = new WishResolver(DepsCache);
+                var resolver = new WishDependencyResolver(DepsCache);
                 var deps = resolver.Resolve(wishes);
 
                 var projWishes = proj.GetAllWishes();
@@ -41,7 +41,7 @@ namespace NRequire.Resolver {
                 
                 return deps;
             } catch (Exception e) {
-                throw new ResolutionException("Error trying to resolve dependencies for project " + proj + " and solution " + soln, e);
+                throw new ResolverException("Error trying to resolve dependencies for project " + proj + " and solution " + soln, e);
             }
         }
 

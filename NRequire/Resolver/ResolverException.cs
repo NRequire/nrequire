@@ -3,9 +3,8 @@ using System;
 namespace NRequire.Resolver
 {
     //thrown to indicate there was an error while trying to resolve the dependencies
-    public class ResolverException : ApplicationException
+    public class ResolverException : NRequireException
     {
-
         public static readonly String NoSolutions = "No dependency solution could be found";
         public static readonly String InfiniteRecursion = "Infinite recursion detected";
 

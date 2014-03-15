@@ -10,7 +10,7 @@ namespace NRequire.Resolver
 {
     //holds a collection of constraints for a given dependency
     //builds upon parent sets to further constrain the available versions
-    internal class ResolverWishSet : IMatcher<Version>
+    class ResolverWishSet : IMatcher<Version>
     {
         private static readonly Logger Log = Logger.GetLogger(typeof(ResolverWishSet));
         //all the additional wishes added to provide additional filtering of the parent provided lists of dependencies

@@ -94,6 +94,7 @@
     <Compile Include="Model\VSSolution.cs" />
     <Compile Include="Model\IHaveSignature.cs" />
     <Compile Include="Model\IResolved.cs" />
+    <Compile Include="NRequireException.cs" />
     <Compile Include="Util\Extensions.cs" />
     <Compile Include="Util\PartsParser.cs" />
     <Compile Include="Model\WishList.cs" />
@@ -111,7 +112,6 @@
     <Compile Include="Matcher\ExactMatcher.cs" />
     <Compile Include="Matcher\IMatcher.cs" />
     <Compile Include="Matcher\RangeMatcher.cs" />
-    <Compile Include="Resolver\ResolutionException.cs" />
     <Compile Include="Resolver\AllWishSets.cs" />
     <Compile Include="Resolver\ResolverException.cs" />
     <Compile Include="Resolver\ResolverLine.cs" />
@@ -135,10 +135,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resolver\ProjectResolver.cs" />
+    <Compile Include="Resolver\ProjectDependencyResolver.cs" />
     <Compile Include="IO\Json\JsonWriter.cs" />
     <Compile Include="IO\Json\VersionMatcherConverter.cs" />
-    <Compile Include="Resolver\WishResolver.cs" />
+    <Compile Include="Resolver\WishDependencyResolver.cs" />
     <Compile Include="IO\Json\IRequireLoadNotification.cs" />
     <Compile Include="Model\ISource.cs" />
   </ItemGroup>
