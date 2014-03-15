@@ -13,25 +13,25 @@ namespace NRequire.Resolver
         private static readonly Logger Log = Logger.GetLogger(typeof(AllWishSets));
         private readonly IDependencyCache m_cache;
         private readonly int m_depth;
-        private readonly Dictionary<String, ResolverWishSet> m_wishSetsByKey;
+        private readonly Dictionary<Key, ResolverWishSet> m_wishSetsByKey;
         //the keys of the wishlists we have added or wrapped. Allows us to determine if we can make a change to a list
         //or if we need to wrap it first
-        private readonly List<String> m_localModifiedKeys = new List<String>();
+        private readonly List<Key> m_localModifiedKeys = new List<Key>();
 
-        private IEnumerable<String> LocalKeys {
+        private IEnumerable<Key> LocalKeys {
             get { return m_localModifiedKeys; }
         }
 
         public AllWishSets(IDependencyCache cache) {
             m_depth = 0;
             m_cache = cache;
-            m_wishSetsByKey = new Dictionary<string, ResolverWishSet>();
+            m_wishSetsByKey = new Dictionary<Key, ResolverWishSet>();
         }
 
         private AllWishSets(IDependencyCache cache, AllWishSets parent, int depth){
             m_depth = depth;
             m_cache = cache;
-            m_wishSetsByKey = new Dictionary<string, ResolverWishSet>(parent.m_wishSetsByKey);
+            m_wishSetsByKey = new Dictionary<Key, ResolverWishSet>(parent.m_wishSetsByKey);
         }
 
         //return a shallow copy of this list
@@ -67,7 +67,7 @@ namespace NRequire.Resolver
 
         private ResolverWishSet GetWishSetForOrNull(Wish wish) {
             ResolverWishSet set;
-            if(m_wishSetsByKey.TryGetValue(Key(wish), out set)){
+            if(m_wishSetsByKey.TryGetValue(wish.Key, out set)){
                 return set;
             }
             return null;
@@ -87,7 +87,7 @@ namespace NRequire.Resolver
             Log.Trace("Resolving what can be");
             var wishesAdded = false;
             //ensure the fixed versions requirements are also added to the requirements
-            var keysUpdated = new List<String>();//to prevent pointless recheck of what we already just added
+            var keysUpdated = new List<Key>();//to prevent pointless recheck of what we already just added
             do {
                 wishesAdded = false;
                 foreach (var key in LocalKeys.Where(k=>!keysUpdated.Contains(k)).ToList()) {//because list is modified
@@ -115,7 +115,7 @@ namespace NRequire.Resolver
         }
 
         public ResolverWishSet LocalWishSetFor(Wish wish) {
-            var key = Key(wish);
+            var key = wish.Key;
             //already added our filter
             if (m_localModifiedKeys.Contains(key)) {
                 return m_wishSetsByKey[key];
@@ -190,10 +190,6 @@ namespace NRequire.Resolver
                 sb.Append(padWith);
             }
             return sb.ToString();
-        }
-
-        internal static String Key(Wish wish) {
-            return wish.GetKey();
         }
     }
 }

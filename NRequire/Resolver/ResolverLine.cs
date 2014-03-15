@@ -112,9 +112,9 @@ namespace NRequire.Resolver
             m_wishSets.CanMatchOrThrow();
         }
 
-        private static String Key(Wish wish)
+        private static Key Key(Wish wish)
         {
-            return wish.GetKey();
+            return wish.Key;
         }
     }
 }

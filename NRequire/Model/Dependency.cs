@@ -58,7 +58,7 @@ namespace NRequire.Model {
         }
 
         public override String ToSummary() {
-            return String.Format(GetType().Name + "<{0}:{1}:{2}:{3}>", GetKey(), Version, Ext, Scope);
+            return String.Format(GetType().Name + "<{0}:{1}:{2}:{3}>", Key, Version, Ext, Scope);
         }
 
     }

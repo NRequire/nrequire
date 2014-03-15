@@ -187,9 +187,9 @@ namespace NRequire.Model {
                 return new List<Wish>(parentWishes);
             }
 
-            var merged = parentWishes.ToDictionary(d=>d.GetKey());
+            var merged = parentWishes.ToDictionary(d=>d.Key);
             foreach (var wish in childWishes) {
-                var sig = wish.GetKey();
+                var sig = wish.Key;
                 if (merged.ContainsKey(sig)) {
                     var parentDep = merged[sig];
                     //merged.Remove(key);
@@ -234,7 +234,7 @@ namespace NRequire.Model {
         }
 
         public override String ToSummary() {
-            return String.Format(GetType().Name + "<{0}:{1}:{2}:{3}>", GetKey(), Version, Ext, Scope);
+            return String.Format(GetType().Name + "<{0}:{1}:{2}:{3}>", Key, Version, Ext, Scope);
         }
     }
 }

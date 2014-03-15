@@ -8,7 +8,7 @@ namespace NRequire.Resolver
 {
     //tries to find a list of deps which satsify a set of dependencies (and their wishes) 
     //and a list of wishes  
-    internal class WishDependencyResolver
+    class WishDependencyResolver
     {
         private readonly Logger Log = Logger.GetLogger(typeof(WishDependencyResolver));
         private readonly IDependencyCache m_cache;

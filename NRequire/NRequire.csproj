@@ -91,6 +91,7 @@
     <Compile Include="Logging\ConsoleLogAppender.cs" />
     <Compile Include="IO\Json\VersionConverter.cs" />
     <Compile Include="IO\FileUtil.cs" />
+    <Compile Include="Model\Key.cs" />
     <Compile Include="Model\VSSolution.cs" />
     <Compile Include="Model\IHaveSignature.cs" />
     <Compile Include="Model\IResolved.cs" />

@@ -90,7 +90,7 @@ namespace NRequire.Model {
         }
 
         public override String ToSummary() {
-            return String.Format(GetType().Name + "<{0}:{1}:{2}>", GetKey(), Version, Ext);
+            return String.Format(GetType().Name + "<{0}:{1}:{2}>", Key, Version, Ext);
         }
     }
 }

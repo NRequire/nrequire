@@ -25,7 +25,7 @@ namespace NRequire.Resolver
         //TODO:move out of here to allow different strategies?
         //first wish added, used to validate all further added wishes
         public Wish FirstWish  { get; private set; }
-        private readonly String m_key;
+        private readonly Key m_key;
         public Scopes HighestScope { get; private set; }
 
 
@@ -36,7 +36,7 @@ namespace NRequire.Resolver
 
             m_parentDependencies = cache.FindDependenciesMatching(wish);
             m_allVersionStrings = new List<String>();
-            m_key = wish.GetKey();
+            m_key = wish.Key;
         }
 
         internal ResolverWishSet(Wish wish, ResolverWishSet parentWishList)
@@ -44,7 +44,7 @@ namespace NRequire.Resolver
             m_parentDependencies = parentWishList.FindMatchingDependencies();
             FirstWish = wish;
             m_allVersionStrings = new List<string>(parentWishList.m_allVersionStrings);
-            m_key = wish.GetKey();
+            m_key = wish.Key;
             HighestScope = parentWishList.HighestScope;
         }
 
@@ -92,8 +92,8 @@ namespace NRequire.Resolver
         }
 
         private void CheckKeys(Wish wish) {
-            if (wish.GetKey() != m_key) {
-                throw new ArgumentException(String.Format("wish signatures don't match. Expected '{0}' but got '{1}'", m_key, wish.GetKey()));
+            if (!wish.Key.Equals(m_key)) {
+                throw new ArgumentException(String.Format("wish signatures don't match. Expected '{0}' but got '{1}'", m_key, wish.Key));
             }
         }
         /// <summary>

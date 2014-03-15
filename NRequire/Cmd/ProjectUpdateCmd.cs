@@ -40,13 +40,13 @@ namespace NRequire.Cmd {
             //merge the resolved deps with the additional wish settings like copyToDir, scope etc
             var wishesBySig = proj
                     .GetAllWishes()
-                    .ToDictionary(w=>w.GetKey());
+                    .ToDictionary(w=>w.Key);
 
             var holders = new List<ResourceHolder>();
             foreach (var dep in projectDeps) {
                 var holder = new ResourceHolder { Dep = dep }; 
                 Wish wish;
-                if (wishesBySig.TryGetValue(dep.GetKey(), out wish)) {
+                if (wishesBySig.TryGetValue(dep.Key, out wish)) {
                     if (wish.Scope == Scopes.Provided) {
                         //skip,expect it to exist
                         continue;

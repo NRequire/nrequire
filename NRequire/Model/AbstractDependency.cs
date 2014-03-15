@@ -64,16 +64,13 @@ namespace NRequire.Model {
             Classifiers = r.Classifiers.Clone();
         }
 
-        public string GetKey() {
-            return String.Format("{0}:{1}:{2}"
-                , Group
-                , Name
-                , Classifiers.ToString()
-            ).ToLower();
+        public Key Key
+        {
+            get { return Key.FromGroupNameClassifiers(Group, Name, Classifiers); }
         }
 
         public virtual String ToSummary() {
-            return String.Format(GetType().Name + "<{0}>", GetKey());
+            return String.Format(GetType().Name + "<{0}>", Key);
         }
 
         public override string ToString() {

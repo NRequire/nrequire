@@ -7,7 +7,7 @@ namespace NRequire.Model {
         String Ext { get; }
         Classifiers Classifiers { get; }
 
-        String GetKey();
+        Key Key { get; }
 
         String ToSummary();
     }

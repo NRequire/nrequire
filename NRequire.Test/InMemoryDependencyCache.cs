@@ -16,7 +16,7 @@ namespace NRequire
         private static readonly Logger Log = Logger.GetLogger(typeof(InMemoryDependencyCache));
         private static readonly SortedList<Version, IResolved> EmptyList = NewSortedList();
 
-        private Dictionary<String, SortedList<Version, IResolved>> m_depsBySignatureKey = new Dictionary<string, SortedList<Version, IResolved>>();
+        private Dictionary<Key, SortedList<Version, IResolved>> m_depsBySignatureKey = new Dictionary<Key, SortedList<Version, IResolved>>();
         private Dictionary<String, Module> m_modulesByVersionKey = new Dictionary<string, Module>();
 
         public static InMemoryDependencyCache With(){
@@ -31,7 +31,7 @@ namespace NRequire
 
         public InMemoryDependencyCache Add(Module module)
         {
-            var key = KeyFor(module);
+            var key = module.Key;
             
             if (m_depsBySignatureKey.ContainsKey(key)) {
                 m_depsBySignatureKey[key].Add(module.Version, module);
@@ -51,7 +51,7 @@ namespace NRequire
 
         public bool ContainsDependency(IResolved d)
         {
-            var deps = FindByKey(KeyFor(d));
+            var deps = FindByKey(d.Key);
             return deps.Count > 0;
         }
 
@@ -72,7 +72,7 @@ namespace NRequire
 
         public IList<Dependency> FindDependenciesMatching(Wish wish)
         {
-            var deps = FindByKey(KeyFor(wish));
+            var deps = FindByKey(wish.Key);
             return deps.Values
                     .Where(d => wish.Version.Match(d.Version))
                     .Select(r => new Dependency{
@@ -87,11 +87,11 @@ namespace NRequire
 
         public IList<Version> FindVersionsMatching(Wish wish)
         {
-            var deps = FindByKey(KeyFor(wish));
+            var deps = FindByKey(wish.Key);
             return deps.Keys.Where(v=>wish.Version.Match(v)).ToList();
         }
 
-        private SortedList<Version,IResolved> FindByKey(String key)
+        private SortedList<Version,IResolved> FindByKey(Key key)
         {
             SortedList<Version, IResolved> deps;
             if (!m_depsBySignatureKey.TryGetValue(key, out deps)) {
@@ -100,15 +100,11 @@ namespace NRequire
             return deps;
         }
 
-        private String VersionKeyFor(IResolved d)
+        private String VersionKeyFor(IResolved resolved)
         {
-            return KeyFor(d) + "-" + d.Version.ToString();
+            return resolved.Key + "-" + resolved.Version;
         }
 
-        private String KeyFor(IResolvable d)
-        {
-            return d.GetKey();
-        }
 
         private class InvertedComparer : IComparer<Version>
         {

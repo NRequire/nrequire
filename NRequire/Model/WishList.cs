@@ -4,14 +4,14 @@ using NRequire.Resolver;
 
 namespace NRequire.Model {
     public class WishList {
-        Dictionary<String, Wish> m_wishesByKey = new Dictionary<String, Wish>();
+        private Dictionary<Key, Wish> m_wishesByKey = new Dictionary<Key, Wish>();
 
         public void MergeInChildren(List<Wish> wishes, int depth) {
-            wishes.ForEach(w => MergeChild(w));
+            wishes.ForEach(MergeInChild);
         }
 
-        public void MergeChild(Wish wish) {
-            var key = wish.GetKey();
+        public void MergeInChild(Wish wish) {
+            var key = wish.Key;
 
             Wish existing;
             if (m_wishesByKey.TryGetValue(key, out existing)) {
@@ -22,11 +22,11 @@ namespace NRequire.Model {
         }
 
         public void AddOrFailIfExists(List<Wish> wishes, int depth) {
-            wishes.ForEach(w => AddOrFailIfExists(w));
+            wishes.ForEach(AddOrFailIfExists);
         }
 
         public void AddOrFailIfExists(Wish wish) {
-            var key = wish.GetKey();
+            var key = wish.Key;
             if (m_wishesByKey.ContainsKey(key)) {
                 throw new ResolverException("Duplicate wish :" + wish);
             }
